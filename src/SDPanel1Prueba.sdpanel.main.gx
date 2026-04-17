@@ -1,0 +1,11 @@
+SDPanel SDPanel1Prueba
+{
+	<Properties><Property><Name>IsDefault</Name><Value>False</Value></Property></Properties>
+
+	#Properties
+		Name = "SDPanel1Prueba"
+
+		Description = "SDPanel1Prueba"
+	#End
+
+}

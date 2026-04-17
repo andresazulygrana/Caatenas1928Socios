@@ -1,0 +1,131 @@
+WebPanel AdminImportarSocios
+{
+	#Events
+		Event Start
+			If &RutaArchivo.IsEmpty()
+				&RutaArchivo = !"C:\Users\andres.cabrera\Downloads\socios_2025.csv"
+			EndIf
+			If &EstadoTexto.IsEmpty()
+				&EstadoTexto = !"Listo para importar socios desde el archivo actual"
+			EndIf
+			If &ResumenPreview.IsEmpty()
+				&ResumenPreview = !"Usa previsualizar para revisar las primeras 5 filas antes de confirmar la importacion"
+			EndIf
+		EndEvent
+
+		Event Load
+			For &PreviewRow in &PreviewRows
+				&CedulaPreview = &PreviewRow.Cedula
+				&NombrePreview = &PreviewRow.Nombre
+				&ApellidoPreview = &PreviewRow.Apellido
+				&TelefonoPreview = &PreviewRow.Telefono
+				&PlanPreview = &PreviewRow.Plan
+				&ObservacionPreview = &PreviewRow.Observacion
+				Load
+			EndFor
+		EndEvent
+
+		Event 'Previsualizar'
+			&PreviewRows.Clear()
+			&FilasPreview = 0
+			&ErroresPreview = 0
+			PrevisualizarImportacionSocios(&RutaArchivo, &PreviewRows, &FilasPreview, &ErroresPreview, &ResumenPreview)
+		EndEvent
+
+		Event 'Importar'
+			&Creados = 0
+			&Actualizados = 0
+			&Errores = 0
+			ImportarSociosDesdeExcel(&RutaArchivo, &Creados, &Actualizados, &Errores)
+			If &Errores = -1
+				&EstadoTexto = !"No se encontro el archivo CSV indicado"
+			Else
+				&EstadoTexto = !"Importacion finalizada"
+			EndIf
+			&PreviewRows.Clear()
+			&FilasPreview = 0
+			&ErroresPreview = 0
+			PrevisualizarImportacionSocios(&RutaArchivo, &PreviewRows, &FilasPreview, &ErroresPreview, &ResumenPreview)
+		EndEvent
+
+		Event 'Dashboard'
+			AdminDashboard()
+		EndEvent
+
+		Event 'Socios'
+			AdminSocios()
+		EndEvent
+
+		Event 'Cuotas'
+			AdminCuotas()
+		EndEvent
+
+		Event 'TiposCuota'
+			AdminTipoCuota()
+		EndEvent
+
+		Event 'ImportarSocios'
+			AdminImportarSocios()
+		EndEvent
+
+		Event 'ConfiguracionPago'
+			AdminConfiguracionPago()
+		EndEvent
+
+		Event 'PruebasPago'
+			AdminPruebaPago()
+		EndEvent
+
+		Event 'Sandbox'
+			AdminProcesarPagoSandbox()
+		EndEvent
+
+		Event 'PortalSocios'
+			BuscarSocio()
+		EndEvent
+	#End
+
+	#Rules
+	#End
+
+	#Conditions
+	#End
+
+	#Variables
+		RutaArchivo [ DataType = 'VarChar(120)', Description = '' ]
+		Creados [ DataType = 'Numeric(8.0)', Description = '' ]
+		Actualizados [ DataType = 'Numeric(8.0)', Description = '' ]
+		Errores [ DataType = 'Numeric(8.0)', Description = '' ]
+		EstadoTexto [ DataType = 'VarChar(120)', Description = '' ]
+		PreviewRows [ DataType = 'ImportPreviewRow', Collection = 'True', Description = '' ]
+		PreviewRow [ DataType = 'ImportPreviewRow', Description = '' ]
+		FilasPreview [ DataType = 'Numeric(4.0)', Description = '' ]
+		ErroresPreview [ DataType = 'Numeric(4.0)', Description = '' ]
+		ResumenPreview [ DataType = 'VarChar(160)', Description = '' ]
+		CedulaPreview [ DataType = 'Attribute:SocioCedula', Description = '' ]
+		NombrePreview [ DataType = 'Attribute:SocioNombre', Description = '' ]
+		ApellidoPreview [ DataType = 'Attribute:SocioApellido', Description = '' ]
+		TelefonoPreview [ DataType = 'Attribute:SocioTelefono', Description = '' ]
+		PlanPreview [ DataType = 'VarChar(80)', Description = '' ]
+		ObservacionPreview [ DataType = 'VarChar(160)', Description = '' ]
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+	#End
+
+	#Properties
+		Name = "AdminImportarSocios"
+
+		Description = "Panel administrativo para importar socios desde CSV"
+
+		Type = "Web Panel"
+
+		MasterPage = ""
+
+		Style = "Caatenas1928"
+	#End
+
+	#Documentation
+		Panel administrativo para importar socios con previsualizacion de las primeras filas del archivo.
+	#End
+
+}

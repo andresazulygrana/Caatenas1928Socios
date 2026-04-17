@@ -1,0 +1,37 @@
+Query DashboardSociosPorEstado
+{
+		Estado = SocioEstado
+
+			[
+
+				Description = 'Estado del socio'
+
+			]
+
+	
+
+		Cantidad = Count(SocioId)
+
+			[
+
+				Description = 'Cantidad de socios',
+
+				Type = 'Datum',
+
+				Picture = 'ZZZZZZ9'
+
+			]
+
+	#Orders
+			SocioEstado
+	#End
+
+	#Properties
+		Name = "DashboardSociosPorEstado"
+
+		OutputType = "Chart"
+
+		Title = "Socios por estado"
+	#End
+
+}

@@ -1,0 +1,11 @@
+Domain QueryViewerElementType
+{
+	#Properties
+		Name = "QueryViewerElementType"
+
+		DataType = "Character(20)"
+
+		EnumValues = "Axis, Axis, Axis; Datum, Datum, Datum"
+	#End
+
+}

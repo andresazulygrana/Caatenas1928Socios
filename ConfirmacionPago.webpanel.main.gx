@@ -1,0 +1,149 @@
+WebPanel ConfirmacionPago
+{
+	#Events
+		Event Start
+			&EnviarMailPago = false
+			If &CuotaId > 0
+				&CuotaBC = new()
+				&CuotaBC.Load(&CuotaId)
+				If NOT &CuotaBC.Fail()
+					&CuotaBC.CuotaMPEstado = &MPEstado
+					If &MPEstado = !"approved"
+						&CuotaBC.CuotaEstado = !"G"
+						If &CuotaBC.CuotaFechaPago.IsEmpty()
+							&CuotaBC.CuotaFechaPago = Now()
+							&EnviarMailPago = true
+						EndIf
+					EndIf
+					If NOT &MPPaymentId.IsEmpty()
+						&CuotaBC.CuotaMPPaymentId = &MPPaymentId
+					EndIf
+					&CuotaBC.Save()
+					Commit
+					If &EnviarMailPago
+						NotificarPagoSocio(&CuotaId)
+					EndIf
+				EndIf
+			EndIf
+			&NombreSocio = !""
+			&PeriodoCuota = !""
+			&ImportePagado = 0
+			&ImportePagadoTexto = !""
+			&FechaPagoTexto = !""
+			&PuedeVerComprobante = false
+			For Each
+				Where CuotaId = &CuotaId
+				&NombreSocio = Trim(SocioNombre) + !" " + Trim(SocioApellido)
+				&PeriodoCuota = CuotaPeriodo
+				&ImportePagado = CuotaImporte
+				Do 'FormatearImporte'
+				If NOT CuotaFechaPago.IsEmpty()
+					&FechaPagoTexto = Format(!"%1", CuotaFechaPago)
+				EndIf
+				If CuotaEstado = !"G"
+					&PuedeVerComprobante = true
+				EndIf
+				Exit
+			EndFor
+			Do Case
+				Case &MPEstado = !"approved"
+					&Titulo = !"Pago aprobado"
+					&MensajeResultado = !"Tu membresia fue renovada exitosamente."
+					&DetalleOperacion = !"Gracias por seguir formando parte del Club Atletico Atenas."
+				Case &MPEstado = !"pending"
+					&Titulo = !"Pago en proceso"
+					&MensajeResultado = !"Tu pago esta siendo procesado. Te avisaremos cuando se confirme."
+					&DetalleOperacion = !"Volve a consultar mas tarde si el estado todavia no cambia."
+				Case &MPEstado = !"rejected"
+					&Titulo = !"Pago rechazado"
+					&MensajeResultado = !"El pago fue rechazado. Por favor intenta nuevamente."
+					&DetalleOperacion = !"Podes volver a tu portal y generar un nuevo intento de pago."
+				Otherwise
+					&Titulo = !"Estado del pago"
+					&MensajeResultado = !"Hubo un problema procesando tu pago. Contacta a la secretaria."
+					&DetalleOperacion = !"Si el cobro se hizo en Mercado Pago, revisalo desde tu portal antes de volver a intentar."
+			EndCase
+			If NOT &MPPaymentId.IsEmpty()
+				&ReferenciaOperacion = &MPPaymentId
+			Else
+				&ReferenciaOperacion = !"Cuota " + Trim(Str(&CuotaId, 10, 0))
+			EndIf
+		EndEvent
+
+		Sub 'FormatearImporte'
+			&ImporteBase = Trim(Str(&ImportePagado, 12, 0))
+			&ImporteFormateado = !""
+			&PosicionImporte = &ImporteBase.Length()
+
+			Do While &PosicionImporte > 3
+				&ImporteFormateado = !"." + &ImporteBase.Substring(&PosicionImporte - 2, 3) + &ImporteFormateado
+				&PosicionImporte -= 3
+			EndDo
+
+			If &PosicionImporte > 0
+				&ImporteFormateado = &ImporteBase.Substring(1, &PosicionImporte) + &ImporteFormateado
+			EndIf
+
+			&ImportePagadoTexto = !"$ " + &ImporteFormateado
+		EndSub
+
+		Event 'Volver'
+			PantallaPago(&SocioId)
+		EndEvent
+
+			Event 'IrInicio'
+				BuscarSocio()
+			EndEvent
+
+			Event 'DescargarComprobante'
+				If &PuedeVerComprobante
+					ComprobantePago(&SocioId, &CuotaId)
+				Else
+					msg(!"El comprobante estara disponible cuando el pago quede confirmado.", status)
+				EndIf
+			EndEvent
+	#End
+
+	#Rules
+		parm(in: &MPEstado, in: &MPPaymentId, in: &ExternalUrl, in: &SocioId, in: &CuotaId);
+	#End
+
+	#Conditions
+	#End
+
+	#Variables
+		MPEstado [ DataType = 'Attribute:CuotaMPEstado', Description = '' ]
+		MPPaymentId [ DataType = 'Attribute:CuotaMPPaymentId', Description = '' ]
+		ExternalUrl [ DataType = 'Attribute:CuotaMPExternalUrl', Description = '' ]
+		SocioId [ DataType = 'Attribute:SocioId', Description = '' ]
+		CuotaId [ DataType = 'Attribute:CuotaId', Description = '' ]
+		CuotaBC [ DataType = 'Cuota', Description = '' ]
+		Titulo [ DataType = 'VarChar(100)', Description = '' ]
+		MensajeResultado [ DataType = 'VarChar(300)', Description = '' ]
+		DetalleOperacion [ DataType = 'VarChar(300)', Description = '' ]
+		ReferenciaOperacion [ DataType = 'VarChar(128)', Description = '' ]
+		NombreSocio [ DataType = 'VarChar(120)', Description = '' ]
+		PeriodoCuota [ DataType = 'Attribute:CuotaPeriodo', Description = '' ]
+		ImportePagado [ DataType = 'Attribute:CuotaImporte', Description = '' ]
+		ImportePagadoTexto [ DataType = 'VarChar(40)', Description = '' ]
+		FechaPagoTexto [ DataType = 'VarChar(40)', Description = '' ]
+		ImporteBase [ DataType = 'VarChar(20)', Description = '' ]
+		ImporteFormateado [ DataType = 'VarChar(24)', Description = '' ]
+		PosicionImporte [ DataType = 'Numeric(4.0)', Description = '' ]
+		PuedeVerComprobante [ DataType = 'Boolean', Description = '' ]
+		EnviarMailPago [ DataType = 'Boolean', Description = '' ]
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+	#End
+
+	#Properties
+		Name = "ConfirmacionPago"
+
+		Description = "Resultado publico del intento de pago"
+
+		Type = "Web Panel"
+
+		Style = "AtenasDSO"
+	#End
+
+}

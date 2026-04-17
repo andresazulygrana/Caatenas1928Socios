@@ -1,0 +1,35 @@
+SDT DashboardViewerFiltersChangedData
+{
+		DashboardViewerFiltersChangedData	{
+
+			ChangedFilters [ Collection = 'True', CollectionItemName = 'ChangedFilter' ]		{
+
+				Enabled [ DataType = 'Boolean' ]
+
+				Name [ DataType = 'Character(20)' ]
+
+				Values [ DataType = 'Character(20)', Collection = 'True', CollectionItemName = 'Value' ]
+
+			}
+
+	
+
+			AllFilters [ Collection = 'True', CollectionItemName = 'Filter' ]		{
+
+				Name [ DataType = 'Character(20)' ]
+
+				Values [ DataType = 'Character(20)', Collection = 'True', CollectionItemName = 'Value' ]
+
+			}
+
+	
+
+		}
+
+	#Properties
+		Name = "DashboardViewerFiltersChangedData"
+
+		ExposedNamespace = "GeneXus.Reporting"
+	#End
+
+}

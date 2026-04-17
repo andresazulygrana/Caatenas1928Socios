@@ -1,0 +1,277 @@
+SDPanel ConfirmacionPagoPanel
+{
+	#Events
+		Event Start
+			&EnviarMailPago = false
+
+			If &CuotaId > 0
+				&CuotaBC = new()
+				&CuotaBC.Load(&CuotaId)
+				If NOT &CuotaBC.Fail()
+					&CuotaBC.CuotaMPEstado = &MPEstado
+					If &MPEstado = !"approved"
+						&CuotaBC.CuotaEstado = !"G"
+						If &CuotaBC.CuotaFechaPago.IsEmpty()
+							&CuotaBC.CuotaFechaPago = Now()
+							&EnviarMailPago = true
+						EndIf
+					EndIf
+					If NOT &MPPaymentId.IsEmpty()
+						&CuotaBC.CuotaMPPaymentId = &MPPaymentId
+					EndIf
+					&CuotaBC.Save()
+					Commit
+					If &EnviarMailPago
+						NotificarPagoSocio(&CuotaId)
+					EndIf
+				EndIf
+			EndIf
+
+			&NombreSocio = !""
+			&PeriodoCuota = !""
+			&ImportePagadoTexto = !""
+			&FechaPagoTexto = !""
+			&PuedeVerComprobante = false
+			&EstadoAprobadoTexto = !""
+			&EstadoPendienteTexto = !""
+			&EstadoRechazadoTexto = !""
+
+			For Each
+				Where CuotaId = &CuotaId
+				&NombreSocio = Trim(SocioNombre) + !" " + Trim(SocioApellido)
+				&PeriodoCuota = CuotaPeriodo
+				&ImportePagado = CuotaImporte
+				&ImportePagadoTexto = !"$ " + Trim(Str(CuotaImporte, 12, 0))
+				If NOT CuotaFechaPago.IsEmpty()
+					&FechaPagoTexto = Format(!"%1", CuotaFechaPago)
+				EndIf
+				If CuotaEstado = !"G"
+					&PuedeVerComprobante = true
+				EndIf
+				Exit
+			EndFor
+
+			Do Case
+				Case &MPEstado = !"approved"
+					&Titulo = !"Pago aprobado"
+					&MensajeResultado = !"Tu membresia fue renovada exitosamente."
+					&DetalleOperacion = !"La cuota quedo acreditada en tu portal y ya no figura como pendiente."
+					&EstadoAprobadoTexto = !"Aprobado"
+				Case &MPEstado = !"pending"
+					&Titulo = !"Pago en proceso"
+					&MensajeResultado = !"Tu pago esta siendo procesado."
+					&DetalleOperacion = !"Volve a consultar mas tarde si el estado todavia no cambia."
+					&EstadoPendienteTexto = !"En proceso"
+				Case &MPEstado = !"rejected"
+					&Titulo = !"Pago no procesado"
+					&MensajeResultado = !"El pago fue rechazado. Por favor intenta nuevamente."
+					&DetalleOperacion = !"Podes volver a tu portal y generar un nuevo intento de pago."
+					&EstadoRechazadoTexto = !"Rechazado"
+				Otherwise
+					&Titulo = !"Estado del pago"
+					&MensajeResultado = !"Hubo un problema procesando tu pago."
+					&DetalleOperacion = !"Si el cobro se hizo en Mercado Pago, revisalo desde tu portal."
+					&EstadoPendienteTexto = !"Sin confirmar"
+			EndCase
+
+			If NOT &MPPaymentId.IsEmpty()
+				&ReferenciaOperacion = &MPPaymentId
+			Else
+				&ReferenciaOperacion = !"Cuota " + Trim(Str(&CuotaId, 10, 0))
+			EndIf
+		EndEvent
+
+		Event 'Volver'
+			PantallaPagoPanel(&SocioId)
+		EndEvent
+
+		Event 'IrInicio'
+			BuscarSocioPanel()
+		EndEvent
+
+		Event 'DescargarComprobante'
+			If &PuedeVerComprobante
+				ComprobantePagoPanel(&SocioId, &CuotaId)
+			Else
+				msg(!"El comprobante estara disponible cuando el pago quede confirmado.", status)
+			EndIf
+		EndEvent
+	#End
+
+	#Rules
+		parm(in: &MPEstado, in: &MPPaymentId, in: &ExternalUrl, in: &SocioId, in: &CuotaId);
+	#End
+
+	#Conditions
+	#End
+
+	#Variables
+		MPEstado [ DataType = 'Attribute:CuotaMPEstado' ]
+		MPPaymentId [ DataType = 'Attribute:CuotaMPPaymentId' ]
+		ExternalUrl [ DataType = 'Attribute:CuotaMPExternalUrl' ]
+		SocioId [ DataType = 'Attribute:SocioId' ]
+		CuotaId [ DataType = 'Attribute:CuotaId' ]
+		CuotaBC [ DataType = 'Cuota' ]
+		Titulo [ DataType = 'VarChar(100)' ]
+		MensajeResultado [ DataType = 'VarChar(300)' ]
+		DetalleOperacion [ DataType = 'VarChar(300)' ]
+		ReferenciaOperacion [ DataType = 'VarChar(128)' ]
+		NombreSocio [ DataType = 'VarChar(120)' ]
+		PeriodoCuota [ DataType = 'Attribute:CuotaPeriodo' ]
+		ImportePagado [ DataType = 'Attribute:CuotaImporte' ]
+		ImportePagadoTexto [ DataType = 'VarChar(40)' ]
+		FechaPagoTexto [ DataType = 'VarChar(40)' ]
+		PuedeVerComprobante [ DataType = 'Boolean' ]
+		EnviarMailPago [ DataType = 'Boolean' ]
+		EstadoAprobadoTexto [ DataType = 'VarChar(20)' ]
+		EstadoPendienteTexto [ DataType = 'VarChar(20)' ]
+		EstadoRechazadoTexto [ DataType = 'VarChar(20)' ]
+	#End
+
+	#Layout
+		<layout type="SD">
+			<view>
+				<smart
+					name="PageShell"
+					class="page"
+					width="100%"
+					height="100%"
+					columnsStyle="100%"
+					rowsStyle="72dip;1fr;40dip">
+					<row>
+						<cell class="page-header" hAlign="Left" vAlign="Middle">
+							<smart name="HeaderBrand" width="100%" columnsStyle="100%" rowsStyle="24dip;18dip">
+								<row>
+									<cell>
+										<smart name="HeaderNameRow" width="100%" columnsStyle="Auto;Auto" rowsStyle="24dip">
+											<row>
+												<cell flexGrow="0">
+													<label name="LblBrandClub" caption="Club" class="header-name"/>
+												</cell>
+												<cell flexGrow="0">
+													<label name="LblBrandAtenas" caption="Atenas" class="header-name header-name--accent"/>
+												</cell>
+											</row>
+										</smart>
+									</cell>
+								</row>
+								<row>
+									<cell>
+										<label name="LblPortalSub" caption="Resultado del pago" class="header-tagline"/>
+									</cell>
+								</row>
+							</smart>
+						</cell>
+					</row>
+					<row>
+						<cell hAlign="Center" vAlign="Top">
+							<smart name="MainContent" class="page-content--web" width="760dip" columnsStyle="100%" rowsStyle="220dip;16dip;214dip;16dip;54dip;16dip;46dip">
+								<row>
+									<cell>
+										<smart name="CardResultado" class="surface" width="100%" columnsStyle="100%" rowsStyle="40dip;28dip;26dip;30dip;30dip;30dip">
+											<row>
+												<cell hAlign="Center" vAlign="Middle">
+													<label name="LblTitulo" caption="Estado de tu pago" class="result-title"/>
+												</cell>
+											</row>
+											<row>
+												<cell hAlign="Center" vAlign="Middle">
+													<input attribute="&Titulo" readonly="True" class="result-title"/>
+												</cell>
+											</row>
+											<row>
+												<cell hAlign="Center" vAlign="Middle">
+													<input attribute="&MensajeResultado" readonly="True" class="result-message"/>
+												</cell>
+											</row>
+											<row>
+												<cell hAlign="Center" vAlign="Middle">
+													<input attribute="&DetalleOperacion" readonly="True" class="info-value"/>
+												</cell>
+											</row>
+											<row>
+												<cell hAlign="Center" vAlign="Middle">
+													<input attribute="&EstadoAprobadoTexto" readonly="True" class="status-pill--ok"/>
+												</cell>
+											</row>
+											<row>
+												<cell hAlign="Center" vAlign="Middle">
+													<input attribute="&EstadoPendienteTexto" readonly="True" class="status-pill--pending"/>
+												</cell>
+											</row>
+											<row>
+												<cell hAlign="Center" vAlign="Middle">
+													<input attribute="&EstadoRechazadoTexto" readonly="True" class="status-pill--error"/>
+												</cell>
+											</row>
+										</smart>
+									</cell>
+								</row>
+								<row><cell/></row>
+								<row>
+									<cell>
+										<smart name="CardDetalle" class="surface" width="100%" columnsStyle="34%;66%" rowsStyle="42dip;32dip;32dip;32dip;32dip">
+											<row>
+												<cell>
+													<smart name="RefBlock" class="ref-block" width="100%" columnsStyle="100%" rowsStyle="16dip;20dip">
+														<row>
+															<cell><label name="LblRef" caption="Referencia de operacion" class="ref-label"/></cell>
+														</row>
+														<row>
+															<cell><input attribute="&ReferenciaOperacion" readonly="True" class="text-mono"/></cell>
+														</row>
+													</smart>
+												</cell>
+												<cell/>
+											</row>
+											<row>
+												<cell><label name="LblSocio" caption="Socio" class="info-label"/></cell>
+												<cell><input attribute="&NombreSocio" readonly="True" class="info-value"/></cell>
+											</row>
+											<row>
+												<cell><label name="LblPeriodo" caption="Periodo" class="info-label"/></cell>
+												<cell><input attribute="&PeriodoCuota" readonly="True" class="info-value"/></cell>
+											</row>
+											<row>
+												<cell><label name="LblImporte" caption="Importe" class="info-label"/></cell>
+												<cell><input attribute="&ImportePagadoTexto" readonly="True" class="info-value"/></cell>
+											</row>
+											<row>
+												<cell><label name="LblFechaPago" caption="Fecha de pago" class="info-label"/></cell>
+												<cell><input attribute="&FechaPagoTexto" readonly="True" class="info-value"/></cell>
+											</row>
+										</smart>
+									</cell>
+								</row>
+								<row><cell/></row>
+								<row>
+									<cell>
+										<button name="BtnComprobante" caption="Ver comprobante" event="'DescargarComprobante'" class="btn-primary"/>
+									</cell>
+								</row>
+								<row><cell/></row>
+								<row>
+									<cell>
+										<button name="BtnVolver" caption="Volver al portal" event="'Volver'" class="btn-secondary"/>
+									</cell>
+								</row>
+								<row><cell/></row>
+								<row>
+									<cell>
+										<button name="BtnInicio" caption="Volver al inicio" event="'IrInicio'" class="btn-secondary"/>
+									</cell>
+								</row>
+							</smart>
+						</cell>
+					</row>
+					<row>
+						<cell hAlign="Center" vAlign="Middle">
+							<label name="LblFooterPortal" caption="clubatenas.uy - Socios" class="page-footer"/>
+						</cell>
+					</row>
+				</smart>
+			</view>
+		</layout>
+	#End
+
+}

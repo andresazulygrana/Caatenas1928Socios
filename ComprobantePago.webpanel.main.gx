@@ -1,0 +1,102 @@
+WebPanel ComprobantePago
+{
+	#Events
+		Event Start
+			&NombreSocio = !""
+			&CedulaSocio = !""
+			&PeriodoCuota = !""
+			&TipoCuotaNombre = !""
+			&ImportePagado = 0
+			&ImportePagadoTexto = !""
+			&FechaPagoTexto = !""
+			&ReferenciaOperacion = !""
+			&EstadoPago = !""
+
+			For Each
+				Where CuotaId = &CuotaId
+				&NombreSocio = Trim(SocioNombre) + !" " + Trim(SocioApellido)
+				&CedulaSocio = SocioCedula
+				&PeriodoCuota = CuotaPeriodo
+				&TipoCuotaNombre = TipoCuotaDescripcion
+				&ImportePagado = CuotaImporte
+				Do 'FormatearImporte'
+				&EstadoPago = CuotaMPEstado
+				If NOT CuotaFechaPago.IsEmpty()
+					&FechaPagoTexto = Format(!"%1", CuotaFechaPago)
+				EndIf
+				If NOT CuotaMPPaymentId.IsEmpty()
+					&ReferenciaOperacion = CuotaMPPaymentId
+				Else
+					&ReferenciaOperacion = !"Cuota " + Trim(Str(CuotaId, 10, 0))
+				EndIf
+				Exit
+			EndFor
+		EndEvent
+
+		Sub 'FormatearImporte'
+			&ImporteBase = Trim(Str(&ImportePagado, 12, 0))
+			&ImporteFormateado = !""
+			&PosicionImporte = &ImporteBase.Length()
+
+			Do While &PosicionImporte > 3
+				&ImporteFormateado = !"." + &ImporteBase.Substring(&PosicionImporte - 2, 3) + &ImporteFormateado
+				&PosicionImporte -= 3
+			EndDo
+
+			If &PosicionImporte > 0
+				&ImporteFormateado = &ImporteBase.Substring(1, &PosicionImporte) + &ImporteFormateado
+			EndIf
+
+			&ImportePagadoTexto = !"$ " + &ImporteFormateado
+		EndSub
+
+		Event 'Volver'
+			ConfirmacionPago(&EstadoPago, &ReferenciaOperacion, &ExternalUrl, &SocioId, &CuotaId)
+		EndEvent
+
+		Event 'IrInicio'
+			BuscarSocio()
+		EndEvent
+
+		Event 'Imprimir'
+			Link(!"javascript:window.print();")
+		EndEvent
+	#End
+
+	#Rules
+		parm(in: &SocioId, in: &CuotaId);
+	#End
+
+	#Conditions
+	#End
+
+	#Variables
+		SocioId [ DataType = 'Attribute:SocioId', Description = '' ]
+		CuotaId [ DataType = 'Attribute:CuotaId', Description = '' ]
+		NombreSocio [ DataType = 'VarChar(120)', Description = '' ]
+		CedulaSocio [ DataType = 'Attribute:SocioCedula', Description = '' ]
+		PeriodoCuota [ DataType = 'Attribute:CuotaPeriodo', Description = '' ]
+		TipoCuotaNombre [ DataType = 'Attribute:TipoCuotaDescripcion', Description = '' ]
+		ImportePagado [ DataType = 'Attribute:CuotaImporte', Description = '' ]
+		ImportePagadoTexto [ DataType = 'VarChar(40)', Description = '' ]
+		FechaPagoTexto [ DataType = 'VarChar(40)', Description = '' ]
+		ReferenciaOperacion [ DataType = 'VarChar(128)', Description = '' ]
+		EstadoPago [ DataType = 'Attribute:CuotaMPEstado', Description = '' ]
+		ExternalUrl [ DataType = 'Attribute:CuotaMPExternalUrl', Description = '' ]
+		ImporteBase [ DataType = 'VarChar(20)', Description = '' ]
+		ImporteFormateado [ DataType = 'VarChar(24)', Description = '' ]
+		PosicionImporte [ DataType = 'Numeric(4.0)', Description = '' ]
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+	#End
+
+	#Properties
+		Name = "ComprobantePago"
+
+		Description = "Comprobante visual del pago confirmado para guardar o imprimir"
+
+		Type = "Web Panel"
+
+		Style = "AtenasDSO"
+	#End
+}

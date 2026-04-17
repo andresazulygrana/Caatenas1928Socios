@@ -1,0 +1,15 @@
+Attribute SocioTelefono
+{
+	#Properties
+		Name = "SocioTelefono"
+
+		Description = "Telefono. Opcional"
+
+		DataType = "VarChar(32)"
+
+		Length = "32"
+
+		MaximumLength = "32"
+	#End
+
+}

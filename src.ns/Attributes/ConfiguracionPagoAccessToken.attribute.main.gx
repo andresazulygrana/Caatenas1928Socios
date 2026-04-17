@@ -1,0 +1,15 @@
+Attribute ConfiguracionPagoAccessToken
+{
+	#Properties
+		Name = "ConfiguracionPagoAccessToken"
+
+		Description = "Access token de Mercado Pago"
+
+		DataType = "LongVarChar(1K)"
+
+		Length = "1024"
+
+		MaximumLength = "1024"
+	#End
+
+}

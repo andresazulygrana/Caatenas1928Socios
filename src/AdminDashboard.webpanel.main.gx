@@ -1,0 +1,110 @@
+WebPanel AdminDashboard
+{
+	#Events
+				Event Start
+					&FechaActual = Today()
+					&TotalSociosActivos = 0
+					&TotalSociosMorosos = 0
+					&TotalCuotasPendientes = 0
+					&TotalRecaudadoMes = 0
+					&TituloDashboard = !"Backoffice administrativo"
+					&ResumenDashboard = !"Gestiona socios, cuotas, configuracion de cobro y accesos al portal publico desde una sola superficie operativa."
+					&PrimerDiaMes = YMDtoD(Year(&FechaActual), Month(&FechaActual), 1)
+					If Month(&FechaActual) < 10
+						&PeriodoActual = Trim(Str(Year(&FechaActual))) + !"-0" + Trim(Str(Month(&FechaActual)))
+					Else
+						&PeriodoActual = Trim(Str(Year(&FechaActual))) + !"-" + Trim(Str(Month(&FechaActual)))
+					EndIf
+		
+					For Each Socio
+						Where SocioEstado = !"A"
+						&TotalSociosActivos = &TotalSociosActivos + 1
+					EndFor
+		
+					For Each Socio
+						Where SocioEstado = !"M"
+						&TotalSociosMorosos = &TotalSociosMorosos + 1
+					EndFor
+		
+					For Each Cuota
+						Where CuotaEstado = !"P"
+						&TotalCuotasPendientes = &TotalCuotasPendientes + 1
+					EndFor
+		
+					For Each Cuota
+						Where CuotaEstado = !"G"
+						Where CuotaFechaPago >= &PrimerDiaMes
+						&TotalRecaudadoMes = &TotalRecaudadoMes + CuotaImporte
+					EndFor
+				EndEvent
+		
+				Event 'Socios'
+					AdminSocios()
+				EndEvent
+		
+				Event 'Cuotas'
+					AdminCuotas()
+				EndEvent
+		
+				Event 'TiposCuota'
+					AdminTipoCuota()
+				EndEvent
+		
+				Event 'ConfiguracionPago'
+					AdminConfiguracionPago()
+				EndEvent
+		
+				Event 'PruebasPago'
+					AdminPruebaPago()
+				EndEvent
+		
+				Event 'Sandbox'
+					AdminProcesarPagoSandbox()
+				EndEvent
+		
+				Event 'PortalSocios'
+					BuscarSocio()
+				EndEvent
+		
+				Event 'ImportarSocios'
+					AdminImportarSocios()
+				EndEvent
+	#End
+
+	#Conditions
+		CuotaEstado = !"G";
+	#End
+
+	#Variables
+			TotalSociosActivos [ Description = 'Cantidad de socios activos', DataType = 'Numeric(8.0)' ]
+
+			TotalSociosMorosos [ Description = 'Cantidad de socios morosos', DataType = 'Numeric(8.0)' ]
+
+			TotalCuotasPendientes [ Description = 'Cantidad de cuotas pendientes del periodo actual', DataType = 'Numeric(8.0)' ]
+
+			TotalRecaudadoMes [ Description = 'Monto total recaudado en el mes actual', DataType = 'Numeric(12.2)' ]
+
+			PrimerDiaMes [ Description = 'Primer dia del mes actual', DataType = 'Date' ]
+
+			PeriodoActual [ Description = 'Periodo actual en formato AAAA-MM', DataType = 'Attribute:CuotaPeriodo' ]
+
+			FechaActual [ Description = 'Fecha actual del sistema', DataType = 'Date' ]
+
+			TituloDashboard [ Description = '', DataType = 'VarChar(80)' ]
+
+			ResumenDashboard [ Description = '', DataType = 'VarChar(220)' ]
+	#End
+
+	#Properties
+		Name = "AdminDashboard"
+
+		Description = "Dashboard administrativo con resumen operativo"
+
+		Style = "Caatenas1928"
+
+		Type = "Web Page"
+
+		MasterPage = "(none)"
+	#End
+
+}

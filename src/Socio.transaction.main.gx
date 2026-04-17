@@ -1,0 +1,39 @@
+Transaction Socio
+{
+		SocioId* [ Description = 'Identificador del socio', DataType = 'Numeric(8.0)', Autonumber = 'True' ]
+
+		SocioCedula! [ Description = 'Cedula de identidad del socio. Clave de deduplicacion', DataType = 'VarChar(16)' ]
+
+		SocioNombre [ Description = 'Nombre del socio', DataType = 'VarChar(64)' ]
+
+		SocioApellido [ Description = 'Apellido del socio', DataType = 'VarChar(64)' ]
+
+		SocioEmail [ Description = 'Correo electronico. Opcional', NullsInForms = 'Empty as Null', DataType = 'VarChar(128)', AverageLength = '0', ControlType = 'Edit' ]
+
+		SocioTelefono [ Description = 'Telefono. Opcional', DataType = 'VarChar(32)' ]
+
+		SocioFechaNacimiento [ Description = 'Fecha de nacimiento. Opcional', DataType = 'Date' ]
+
+		TipoCuotaId [ Description = 'FK a TipoCuota, copiado al momento de crear la cuota', DataType = 'Numeric(4.0)', Autonumber = 'True' ]
+
+		TipoCuotaDescripcion [ Description = 'Descripcion del tipo de cuota. Ej: Mensual Anual', DataType = 'VarChar(64)' ]
+
+		SocioEstado [ Description = 'Estado: A=Activo I=Inactivo M=Moroso', DataType = 'Character(1)' ]
+
+		SocioFechaAlta [ Description = 'Fecha y hora de alta del socio', DataType = 'DateTime' ]
+
+		SocioOrigen [ Description = 'Origen: I=Importado desde Excel N=Nuevo en web', DataType = 'Character(1)' ]
+
+	#Rules
+		noaccept(SocioId);
+		Default(SocioEstado, 'A');
+		Default(SocioFechaAlta, Now());
+	#End
+
+	#Properties
+		Name = "Socio"
+
+		BusinessComponent = "True"
+	#End
+
+}

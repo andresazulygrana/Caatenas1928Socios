@@ -1,0 +1,41 @@
+Query DashboardRecaudacionMensual
+{
+		Periodo = CuotaPeriodo
+
+			[
+
+				Description = 'Periodo de cuota'
+
+			]
+
+	
+
+		Total = Sum(CuotaImporte)
+
+			[
+
+				Description = 'Total recaudado',
+
+				Type = 'Datum',
+
+				Picture = 'ZZZZZZ9.99'
+
+			]
+
+	#Filters
+			CuotaEstado = !"G"
+	#End
+
+	#Orders
+			CuotaPeriodo
+	#End
+
+	#Properties
+		Name = "DashboardRecaudacionMensual"
+
+		OutputType = "Chart"
+
+		Title = "Recaudacion mensual"
+	#End
+
+}

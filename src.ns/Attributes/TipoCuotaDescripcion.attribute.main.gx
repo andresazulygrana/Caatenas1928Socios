@@ -1,0 +1,15 @@
+Attribute TipoCuotaDescripcion
+{
+	#Properties
+		Name = "TipoCuotaDescripcion"
+
+		Description = "Descripcion del tipo de cuota. Ej: Mensual Anual"
+
+		DataType = "VarChar(64)"
+
+		Length = "64"
+
+		MaximumLength = "64"
+	#End
+
+}

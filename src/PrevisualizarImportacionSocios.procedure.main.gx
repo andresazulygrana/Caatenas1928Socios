@@ -1,0 +1,102 @@
+Procedure PrevisualizarImportacionSocios
+{
+		&PreviewRows = new()
+		&FilasLeidas = 0
+		&ErroresPreview = 0
+		&MensajePreview = !""
+	
+		&ArchivoCSV = new()
+		&ArchivoCSV.Source = &RutaArchivo
+		If NOT &ArchivoCSV.Exists()
+			&MensajePreview = !"No se encontro el archivo CSV indicado"
+			Return
+		EndIf
+	
+		&ArchivoCSV.OpenRead(!"windows-1252")
+		&EsPrimeraLinea = true
+		Do While NOT &ArchivoCSV.EOF
+			&Linea = &ArchivoCSV.ReadLine()
+			&LineaTrim = Trim(&Linea)
+	
+			If &EsPrimeraLinea
+				&EsPrimeraLinea = false
+			Else
+				If NOT &LineaTrim.IsEmpty()
+					&Partes = &LineaTrim.SplitRegEx(!"[,]")
+					&PreviewRow = new()
+					&PreviewRow.Observacion = !"Lista para importar"
+	
+					If &Partes.Count < 9
+						&PreviewRow.Observacion = !"Fila incompleta"
+						&ErroresPreview += 1
+					Else
+						&PreviewRow.Nombre = Trim(&Partes.Item(1))
+						&PreviewRow.Apellido = Trim(&Partes.Item(2))
+						&PreviewRow.Telefono = Trim(&Partes.Item(4))
+						&PreviewRow.Cedula = Trim(&Partes.Item(5))
+						&PreviewRow.Plan = Trim(&Partes.Item(8))
+	
+						If &PreviewRow.Cedula.IsEmpty()
+							&PreviewRow.Observacion = !"Sin cedula"
+							&ErroresPreview += 1
+						Else
+							&PreviewRow.Cedula = &PreviewRow.Cedula.ReplaceRegEx(!"[.]", !"")
+							&PreviewRow.Cedula = &PreviewRow.Cedula.ReplaceRegEx(!"[-]", !"")
+							&PreviewRow.Cedula = &PreviewRow.Cedula.ReplaceRegEx(!"[ ]", !"")
+	
+							If &PreviewRow.Nombre.IsEmpty() OR &PreviewRow.Apellido.IsEmpty()
+								&PreviewRow.Observacion = !"Faltan nombre o apellido"
+								&ErroresPreview += 1
+							EndIf
+						EndIf
+					EndIf
+	
+					&PreviewRows.Add(&PreviewRow)
+					&FilasLeidas += 1
+					If &FilasLeidas >= 5
+						Exit
+					EndIf
+				EndIf
+			EndIf
+		EndDo
+		&ArchivoCSV.Close()
+	
+		If &FilasLeidas = 0
+			&MensajePreview = !"No se encontraron filas de datos para previsualizar"
+		Else
+			&MensajePreview = !"Vista previa lista: " + Trim(Str(&FilasLeidas, 2, 0)) + !" fila(s) analizadas"
+		EndIf
+
+	#Rules
+		parm(in: &RutaArchivo, out: &PreviewRows, out: &FilasLeidas, out: &ErroresPreview, out: &MensajePreview);
+	#End
+
+	#Variables
+			RutaArchivo [ Description = 'Ruta completa del archivo CSV a previsualizar', DataType = 'VarChar(512)' ]
+
+			PreviewRows [ Description = 'Primeras filas del archivo para revisar antes de importar', DataType = 'ImportPreviewRow', Collection = 'True' ]
+
+			PreviewRow [ Description = 'Fila individual de la vista previa', DataType = 'ImportPreviewRow' ]
+
+			FilasLeidas [ Description = 'Cantidad de filas leidas para preview', DataType = 'Numeric(4.0)' ]
+
+			ErroresPreview [ Description = 'Filas observadas con datos faltantes en la preview', DataType = 'Numeric(4.0)' ]
+
+			MensajePreview [ Description = 'Mensaje de estado de la preview', DataType = 'VarChar(200)' ]
+
+			ArchivoCSV [ Description = 'Instancia File para leer el CSV linea a linea', DataType = 'File' ]
+
+			Linea [ Description = 'Linea leida del archivo', DataType = 'VarChar(1K)' ]
+
+			LineaTrim [ Description = 'Linea actual sin espacios extremos', DataType = 'VarChar(1K)' ]
+
+			EsPrimeraLinea [ Description = 'Indica si la linea es el encabezado', DataType = 'Boolean' ]
+
+			Partes [ Description = 'Campos obtenidos al separar la linea por coma', DataType = 'VarChar(256)', Collection = 'True' ]
+	#End
+
+	#Properties
+		Name = "PrevisualizarImportacionSocios"
+	#End
+
+}

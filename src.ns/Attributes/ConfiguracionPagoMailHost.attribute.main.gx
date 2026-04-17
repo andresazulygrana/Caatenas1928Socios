@@ -1,0 +1,15 @@
+Attribute ConfiguracionPagoMailHost
+{
+	#Properties
+		Name = "ConfiguracionPagoMailHost"
+
+		Description = "Servidor SMTP para envio de correos"
+
+		DataType = "VarChar(120)"
+
+		Length = "120"
+
+		MaximumLength = "120"
+	#End
+
+}

@@ -1,0 +1,11 @@
+Attribute ConfiguracionPagoActivo
+{
+	#Properties
+		Name = "ConfiguracionPagoActivo"
+
+		Description = "Indica si esta configuracion es la activa"
+
+		DataType = "Boolean"
+	#End
+
+}

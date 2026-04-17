@@ -1,0 +1,127 @@
+<layout type="Web">
+	<view>
+		<smart name="MainLayout" class="backoffice-page" width="100%" height="100%" columnsStyle="100%" rowsStyle="100%">
+			<row>
+				<cell hAlign="Center" vAlign="Top">
+					<smart name="Shell" class="backoffice-shell" width="100%" height="100%" columnsStyle="270px;100%" rowsStyle="100%">
+						<row>
+							<cell class="backoffice-sidebar" vAlign="Top">
+								<smart name="SidebarLayout" width="100%" columnsStyle="100%" rowsStyle="74px;98px;392px;58px">
+									<row><cell vAlign="Top"><smart name="Brand" width="100%" columnsStyle="56px;100%" rowsStyle="56px"><row><cell hAlign="Center" vAlign="Middle"><label name="LblCrest" caption="A" class="backoffice-crest"/></cell><cell hAlign="Left" vAlign="Middle"><smart name="BrandText" width="100%" columnsStyle="100%" rowsStyle="30px;18px"><row><cell hAlign="Left" vAlign="Bottom"><label name="LblBrandTitle" caption="Club Atenas" class="backoffice-brand-title"/></cell></row><row><cell hAlign="Left" vAlign="Top"><label name="LblBrandMeta" caption="Backoffice de socios" class="backoffice-brand-meta"/></cell></row></smart></cell></row></smart></cell></row>
+									<row><cell vAlign="Middle"><smart name="SidebarCard" class="backoffice-sidebar-card" width="100%" columnsStyle="100%" rowsStyle="18px;52px"><row><cell hAlign="Left" vAlign="Bottom"><label name="LblSidebarTitle" caption="Padron y deuda" class="backoffice-sidebar-section"/></cell></row><row><cell hAlign="Left" vAlign="Middle"><label name="LblSidebarText" caption="Navegacion fija por socios, cuotas, importacion y pruebas sin depender del master." class="backoffice-sidebar-text"/></cell></row></smart></cell></row>
+									<row><cell vAlign="Top"><smart name="SidebarNav" width="100%" columnsStyle="100%" rowsStyle="44px;44px;44px;44px;44px;44px;44px;44px"><row><cell><action name="BtnNavDashboard" caption="Dashboard" onClickEvent="'Dashboard'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavSocios" caption="Socios" onClickEvent="'Socios'" class="btn-sidebar-active"/></cell></row><row><cell><action name="BtnNavImportar" caption="Importar socios" onClickEvent="'ImportarSocios'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavTipos" caption="Tipos de cuota" onClickEvent="'TiposCuota'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavCuotas" caption="Cuotas" onClickEvent="'Cuotas'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavConfig" caption="Configuracion pago" onClickEvent="'ConfiguracionPago'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavPruebas" caption="Prueba de pago" onClickEvent="'PruebasPago'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavSandbox" caption="Procesar sandbox" onClickEvent="'Sandbox'" class="btn-sidebar"/></cell></row></smart></cell></row>
+									<row><cell vAlign="Bottom"><label name="LblSidebarFooter" caption="Usuario: Secretaria Atenas | Admin / Operacion diaria" class="backoffice-sidebar-footer"/></cell></row>
+								</smart>
+							</cell>
+							<cell class="backoffice-main" vAlign="Top">
+								<smart name="SociosBody" class="backoffice-main-body" width="100%" columnsStyle="100%" rowsStyle="128px;28px;784px;72px">
+									<row>
+										<cell hAlign="Center" vAlign="Middle">
+											<smart name="TopbarSocios" class="surface-elevated" width="100%" columnsStyle="100%" rowsStyle="44px;26px">
+												<row>
+													<cell hAlign="Left" vAlign="Middle"><label name="LblTitulo" caption="Socios" class="admin-topbar-title"/></cell>
+												</row>
+												<row>
+													<cell hAlign="Left" vAlign="Top"><label name="LblSubtituloSocios" caption="Padron operativo con filtro simple, lectura rapida y acceso directo al detalle." class="admin-topbar-text"/></cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell hAlign="Left" vAlign="Middle"><label name="LblListado" caption="Listado de socios" class="admin-section-title"/></cell>
+									</row>
+									<row>
+										<cell hAlign="Center" vAlign="Top">
+											<smart name="BloqueSocios" width="100%" columnsStyle="100%" rowsStyle="142px;624px">
+												<row>
+													<cell vAlign="Middle">
+														<smart name="FiltroSocios" class="surface-elevated" width="100%" columnsStyle="55%;20%;25%" rowsStyle="28px;58px">
+															<row>
+																<cell hAlign="Left" vAlign="Bottom"><label name="LblBusqueda" caption="Nombre, apellido o cedula" class="field-label"/></cell>
+																<cell hAlign="Left" vAlign="Bottom"><label name="LblEstado" caption="Estado socio" class="field-label"/></cell>
+																<cell/>
+															</row>
+															<row>
+																<cell vAlign="Middle"><input attribute="&amp;TextoBusqueda" class="field"/></cell>
+																<cell vAlign="Middle"><input attribute="&amp;FiltroEstado" class="field"/></cell>
+																<cell hAlign="Center" vAlign="Middle"><action name="BtnBuscar" caption="Buscar" onClickEvent="'Buscar'" class="btn-primary"/></cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+												<row>
+													<cell vAlign="Top">
+														<smart name="GridContainer" class="grid-wrap" width="100%" columnsStyle="100%" rowsStyle="40px;584px">
+															<row>
+																<cell vAlign="Middle">
+																	<smart name="CabeceraGrid" class="grid-head" width="100%" columnsStyle="18%;30%;14%;12%;16%;10%" rowsStyle="40px">
+																		<row>
+																			<cell vAlign="Middle"><label name="LblColCedula" caption="Cedula" class="grid-col-head"/></cell>
+																			<cell vAlign="Middle"><label name="LblColNombre" caption="Nombre" class="grid-col-head"/></cell>
+																			<cell vAlign="Middle"><label name="LblColTipo" caption="Tipo cuota" class="grid-col-head"/></cell>
+																			<cell vAlign="Middle"><label name="LblColEstado" caption="Estado" class="grid-col-head"/></cell>
+																			<cell vAlign="Middle"><label name="LblColPendiente" caption="Pendiente / cuota" class="grid-col-head"/></cell>
+																			<cell hAlign="Center" vAlign="Middle"><label name="LblColAccion" caption="Accion" class="grid-col-head"/></cell>
+																		</row>
+																	</smart>
+																</cell>
+															</row>
+															<row>
+																<cell vAlign="Top">
+																	<grid name="GridSocios" controlType="table" class="grid-body">
+																		<table name="GridSociosItem" width="100%" columnsStyle="18%;30%;14%;12%;16%;10%" rowsStyle="60px">
+																			<row>
+																				<cell vAlign="Middle"><input attribute="&amp;CedulaFila" readonly="True" class="grid-col-text"/></cell>
+																				<cell vAlign="Middle"><input attribute="&amp;NombreFila" readonly="True" class="grid-col-text"/></cell>
+																				<cell vAlign="Middle"><input attribute="&amp;TipoCuotaFila" readonly="True" class="grid-col-meta"/></cell>
+																				<cell vAlign="Middle">
+																					<smart name="EstadoFilaPills" width="100%" columnsStyle="100%" rowsStyle="20px;20px;20px">
+																						<row>
+																							<cell hAlign="Left" vAlign="Middle"><input attribute="&amp;EstadoActivoTextoFila" readonly="True" class="admin-pill-ok"/></cell>
+																						</row>
+																						<row>
+																							<cell hAlign="Left" vAlign="Middle"><input attribute="&amp;EstadoMorosoTextoFila" readonly="True" class="admin-pill-danger"/></cell>
+																						</row>
+																						<row>
+																							<cell hAlign="Left" vAlign="Middle"><input attribute="&amp;EstadoPendienteTextoFila" readonly="True" class="admin-pill-warn"/></cell>
+																						</row>
+																					</smart>
+																				</cell>
+																				<cell vAlign="Middle">
+																					<smart name="EstadoCuotaFila" width="100%" columnsStyle="100%" rowsStyle="28px;28px">
+																						<row><cell vAlign="Middle"><input attribute="&amp;PendienteFila" readonly="True" class="grid-col-meta"/></cell></row>
+																						<row><cell vAlign="Middle"><input attribute="&amp;ProximaCuotaFila" readonly="True" class="grid-col-meta"/></cell></row>
+																					</smart>
+																				</cell>
+																				<cell hAlign="Center" vAlign="Middle"><action name="BtnVerDetalle" caption="Ver" onClickEvent="'VerDetalle'" class="btn-sm-primary"/></cell>
+																			</row>
+																		</table>
+																	</grid>
+																</cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell class="page-footer admin-pager-host" hAlign="Center" vAlign="Middle">
+											<smart name="PaginacionBar" class="surface-elevated" width="100%" columnsStyle="22%;56%;22%" rowsStyle="44px">
+												<row>
+													<cell hAlign="Left" vAlign="Middle"><action name="BtnPaginaAnterior" caption="Anterior" onClickEvent="'PaginaAnterior'" class="btn-secondary"/></cell>
+													<cell hAlign="Center" vAlign="Middle"><input attribute="&amp;ResumenPaginacion" readonly="True" class="text-caption"/></cell>
+													<cell hAlign="Right" vAlign="Middle"><action name="BtnPaginaSiguiente" caption="Siguiente" onClickEvent="'PaginaSiguiente'" class="btn-primary"/></cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+								</smart>
+							</cell>
+						</row>
+					</smart>
+				</cell>
+			</row>
+		</smart>
+	</view>
+</layout>

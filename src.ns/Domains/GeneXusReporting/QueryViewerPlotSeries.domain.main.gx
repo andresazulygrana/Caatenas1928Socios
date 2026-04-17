@@ -1,0 +1,11 @@
+Domain QueryViewerPlotSeries
+{
+	#Properties
+		Name = "QueryViewerPlotSeries"
+
+		DataType = "Character(20)"
+
+		EnumValues = "InTheSameChart, In the same chart, InTheSameChart; InSeparateCharts, In separate charts, InSeparateCharts"
+	#End
+
+}

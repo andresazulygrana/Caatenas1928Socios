@@ -1,0 +1,179 @@
+WebPanel PantallaPago
+{
+	#Events
+		Event Start
+			// Cargar datos del socio
+			&DebugPantalla = !"PantallaPago.Start" + NewLine() +
+				!"SocioIdParm=" + Trim(Str(&SocioId, 8, 0)) + NewLine()
+			For Each Socio
+				Where SocioId = &SocioId
+				&SocioNombre = SocioNombre
+				&SocioApellido = SocioApellido
+				&SocioCedula = SocioCedula
+				&PayerEmail = SocioEmail
+				&TipoCuotaNombre = TipoCuotaDescripcion
+			EndFor
+			&DebugPantalla += !"SocioNombre=" + Trim(&SocioNombre) + NewLine() +
+				!"SocioApellido=" + Trim(&SocioApellido) + NewLine() +
+				!"SocioCedula=" + Trim(&SocioCedula) + NewLine() +
+				!"PayerEmail=" + Trim(&PayerEmail) + NewLine() +
+				!"TipoCuotaNombre=" + Trim(&TipoCuotaNombre) + NewLine()
+			&SocioNombreCompleto = Trim(&SocioNombre) + !" " + Trim(&SocioApellido)
+
+			// Buscar primero cuota pendiente y, si no existe, una vencida
+			&CuotaId = 0
+			For Each Cuota
+				Where SocioId = &SocioId
+				Where CuotaEstado = !"P"
+				&CuotaId = CuotaId
+				&CuotaImporte = CuotaImporte
+				&CuotaPeriodo = CuotaPeriodo
+				&CuotaFechaVencimiento = CuotaFechaVencimiento
+				Exit
+			EndFor
+			&DebugPantalla += !"CuotaPendienteId=" + Trim(Str(&CuotaId, 10, 0)) + NewLine()
+			If &CuotaId = 0
+				For Each Cuota
+					Where SocioId = &SocioId
+					Where CuotaEstado = !"V"
+					&CuotaId = CuotaId
+					&CuotaImporte = CuotaImporte
+					&CuotaPeriodo = CuotaPeriodo
+					&CuotaFechaVencimiento = CuotaFechaVencimiento
+					Exit
+				EndFor
+			EndIf
+			&DebugPantalla += !"CuotaFinalId=" + Trim(Str(&CuotaId, 10, 0)) + NewLine()
+
+			If &CuotaId = 0
+				&TieneCuotaPendiente = false
+				&MensajeEstado = !"Estado al dia"
+				&CuotaPeriodo = !"Al dia"
+				&ResumenCuota = !"No tenes deudas pendientes en este momento. Si acabas de pagar, esta es la confirmacion esperada."
+				&ImporteTexto = !"Sin saldo pendiente"
+				&VencimientoTexto = !"Sin vencimiento"
+				&AccionPrincipal = !"Continuar"
+				&DebugPantalla += !"TieneCuotaPendiente=NO" + NewLine()
+			Else
+				&TieneCuotaPendiente = true
+				&MensajeEstado = !"Pendiente de pago"
+				&ResumenCuota = !"Tienes una cuota lista para pagar. Al continuar, se abrira Checkout Pro para completar el cobro."
+				For Each Cuota
+					Where CuotaId = &CuotaId
+					If CuotaEstado = !"V"
+						&MensajeEstado = !"Cuota vencida"
+						&ResumenCuota = !"Tienes una cuota vencida pendiente. Regularizala ahora para mantener tu estado al dia."
+					EndIf
+					Exit
+				EndFor
+				Do 'FormatearImportePago'
+				&VencimientoTexto = DtoC(&CuotaFechaVencimiento)
+				&AccionPrincipal = !"Continuar"
+				&DebugPantalla += !"TieneCuotaPendiente=SI" + NewLine() +
+					!"CuotaPeriodo=" + Trim(&CuotaPeriodo) + NewLine() +
+					!"CuotaImporte=" + Trim(Str(&CuotaImporte, 12, 2)) + NewLine()
+			EndIf
+			Do 'EscribirDebugPantalla'
+		EndEvent
+
+		Event 'AccionPrincipal'
+			If &TieneCuotaPendiente
+				PagarCuota(&CuotaId, &PaymentMethodId, &PayerEmail, &MPPaymentId, &ExternalUrl, &MPEstado)
+				If NOT &ExternalUrl.IsEmpty()
+					&UrlRedireccion = &ExternalUrl
+					Link(&UrlRedireccion)
+				Else
+					&MensajeEstado = !"Error checkout: " + Trim(&MPEstado)
+					If NOT &MPPaymentId.IsEmpty()
+						&MensajeEstado += !" - " + Trim(&MPPaymentId)
+					EndIf
+				EndIf
+			Else
+				BuscarSocio()
+			EndIf
+		EndEvent
+
+		Event 'CambiarSocio'
+			BuscarSocio()
+		EndEvent
+
+		Sub 'EscribirDebugPantalla'
+			&DebugFilePath = !"C:\Users\andres.cabrera\GeneXus\KBs\Caatenas1928\NetModel\web\pantallapago_debug.txt"
+			&DebugFile = new()
+			&DebugFile.Source = &DebugFilePath
+			&DebugFile.Create()
+			&DebugFile.OpenWrite()
+			&DebugFile.WriteLine(&DebugPantalla)
+			&DebugFile.Close()
+		EndSub
+
+		Sub 'FormatearImportePago'
+			&ImporteBase = Trim(Str(&CuotaImporte, 12, 0))
+			&ImporteFormateado = !""
+			&PosicionImporte = &ImporteBase.Length()
+
+			Do While &PosicionImporte > 3
+				&ImporteFormateado = !"." + &ImporteBase.Substring(&PosicionImporte - 2, 3) + &ImporteFormateado
+				&PosicionImporte -= 3
+			EndDo
+
+			If &PosicionImporte > 0
+				&ImporteFormateado = &ImporteBase.Substring(1, &PosicionImporte) + &ImporteFormateado
+			EndIf
+
+			&ImporteTexto = !"$ " + &ImporteFormateado
+		EndSub
+	#End
+
+	#Rules
+		parm(in: &SocioId);
+	#End
+
+	#Conditions
+		SocioId = &SocioId;
+	#End
+
+	#Variables
+		SocioId [ DataType = 'Attribute:SocioId', Description = '' ]
+		SocioNombre [ DataType = 'Attribute:SocioNombre', Description = '' ]
+		SocioApellido [ DataType = 'Attribute:SocioApellido', Description = '' ]
+		SocioCedula [ DataType = 'Attribute:SocioCedula', Description = '' ]
+		PayerEmail [ DataType = 'Attribute:SocioEmail', Description = '' ]
+		CuotaId [ DataType = 'Attribute:CuotaId', Description = '' ]
+		CuotaImporte [ DataType = 'Attribute:CuotaImporte', Description = '' ]
+		CuotaPeriodo [ DataType = 'Attribute:CuotaPeriodo', Description = '' ]
+		CuotaFechaVencimiento [ DataType = 'Date', Description = '' ]
+		MensajeEstado [ DataType = 'VarChar(200)', Description = '' ]
+		SocioNombreCompleto [ DataType = 'VarChar(120)', Description = '' ]
+		TipoCuotaNombre [ DataType = 'Attribute:TipoCuotaDescripcion', Description = '' ]
+		ResumenCuota [ DataType = 'VarChar(200)', Description = '' ]
+		ImporteTexto [ DataType = 'VarChar(40)', Description = '' ]
+		VencimientoTexto [ DataType = 'VarChar(40)', Description = '' ]
+		AccionPrincipal [ DataType = 'VarChar(40)', Description = '' ]
+		TieneCuotaPendiente [ DataType = 'Boolean', Description = '' ]
+		PaymentMethodId [ DataType = 'VarChar(64)', Description = '' ]
+		MPPaymentId [ DataType = 'Attribute:CuotaMPPaymentId', Description = '' ]
+		ExternalUrl [ DataType = 'Attribute:CuotaMPExternalUrl', Description = '' ]
+		MPEstado [ DataType = 'Attribute:CuotaMPEstado', Description = '' ]
+		UrlRedireccion [ DataType = 'Url, GeneXus', Description = '' ]
+		DebugPantalla [ DataType = 'LongVarChar(4K)', Description = '' ]
+		ImporteBase [ DataType = 'VarChar(20)', Description = '' ]
+		ImporteFormateado [ DataType = 'VarChar(24)', Description = '' ]
+		PosicionImporte [ DataType = 'Numeric(4.0)', Description = '' ]
+		DebugFilePath [ DataType = 'VarChar(512)', Description = '' ]
+		DebugFile [ DataType = 'File', Description = '' ]
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+	#End
+
+	#Properties
+		Name = "PantallaPago"
+
+		Description = "Pantalla publica de pago y consulta de cuotas"
+
+		Type = "Web Panel"
+
+		Style = "AtenasDSO"
+	#End
+
+}

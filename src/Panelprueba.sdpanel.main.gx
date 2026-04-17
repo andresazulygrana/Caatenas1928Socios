@@ -1,0 +1,13 @@
+SDPanel Panelprueba
+{
+	<Properties><Property><Name>IsDefault</Name><Value>False</Value></Property></Properties>
+
+	#Properties
+		Name = "Panelprueba"
+
+		Description = "Panelprueba"
+
+		MainProgram = "True"
+	#End
+
+}

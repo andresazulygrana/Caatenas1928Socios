@@ -1,0 +1,15 @@
+Domain QueryViewerConditionOperator
+{
+	#Properties
+		Name = "QueryViewerConditionOperator"
+
+		DataType = "Character(2)"
+
+		Length = "2"
+
+		MaximumLength = "2"
+
+		EnumValues = "Equal, Equal, EQ; LessThan, Less Than, LT; GreaterThan, Greater Than, GT; LessOrEqual, Less Or Equal, LE; GreaterOrEqual, Greater Or Equal, GE; NotEqual, Not Equal, NE; Interval, Interval, IN"
+	#End
+
+}

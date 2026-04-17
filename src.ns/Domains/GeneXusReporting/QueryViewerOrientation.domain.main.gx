@@ -1,0 +1,11 @@
+Domain QueryViewerOrientation
+{
+	#Properties
+		Name = "QueryViewerOrientation"
+
+		DataType = "Character(20)"
+
+		EnumValues = "Horizontal, Horizontal, Horizontal; Vertical, Vertical, Vertical"
+	#End
+
+}

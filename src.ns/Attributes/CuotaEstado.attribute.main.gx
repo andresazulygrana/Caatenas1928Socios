@@ -1,0 +1,15 @@
+Attribute CuotaEstado
+{
+	#Properties
+		Name = "CuotaEstado"
+
+		Description = "Estado: P=Pendiente G=Pagada V=Vencida"
+
+		DataType = "Character(1)"
+
+		Length = "1"
+
+		MaximumLength = "1"
+	#End
+
+}

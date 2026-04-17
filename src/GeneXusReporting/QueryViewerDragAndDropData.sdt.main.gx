@@ -1,0 +1,21 @@
+SDT QueryViewerDragAndDropData
+{
+		QueryViewerDragAndDropData	{
+
+			Name [ DataType = 'Character(20)' ]
+
+			Type [ DataType = 'QueryViewerElementType, GeneXusReporting' ]
+
+			Axis [ DataType = 'QueryViewerAxisType, GeneXusReporting' ]
+
+			Position
+
+		}
+
+	#Properties
+		Name = "QueryViewerDragAndDropData"
+
+		ExposedNamespace = "GeneXus.Reporting"
+	#End
+
+}

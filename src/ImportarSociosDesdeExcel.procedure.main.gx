@@ -1,0 +1,209 @@
+Procedure ImportarSociosDesdeExcel
+{
+		&Creados = 0
+		&Actualizados = 0
+		&Errores = 0
+		&ContadorCommit = 0
+		InicializarDatos()
+	
+		&ArchivoCSV = new()
+		&ArchivoCSV.Source = &RutaArchivo
+		If NOT &ArchivoCSV.Exists()
+			&Errores = -1
+			Return
+		EndIf
+	
+		&ArchivoCSV.OpenRead(!"windows-1252")
+		&EsPrimeraLinea = true
+		Do While NOT &ArchivoCSV.EOF
+			&Linea = &ArchivoCSV.ReadLine()
+			&LineaTrim = Trim(&Linea)
+			If &EsPrimeraLinea
+				// Omitir encabezado CSV actual:
+				// Nombre,Apellido,NroSocio,Celular,Documento,FechaRegistro,Deuda,Plan,Activo
+				&EsPrimeraLinea = false
+			Else
+				If NOT &LineaTrim.IsEmpty()
+					// Separar campos por coma segun el archivo actual de socios
+					&Partes = &LineaTrim.SplitRegEx(!"[,]")
+	
+					If &Partes.Count < 9
+						// Minimo requerido para este archivo:
+						// Nombre, Apellido, Celular, Documento, Activo
+						&Errores = &Errores + 1
+					Else
+						&NombreRaw = Trim(&Partes.Item(1))
+						&ApellidoRaw = Trim(&Partes.Item(2))
+						&TelefonoRaw = Trim(&Partes.Item(4))
+						&CedulaRaw = Trim(&Partes.Item(5))
+						&PlanRaw = Trim(&Partes.Item(8))
+						&ActivoRaw = Upper(Trim(&Partes.Item(9)))
+						&EmailRaw = !""
+	
+						// Validar campos obligatorios
+						If &CedulaRaw.IsEmpty()
+							// Omitir filas sin documento
+						Else
+							If &NombreRaw.IsEmpty() OR &ApellidoRaw.IsEmpty()
+								&Errores = &Errores + 1
+							Else
+								// Normalizar cedula: quitar puntos, guiones y espacios
+								&CedulaNorm = &CedulaRaw.ReplaceRegEx(!"[.]", !"")
+								&CedulaNorm = &CedulaNorm.ReplaceRegEx(!"[-]", !"")
+								&CedulaNorm = &CedulaNorm.ReplaceRegEx(!"[ ]", !"")
+	
+								If &ActivoRaw = !"SI"
+									&EstadoSocio = !"A"
+								Else
+									&EstadoSocio = !"I"
+								EndIf
+	
+								&TipoCuotaImportarId = 0
+								&PlanDescripcionObjetivo = !"Socio A - Mensual"
+								If &PlanRaw = !"SOCIO A - ANUAL"
+									&PlanDescripcionObjetivo = !"Socio A - Anual"
+								Else
+									If &PlanRaw = !"SOCIO D BASQUET - ANUAL"
+										&PlanDescripcionObjetivo = !"Socio D Basquet - Anual"
+									Else
+										If &PlanRaw = !"SOCIO D BASQUET - BECA 50%"
+											&PlanDescripcionObjetivo = !"Socio D Basquet - Beca 50%"
+										Else
+											If &PlanRaw = !"SOCIO D BASQUET - MENSUAL"
+												&PlanDescripcionObjetivo = !"Socio D Basquet - Mensual"
+											EndIf
+										EndIf
+									EndIf
+								EndIf
+	
+								For Each TipoCuota
+									Where TipoCuotaDescripcion = &PlanDescripcionObjetivo
+									Where TipoCuotaActivo = true
+									&TipoCuotaImportarId = TipoCuotaId
+									Exit
+								EndFor
+	
+								If &TipoCuotaImportarId = 0
+									&Errores = &Errores + 1
+								Else
+									&SocioIdEncontrado = 0
+									For Each Socio
+										Where SocioCedula = &CedulaNorm
+										&SocioIdEncontrado = SocioId
+									EndFor
+	
+									If &SocioIdEncontrado > 0
+										&SocioBC = new()
+										&SocioBC.Load(&SocioIdEncontrado)
+										&SocioBC.SocioNombre = &NombreRaw
+										&SocioBC.SocioApellido = &ApellidoRaw
+										If NOT &EmailRaw.IsEmpty()
+											&SocioBC.SocioEmail = &EmailRaw
+										EndIf
+										If NOT &TelefonoRaw.IsEmpty()
+											&SocioBC.SocioTelefono = &TelefonoRaw
+										EndIf
+										&SocioBC.TipoCuotaId = &TipoCuotaImportarId
+										&SocioBC.SocioEstado = &EstadoSocio
+										&SocioBC.Save()
+										If &SocioBC.Success()
+											&Actualizados = &Actualizados + 1
+										Else
+											&Errores = &Errores + 1
+										EndIf
+									Else
+										&SocioBC = new()
+										&SocioBC.SocioCedula = &CedulaNorm
+										&SocioBC.SocioNombre = &NombreRaw
+										&SocioBC.SocioApellido = &ApellidoRaw
+										&SocioBC.SocioEmail = &EmailRaw
+										&SocioBC.SocioTelefono = &TelefonoRaw
+										&SocioBC.TipoCuotaId = &TipoCuotaImportarId
+										&SocioBC.SocioEstado = &EstadoSocio
+										&SocioBC.SocioOrigen = !"I"
+										&SocioBC.SocioFechaAlta = Now()
+										&SocioBC.Save()
+										If &SocioBC.Success()
+											&Creados = &Creados + 1
+										Else
+											&Errores = &Errores + 1
+										EndIf
+									EndIf
+	
+									&ContadorCommit = &ContadorCommit + 1
+									If &ContadorCommit >= 50
+										Commit
+										&ContadorCommit = 0
+									EndIf
+								EndIf
+							EndIf
+						EndIf
+					EndIf
+				EndIf
+			EndIf
+		EndDo
+		&ArchivoCSV.Close()
+	
+		If &ContadorCommit > 0
+			Commit
+		EndIf
+
+	#Rules
+		parm(in: &RutaArchivo, out: &Creados, out: &Actualizados, out: &Errores);
+	#End
+
+	#Variables
+			RutaArchivo [ Description = 'Ruta completa del archivo CSV a importar', DataType = 'VarChar(512)' ]
+
+			Creados [ Description = 'Cantidad de socios nuevos creados', DataType = 'Numeric(8.0)' ]
+
+			Actualizados [ Description = 'Cantidad de socios existentes actualizados', DataType = 'Numeric(8.0)' ]
+
+			Errores [ Description = 'Cantidad de filas con error o cedula invalida', DataType = 'Numeric(8.0)' ]
+
+			ArchivoCSV [ Description = 'Instancia File para leer el CSV linea a linea', DataType = 'File' ]
+
+			Linea [ Description = 'Linea leida del archivo', DataType = 'VarChar(1K)' ]
+
+			LineaTrim [ Description = 'Linea actual sin espacios extremos', DataType = 'VarChar(1K)' ]
+
+			EsPrimeraLinea [ Description = 'Indica si la linea es el encabezado', DataType = 'Boolean' ]
+
+			Partes [ Description = 'Campos obtenidos al separar la linea por punto y coma', DataType = 'VarChar(256)', Collection = 'True' ]
+
+			CedulaRaw [ Description = 'Cedula antes de normalizar', DataType = 'Attribute:SocioCedula' ]
+
+			NombreRaw [ Description = 'Nombre leido del CSV', DataType = 'Attribute:SocioNombre' ]
+
+			ApellidoRaw [ Description = 'Apellido leido del CSV', DataType = 'Attribute:SocioApellido' ]
+
+			EmailRaw [ Description = 'Email leido del CSV', DataType = 'Attribute:SocioEmail' ]
+
+			TelefonoRaw [ Description = 'Telefono leido del CSV', DataType = 'Attribute:SocioTelefono' ]
+
+			CedulaNorm [ Description = 'Cedula normalizada sin puntos guiones ni espacios', DataType = 'Attribute:SocioCedula' ]
+
+			SocioIdEncontrado [ Description = 'SocioId si ya existe el socio', DataType = 'Attribute:SocioId' ]
+
+			SocioBC [ Description = 'Instancia BC de Socio para insercion o actualizacion', DataType = 'Socio' ]
+
+			ContadorCommit [ Description = 'Contador para commit cada 50 registros', DataType = 'Numeric(4.0)' ]
+
+			PlanRaw [ Description = 'Plan leido del CSV original', DataType = 'VarChar(80)' ]
+
+			ActivoRaw [ Description = 'Valor de activo del CSV original', DataType = 'VarChar(10)' ]
+
+			EstadoSocio [ Description = 'Estado mapeado para el socio', DataType = 'Character(1)' ]
+
+			TipoCuotaImportarId [ Description = 'Tipo de cuota elegido para cada fila importada', DataType = 'Attribute:TipoCuotaId' ]
+
+			PlanDescripcionObjetivo [ Description = 'Descripcion vigente del tipo de cuota a asignar segun el plan importado', DataType = 'VarChar(64)' ]
+	#End
+
+	#Properties
+		Name = "ImportarSociosDesdeExcel"
+
+		MainProgram = "True"
+	#End
+
+}

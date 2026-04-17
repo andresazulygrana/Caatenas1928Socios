@@ -1,0 +1,29 @@
+QueryDashboard AdminKPIsDashboard
+{
+	instanceProperties:
+
+	- KBLanguage: English
+
+	  Version: 1.0
+
+	Parameters:
+
+	- {}
+
+	Layout:
+
+	- MainTable:
+
+	  - {}
+
+	  FiltersTable:
+
+	  - {}
+
+	#Properties
+		Name = "AdminKPIsDashboard"
+
+		Description = "AdminKPIsDashboard"
+	#End
+
+}

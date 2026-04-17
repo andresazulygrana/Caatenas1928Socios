@@ -1,0 +1,173 @@
+<layout type="Web">
+	<view>
+		<responsive name="PageContent" class="page">
+			<row>
+				<cell>
+					<responsive name="HeaderBand" class="page-header">
+						<row>
+							<cell horizontalAlignment="Left" verticalAlignment="Middle">
+								<table name="HeaderBrand" width="100%" class="header-brand" tableType="Flex" alignItems="Center">
+									<row>
+										<cell verticalAlignment="Middle" flexGrow="0">
+											<label name="LblEscudoPortal" caption="A" class="header-crest" />
+										</cell>
+										<cell flexGrow="0">
+											<responsive name="HeaderTextBlock">
+												<row>
+													<cell>
+														<table name="HeaderNameRow" tableType="Flex" alignItems="Center">
+															<row>
+																<cell flexGrow="0">
+																	<label name="LblBrandClub" caption="Club" class="header-name" />
+																</cell>
+																<cell flexGrow="0">
+																	<label name="LblBrandAtenas" caption="Atenas" class="header-name header-name--accent" />
+																</cell>
+															</row>
+														</table>
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<label name="LblPortalSub" caption="Resultado del pago" class="header-tagline" />
+													</cell>
+												</row>
+											</responsive>
+										</cell>
+									</row>
+								</table>
+							</cell>
+						</row>
+					</responsive>
+				</cell>
+			</row>
+			<row>
+				<cell horizontalAlignment="Center" verticalAlignment="Top">
+					<smart name="MainContent" columns="100%" rows="auto;auto;auto;auto;auto;auto" width="520dip" class="page-content">
+						<row>
+							<cell>
+								<smart name="ResultadoCard" columns="100%" rows="auto;auto;auto;auto" width="100%" class="surface">
+									<row>
+										<cell horizontalAlignment="Center" verticalAlignment="Middle">
+											<input attribute="&amp;Titulo" readonly="True" class="result-title" />
+										</cell>
+									</row>
+									<row>
+										<cell horizontalAlignment="Center" verticalAlignment="Middle">
+											<input attribute="&amp;MensajeResultado" readonly="True" class="result-message" />
+										</cell>
+									</row>
+									<row>
+										<cell horizontalAlignment="Center" verticalAlignment="Middle">
+											<input attribute="&amp;DetalleOperacion" readonly="True" class="field-help" />
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="RefBoxMain" columns="100%" rows="18px;26px" width="100%" class="ref-block">
+												<row>
+													<cell horizontalAlignment="Center">
+														<label name="LblPagoIdMain" caption="Referencia de operacion" class="ref-label" />
+													</cell>
+												</row>
+												<row>
+													<cell horizontalAlignment="Center">
+														<input attribute="&amp;ReferenciaOperacion" readonly="True" class="text-mono" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+								</smart>
+							</cell>
+						</row>
+						<row>
+							<cell />
+						</row>
+						<row>
+							<cell>
+								<smart name="ResumenCard" columns="100%" rows="auto;auto;auto;auto" width="100%" class="surface">
+									<row>
+										<cell>
+											<smart name="RowSocio" columns="35%;65%" rows="24px" width="100%" class="info-row">
+												<row>
+													<cell>
+														<label name="LblSocio" caption="Socio" class="info-label" />
+													</cell>
+													<cell horizontalAlignment="Right">
+														<input attribute="&amp;NombreSocio" readonly="True" class="info-value" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="RowPeriodo" columns="35%;65%" rows="24px" width="100%" class="info-row">
+												<row>
+													<cell>
+														<label name="LblPeriodo" caption="Periodo" class="info-label" />
+													</cell>
+													<cell horizontalAlignment="Right">
+														<input attribute="&amp;PeriodoCuota" readonly="True" class="info-value" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="RowImporte" columns="35%;65%" rows="24px" width="100%" class="info-row">
+												<row>
+													<cell>
+														<label name="LblImporteFecha" caption="Importe" class="info-label" />
+													</cell>
+													<cell horizontalAlignment="Right">
+														<input attribute="&amp;ImportePagadoTexto" readonly="True" class="info-value" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="RowFecha" columns="35%;65%" rows="24px" width="100%">
+												<row>
+													<cell>
+														<label name="LblFechaPago" caption="Fecha de pago" class="info-label" />
+													</cell>
+													<cell horizontalAlignment="Right">
+														<input attribute="&amp;FechaPagoTexto" readonly="True" class="info-value" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+								</smart>
+							</cell>
+						</row>
+						<row>
+							<cell />
+						</row>
+						<row>
+							<cell>
+								<action name="BtnComprobante" onClickEvent="'DescargarComprobante'" caption="Ver comprobante" class="btn-primary" />
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<action name="BtnInicio" onClickEvent="'IrInicio'" caption="Volver al portal" class="btn-secondary" />
+							</cell>
+						</row>
+					</smart>
+				</cell>
+			</row>
+			<row>
+				<cell horizontalAlignment="Center">
+					<label name="LblFooterPortal" caption="clubatenas.uy · Socios" class="page-footer" />
+				</cell>
+			</row>
+		</responsive>
+		<actiongroups />
+	</view>
+</layout>

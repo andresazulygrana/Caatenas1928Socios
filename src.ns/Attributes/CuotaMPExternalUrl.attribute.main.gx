@@ -1,0 +1,35 @@
+Attribute CuotaMPExternalUrl
+{
+	#Properties
+		Name = "CuotaMPExternalUrl"
+
+		Description = "URL del codigo de barras para Abitab o Redpagos"
+
+		NullsInForms = "Empty as Null"
+
+		DataType = "VarChar(512)"
+
+		Length = "512"
+
+		Decimals = "0"
+
+		MaximumLength = "512"
+
+		AverageLength = "0"
+
+		Collection = "False"
+
+		Autonumber = "False"
+
+		AutonumberStart = "1"
+
+		AutonumberStep = "1"
+
+		AutonumberForReplication = "True"
+
+		DateFormat = "Year with two digits  (99/99/99)"
+
+		ControlType = "Edit"
+	#End
+
+}

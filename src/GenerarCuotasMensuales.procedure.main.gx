@@ -1,0 +1,154 @@
+Procedure GenerarCuotasMensuales
+{
+		// Calcular datos base del periodo actual
+		&Hoy = Today()
+		&Anio = Year(&Hoy)
+		&Mes = Month(&Hoy)
+		If &Mes < 10
+			&PeriodoActual = Trim(Str(&Anio)) + !"-0" + Trim(Str(&Mes))
+		Else
+			&PeriodoActual = Trim(Str(&Anio)) + !"-" + Trim(Str(&Mes))
+		EndIf
+	
+		// Marcar cuotas pendientes vencidas
+		For Each Cuota
+			Where CuotaEstado = !"P"
+			Where CuotaFechaVencimiento < &Hoy
+			&CuotaBC = new()
+			&CuotaBC.Load(CuotaId)
+			&CuotaBC.CuotaEstado = !"V"
+			&CuotaBC.Save()
+		EndFor
+		Commit
+	
+		// Para cada socio activo, crear la cuota que corresponda segun su tipo
+		For Each Socio
+			Where SocioEstado = !"A"
+	
+			&SocioIdActual = SocioId
+			&TipoCuotaIdActual = TipoCuotaId
+			&FechaAltaSocio = SocioFechaAlta
+			&TipoCuotaDescripcionActual = !""
+			&Importe = 0
+			For Each TipoCuota
+				Where TipoCuotaId = &TipoCuotaIdActual
+				&TipoCuotaDescripcionActual = TipoCuotaDescripcion
+				&Importe = TipoCuotaImporte
+				Exit
+			EndFor
+	
+			If &TipoCuotaDescripcionActual.Contains(!"Anual")
+				&FechaAltaBase = &FechaAltaSocio
+				&AnioPeriodo = &Anio
+				&FechaAniversarioActual = YMDtoD(&Anio, Month(&FechaAltaBase), Day(&FechaAltaBase))
+				If &Hoy < &FechaAniversarioActual
+					&AnioPeriodo = &Anio - 1
+				EndIf
+				&PeriodoTrabajo = Trim(Str(&AnioPeriodo)) + !"-AN"
+				&FechaVencimiento = AddMth(YMDtoD(&AnioPeriodo, Month(&FechaAltaBase), Day(&FechaAltaBase)), 12)
+	
+				&YaTieneCuota = false
+				For Each Cuota
+					Where SocioId = &SocioIdActual
+					Where TipoCuotaId = &TipoCuotaIdActual
+					Where CuotaEstado = !"P" Or CuotaEstado = !"V"
+					&YaTieneCuota = true
+					Exit
+				EndFor
+			Else
+				&PeriodoTrabajo = &PeriodoActual
+				If &TipoCuotaDescripcionActual.Contains(!"Basquet") Or &TipoCuotaDescripcionActual.Contains(!"Beca 50%")
+					&FechaVencimiento = YMDtoD(&Anio, &Mes, 10)
+				Else
+					If &Mes = 12
+						&FechaVencimiento = YMDtoD(&Anio + 1, 1, 1) - 1
+					Else
+						&FechaVencimiento = YMDtoD(&Anio, &Mes + 1, 1) - 1
+					EndIf
+				EndIf
+	
+				&YaTieneCuota = false
+				For Each Cuota
+					Where SocioId = &SocioIdActual
+					Where CuotaPeriodo = &PeriodoTrabajo
+					&YaTieneCuota = true
+				EndFor
+			EndIf
+	
+			If NOT &YaTieneCuota
+				&CuotaBC = new()
+				&CuotaBC.SocioId = &SocioIdActual
+				&CuotaBC.CuotaPeriodo = &PeriodoTrabajo
+				&CuotaBC.CuotaImporte = &Importe
+				&CuotaBC.CuotaEstado = !"P"
+				&CuotaBC.CuotaFechaVencimiento = &FechaVencimiento
+				&CuotaBC.Save()
+			EndIf
+		EndFor
+		Commit
+	
+		// Marcar morosos: socios con cuotas pendientes vencidas hace mas de 60 dias
+		&LimiteMoroso = &Hoy - 60
+		For Each Cuota
+			Where CuotaEstado = !"P"
+			Where CuotaFechaVencimiento < &LimiteMoroso
+	
+			// Capturar SocioId del contexto de Cuota antes de navegar a Socio
+			&SocioIdActual = SocioId
+	
+			&SocioBC = new()
+			&SocioBC.Load(&SocioIdActual)
+			If &SocioBC.SocioEstado = !"A"
+				&SocioBC.SocioEstado = !"M"
+				&SocioBC.Save()
+			EndIf
+		EndFor
+		Commit
+
+	#Variables
+			Hoy [ Description = 'Fecha actual del sistema', DataType = 'Date' ]
+
+			Anio [ Description = 'Anio del periodo actual', DataType = 'Numeric(4.0)' ]
+
+			Mes [ Description = 'Mes del periodo actual', DataType = 'Numeric(2.0)' ]
+
+			PeriodoActual [ Description = 'Periodo AAAA-MM del mes en curso', DataType = 'Attribute:CuotaPeriodo' ]
+
+			FechaVencimiento [ Description = 'Ultimo dia del mes para las cuotas a generar', DataType = 'Date' ]
+
+			LimiteMoroso [ Description = 'Cuotas vencidas antes de esta fecha generan morosidad', DataType = 'Date' ]
+
+			SocioIdActual [ Description = 'SocioId capturado antes de navegacion anidada', DataType = 'Attribute:SocioId' ]
+
+			TipoCuotaIdActual [ Description = 'TipoCuotaId capturado del contexto Socio', DataType = 'Attribute:TipoCuotaId' ]
+
+			YaTieneCuota [ Description = 'Indica si el socio ya tiene cuota en el periodo actual', DataType = 'Boolean' ]
+
+			Importe [ Description = 'Importe del tipo de cuota del socio', DataType = 'Attribute:TipoCuotaImporte' ]
+
+			CuotaBC [ Description = 'Instancia BC de Cuota para crear nueva cuota mensual', DataType = 'Cuota' ]
+
+			SocioBC [ Description = 'Instancia BC de Socio para marcar como moroso', DataType = 'Socio' ]
+
+			PeriodoTrabajo [ Description = 'Periodo a generar segun el tipo de cuota del socio', DataType = 'Attribute:CuotaPeriodo' ]
+
+			TipoCuotaDescripcionActual [ Description = 'Descripcion del tipo de cuota del socio', DataType = 'Attribute:TipoCuotaDescripcion' ]
+
+			FechaAltaSocio [ Description = 'Fecha de alta del socio para calcular anualidades', DataType = 'DateTime' ]
+
+			FechaAltaBase [ Description = 'Fecha de alta sin hora', DataType = 'Date' ]
+
+			FechaAniversarioActual [ Description = 'Aniversario del socio en el anio actual', DataType = 'Date' ]
+
+			AnioPeriodo [ Description = 'Anio a usar para la anualidad vigente', DataType = 'Numeric(4.0)' ]
+	#End
+
+	#Properties
+		Name = "GenerarCuotasMensuales"
+
+		MainProgram = "True"
+
+		CallProtocol = "Command Line"
+	#End
+
+}

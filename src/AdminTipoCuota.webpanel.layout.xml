@@ -1,0 +1,211 @@
+<layout type="Web">
+	<view>
+		<smart name="MainLayout" columns="100%" rows="100%" width="100%" height="100%" class="backoffice-page">
+			<row>
+				<cell horizontalAlignment="Center" verticalAlignment="Top">
+					<smart name="Shell" columns="270px;100%" rows="100%" width="100%" height="100%" class="backoffice-shell">
+						<row>
+							<cell class="backoffice-sidebar" verticalAlignment="Top">
+								<smart name="SidebarLayout" columns="100%" rows="74px;98px;392px;58px" width="100%">
+									<row>
+										<cell verticalAlignment="Top">
+											<smart name="Brand" columns="56px;100%" rows="56px" width="100%">
+												<row>
+													<cell horizontalAlignment="Center" verticalAlignment="Middle">
+														<label name="LblCrest" caption="A" class="backoffice-crest" />
+													</cell>
+													<cell horizontalAlignment="Left" verticalAlignment="Middle">
+														<smart name="BrandText" columns="100%" rows="30px;18px" width="100%">
+															<row>
+																<cell horizontalAlignment="Left" verticalAlignment="Bottom">
+																	<label name="LblBrandTitle" caption="Club Atenas" class="backoffice-brand-title" />
+																</cell>
+															</row>
+															<row>
+																<cell horizontalAlignment="Left" verticalAlignment="Top">
+																	<label name="LblBrandMeta" caption="Backoffice de socios" class="backoffice-brand-meta" />
+																</cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell verticalAlignment="Middle">
+											<smart name="SidebarCard" columns="100%" rows="18px;52px" width="100%" class="backoffice-sidebar-card">
+												<row>
+													<cell horizontalAlignment="Left" verticalAlignment="Bottom">
+														<label name="LblSidebarTitle" caption="Catalogo base" class="backoffice-sidebar-section" />
+													</cell>
+												</row>
+												<row>
+													<cell horizontalAlignment="Left" verticalAlignment="Middle">
+														<label name="LblSidebarText" caption="Planes, importes y acceso al resto del backoffice desde la misma envolvente lateral." class="backoffice-sidebar-text" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell verticalAlignment="Top">
+											<smart name="SidebarNav" columns="100%" rows="44px;44px;44px;44px;44px;44px;44px;44px" width="100%">
+												<row>
+													<cell>
+														<action name="BtnNavDashboard" onClickEvent="'Dashboard'" caption="Dashboard" class="btn-sidebar" />
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<action name="BtnNavSocios" onClickEvent="'Socios'" caption="Socios" class="btn-sidebar" />
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<action name="BtnNavImportar" onClickEvent="'ImportarSocios'" caption="Importar socios" class="btn-sidebar" />
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<action name="BtnNavTipos" onClickEvent="'TiposCuota'" caption="Tipos de cuota" class="btn-sidebar-active" />
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<action name="BtnNavCuotas" onClickEvent="'Cuotas'" caption="Cuotas" class="btn-sidebar" />
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<action name="BtnNavConfig" onClickEvent="'ConfiguracionPago'" caption="Configuracion pago" class="btn-sidebar" />
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<action name="BtnNavPruebas" onClickEvent="'PruebasPago'" caption="Prueba de pago" class="btn-sidebar" />
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<action name="BtnNavSandbox" onClickEvent="'Sandbox'" caption="Procesar sandbox" class="btn-sidebar" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell verticalAlignment="Bottom">
+											<label name="LblSidebarFooter" caption="Usuario: Secretaria Atenas | Admin / Operacion diaria" class="backoffice-sidebar-footer" />
+										</cell>
+									</row>
+								</smart>
+							</cell>
+							<cell class="backoffice-main" verticalAlignment="Top">
+								<smart name="TiposBody" columns="100%" rows="128px;560px;1px" width="100%" class="backoffice-main-body">
+									<row>
+										<cell horizontalAlignment="Center" verticalAlignment="Middle">
+											<smart name="TopbarTipos" columns="62%;38%" rows="44px;26px" width="100%" class="surface-elevated">
+												<row>
+													<cell horizontalAlignment="Left" verticalAlignment="Middle">
+														<label name="LblTitulo" caption="Tipos de cuota" class="admin-topbar-title" />
+													</cell>
+													<cell horizontalAlignment="Right" verticalAlignment="Middle">
+														<smart name="TopbarActions" columns="100%" rows="44px" width="100%">
+															<row>
+																<cell horizontalAlignment="Right" verticalAlignment="Middle">
+																	<action name="BtnNuevoTop" onClickEvent="'Nuevo'" caption="Nuevo tipo de cuota" class="btn-topbar" />
+																</cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+												<row>
+													<cell horizontalAlignment="Left" verticalAlignment="Top">
+														<label name="LblSubtituloTipos" caption="Catalogo base de planes e importes que alimenta altas, cuotas nuevas e importaciones." class="admin-topbar-text" />
+													</cell>
+													<cell />
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell horizontalAlignment="Center" verticalAlignment="Top">
+											<smart name="ListadoCard" columns="100%" rows="28px;500px" width="100%" class="surface-elevated">
+												<row>
+													<cell horizontalAlignment="Left" verticalAlignment="Bottom">
+														<label name="LblListado" caption="Planes configurados" class="text-subtitle" />
+													</cell>
+												</row>
+												<row>
+													<cell verticalAlignment="Top">
+														<smart name="GridContainer" columns="100%" rows="40px;460px" width="100%" class="grid-wrap">
+															<row>
+																<cell verticalAlignment="Middle">
+																	<smart name="CabeceraGrid" columns="14%;44%;18%;10%;14%" rows="40px" width="100%" class="grid-head">
+																		<row>
+																			<cell verticalAlignment="Middle">
+																				<label name="LblColId" caption="ID" class="grid-col-head" />
+																			</cell>
+																			<cell verticalAlignment="Middle">
+																				<label name="LblColDescripcion" caption="Descripcion" class="grid-col-head" />
+																			</cell>
+																			<cell verticalAlignment="Middle">
+																				<label name="LblColImporte" caption="Importe" class="grid-col-head" />
+																			</cell>
+																			<cell verticalAlignment="Middle">
+																				<label name="LblColActivo" caption="Activo" class="grid-col-head" />
+																			</cell>
+																			<cell horizontalAlignment="Center" verticalAlignment="Middle">
+																				<label name="LblColAccion" caption="Accion" class="grid-col-head" />
+																			</cell>
+																		</row>
+																	</smart>
+																</cell>
+															</row>
+															<row>
+																<cell verticalAlignment="Top">
+																	<grid name="GridTiposCuota" ControlType="SDSmartGrid" class="grid-body">
+																		<table name="GridTiposCuotaItem" columns="14%;44%;18%;10%;14%" rows="52px" width="100%">
+																			<row>
+																				<cell verticalAlignment="Middle">
+																					<input attribute="TipoCuotaId" readonly="True" class="grid-col-meta" />
+																				</cell>
+																				<cell verticalAlignment="Middle">
+																					<input attribute="TipoCuotaDescripcion" readonly="True" class="grid-col-text" />
+																				</cell>
+																				<cell verticalAlignment="Middle">
+																					<input attribute="TipoCuotaImporte" readonly="True" class="grid-col-text" />
+																				</cell>
+																				<cell verticalAlignment="Middle">
+																					<input attribute="&amp;TipoCuotaActivoTexto" readonly="True" class="grid-col-meta" />
+																				</cell>
+																				<cell horizontalAlignment="Center" verticalAlignment="Middle">
+																					<action name="BtnEditar" onClickEvent="'Editar'" caption="Editar" class="btn-sm-primary" />
+																				</cell>
+																			</row>
+																		</table>
+																	</grid>
+																</cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell class="page-footer" horizontalAlignment="Center" verticalAlignment="Middle">
+											<label name="LblPieTipos" caption="" class="helper-text" />
+										</cell>
+									</row>
+								</smart>
+							</cell>
+						</row>
+					</smart>
+				</cell>
+			</row>
+		</smart>
+		<actiongroups />
+	</view>
+</layout>

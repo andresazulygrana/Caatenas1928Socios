@@ -1,0 +1,19 @@
+SDT MercadoPagoPreferenceResponse
+{
+		MercadoPagoPreferenceResponse [ Description = 'Respuesta de create preference de Mercado Pago' ]	{
+
+			Id [ DataType = 'VarChar(128)' ]
+
+			InitPoint [ DataType = 'VarChar(1024)', ExternalName = 'init_point' ]
+
+			SandboxInitPoint [ DataType = 'VarChar(1024)', ExternalName = 'sandbox_init_point' ]
+
+		}
+
+	#Properties
+		Name = "MercadoPagoPreferenceResponse"
+
+		Description = "Mercado Pago Preference Response"
+	#End
+
+}

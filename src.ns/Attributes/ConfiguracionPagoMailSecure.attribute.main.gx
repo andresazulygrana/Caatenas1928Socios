@@ -1,0 +1,11 @@
+Attribute ConfiguracionPagoMailSecure
+{
+	#Properties
+		Name = "ConfiguracionPagoMailSecure"
+
+		Description = "Indica si el SMTP usa TLS/SSL"
+
+		DataType = "Boolean"
+	#End
+
+}

@@ -1,0 +1,17 @@
+WebPanel WebPanelPrueba
+{
+	#Events
+		Event 'EnterPrueba'
+		
+		Endevent
+	#End
+
+	#Properties
+		Name = "WebPanelPrueba"
+
+		Description = "WebPanelPrueba"
+
+		MainProgram = "True"
+	#End
+
+}

@@ -1,0 +1,11 @@
+Attribute ConfiguracionPagoNombre
+{
+	#Properties
+		Name = "ConfiguracionPagoNombre"
+
+		Description = "Nombre del entorno de pago. Ej: Sandbox Produccion"
+
+		DataType = "VarChar(40)"
+	#End
+
+}

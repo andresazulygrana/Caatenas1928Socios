@@ -1,0 +1,126 @@
+Procedure GenerarCuotaManual
+{
+	// Calcular periodo actual en formato AAAA-MM
+	&Hoy = Today()
+	&Anio = Year(&Hoy)
+	&Mes = Month(&Hoy)
+
+	// Obtener datos del socio y su tipo de cuota
+	&SocioIdFiltro = &SocioId
+	&TipoCuotaIdActual = 0
+	&TipoCuotaDescripcionActual = !""
+	&FechaAltaSocio = &Hoy
+	For Each Socio
+		Where SocioId = &SocioIdFiltro
+		&TipoCuotaIdActual = TipoCuotaId
+		&FechaAltaSocio = SocioFechaAlta
+		Exit
+	EndFor
+
+	If &TipoCuotaIdActual = 0
+		&Mensaje = !"Socio no encontrado"
+	Else
+		For Each TipoCuota
+			Where TipoCuotaId = &TipoCuotaIdActual
+			&Importe = TipoCuotaImporte
+			&TipoCuotaDescripcionActual = TipoCuotaDescripcion
+			Exit
+		EndFor
+
+		If &TipoCuotaDescripcionActual.Contains(!"Anual")
+			&FechaAltaBase = &FechaAltaSocio
+			&AnioPeriodo = &Anio
+			&FechaAniversarioActual = YMDtoD(&Anio, Month(&FechaAltaBase), Day(&FechaAltaBase))
+			If &Hoy < &FechaAniversarioActual
+				&AnioPeriodo = &Anio - 1
+			EndIf
+			&PeriodoActual = Trim(Str(&AnioPeriodo)) + !"-AN"
+			&FechaVencimiento = AddMth(YMDtoD(&AnioPeriodo, Month(&FechaAltaBase), Day(&FechaAltaBase)), 12)
+
+			&YaTieneCuota = false
+			For Each Cuota
+				Where SocioId = &SocioIdFiltro
+				Where TipoCuotaId = &TipoCuotaIdActual
+				Where CuotaEstado = !"P" Or CuotaEstado = !"V"
+				&YaTieneCuota = true
+				Exit
+			EndFor
+		Else
+			If &Mes < 10
+				&PeriodoActual = Trim(Str(&Anio)) + !"-0" + Trim(Str(&Mes))
+			Else
+				&PeriodoActual = Trim(Str(&Anio)) + !"-" + Trim(Str(&Mes))
+			EndIf
+
+			If &TipoCuotaDescripcionActual.Contains(!"Basquet") Or &TipoCuotaDescripcionActual.Contains(!"Beca 50%")
+				&FechaVencimiento = YMDtoD(&Anio, &Mes, 10)
+			Else
+				If &Mes = 12
+					&FechaVencimiento = YMDtoD(&Anio + 1, 1, 1) - 1
+				Else
+					&FechaVencimiento = YMDtoD(&Anio, &Mes + 1, 1) - 1
+				EndIf
+			EndIf
+
+			&YaTieneCuota = false
+			For Each Cuota
+				Where SocioId = &SocioIdFiltro
+				Where CuotaPeriodo = &PeriodoActual
+				&YaTieneCuota = true
+				Exit
+			EndFor
+		EndIf
+
+		If &YaTieneCuota
+			&Mensaje = !"Ya existe cuota para este periodo"
+		Else
+			&CuotaBC = new()
+			&CuotaBC.SocioId = &SocioIdFiltro
+			&CuotaBC.CuotaPeriodo = &PeriodoActual
+			&CuotaBC.CuotaImporte = &Importe
+			&CuotaBC.CuotaEstado = !"P"
+			&CuotaBC.CuotaFechaVencimiento = &FechaVencimiento
+			&CuotaBC.Save()
+			If &CuotaBC.Success()
+				Commit
+				&Mensaje = !"Cuota generada correctamente"
+			Else
+				&Mensaje = Format(!"Error al generar cuota: %1", &CuotaBC.GetMessages().ToJson())
+			EndIf
+		EndIf
+	EndIf
+
+	#Rules
+		parm(in: &SocioId, out: &Mensaje);
+	#End
+
+	#Conditions
+	#End
+
+	#Variables
+		SocioId [ DataType = 'Attribute:SocioId', Description = 'Identificador del socio para quien generar la cuota' ]
+		Mensaje [ DataType = 'VarChar(256)', Description = 'Resultado de la operacion: exito o descripcion del error' ]
+		Hoy [ DataType = 'Date', Description = 'Fecha actual del sistema' ]
+		Anio [ DataType = 'Numeric(4.0)', Description = 'Anio del periodo actual' ]
+		Mes [ DataType = 'Numeric(2.0)', Description = 'Mes del periodo actual' ]
+		PeriodoActual [ DataType = 'Attribute:CuotaPeriodo', Description = 'Periodo AAAA-MM del mes en curso' ]
+		SocioIdFiltro [ DataType = 'Attribute:SocioId', Description = 'Copia de SocioId para usar en filtros de ForEach' ]
+		YaTieneCuota [ DataType = 'Boolean', Description = 'Indica si ya existe cuota para el socio en el periodo actual' ]
+		TipoCuotaIdActual [ DataType = 'Attribute:TipoCuotaId', Description = 'TipoCuotaId obtenido del socio' ]
+		TipoCuotaDescripcionActual [ DataType = 'Attribute:TipoCuotaDescripcion', Description = 'Descripcion del tipo de cuota del socio' ]
+		Importe [ DataType = 'Attribute:TipoCuotaImporte', Description = 'Importe del tipo de cuota del socio' ]
+		FechaVencimiento [ DataType = 'Date', Description = 'Ultimo dia del mes para la cuota a generar' ]
+		FechaAltaSocio [ DataType = 'DateTime', Description = 'Fecha de alta del socio para calcular anualidades' ]
+		FechaAltaBase [ DataType = 'Date', Description = 'Fecha base del alta del socio sin hora' ]
+		FechaAniversarioActual [ DataType = 'Date', Description = 'Fecha de aniversario del socio en el anio actual' ]
+		AnioPeriodo [ DataType = 'Numeric(4.0)', Description = 'Anio de la anualidad a generar' ]
+		CuotaBC [ DataType = 'Cuota', Description = 'Instancia BC de Cuota para insercion de la cuota manual' ]
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+	#End
+
+	#Properties
+		MainProgram = false
+		CallProtocol = "Internal"
+	#End
+}

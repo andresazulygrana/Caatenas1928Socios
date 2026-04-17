@@ -1,0 +1,40 @@
+Transaction Cuota
+{
+		CuotaId* [ Description = 'Identificador de la cuota', DataType = 'Numeric(10.0)', Autonumber = 'True' ]
+
+		SocioId [ Description = 'Identificador del socio', DataType = 'Numeric(8.0)', Autonumber = 'True' ]
+
+		SocioNombre [ Description = 'Nombre del socio', DataType = 'VarChar(64)' ]
+
+		TipoCuotaId [ Description = 'FK a TipoCuota, copiado al momento de crear la cuota', DataType = 'Numeric(4.0)', Autonumber = 'True' ]
+
+		TipoCuotaDescripcion [ Description = 'Descripcion del tipo de cuota. Ej: Mensual Anual', DataType = 'VarChar(64)' ]
+
+		CuotaPeriodo! [ Description = 'Periodo en formato AAAA-MM. Ej: 2025-03', DataType = 'Character(7)' ]
+
+		CuotaImporte [ Description = 'Importe de la cuota en pesos uruguayos', DataType = 'Numeric(10.2)' ]
+
+		CuotaEstado [ Description = 'Estado: P=Pendiente G=Pagada V=Vencida', DataType = 'Character(1)' ]
+
+		CuotaFechaVencimiento [ Description = 'Fecha de vencimiento de la cuota', DataType = 'Date' ]
+
+		CuotaFechaPago [ Description = 'Fecha y hora del pago efectivo. Vacio hasta confirmar pago', DataType = 'DateTime' ]
+
+		CuotaMPPaymentId [ Description = 'ID de pago devuelto por Mercado Pago', DataType = 'VarChar(128)' ]
+
+		CuotaMPExternalUrl [ Description = 'URL del codigo de barras para Abitab o Redpagos', NullsInForms = 'Empty as Null', DataType = 'VarChar(512)', AverageLength = '0', ControlType = 'Edit' ]
+
+		CuotaMPEstado [ Description = 'Estado crudo devuelto por el webhook de Mercado Pago', DataType = 'VarChar(32)' ]
+
+	#Rules
+		noaccept(CuotaId);
+		Default(CuotaEstado, 'P');
+	#End
+
+	#Properties
+		Name = "Cuota"
+
+		BusinessComponent = "True"
+	#End
+
+}

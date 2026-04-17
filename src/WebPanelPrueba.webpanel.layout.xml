@@ -1,0 +1,12 @@
+<layout type="Web">
+	<view>
+		<responsive name="MainTable">
+			<row>
+				<cell>
+					<action name="Button1" onClickEvent="'EnterPrueba'" caption="EnterPrueba" />
+				</cell>
+			</row>
+		</responsive>
+		<actiongroups />
+	</view>
+</layout>

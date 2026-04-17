@@ -1,0 +1,13 @@
+Domain QueryViewerShowAsPercentage
+{
+	#Properties
+		Name = "QueryViewerShowAsPercentage"
+
+		DataType = "Character(20)"
+
+		EnumValues = "No, No, No; Yes, Yes, Yes"
+
+		InitialValue = "QueryViewerShowAsPercentage.No"
+	#End
+
+}

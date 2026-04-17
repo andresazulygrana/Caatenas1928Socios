@@ -1,0 +1,9 @@
+SDPanel DatosNuevoSocioPanel
+{
+	<Properties><Property><Name>IsDefault</Name><Value>False</Value></Property></Properties>
+
+	#Properties
+		Name = "DatosNuevoSocioPanel"
+	#End
+
+}

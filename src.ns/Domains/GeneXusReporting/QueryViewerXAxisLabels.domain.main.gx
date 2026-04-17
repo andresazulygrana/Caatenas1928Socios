@@ -1,0 +1,11 @@
+Domain QueryViewerXAxisLabels
+{
+	#Properties
+		Name = "QueryViewerXAxisLabels"
+
+		DataType = "Character(20)"
+
+		EnumValues = "Horizontally, Horizontally, Horizontally; Rotated30, Rotated 30º, Rotated30; Rotated45, Rotated 45º, Rotated45; Rotated60, Rotated 60º, Rotated60; Vertically, Vertically, Vertically"
+	#End
+
+}

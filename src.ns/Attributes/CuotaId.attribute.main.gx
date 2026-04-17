@@ -1,0 +1,17 @@
+Attribute CuotaId
+{
+	#Properties
+		Name = "CuotaId"
+
+		Description = "Identificador de la cuota"
+
+		DataType = "Numeric(10.0)"
+
+		Length = "10"
+
+		MaximumLength = "10"
+
+		Autonumber = "True"
+	#End
+
+}

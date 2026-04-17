@@ -1,0 +1,15 @@
+Domain QueryViewerOutputType
+{
+	#Properties
+		Name = "QueryViewerOutputType"
+
+		DataType = "Character(30)"
+
+		Length = "30"
+
+		MaximumLength = "30"
+
+		EnumValues = "Default, Default, Default; Card, Card, Card; Chart, Chart, Chart; Map, Map, Map; PivotTable, PivotTable, PivotTable; Table, Table, Table"
+	#End
+
+}

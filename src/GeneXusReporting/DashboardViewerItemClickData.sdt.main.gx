@@ -1,0 +1,39 @@
+SDT DashboardViewerItemClickData
+{
+		DashboardViewerItemClickData	{
+
+			Object [ DataType = 'Character(20)', Collection = 'False', ControlType = 'Edit' ]
+
+			Element [ DataType = 'Character(20)' ]
+
+			Value [ DataType = 'Character(20)' ]
+
+			Context [ Collection = 'True', CollectionItemName = 'Element' ]		{
+
+				Name [ DataType = 'Character(20)' ]
+
+				Values [ DataType = 'Character(20)', Collection = 'True', CollectionItemName = 'Value' ]
+
+			}
+
+	
+
+			AllFilters [ Collection = 'True', CollectionItemName = 'Filter' ]		{
+
+				Name [ DataType = 'Character(20)' ]
+
+				Values [ DataType = 'Character(20)', Collection = 'True', CollectionItemName = 'Value' ]
+
+			}
+
+	
+
+		}
+
+	#Properties
+		Name = "DashboardViewerItemClickData"
+
+		ExposedNamespace = "GeneXus.Reporting"
+	#End
+
+}

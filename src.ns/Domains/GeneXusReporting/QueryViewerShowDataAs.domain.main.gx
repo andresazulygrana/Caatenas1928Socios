@@ -1,0 +1,11 @@
+Domain QueryViewerShowDataAs
+{
+	#Properties
+		Name = "QueryViewerShowDataAs"
+
+		DataType = "Character(20)"
+
+		EnumValues = "Values, Values, Values; Percentages, Percentages, Percentages; ValuesAndPercentages, Values and percentages, ValuesAndPercentages"
+	#End
+
+}

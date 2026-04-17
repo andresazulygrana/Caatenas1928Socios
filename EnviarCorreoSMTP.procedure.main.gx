@@ -1,0 +1,114 @@
+Procedure EnviarCorreoSMTP
+{
+	&Enviado = false
+	&MensajeResultado = !""
+
+	If &DestinoEmail.IsEmpty()
+		&MensajeResultado = !"El destinatario no tiene correo configurado"
+		Return
+	EndIf
+
+	For Each ConfiguracionPago
+		Where ConfiguracionPagoId = 1
+		Where ConfiguracionPagoActivo = true
+		&MailActivo = ConfiguracionPagoMailActivo
+		&MailHost = Trim(ConfiguracionPagoMailHost)
+		&MailPort = ConfiguracionPagoMailPort
+		&MailUser = Trim(ConfiguracionPagoMailUser)
+		&MailPassword = Trim(ConfiguracionPagoMailPassword)
+		&MailSender = Trim(ConfiguracionPagoMailSender)
+		&MailSenderName = Trim(ConfiguracionPagoMailSenderName)
+		&MailSecure = ConfiguracionPagoMailSecure
+		Exit
+	EndFor
+
+	If NOT &MailActivo
+		&MensajeResultado = !"El envio automatico de correos no esta activo"
+		Return
+	EndIf
+
+	If &MailHost.IsEmpty() OR &MailPort = 0 OR &MailUser.IsEmpty() OR &MailPassword.IsEmpty() OR &MailSender.IsEmpty()
+		&MensajeResultado = !"La configuracion SMTP esta incompleta"
+		Return
+	EndIf
+
+	&SmtpSession = new()
+	&SmtpSession.Host = &MailHost
+	&SmtpSession.Port = &MailPort
+	&SmtpSession.UserName = &MailUser
+	&SmtpSession.Password = &MailPassword
+	&SmtpSession.Authentication = 1
+	If &MailSecure
+		&SmtpSession.Secure = 1
+	Else
+		&SmtpSession.Secure = 0
+	EndIf
+
+	&Sender = new()
+	&Sender.Address = &MailSender
+	If &MailSenderName.IsEmpty()
+		&Sender.Name = &MailSender
+	Else
+		&Sender.Name = &MailSenderName
+	EndIf
+	&SmtpSession.Sender = &Sender
+
+	&Recipient = new()
+	&Recipient.Address = &DestinoEmail
+	If &DestinoNombre.IsEmpty()
+		&Recipient.Name = &DestinoEmail
+	Else
+		&Recipient.Name = &DestinoNombre
+	EndIf
+
+	&MailMessage = new()
+	&MailMessage.To.Add(&Recipient)
+	&MailMessage.Subject = &Asunto
+	&MailMessage.Text = &TextoPlano
+	&MailMessage.HTMLText = &TextoHtml
+
+	If &SmtpSession.Login() <> 0
+		&MensajeResultado = &SmtpSession.ErrDescription
+		Return
+	EndIf
+
+	If &SmtpSession.Send(&MailMessage) = 0
+		&Enviado = true
+		&MensajeResultado = !"Correo enviado"
+	Else
+		&MensajeResultado = &SmtpSession.ErrDescription
+	EndIf
+
+	&SmtpSession.Logout()
+
+	#Rules
+		parm(in: &DestinoEmail, in: &DestinoNombre, in: &Asunto, in: &TextoHtml, in: &TextoPlano, out: &Enviado, out: &MensajeResultado);
+	#End
+
+	#Conditions
+	#End
+
+	#Variables
+		DestinoEmail [ DataType = 'VarChar(120)', Description = 'Correo del destinatario' ]
+		DestinoNombre [ DataType = 'VarChar(120)', Description = 'Nombre visible del destinatario' ]
+		Asunto [ DataType = 'VarChar(200)', Description = 'Asunto del correo' ]
+		TextoHtml [ DataType = 'LongVarChar(4K)', Description = 'Cuerpo HTML del correo' ]
+		TextoPlano [ DataType = 'LongVarChar(4K)', Description = 'Cuerpo texto plano del correo' ]
+		Enviado [ DataType = 'Boolean', Description = 'Indica si el correo se envio correctamente' ]
+		MensajeResultado [ DataType = 'VarChar(512)', Description = 'Resultado o error del envio' ]
+		MailActivo [ DataType = 'Attribute:ConfiguracionPagoMailActivo', Description = '' ]
+		MailHost [ DataType = 'Attribute:ConfiguracionPagoMailHost', Description = '' ]
+		MailPort [ DataType = 'Attribute:ConfiguracionPagoMailPort', Description = '' ]
+		MailUser [ DataType = 'Attribute:ConfiguracionPagoMailUser', Description = '' ]
+		MailPassword [ DataType = 'Attribute:ConfiguracionPagoMailPassword', Description = '' ]
+		MailSender [ DataType = 'Attribute:ConfiguracionPagoMailSender', Description = '' ]
+		MailSenderName [ DataType = 'Attribute:ConfiguracionPagoMailSenderName', Description = '' ]
+		MailSecure [ DataType = 'Attribute:ConfiguracionPagoMailSecure', Description = '' ]
+		SmtpSession [ DataType = 'SMTPSession', Description = 'Sesion SMTP para envio de correos' ]
+		MailMessage [ DataType = 'MailMessage', Description = 'Mensaje de correo a enviar' ]
+		Sender [ DataType = 'MailRecipient', Description = 'Remitente del correo' ]
+		Recipient [ DataType = 'MailRecipient', Description = 'Destinatario del correo' ]
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+	#End
+}

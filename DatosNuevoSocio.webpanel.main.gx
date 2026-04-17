@@ -1,0 +1,323 @@
+WebPanel DatosNuevoSocio
+{
+	#Events
+		Event Start
+			If &CedulaIngreso.IsEmpty()
+				&CedulaIngreso = &Cedula
+			EndIf
+			&TipoCuotaNombre = !"Aun sin seleccionar"
+			Do 'CargarPlanes'
+			&DebugTexto = !"DatosNuevoSocio.Start" + NewLine() +
+				!"CedulaParm=" + Trim(&Cedula) + NewLine() +
+				!"CedulaIngreso=" + Trim(&CedulaIngreso)
+			Do 'EscribirDebug'
+		EndEvent
+
+		Event 'ElegirAMensual'
+			&TipoCuotaId = &PlanAMensualId
+			&TipoCuotaNombre = &PlanAMensualTexto
+		EndEvent
+
+		Event 'ElegirAAnual'
+			&TipoCuotaId = &PlanAAnualId
+			&TipoCuotaNombre = &PlanAAnualTexto
+		EndEvent
+
+		Event 'ElegirDBasquetMensual'
+			&TipoCuotaId = &PlanDBasquetMensualId
+			&TipoCuotaNombre = &PlanDBasquetMensualTexto
+		EndEvent
+
+		Event 'ElegirDBasquetAnual'
+			&TipoCuotaId = &PlanDBasquetAnualId
+			&TipoCuotaNombre = &PlanDBasquetAnualTexto
+		EndEvent
+
+		Event 'ElegirDBasquetBeca'
+			&TipoCuotaId = &PlanDBasquetBecaId
+			&TipoCuotaNombre = &PlanDBasquetBecaTexto
+		EndEvent
+
+		Event 'Registrar'
+			&DebugTexto = !"DatosNuevoSocio.Registrar.INICIO" + NewLine() +
+				!"CedulaIngresoRaw=" + Trim(&CedulaIngreso) + NewLine() +
+				!"Nombre=" + Trim(&Nombre) + NewLine() +
+				!"Apellido=" + Trim(&Apellido) + NewLine() +
+				!"Email=" + Trim(&Email) + NewLine() +
+				!"Telefono=" + Trim(&Telefono) + NewLine() +
+				!"TipoCuotaIdActual=" + Trim(Str(&TipoCuotaId, 4, 0))
+			Do 'EscribirDebug'
+			If &CedulaIngreso.IsEmpty()
+				&MensajeError = !"La cedula es obligatoria"
+				&DebugTexto = !"DatosNuevoSocio.Registrar.ERROR" + NewLine() +
+					!"Motivo=Cedula obligatoria"
+				Do 'EscribirDebug'
+				Return
+			EndIf
+			&CedulaNormalizada = Trim(&CedulaIngreso)
+			&CedulaNormalizada = &CedulaNormalizada.ReplaceRegEx(!"[.]", !"")
+			&CedulaNormalizada = &CedulaNormalizada.ReplaceRegEx(!"[-]", !"")
+			&CedulaNormalizada = &CedulaNormalizada.ReplaceRegEx(!"[ ]", !"" )
+			&CedulaSoloDigitos = Trim(&CedulaNormalizada.ReplaceRegEx(!"[^0-9]", !""))
+			&NombreNormalizado = Trim(&Nombre)
+			&ApellidoNormalizado = Trim(&Apellido)
+			&EmailNormalizado = Trim(&Email)
+			&TelefonoNormalizado = Trim(&Telefono)
+			If &CedulaSoloDigitos <> Trim(&CedulaNormalizada)
+				&MensajeError = !"La cedula debe tener solo numeros o formato uruguayo valido"
+				&DebugTexto = !"DatosNuevoSocio.Registrar.ERROR" + NewLine() +
+					!"Motivo=Cedula invalida" + NewLine() +
+					!"CedulaNormalizada=" + Trim(&CedulaNormalizada)
+				Do 'EscribirDebug'
+				Return
+			EndIf
+			If &CedulaSoloDigitos.Length() < 7 OR &CedulaSoloDigitos.Length() > 8
+				&MensajeError = !"Ingresa una cedula valida de 7 u 8 digitos"
+				&DebugTexto = !"DatosNuevoSocio.Registrar.ERROR" + NewLine() +
+					!"Motivo=Largo cedula invalido" + NewLine() +
+					!"CedulaNormalizada=" + Trim(&CedulaNormalizada)
+				Do 'EscribirDebug'
+				Return
+			EndIf
+			If &NombreNormalizado.IsEmpty()
+				&MensajeError = !"El nombre es obligatorio"
+				&DebugTexto = !"DatosNuevoSocio.Registrar.ERROR" + NewLine() +
+					!"Motivo=Nombre obligatorio"
+				Do 'EscribirDebug'
+				Return
+			EndIf
+			If &ApellidoNormalizado.IsEmpty()
+				&MensajeError = !"El apellido es obligatorio"
+				&DebugTexto = !"DatosNuevoSocio.Registrar.ERROR" + NewLine() +
+					!"Motivo=Apellido obligatorio"
+				Do 'EscribirDebug'
+				Return
+			EndIf
+			If NOT &EmailNormalizado.IsEmpty()
+				If NOT &EmailNormalizado.Contains(!"@") OR NOT &EmailNormalizado.Contains(!".")
+					&MensajeError = !"Ingresa un correo electronico valido"
+					&DebugTexto = !"DatosNuevoSocio.Registrar.ERROR" + NewLine() +
+						!"Motivo=Email invalido formato" + NewLine() +
+						!"Email=" + Trim(&EmailNormalizado)
+					Do 'EscribirDebug'
+					Return
+				EndIf
+				&PosicionArroba = &EmailNormalizado.IndexOf(!"@")
+				If &PosicionArroba <= 1 OR &PosicionArroba >= &EmailNormalizado.Length()
+					&MensajeError = !"Ingresa un correo electronico valido"
+					&DebugTexto = !"DatosNuevoSocio.Registrar.ERROR" + NewLine() +
+						!"Motivo=Email invalido posicion" + NewLine() +
+						!"Email=" + Trim(&EmailNormalizado)
+					Do 'EscribirDebug'
+					Return
+				EndIf
+			EndIf
+			If NOT &TelefonoNormalizado.IsEmpty()
+				&TelefonoSinSignos = &TelefonoNormalizado.ReplaceRegEx(!"[+]", !"")
+				&TelefonoSinSignos = &TelefonoSinSignos.ReplaceRegEx(!"[ ]", !"")
+				&TelefonoSinSignos = &TelefonoSinSignos.ReplaceRegEx(!"[-]", !"")
+				&TelefonoSoloDigitos = Trim(&TelefonoSinSignos.ReplaceRegEx(!"[^0-9]", !""))
+				If &TelefonoSoloDigitos <> Trim(&TelefonoSinSignos)
+					&MensajeError = !"Ingresa un celular valido. Ejemplo: 099123456"
+					&DebugTexto = !"DatosNuevoSocio.Registrar.ERROR" + NewLine() +
+						!"Motivo=Telefono invalido caracteres" + NewLine() +
+						!"Telefono=" + Trim(&TelefonoNormalizado)
+					Do 'EscribirDebug'
+					Return
+				EndIf
+				If &TelefonoSoloDigitos.Length() < 8 OR &TelefonoSoloDigitos.Length() > 15
+					&MensajeError = !"Ingresa un celular valido con codigo de area si corresponde"
+					&DebugTexto = !"DatosNuevoSocio.Registrar.ERROR" + NewLine() +
+						!"Motivo=Telefono invalido largo" + NewLine() +
+						!"Telefono=" + Trim(&TelefonoSinSignos)
+					Do 'EscribirDebug'
+					Return
+				EndIf
+			EndIf
+			If &TipoCuotaId = 0
+				&MensajeError = !"Selecciona un tipo de cuota"
+				&DebugTexto = !"DatosNuevoSocio.Registrar.ERROR" + NewLine() +
+					!"Motivo=TipoCuotaId cero"
+				Do 'EscribirDebug'
+				Return
+			EndIf
+			&CedulaIngreso = &CedulaSoloDigitos
+			&Nombre = &NombreNormalizado
+			&Apellido = &ApellidoNormalizado
+			&Email = &EmailNormalizado
+			&Telefono = &TelefonoNormalizado
+			&DebugTexto = !"DatosNuevoSocio.Registrar.ANTES_ALTA" + NewLine() +
+				!"CedulaNormalizada=" + Trim(&CedulaIngreso) + NewLine() +
+				!"TipoCuotaId=" + Trim(Str(&TipoCuotaId, 4, 0))
+			Do 'EscribirDebug'
+			&DetalleAlta = !""
+			CrearSocioYPrimeraCuota(&CedulaIngreso, &Nombre, &Apellido, &Email, &Telefono, &TipoCuotaId, &SocioId, &DetalleAlta)
+			&DebugTexto = !"DatosNuevoSocio.Registrar.DESPUES_ALTA" + NewLine() +
+				!"SocioId=" + Trim(Str(&SocioId, 8, 0)) + NewLine() +
+				!"DetalleAlta=" + Trim(&DetalleAlta)
+			Do 'EscribirDebug'
+			If &SocioId > 0
+				&DebugTexto = !"DatosNuevoSocio.Registrar.NAVEGA_PANTALLAPAGO" + NewLine() +
+					!"SocioId=" + Trim(Str(&SocioId, 8, 0))
+				Do 'EscribirDebug'
+				PantallaPago(&SocioId)
+			Else
+				If &DetalleAlta.IsEmpty()
+					&MensajeError = !"No se pudo registrar el socio. Intenta nuevamente."
+					&DebugTexto = !"DatosNuevoSocio.Registrar.ERROR" + NewLine() +
+						!"Motivo=SocioId cero sin detalle"
+					Do 'EscribirDebug'
+				Else
+					&MensajeError = &DetalleAlta
+					&DebugTexto = !"DatosNuevoSocio.Registrar.ERROR" + NewLine() +
+						!"Motivo=SocioId cero con detalle" + NewLine() +
+						!"DetalleAlta=" + Trim(&DetalleAlta)
+					Do 'EscribirDebug'
+				EndIf
+			EndIf
+		EndEvent
+
+		Event 'Volver'
+			&DebugTexto = !"DatosNuevoSocio.Volver"
+			Do 'EscribirDebug'
+			BuscarSocio()
+		EndEvent
+
+		Sub 'CargarPlanes' /* out: variables de planes */
+			&PlanAMensualTexto = !"Socio A - Mensual"
+			&PlanAAnualTexto = !"Socio A - Anual"
+			&PlanDBasquetMensualTexto = !"Socio D Basquet - Mensual"
+			&PlanDBasquetAnualTexto = !"Socio D Basquet - Anual"
+			&PlanDBasquetBecaTexto = !"Socio D Basquet - Beca 50%"
+			&PlanAMensualImporte = !"$ 500"
+			&PlanAAnualImporte = !"$ 5.000"
+			&PlanDBasquetMensualImporte = !"$ 1.300"
+			&PlanDBasquetAnualImporte = !"$ 13.000"
+			&PlanDBasquetBecaImporte = !"$ 650"
+
+			For Each TipoCuota
+				Where TipoCuotaActivo = true
+				Do Case
+					Case TipoCuotaDescripcion = &PlanAMensualTexto
+						&PlanAMensualId = TipoCuotaId
+						&ImporteNumero = TipoCuotaImporte
+						Do 'FormatearImporte'
+						&PlanAMensualImporte = &ImporteTextoPlan
+					Case TipoCuotaDescripcion = &PlanAAnualTexto
+						&PlanAAnualId = TipoCuotaId
+						&ImporteNumero = TipoCuotaImporte
+						Do 'FormatearImporte'
+						&PlanAAnualImporte = &ImporteTextoPlan
+					Case TipoCuotaDescripcion = &PlanDBasquetMensualTexto
+						&PlanDBasquetMensualId = TipoCuotaId
+						&ImporteNumero = TipoCuotaImporte
+						Do 'FormatearImporte'
+						&PlanDBasquetMensualImporte = &ImporteTextoPlan
+					Case TipoCuotaDescripcion = &PlanDBasquetAnualTexto
+						&PlanDBasquetAnualId = TipoCuotaId
+						&ImporteNumero = TipoCuotaImporte
+						Do 'FormatearImporte'
+						&PlanDBasquetAnualImporte = &ImporteTextoPlan
+					Case TipoCuotaDescripcion = &PlanDBasquetBecaTexto
+						&PlanDBasquetBecaId = TipoCuotaId
+						&ImporteNumero = TipoCuotaImporte
+						Do 'FormatearImporte'
+						&PlanDBasquetBecaImporte = &ImporteTextoPlan
+				EndCase
+			EndFor
+		EndSub
+
+		Sub 'FormatearImporte'
+			&ImporteBase = Trim(Str(&ImporteNumero, 12, 0))
+			&ImporteFormateado = !""
+			&PosicionImporte = &ImporteBase.Length()
+
+			Do While &PosicionImporte > 3
+				&ImporteFormateado = !"." + &ImporteBase.Substring(&PosicionImporte - 2, 3) + &ImporteFormateado
+				&PosicionImporte -= 3
+			EndDo
+
+			If &PosicionImporte > 0
+				&ImporteFormateado = &ImporteBase.Substring(1, &PosicionImporte) + &ImporteFormateado
+			EndIf
+
+			&ImporteTextoPlan = !"$ " + &ImporteFormateado
+		EndSub
+
+		Sub 'EscribirDebug'
+			&DebugFilePath = !"C:\Users\andres.cabrera\GeneXus\KBs\Caatenas1928\NetModel\web\client.log"
+			&DebugFile = new()
+			&DebugFile.Source = &DebugFilePath
+			&DebugFile.Create()
+			&DebugFile.OpenWrite()
+			&DebugFile.WriteLine(&DebugTexto)
+			&DebugFile.Close()
+		EndSub
+	#End
+
+	#Rules
+		parm(in: &Cedula);
+	#End
+
+	#Conditions
+	#End
+
+	#Variables
+		Cedula [ DataType = 'Attribute:SocioCedula', Description = '' ]
+		CedulaIngreso [ DataType = 'Attribute:SocioCedula', Description = '' ]
+		Nombre [ DataType = 'Attribute:SocioNombre', Description = '' ]
+		Apellido [ DataType = 'Attribute:SocioApellido', Description = '' ]
+		Email [ DataType = 'Attribute:SocioEmail', Description = '' ]
+		Telefono [ DataType = 'Attribute:SocioTelefono', Description = '' ]
+		TipoCuotaId [ DataType = 'Attribute:TipoCuotaId', Description = 'Tipo de cuota seleccionado por el socio' ]
+		TipoCuotaNombre [ DataType = 'Attribute:TipoCuotaDescripcion', Description = '' ]
+		SocioId [ DataType = 'Attribute:SocioId', Description = 'Identificador del socio creado' ]
+		MensajeError [ DataType = 'VarChar(200)', Description = '' ]
+		CedulaNormalizada [ DataType = 'Attribute:SocioCedula', Description = '' ]
+		CedulaSoloDigitos [ DataType = 'VarChar(16)', Description = '' ]
+		NombreNormalizado [ DataType = 'VarChar(80)', Description = '' ]
+		ApellidoNormalizado [ DataType = 'VarChar(80)', Description = '' ]
+		EmailNormalizado [ DataType = 'Attribute:SocioEmail', Description = '' ]
+		PosicionArroba [ DataType = 'Numeric(4.0)', Description = '' ]
+		TelefonoNormalizado [ DataType = 'Attribute:SocioTelefono', Description = '' ]
+		TelefonoSinSignos [ DataType = 'Attribute:SocioTelefono', Description = '' ]
+		TelefonoSoloDigitos [ DataType = 'VarChar(32)', Description = '' ]
+		PlanAMensualId [ DataType = 'Attribute:TipoCuotaId', Description = '' ]
+		PlanAAnualId [ DataType = 'Attribute:TipoCuotaId', Description = '' ]
+		PlanDBasquetMensualId [ DataType = 'Attribute:TipoCuotaId', Description = '' ]
+		PlanDBasquetAnualId [ DataType = 'Attribute:TipoCuotaId', Description = '' ]
+		PlanDBasquetBecaId [ DataType = 'Attribute:TipoCuotaId', Description = '' ]
+		PlanAMensualTexto [ DataType = 'VarChar(80)', Description = '' ]
+		PlanAAnualTexto [ DataType = 'VarChar(80)', Description = '' ]
+		PlanDBasquetMensualTexto [ DataType = 'VarChar(80)', Description = '' ]
+		PlanDBasquetAnualTexto [ DataType = 'VarChar(80)', Description = '' ]
+		PlanDBasquetBecaTexto [ DataType = 'VarChar(80)', Description = '' ]
+		PlanAMensualImporte [ DataType = 'VarChar(30)', Description = '' ]
+		PlanAAnualImporte [ DataType = 'VarChar(30)', Description = '' ]
+		PlanDBasquetMensualImporte [ DataType = 'VarChar(30)', Description = '' ]
+		PlanDBasquetAnualImporte [ DataType = 'VarChar(30)', Description = '' ]
+		PlanDBasquetBecaImporte [ DataType = 'VarChar(30)', Description = '' ]
+		ImporteNumero [ DataType = 'Numeric(12.0)', Description = '' ]
+		ImporteTextoPlan [ DataType = 'VarChar(30)', Description = '' ]
+		ImporteBase [ DataType = 'VarChar(20)', Description = '' ]
+		ImporteFormateado [ DataType = 'VarChar(24)', Description = '' ]
+		PosicionImporte [ DataType = 'Numeric(4.0)', Description = '' ]
+		DetalleAlta [ DataType = 'LongVarChar', Description = '' ]
+		DebugTexto [ DataType = 'LongVarChar(4K)', Description = '' ]
+		DebugFilePath [ DataType = 'VarChar(512)', Description = '' ]
+		DebugFile [ DataType = 'File', Description = '' ]
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+	#End
+
+	#Properties
+		Name = "DatosNuevoSocio"
+
+		Description = "Formulario publico de registro inicial del socio"
+
+		Type = "Web Panel"
+
+		Style = "AtenasDSO"
+	#End
+
+}

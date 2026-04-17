@@ -1,0 +1,34 @@
+Procedure BuscarOCrearSocio
+{
+	// Normalizar cedula: quitar puntos, guiones y espacios
+	&CedulaNorm = Trim(&Cedula)
+	&CedulaNorm = &CedulaNorm.ReplaceRegEx(!"[.]", !"")
+	&CedulaNorm = &CedulaNorm.ReplaceRegEx(!"[-]", !"")
+	&CedulaNorm = &CedulaNorm.ReplaceRegEx(!"[ ]", !"")
+
+	// Buscar socio por cedula normalizada
+	&SocioId = 0
+	&EsNuevo = true
+	For Each Socio
+		Where SocioCedula = &CedulaNorm
+		&SocioId = SocioId
+		&EsNuevo = false
+		Exit
+	EndFor
+
+	#Rules
+		parm(in: &Cedula, out: &SocioId, out: &EsNuevo);
+	#End
+
+	#Conditions
+	#End
+
+	#Variables
+		Cedula [ DataType = 'Attribute:SocioCedula', Description = 'Cedula de identidad ingresada por el socio' ]
+		CedulaNorm [ DataType = 'Attribute:SocioCedula', Description = 'Cedula normalizada sin puntos ni guiones' ]
+		SocioId [ DataType = 'Attribute:SocioId', Description = 'Identificador del socio encontrado o 0 si no existe' ]
+		EsNuevo [ DataType = 'Boolean', Description = 'True si el socio no existe en la base de datos' ]
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+	#End
+}

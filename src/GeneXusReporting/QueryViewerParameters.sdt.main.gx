@@ -1,0 +1,17 @@
+SDT QueryViewerParameters
+{
+		QueryViewerParameters [ Collection = 'True', CollectionItemName = 'Parameter' ]	{
+
+			Name [ DataType = 'Character(20)' ]
+
+			Value [ DataType = 'Character(20)' ]
+
+		}
+
+	#Properties
+		Name = "QueryViewerParameters"
+
+		ExposedNamespace = "GeneXus.Reporting"
+	#End
+
+}

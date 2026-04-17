@@ -1,0 +1,15 @@
+ExternalObject GlobalEvents
+{
+	#Properties
+		Name = "GlobalEvents"
+
+		Description = "External Object for defining and executing Events within Application"
+
+		ExternalPackageName = "com.genexus.android.api"
+
+		IosExternalName = "GXEOGlobalEvents"
+
+		AndroidExternalName = "GlobalEvents"
+	#End
+
+}

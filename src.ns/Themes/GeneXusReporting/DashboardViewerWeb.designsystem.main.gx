@@ -1,0 +1,1104 @@
+DesignSystem DashboardViewerWeb
+{
+	#DesignTokens
+		tokens DashboardViewer (color-scheme:dark|[light])
+		{
+		     
+		    @color-scheme = light {
+		
+		        #borders
+		        {
+		        gxqv-border: #e0e0e0;
+		        }
+		
+		    }
+		    
+		    @color-scheme = dark {
+		
+		        #borders
+		        {
+		        gxqv-border: #242426;
+		        }
+		
+		    }
+		
+		}
+	#End
+
+	#DesignStyles
+		styles DashboardViewer {
+		
+		    @import GeneXusUnanimo.UnanimoWeb;
+		
+		    .gx-db
+		    { 
+		        font-family: $fonts.primary-regular; 
+		        font-size: $fontSizes.s; 
+		    }
+		
+		    .gx-db .material-icons
+		    {
+		        color: $colors.primary;
+		    }
+		
+		    .gx-db-widget .gx-db-filter-value.checkbox-inline
+		    {
+		        color: $colors.on-background;
+		    }
+		
+		    .gx-db-widget
+		    {
+		        padding: $spacing.inset-s;
+		        width: 100%;
+		    }
+		
+		    .panel-collapse collapse in
+		    {
+		        display: block;    
+		    }
+		
+		    .panel-collapse collapse
+		    {
+		        display: none;
+		    }
+		
+		    .gx-db-title
+		    {
+		        @include heading-01;
+		        color: $colors.surface-negative;
+		    }
+		
+		    .gx-db-title > div
+		    {
+		        @include heading-01;
+		        text-align: start !important;
+		        padding-left: $spacing.inline-l;
+		        padding-bottom: $spacing.stack-xl;
+		    }
+		
+		    .gx-db-widget-frame > div:nth-child(2)
+		    {
+		        border-top: $borders.extra-small solid $colors.gray01;
+		    }
+		
+		    .gx-db-widget-frame-title
+		    {
+		        height: 48px;
+		        border-bottom-width: 0px;
+		        padding-top: $spacing.inset-s !important;
+		        padding-inline-start: $spacing.inset-m !important;
+		    }
+		
+		    .gx-db-widget-frame-title div:first-child
+		    {
+		        line-height:30px;
+		        color: $colors.on-background;
+		        font-family: $fonts.primary-bold;
+		        font-size: $fontSizes.s;
+		        font-weight: bold;
+		        height: 20px;
+		        letter-spacing: 0.38px;
+		    }
+		
+		    .gx-db-widget-frame-collapse-image:after
+		    {
+		        width: 20px;
+		        background-image: gx-image(GeneXusReporting.asc) !important;
+		        background-repeat: no-repeat;
+		        background-position: -6px -1px;
+		        margin-right: $spacing.inline-m;
+		        margin-top: $spacing.inline-m;
+		        color: transparent;
+		    }
+		
+		    .gx-db-widget-frame-collapse-image.collapsed:after
+		    {
+		        background-image: gx-image(GeneXusReporting.desc) !important;
+		        background-position: -1px -1px;
+		        width: 20px;
+		        color: transparent;
+		        cursor: pointer;
+		        margin-inline-end: $spacing.inline-l;
+		        margin-top: $spacing.inline-m;
+		        margin-inline-start: $spacing.inline-xs !important;
+		    }
+		
+		    .panel
+		    {
+		        background-color: $colors.elevation-01;
+		        border-radius: $radius.xl;
+		        box-shadow: $shadows.xxxs;
+		        border: $borders.extra-small solid $borders.gxqv-border;
+		    }
+		
+		    .panel-heading
+		    {
+		        box-shadow: unset;
+		        padding-top: $spacing.stack-m;
+		        border-radius: $radius.xl;
+		    }
+		
+		    .panel-default>.panel-heading
+		    {
+		        background-color: $colors.elevation-01;
+		        box-shadow: unset;
+		    }
+		
+		    .panel-collapse, .panel-body
+		    {
+		        padding: $spacing.inset-m;
+		    }
+		    
+		    .gx-db-widget input[type=checkbox] + i
+		    {
+		        color:  $colors.primary;
+		    }
+		
+		    .gx-db-textblock
+		    {
+		        color: $colors.on-background;
+		    }
+		
+		    /*****************FormControl***************/
+		
+		    .gx-db-filter-value.form-control
+		    {
+		        width:100%;
+		        padding: 6px 12px;
+		        min-height: 34px;
+		        font-size: $fontSizes.s;
+		        border: $borders.extra-small solid $colors.gray01;
+		        border-radius: $radius.l;
+		        box-shadow: inset $shadows.xxxs;
+		        font-family: $fonts.primary-regular;
+		        background-color: $colors.elevation-01;
+		        color: $colors.on-background;
+		    }
+		
+		    .gx-db-filter-value.form-control.gx-db-date-filter, .gx-db-filter-value.form-control.gx-db-datetime-filter
+		    {
+		        background-image: gx-image(GeneXusReporting.arrow_double);
+		        background-position: right;
+		        background-repeat: no-repeat;
+		        background-size: $spacing.line-height-s;
+		        text-align: left;
+		        padding-left: $spacing.inline-l;
+		    }
+		
+		    .gx-db-filter-value.form-control.gx-db-date-filter
+		    {
+		        width: 14ch;
+		        max-width: 100%;
+		    }
+		
+		    .gx-db-filter-value.form-control.gx-db-date-filter.gx-db-range-filter
+		    {
+		        width: 25ch;
+		        max-width: 100%;
+		    }
+		
+		    .gx-db-filter-value.form-control.gx-db-datetime-filter
+		    {
+		        width: 24ch;
+		        max-width: 100%;
+		    }
+		
+		    .gx-db-filter-value.form-control.gx-db-datetime-filter.gx-db-range-filter
+		    {
+		        width: 45ch;
+		        max-width: 100%;
+		    }
+		
+		    .gx-db-filters-table.gx-db-horizontal-filters .gx-db-filter-value.form-control
+		    {
+		        max-width: 25vw;
+		    }
+		
+		    input.gx-db-filter-value.form-control.gx-db-value-filter.gx-db-numeric-filter
+		    {
+		        text-align: right;
+		    }
+		
+		    .gx-db-filter-value.form-control:focus
+		    {
+		        border: $borders.small solid $colors.secondary;
+		        box-shadow: $shadows.xxxs;
+		    }
+		
+		    .gx-db-filter-value.form-control:active
+		    {
+		        border: $borders.small solid $colors.secondary;
+		    }
+		
+		    .gx-db-filter-value.form-control:disabled
+		    {
+		        border: $borders.extra-small solid $colors.gray03;
+		        color: $colors.gray03;
+		        background-color: $colors.gray01;
+		    }
+		    
+		    .gx-db-filter-value.form-control:error
+		    {
+		        border: $borders.extra-small solid $colors.error-dark;
+		    }
+		        
+		    .gx-db-filter-value .form-control > option
+		    {
+		        background: $colors.on-background;
+		        height: 20px;
+		        border-radius: $radius.xl;
+		        box-shadow: inset $shadows.xxs;
+		        font-family: $fonts.primary-regular; 
+		    }
+		
+		    .gx-db-filter-caption
+		    {
+		        @include attribute-label;
+		        color: $colors.on-background;
+		        font-family: $fonts.primary-semibold;
+		        font-size: $fontSizes.s;
+		    }
+		
+		    /****************Select**********************/
+		
+		    .gx-db-widget select
+		    {
+		        appearance: none;
+		        font-size: $fontSizes.s;
+		        background-image: gx-image(GeneXusReporting.arrow_double);
+		        background-position: right;
+		        background-repeat: no-repeat;
+		        background-size: $spacing.line-height-s;
+		        text-align: left;
+		        padding-left: 12px !important;
+		        padding-right: 20px;
+		        height: 32px !important;
+		        text-align: left;
+		        border: $borders.extra-small solid $colors.gray01;
+		        border-radius: $radius.l;
+		        box-shadow: inset $shadows.xxxs;
+		        font-family: $fonts.primary-regular;
+		        background-color: $colors.elevation-01;
+		        color: $colors.on-background;
+		        opacity: 1 !important;
+		    }
+		
+		    .gx-db-widget select > option
+		    {
+		        color: $colors.surface-negative;
+		        font-family: $fonts.primary-regular;
+		        font-size: $fontSizes.s;
+		        height: 15px;
+		        letter-spacing: $spacing.letter-spacing-xs;
+		        line-height: 16px;
+		        background: $colors.elevation-01;
+		        border-radius: $radius.xl;
+		        box-shadow: $shadows.xxs;
+		        padding-top: $spacing.stack-m;
+		        padding-bottom: $spacing.stack-m;
+		    }
+		
+		    .gx-db-filters-table.gx-db-horizontal-filters .gx-db-widget select
+		    {
+		        max-width: 25vw;
+		    }
+		
+		    select.bs-select-hidden, .bootstrap-select > select.bs-select-hidden, select.selectpicker
+		    {
+		        display: block !important;
+		    }
+		
+		    .gx-db-widget .bootstrap-select
+		    {
+		        vertical-align: middle;
+		        position: relative;
+		    }
+		
+		    .gx-db-widget .bootstrap-select ul
+		    {
+		        border-radius: 0px;
+		    }
+		
+		    .gx-db-filters-table.gx-db-horizontal-filters .bootstrap-select
+		    {
+		        max-width: 25vw;
+		    }
+		
+		    /**********************DataPicker************************/
+		
+		    .calendar-table th
+		    {
+		        border: 0px solid !important;
+		        color: $colors.primary !important;
+		    }
+		
+		    .daterangepicker
+		    {
+		        border-radius: $radius.l;
+		        border: $borders.extra-small solid $colors.gray01;
+		        padding: $spacing.inset-xs;
+		        margin-top: $spacing.stack-xs;
+		        display: none;
+		        font-family: $fonts.primary-regular;
+		        font-size: $fontSizes.s;
+		        background-color: $colors.elevation-02;
+		    }
+		
+		    .daterangepicker.dropup
+		    {
+		        margin-top: -5px; 
+		    }
+		
+		    .daterangepicker td.active, .daterangepicker td.active:hover
+		    {
+		        background: $colors.primary-hover-20;
+		        border-radius: 0px;
+		        border: $borders.extra-small solid $colors.primary;
+		        color: $colors.on-alert;
+		    }
+		
+		    .in-range available
+		    {
+		        background: $colors.primary-hover-20;
+		        border-radius: 0px;
+		        border: $borders.extra-small solid $colors.primary;
+		        color: $colors.on-alert;
+		    }
+		
+		    .next available .prev available
+		    {
+		        border: 0px solid;
+		    }
+		    
+		    .daterangepicker .calendar-table
+		    {
+		        border: 0px solid !important;
+		    }
+		
+		    .daterangepicker .calendar-table td
+		    {
+		        border: $borders.extra-small solid $colors.gray01;
+		    }
+		
+		    .daterangepicker .calendar-table table
+		    {
+		        margin: 0;
+		        border-radius: 0px;
+		        border-spacing: 2px;
+		        border-collapse: separate;
+		        background-color: $colors.elevation-02;
+		    }
+		
+		    .daterangepicker td.off, .daterangepicker td.off.in-range, .daterangepicker td.off.start-date, .daterangepicker td.off.end-date
+		    {
+		        color: $colors.secondary-disabled;
+		    }
+		    
+		    .daterangepicker td.start-date.end-date
+		    {
+		        background: $colors.primary-hover-20;
+		        border-radius:  0px;
+		        border: $borders.extra-small solid $colors.primary !important;
+		        color: $colors.on-background;
+		    }
+		
+		    .active.start-date.available
+		    {
+		        background: $colors.primary-hover-20;
+		        border-radius:  0px;
+		        border: $borders.extra-small solid $colors.primary !important;
+		        color: $colors.on-background;
+		    }
+		
+		    .daterangepicker select.monthselect, .daterangepicker select.yearselect
+		    {
+		        text-align: center;
+		        color: $colors.on-background;
+		        font-family: $fonts.primary-bold;
+		        font-size: $fontSizes.s;
+		        font-weight: bold;
+		        background-color: $colors.elevation-02;
+		    }
+		
+		    .daterangepicker > select.monthselect
+		    {
+		        border: 0px solid;
+		        appearance: none;
+		    }
+		
+		    .daterangepicker > select.yearselect
+		    {
+		        border: 0px solid;
+		        appearance: none;
+		        text-align: left;
+		    }
+		
+		    .active start-date active end-date available
+		    {
+		        background: $colors.primary-hover-20;
+		        border-radius: 0px;
+		        border: $borders.extra-small solid $colors.primary;
+		        color: $colors.on-alert;
+		    }
+		
+		    .available
+		    {
+		        border-radius: 0px;
+		        border: $borders.extra-small solid $colors.gray02;
+		    }
+		
+		    .daterangepicker select.hourselect, .daterangepicker select.minuteselect, .daterangepicker select.secondselect, .daterangepicker select.ampmselect
+		    {
+		        font-family: unset;
+		        border-radius: $radius.l;
+		        border: $borders.extra-small solid $colors.gray01;
+		        height: 27px;
+		        width: 48px;
+		        background: $colors.elevation-02;
+		        color: $colors.on-background;
+		    }
+		
+		    .daterangepicker .drp-buttons .btn
+		    {
+		        font-family: unset;
+		        margin: 0px auto;
+		        padding: $spacing.inset-xs;
+		        margin-left: $spacing.inline-l;
+		        outline: 0;
+		        border-radius: $radius.l;
+		        border: $borders.extra-small solid $colors.primary;
+		        height: 27px;
+		        width: 48px;
+		        background: $colors.elevation-02;
+		        color: $colors.primary;
+		    }
+		
+		    .daterangepicker.drp-buttons.btn:hover
+		    {
+		        margin: 0px auto;
+		        padding: $spacing.inset-xs;
+		        margin-left: $spacing.inline-l;
+		        outline: 0;
+		        border-radius: $radius.l;
+		        border: $borders.extra-small solid $colors.primary;
+		        height: 27px;
+		        width: 48px;
+		        background: $colors.primary;
+		        color: $colors.on-primary;
+		    }
+		
+		    .daterangepicker.drp-buttons.btn:active
+		    {
+		        margin: 0px auto;
+		        padding: $spacing.inset-xs;
+		        margin-left: $spacing.inline-l;
+		        outline: 0;
+		        border-radius: $radius.l;
+		        border: $borders.extra-small solid $colors.primary;
+		        height: 27px;
+		        width: 48px;
+		        background: $colors.primary;
+		        color: $colors.on-primary;
+		    }
+		
+		    .daterangepicker .calendar-time
+		    {
+		        margin: $spacing.inset-xs auto;
+		    }
+		
+		    .table-condensed > thead > tr
+		    {
+		        color: $colors.primary;
+		    }
+		
+		    .drp-calendar.left .drp-calendar.single
+		    {
+		        display: block;
+		        background: $colors.on-background;
+		        border-radius: 0px;
+		        box-shadow: $shadows.xs;
+		        height: 195px;
+		        width: 200px;
+		        padding-left: $spacing.inline-xs;
+		        padding-top: $spacing.stack-xs;
+		        padding-bottom: $spacing.stack-xs;
+		        padding-right: $spacing.inline-xs;
+		    }
+		    
+		    .daterangepicker .drp-calendar.left.single
+		    {
+		        padding: 3px;
+		    }
+		
+		    .daterangepicker .drp-calendar.right
+		    {
+		        padding: 3px 3px 3px 7px;
+		    }
+		
+		    .daterangepicker .drp-calendar.left
+		    {
+		        padding: 3px 7px 3px 3px;
+		    }
+		
+		    .daterangepicker td.available:hover, .daterangepicker th.available:hover
+		    {
+		        background: $colors.primary-hover-20;
+		        border-radius:  0px;
+		        border: $borders.extra-small solid $colors.primary !important;
+		        color: $colors.on-background;
+		    }
+		    
+		    .daterangepicker .drp-calendar.left .calendar-table
+		    {
+		        padding-right: 0px;
+		    }
+		
+		    .daterangepicker .calendar-table th, .daterangepicker .calendar-table td
+		    {
+		        min-width: 24px;
+		        width: 28px;
+		        height: 26px;
+		        line-height: 16px;     
+		        font-size: $fontSizes.xs;
+		        border-radius: 0px;
+		        color: $colors.on-background;
+		        background-color: $colors.elevation-02;
+		
+		    }
+		
+		    .off.ends.in-range.available
+		    {
+		        border: $borders.extra-small solid $colors.gray02;
+		    }
+		
+		    .daterangepicker td.in-range
+		    {
+		        background: $colors.primary-hover-20;
+		        border-radius: 0px;
+		        border: $borders.extra-small solid $colors.primary;
+		    }
+		
+		    .daterangepicker select.monthselect
+		    {
+		        border: 0px solid;
+		        appearance: none;
+		    }
+		
+		    .daterangepicker select.yearselect
+		    {
+		        border: 0px solid;
+		        appearance: none;
+		        text-align: left;
+		    }
+		
+		    .table-condensed > thead > tr > td
+		    {
+		        color: $colors.primary;
+		    }
+		
+		    .daterangepicker.ltr.show-calendar.opensleft > .drp-buttons > .drp-selected 
+		    {
+		        color: $colors.on-background;
+		    }
+		
+		    .daterangepicker .calendar-table .next span, .daterangepicker .calendar-table .prev span
+		    {
+		        border-color: $colors.on-background;
+		    }
+		
+		
+		    /**********************noUi************************/
+		    
+		    .noUi-connect .noUi-draggable
+		    {
+		        height: 2px;
+		    }
+		
+		    .noUi-tooltip .gx-db-filter-value
+		    {
+		        padding-bottom: $spacing.stack-m;
+		        color: $colors.primary;
+		        font-size: $fontSizes.s;
+		        font-weight: bold;
+		    }
+		
+		    .noUi-target.noUi-ltr.noUi-horizontal
+		    {
+		        height: 2px;
+		        border: 0px;
+		    }
+		
+		    .noUi-horizontal .noUi-handle
+		    {
+		        left: -10px;
+		        border-radius: 32px;
+		        background: $colors.elevation-03;
+		        border-color: $colors.elevation-03;
+		        box-shadow: $shadows.xxs;
+		        height: 12px;
+		        width: 12px;
+		        margin-left: $spacing.inline-m;
+		    }
+		
+		    .noUi-handle:before
+		    {
+		        display: none;
+		        left: 7px;
+		    }
+		
+		    .noUi-handle:after
+		    {
+		        display: none;
+		        left: 10px;
+		    }
+		
+		    .noUi-horizontal .noUi-tooltip
+		    {
+		        bottom: 215%;
+		        height: 5px;
+		        padding-bottom: $spacing.stack-m;
+		        color: $colors.primary;
+		        font-size: $fontSizes.s;
+		        font-weight: bold;
+		    }
+		
+		    .noUi-connect
+		    {
+		        background-color: $colors.primary;
+		    }
+		
+		    .noUi-base
+		    {
+		        height: 2px;
+		        background-color: $colors.gray02;
+		    }
+		
+		    .noUi-target
+		    {
+		        top: 20px;
+		    }
+		
+		    .noUi-handle
+		    {
+		        margin-left: $spacing.inline-m;
+		        cursor: pointer;
+		        box-shadow: $shadows.xxs;
+		    }
+		
+		    .noUi-horizontal
+		    {
+		        height: 2px;
+		    }
+		
+		    .noUi-tooltip
+		    {
+		        border: none;
+		        background: none;
+		        padding: 0px;
+		        bottom: -50%;
+		    }
+		
+		    .noUi-handle-lower
+		    {
+		        width: 8px;
+		        height: 8px;
+		        margin-left: $spacing.inline-m;
+		    }
+		
+		    .gx-db-filters-table.gx-db-horizontal-filters .noUi-horizontal, .gx-db-filters-table.gx-db-horizontal-filters .noUi-base
+		    {
+		        max-width: 25vw;
+		    }
+		
+		    /**********************Buttons************************/
+		
+		    .gx-db-filter-value.btn.btn-default
+		    {
+		        overflow: hidden;
+		        text-overflow: ellipsis;
+		        height: 32px;
+		        min-width: 60px;
+		        font-size: $fontSizes.s;
+		        font-weight: 600;
+		        letter-spacing: $spacing.letter-spacing-xs;
+		        text-align: center;
+		        text-transform: uppercase;
+		        border: $borders.extra-small solid $colors.primary;
+		        color: $colors.primary;
+		        font-family: $fonts.primary-semibold;
+		        background-color: $colors.elevation-02;
+		    }
+		
+		    .btn-group-vertical>.btn-group:first-child>.btn                 // first button (orientation = vertical)
+		    {
+		        border-top-right-radius: $radius.m;
+		        border-top-left-radius: $radius.m;
+		        border-bottom-right-radius: 0px;
+		        border-bottom-left-radius: 0px;
+		    }
+		
+		    .btn-group-vertical>.btn-group:last-child>.btn                  // last button (orientation = vertical)
+		    {
+		        border-top-right-radius: 0px;
+		        border-top-left-radius: 0px;
+		        border-bottom-right-radius: $radius.m;
+		        border-bottom-left-radius: $radius.m;
+		    }
+		
+		    .btn-group.btn-group-justified>.btn-group:first-child>.btn      // first button (orientation = horizontal)
+		    {
+		        border-top-right-radius: 0px;
+		        border-top-left-radius: $radius.m;
+		        border-bottom-right-radius: 0px;
+		        border-bottom-left-radius: $radius.m;
+		    }
+		
+		    .btn-group.btn-group-justified>.btn-group:last-child>.btn       // last button (orientation = horizontal)
+		    {
+		        border-top-right-radius: $radius.m;
+		        border-top-left-radius: 0px;
+		        border-bottom-right-radius: $radius.m;
+		        border-bottom-left-radius: 0px;
+		    }
+		
+		    .btn-group-vertical>.btn, .btn-group-vertical>.btn-group, .btn-group-vertical>.btn-group>.btn
+		    {
+		        display: block;
+		        float: none;
+		        width: 100%;
+		        min-height: 38px; 
+		    }
+		
+		    .gx-db-filters-table.gx-db-horizontal-filters .btn-group-vertical>.btn-group
+		    {
+		        max-width: 25vw;
+		    }
+		    
+		    .cancelBtn.btn.btn-sm.btn-default:hover
+		    {
+		        background-color: $colors.primary;
+		        color: $colors.on-primary;
+		        border: $borders.extra-small solid $colors.primary;
+		    }
+		
+		    .applyBtn.btn.btn-sm.btn-primary:hover
+		    {
+		        background-color: $colors.primary;
+		        color: $colors.surface;
+		        border: $borders.extra-small solid $colors.primary;
+		    }
+		
+		    .cancelBtn.btn.btn-sm.btn-default:focus
+		    {
+		        background-color: $colors.primary;
+		        color: $colors.surface;
+		        border: $borders.extra-small solid $colors.primary;
+		    }
+		
+		    .applyBtn.btn.btn-sm.btn-primary:focus
+		    {
+		        background-color: $colors.primary;
+		        color: $colors.on-primary;
+		        border: $borders.extra-small solid $colors.primary;
+		    }
+		
+		    .gx-db-filter-value.btn.btn-default.active
+		    {
+		        background-color: $colors.primary;
+		        color: $colors.on-primary;
+		    }
+		
+		    .gx-db-widget button
+		    {
+		        font-size: $fontSizes.m;
+		    }
+		
+		    .gx-db-filter-value.btn.btn-default:hover
+		    {
+		        background: $colors.primary;
+		        color: $colors.on-primary;
+		    }
+		
+		    .btn-group-justified>.btn, .btn-group-justified>.btn-group
+		    {
+		        width: unset;
+		    }
+		
+		    .btn-group-vertical>.btn+.btn, .btn-group-vertical>.btn+.btn-group, .btn-group-vertical>.btn-group+.btn, .btn-group-vertical>.btn-group+.btn-group
+		    {
+		        margin-top: -2px;
+		    }
+		
+		    .gx-db-widget .btn, .gx-db-widget .checkbox-inline, .gx-db-widget .checkbox label
+		    {
+		        cursor: pointer;
+		    }
+		
+		    /**********************DropDownMenu************************/
+		
+		    .gx-db-widget .open>.dropdown-menu 
+		    {
+		        display: block;
+		    }
+		
+		    .gx-db-widget .dropdown-menu 
+		    {
+		        display: none;
+		    }
+		
+		    .gx-db-widget .dropup .dropdown-menu
+		    {
+		        bottom: 100%;
+		        margin-bottom: 2px;
+		    }
+		
+		    .btn.dropdown-toggle.gx-db-filter-value
+		    {
+		        border: $borders.extra-small solid $colors.gray01;
+		        border-radius: $radius.l !important;
+		        text-transform: capitalize;
+		        color: $colors.on-background;
+		        font-family: $fonts.primary-regular;
+		        font-size: $fontSizes.s;
+		        font-weight: normal;
+		        padding-left: $spacing.inline-xl; 
+		        padding-right: $spacing.inline-xl; 
+		        background-color: $colors.elevation-01;
+		        background-image: gx-image(GeneXusReporting.arrow_double);
+		        background-position: right;
+		        background-repeat: no-repeat;
+		        background-size: $spacing.line-height-s;
+		        height: 34px;
+		        line-height: 16px;
+		    }
+		    
+		    btn.dropdown-toggle.gx-db-filter-value.bs-placeholder
+		    {
+		        height: 34px;
+		        font-size: $fontSizes.s;
+		        border: $borders.extra-small solid $colors.gray01;
+		        border-radius: $radius.l;
+		        font-family: $fonts.primary-regular;
+		        line-height: 14px;
+		    }
+		
+		    .gx-db-widget .dropdown.bootstrap-select.show-tick.form-control.bs3
+		    {
+		        padding-top:0px; 
+		        border: 0px solid;
+		    }
+		
+		    .dropdown-menu.inner > .no-results
+		    {
+		        background-color: $colors.elevation-02;
+		        color: $colors.on-background;
+		    } 
+		
+		    .bs-searchbox > input
+		    {
+		        font-family: $fonts.primary-regular;
+		        text-indent: $spacing.inline-xl;
+		        height: 35px;
+		        border-color: $colors.on-alert;
+		        margin-left: 2px !important;
+		        margin-top: 8px !important;
+		        margin-bottom: $spacing.stack-xs;
+		        border-radius: 4px;
+		        background-color: $colors.elevation-01;
+		        color: $colors.on-background;
+		    }
+		
+		    .bs-actionsbox.btn-group.button
+		    {
+		        text-transform: uppercase;
+		        height: 40px;
+		        color: $colors.primary;
+		        border-color: $colors.primary;
+		        border-radius: $radius.m;
+		        font-family: $fonts.primary-semibold;
+		        font-size: $fontSizes.s;
+		        background-color: $colors.elevation-02;
+		        padding-left: $spacing.inline-xl; 
+		        padding-right: $spacing.inline-xl; 
+		    }
+		
+		    .dropdown-menu.open > .bs-searchbox
+		    {
+		        padding-left: $spacing.inline-xl; 
+		        padding-right: $spacing.inline-xl; 
+		    }
+		
+		    .dropdown-menu.open > .bs-actionsbox
+		    {
+		        padding-left: $spacing.inline-xl; 
+		        padding-right: $spacing.inline-xl; 
+		    }
+		
+		    .bs-caret > .caret
+		    {
+		        display: none;
+		    }
+		
+		    .dropdown-menu.inner > li > .gx-db-filter-value
+		    {
+		        margin-top: 0px;
+		        margin-bottom: 0px;
+		        padding-left: $spacing.inline-xl; 
+		        padding-right: $spacing.inline-xl;
+		        color: $colors.on-background;
+		    }
+		
+		    .dropdown-menu.inner, .dropdown-menu.open
+		    {
+		        background: $colors.elevation-02;
+		    }
+		
+		    .dropdown-menu.open > .bs-searchbox > .form-control
+		    {
+		        appearance: none;
+		        background-position: left;
+		        background-repeat: no-repeat;
+		        background-image: gx-image(GeneXusReporting.search);
+		        padding-left: 7px;
+		    }
+		
+		    .gx-db-widget .dropdown-menu
+		    {
+		        z-index: 1000;
+		    }
+		
+		    .actions-btn.bs-select-all.btn.btn-default
+		    {
+		        border-bottom-left-radius: $spacing.inline-m;
+		        border-top-left-radius: $spacing.inline-m;
+		        border: $borders.extra-small solid $colors.primary;
+		        background-color: $colors.elevation-02;
+		        font-size: $fontSizes.s;
+		        text-transform: uppercase;
+		        color: $colors.primary;
+		        font-family: $fonts.primary-semibold;
+		        min-height: 32px;
+		        margin-left: $spacing.inline-xs;
+		    }
+		
+		    .actions-btn.bs-deselect-all.btn.btn-default
+		    {
+		        border-bottom-right-radius: $spacing.inline-m;
+		        border-top-right-radius: $spacing.inline-m;
+		        border: $borders.extra-small solid $colors.primary;
+		        background-color: $colors.elevation-02;
+		        font-size: $fontSizes.s;
+		        text-transform: uppercase;
+		        color: $colors.primary;
+		        font-family: $fonts.primary-semibold;
+		        min-height: 32px;
+		    }
+		
+		    .actions-btn.bs-deselect-all.btn.btn-default:hover, .actions-btn.bs-select-all.btn.btn-default:hover
+		    {
+		        background: $colors.primary;
+		        color: $colors.on-primary;
+		    }
+		
+		    /****************************Switch**************************/
+		    
+		    .gx-db-filters-table.gx-db-horizontal-filters .gx-db-switch-filter
+		    {
+		        max-width: 25vw;
+		    }
+		
+		    .gx-db-widget .bootstrap-switch
+		    {
+		        overflow: visible !important;
+		        width: 42px !important;
+		        float: none !important;
+		    }        
+		
+		    .gx-db-widget .bootstrap-switch-container
+		    {
+		        position: relative;
+		        height: 10px;
+		    }
+		
+		    .gx-db-widget .bootstrap-switch-label
+		    {
+		        position: relative;
+		        top: -6px;
+		        left: -1px;
+		        background: $colors.elevation-01;
+		    }
+		
+		    .gx-db-widget .bootstrap-switch.bootstrap-switch-focused
+		    {
+		        box-shadow: unset;
+		        -webkit-box-shadow: unset;
+		
+		    }
+		
+		    .gx-db-widget .bootstrap-switch-on .bootstrap-switch-label
+		    {
+		        background: $colors.primary-active;
+		    }
+		
+		    .gx-db-widget .bootstrap-switch-on
+		    {
+		        background-color: $colors.primary;
+		        border-color: $colors.primary;
+		    }
+		
+		    .gx-db-widget .gx-db-widget .bootstrap-switch-off
+		    {
+		        background-color: $colors.gray03;
+		        border-color: $colors.gray03;
+		    }
+		    
+		    .gx-db-widget .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default,.gx-db-widget .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default,.gx-db-widget .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary,.gx-db-widget .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary
+		    {
+		        background-color: transparent;
+		    }
+		
+		    .gx-db-object-map .gx-qv-tooltip-text
+		    {
+		        letter-spacing: 0.38px !important;
+		        line-height: 13px !important;
+		        font-family: $fonts.primary-regular;
+		        font-size: $fontSizes.s;
+		        color: $colors.on-primary;
+		    }
+		
+		    .gx-db-object-map .gx-qv-tooltip-box
+		    {
+		        height: 30px !important;
+		        border-radius: 2px !important;
+		        opacity: 0.9 !important;
+		        background-color: $colors.gray04 !important;
+		        border-color: $colors.gray04;
+		    }
+		    
+		    .gx-db-object-map.qv-map
+		    {
+		        background-color: $colors.elevation-01;
+		    }
+		
+		    .gx-db-object-map .gx-qv-title
+		    {
+		        color: $colors.on-background;
+		        font-family: $fonts.primary-bold;
+		        font-size: $fontSizes.s;
+		    }
+		     
+		    .gx-db-object-map .gx-qv-legend-text
+		    {
+		        color: $colors.on-background;
+		        font-family: $fonts.primary-regular;
+		        font-size: $fontSizes.s;
+		    }
+		    
+		}
+	#End
+
+	#Properties
+		Name = "DashboardViewerWeb"
+	#End
+
+}

@@ -1,0 +1,17 @@
+MasterPage MasterPrompt
+{
+	#Variables
+			IsAuthorized [ DataType = 'Boolean' ]
+	#End
+
+	#Properties
+		Name = "MasterPrompt"
+
+		Description = "Prompt Master Page"
+
+		Style = "AtenasDSO"
+
+		Type = "Master Page"
+	#End
+
+}

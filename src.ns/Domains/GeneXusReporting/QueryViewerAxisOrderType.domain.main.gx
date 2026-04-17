@@ -1,0 +1,11 @@
+Domain QueryViewerAxisOrderType
+{
+	#Properties
+		Name = "QueryViewerAxisOrderType"
+
+		DataType = "Character(20)"
+
+		EnumValues = "None, None, None; Ascending, Ascending, Ascending; Descending, Descending, Descending; Custom, Custom, Custom"
+	#End
+
+}

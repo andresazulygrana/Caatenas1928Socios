@@ -1,0 +1,15 @@
+Attribute SocioEstado
+{
+	#Properties
+		Name = "SocioEstado"
+
+		Description = "Estado: A=Activo I=Inactivo M=Moroso"
+
+		DataType = "Character(1)"
+
+		Length = "1"
+
+		MaximumLength = "1"
+	#End
+
+}

@@ -1,0 +1,15 @@
+SDT QueryViewerFilteredData
+{
+		QueryViewerFilteredData	{
+
+			XmlData [ DataType = 'Character(20)' ]
+
+		}
+
+	#Properties
+		Name = "QueryViewerFilteredData"
+
+		ExposedNamespace = "GeneXus.Reporting"
+	#End
+
+}

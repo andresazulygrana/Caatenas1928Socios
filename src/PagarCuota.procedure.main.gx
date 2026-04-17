@@ -1,0 +1,155 @@
+Procedure PagarCuota
+{
+		// Cargar la cuota via BC y obtener el importe
+		&CuotaBC = new()
+		&CuotaBC.Load(&CuotaId)
+		If &CuotaBC.Fail()
+			&MPEstado = !"error"
+			&MPPaymentId = !""
+			&ExternalUrl = !""
+			Return
+		EndIf
+		&Importe = &CuotaBC.CuotaImporte
+	
+		// Configuracion requerida para sandbox/produccion
+		&Token = !""
+		&AppBaseUrl = !""
+		For Each ConfiguracionPago
+			Where ConfiguracionPagoId = 1
+			Where ConfiguracionPagoActivo = true
+			&Token = ConfiguracionPagoAccessToken
+			&AppBaseUrl = ConfiguracionPagoBaseUrl
+			Exit
+		EndFor
+		&IdempotencyKey = Trim(Str(&CuotaId, 10, 0))
+	
+		If &Token.IsEmpty() OR &AppBaseUrl.IsEmpty()
+			&MPEstado = !"error"
+			&MPPaymentId = !""
+			&ExternalUrl = !""
+			Return
+		EndIf
+	
+		// Crear preferencia de Checkout Pro
+		&HttpClient = new()
+		&HttpClient.BaseUrl = !"https://api.mercadopago.com"
+		&HttpClient.AddHeader(!"Authorization", Format(!"Bearer %1", &Token))
+		&HttpClient.AddHeader(!"X-Idempotency-Key", &IdempotencyKey)
+		&HttpClient.AddHeader(!"Content-Type", !"application/json")
+	
+		&Q = Chr(34)
+		&JsonBody = !"{"
+		&JsonBody += &Q + !"items" + &Q + !":[{"
+		&JsonBody += &Q + !"id" + &Q + !":" + &Q + &IdempotencyKey + &Q + !","
+		&JsonBody += &Q + !"title" + &Q + !":" + &Q + !"Cuota Club Atletico Atenas " + &CuotaBC.CuotaPeriodo + &Q + !","
+		&JsonBody += &Q + !"quantity" + &Q + !":1,"
+		&JsonBody += &Q + !"currency_id" + &Q + !":" + &Q + !"UYU" + &Q + !","
+		&JsonBody += &Q + !"unit_price" + &Q + !":" + Trim(Str(&Importe, 12, 2))
+		&JsonBody += !"}],"
+		&JsonBody += &Q + !"external_reference" + &Q + !":" + &Q + &IdempotencyKey + &Q + !","
+		&JsonBody += &Q + !"notification_url" + &Q + !":" + &Q + &AppBaseUrl + !"/awebhookmercadopago.aspx" + &Q + !","
+		&SocioIdText = Trim(Str(&CuotaBC.SocioId, 8, 0))
+		&CuotaIdText = Trim(Str(&CuotaId, 10, 0))
+		&BackUrlBase = &AppBaseUrl + !"/confirmacionpago?"
+		&JsonBody += &Q + !"back_urls" + &Q + !":{"
+		&JsonBody += &Q + !"success" + &Q + !":" + &Q + &BackUrlBase + !"MPEstado=approved&SocioId=" + &SocioIdText + !"&CuotaId=" + &CuotaIdText + &Q + !","
+		&JsonBody += &Q + !"pending" + &Q + !":" + &Q + &BackUrlBase + !"MPEstado=pending&SocioId=" + &SocioIdText + !"&CuotaId=" + &CuotaIdText + &Q + !","
+		&JsonBody += &Q + !"failure" + &Q + !":" + &Q + &BackUrlBase + !"MPEstado=rejected&SocioId=" + &SocioIdText + !"&CuotaId=" + &CuotaIdText + &Q
+		&JsonBody += !"},"
+		&JsonBody += &Q + !"auto_return" + &Q + !":" + &Q + !"approved" + &Q + !","
+		&JsonBody += &Q + !"payer" + &Q + !":{" + &Q + !"email" + &Q + !":" + &Q + &PayerEmail + &Q + !"}"
+		&JsonBody += !"}"
+	
+		&HttpClient.AddString(&JsonBody)
+		&HttpClient.Execute(HttpMethod.POST, !"/checkout/preferences")
+	
+		If &HttpClient.ErrCode <> 0
+			&MPEstado = !"http_client_error"
+			&DetalleError = !"ErrCode=" + Trim(Str(&HttpClient.ErrCode, 6, 0)) + !" ErrDescription=" + &HttpClient.ErrDescription
+			&MPPaymentId = Substr(&DetalleError, 1, 128)
+			&ExternalUrl = !""
+			Return
+		EndIf
+	
+		&ResponseBody = &HttpClient.ToString()
+	
+		If &HttpClient.StatusCode = 201 OR &HttpClient.StatusCode = 200
+			&ResponseBody = StrReplace(&ResponseBody, !"sandbox_init_point", !"SandboxInitPoint")
+			&ResponseBody = StrReplace(&ResponseBody, !"init_point", !"InitPoint")
+			&PreferenceResponse.FromJson(&ResponseBody)
+			&MPPaymentId = &PreferenceResponse.Id
+			If NOT &PreferenceResponse.SandboxInitPoint.IsEmpty()
+				&ExternalUrl = &PreferenceResponse.SandboxInitPoint
+			Else
+				&ExternalUrl = &PreferenceResponse.InitPoint
+			EndIf
+			&MPEstado = !"checkout_created"
+		Else
+			&StatusCodeText = Trim(Str(&HttpClient.StatusCode, 6, 0))
+			&MPEstado = !"http_" + &StatusCodeText
+			&MPPaymentId = Substr(&ResponseBody, 1, 128)
+			&ExternalUrl = !""
+		EndIf
+	
+		&CuotaBC.CuotaMPPaymentId = &MPPaymentId
+		&CuotaBC.CuotaMPExternalUrl = &ExternalUrl
+		&CuotaBC.CuotaMPEstado = &MPEstado
+		&CuotaBC.Save()
+		If &CuotaBC.Fail()
+			msg(Format(!"Error al actualizar cuota: %1", &CuotaBC.GetMessages().ToJson()), status)
+		EndIf
+		Commit
+
+	#Rules
+		parm(in: &CuotaId, in: &PaymentMethodId, in: &PayerEmail, out: &MPPaymentId, out: &ExternalUrl, out: &MPEstado);
+	#End
+
+	#Variables
+			CuotaId [ Description = 'Identificador de la cuota a pagar', DataType = 'Attribute:CuotaId' ]
+
+			PaymentMethodId [ Description = 'Variable mantenida por compatibilidad de firma', DataType = 'VarChar(64)' ]
+
+			PayerEmail [ Description = 'Email del pagador para Mercado Pago', DataType = 'Attribute:SocioEmail' ]
+
+			MPPaymentId [ Description = 'Identificador de preferencia o pago devuelto por Mercado Pago', DataType = 'Attribute:CuotaMPPaymentId' ]
+
+			ExternalUrl [ Description = 'URL de redireccion a Checkout Pro', DataType = 'Attribute:CuotaMPExternalUrl' ]
+
+			MPEstado [ Description = 'Estado del checkout segun Mercado Pago', DataType = 'Attribute:CuotaMPEstado' ]
+
+			CuotaBC [ Description = 'Instancia BC de Cuota para lectura y actualizacion', DataType = 'Cuota' ]
+
+			Importe [ Description = 'Importe de la cuota a cobrar', DataType = 'Attribute:CuotaImporte' ]
+
+			Token [ Description = 'Token de acceso de Mercado Pago desde configuracion', DataType = 'VarChar(256)' ]
+
+			IdempotencyKey [ Description = 'Clave de idempotencia basada en la cuota', DataType = 'VarChar(64)' ]
+
+			HttpClient [ Description = 'Cliente HTTP para llamar a la API de Mercado Pago', DataType = 'HttpClient' ]
+
+			Q [ Description = 'Comilla doble para construccion de JSON', DataType = 'Character(1)' ]
+
+			JsonBody [ Description = 'Cuerpo JSON del request de checkout', DataType = 'LongVarChar(4K)' ]
+
+			ResponseBody [ Description = 'Cuerpo JSON de la respuesta de Mercado Pago', DataType = 'LongVarChar(4K)' ]
+
+			AppBaseUrl [ Description = 'URL publica base de la aplicacion', DataType = 'VarChar(256)', AverageLength = '0', Collection = 'False', ControlType = 'Edit' ]
+
+			PreferenceResponse [ Description = 'Respuesta parseada de create preference', DataType = 'MercadoPagoPreferenceResponse' ]
+
+			DetalleError [ Description = 'Detalle resumido para diagnostico de errores HTTP cliente', DataType = 'VarChar(256)' ]
+
+			StatusCodeText [ Description = 'Status code HTTP convertido a texto', DataType = 'VarChar(16)' ]
+
+			SocioIdText [ Description = 'SocioId convertido a texto para back_urls', DataType = 'VarChar(16)' ]
+
+			CuotaIdText [ Description = 'CuotaId convertido a texto para back_urls', DataType = 'VarChar(16)' ]
+
+			BackUrlBase [ Description = 'Base de retorno para Checkout Pro', DataType = 'VarChar(512)' ]
+	#End
+
+	#Properties
+		Name = "PagarCuota"
+	#End
+
+}

@@ -1,0 +1,121 @@
+WebPanel AdminPruebaPago
+{
+	#Events
+		Event Start
+			If &CedulaPrueba.IsEmpty()
+				&CedulaPrueba = !"99900001"
+			EndIf
+			If &NombrePrueba.IsEmpty()
+				&NombrePrueba = !"Socio"
+			EndIf
+			If &ApellidoPrueba.IsEmpty()
+				&ApellidoPrueba = !"Sandbox"
+			EndIf
+			If &EmailPrueba.IsEmpty()
+				&EmailPrueba = !"test_user_123456@testuser.com"
+			EndIf
+			If &TelefonoPrueba.IsEmpty()
+				&TelefonoPrueba = !"099000001"
+			EndIf
+			If &TipoCuotaId = 0
+				For Each TipoCuota
+					Where TipoCuotaDescripcion = !"Socio A - Mensual"
+					Where TipoCuotaActivo = true
+					&TipoCuotaId = TipoCuotaId
+					Exit
+				EndFor
+			EndIf
+			If &EstadoTexto.IsEmpty()
+				&EstadoTexto = !"Configura un socio de prueba y preparalo para checkout"
+			EndIf
+		EndEvent
+
+		Event 'Preparar'
+			PrepararSocioPruebaPago(&CedulaPrueba, &NombrePrueba, &ApellidoPrueba, &EmailPrueba, &TelefonoPrueba, &TipoCuotaId, &SocioIdPrueba, &EstadoTexto)
+		EndEvent
+
+		Event 'InicializarTipos'
+			InicializarDatos()
+			&EstadoTexto = !"Catalogo de tipos de cuota normalizado"
+		EndEvent
+
+		Event 'AbrirPago'
+			If &SocioIdPrueba > 0
+				PantallaPago(&SocioIdPrueba)
+			Else
+				&EstadoTexto = !"Primero prepara el socio de prueba"
+			EndIf
+		EndEvent
+
+		Event 'IrConfiguracion'
+			AdminConfiguracionPago()
+		EndEvent
+
+		Event 'IrDashboard'
+			AdminDashboard()
+		EndEvent
+
+		Event 'IrPortalPublico'
+			BuscarSocio()
+		EndEvent
+
+		Event 'IrSandbox'
+			AdminProcesarPagoSandbox()
+		EndEvent
+
+		Event 'Dashboard'
+			AdminDashboard()
+		EndEvent
+
+		Event 'Socios'
+			AdminSocios()
+		EndEvent
+
+		Event 'ImportarSocios'
+			AdminImportarSocios()
+		EndEvent
+
+		Event 'TiposCuota'
+			AdminTipoCuota()
+		EndEvent
+
+		Event 'Cuotas'
+			AdminCuotas()
+		EndEvent
+
+		Event 'ConfiguracionPago'
+			AdminConfiguracionPago()
+		EndEvent
+	#End
+
+	#Rules
+	#End
+
+	#Conditions
+	#End
+
+	#Variables
+		CedulaPrueba [ DataType = 'Attribute:SocioCedula', Description = '' ]
+		NombrePrueba [ DataType = 'Attribute:SocioNombre', Description = '' ]
+		ApellidoPrueba [ DataType = 'Attribute:SocioApellido', Description = '' ]
+		EmailPrueba [ DataType = 'Attribute:SocioEmail', Description = '' ]
+		TelefonoPrueba [ DataType = 'Attribute:SocioTelefono', Description = '' ]
+		TipoCuotaId [ DataType = 'Attribute:TipoCuotaId', Description = '' ]
+		SocioIdPrueba [ DataType = 'Attribute:SocioId', Description = '' ]
+		EstadoTexto [ DataType = 'VarChar(512)', Description = '' ]
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+	#End
+
+	#Properties
+		Name = "AdminPruebaPago"
+
+		Description = "Panel para preparar socio y cuota de prueba para sandbox"
+
+		Type = "Web Panel"
+
+		MasterPage = ""
+
+		Style = "Caatenas1928"
+	#End
+}

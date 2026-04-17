@@ -1,0 +1,21 @@
+SDT MercadoPagoPaymentResponse
+{
+		MercadoPagoPaymentResponse [ Description = 'Respuesta de consulta de payment de Mercado Pago' ]	{
+
+			Id [ DataType = 'VarChar(128)' ]
+
+			Status [ DataType = 'VarChar(40)' ]
+
+			StatusDetail [ DataType = 'VarChar(80)' ]
+
+			ExternalReference [ DataType = 'VarChar(64)' ]
+
+		}
+
+	#Properties
+		Name = "MercadoPagoPaymentResponse"
+
+		Description = "Mercado Pago Payment Response"
+	#End
+
+}

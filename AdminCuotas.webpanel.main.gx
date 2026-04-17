@@ -1,0 +1,98 @@
+WebPanel AdminCuotas
+{
+	#Events
+		Event Start
+			&ResumenMes = !"Esperado / Cobrado"
+		EndEvent
+
+		Event Refresh
+			&TotalEsperado = 0
+			&TotalCobrado = 0
+			For Each Cuota
+				Where CuotaPeriodo = &FiltroPeriodo when not &FiltroPeriodo.IsEmpty()
+				Where CuotaEstado = &FiltroEstado when not &FiltroEstado.IsEmpty()
+				Where SocioCedula.Contains(&TextoBusqueda) when not &TextoBusqueda.IsEmpty()
+				&TotalEsperado = &TotalEsperado + CuotaImporte
+				If CuotaEstado = !"G"
+					&TotalCobrado = &TotalCobrado + CuotaImporte
+				EndIf
+			EndFor
+		EndEvent
+
+		Event 'Filtrar'
+			refresh
+		EndEvent
+
+		Event 'Dashboard'
+			AdminDashboard()
+		EndEvent
+
+		Event 'Socios'
+			AdminSocios()
+		EndEvent
+
+		Event 'Cuotas'
+			AdminCuotas()
+		EndEvent
+
+		Event 'TiposCuota'
+			AdminTipoCuota()
+		EndEvent
+
+		Event 'ImportarSocios'
+			AdminImportarSocios()
+		EndEvent
+
+		Event 'ConfiguracionPago'
+			AdminConfiguracionPago()
+		EndEvent
+
+		Event 'PruebasPago'
+			AdminPruebaPago()
+		EndEvent
+
+		Event 'Sandbox'
+			AdminProcesarPagoSandbox()
+		EndEvent
+
+		Event 'PortalSocios'
+			BuscarSocio()
+		EndEvent
+	#End
+
+	#Rules
+	#End
+
+	#Conditions
+		CuotaEstado = &FiltroEstado when not &FiltroEstado.IsEmpty();
+		CuotaPeriodo = &FiltroPeriodo when not &FiltroPeriodo.IsEmpty();
+		SocioCedula.Contains(&TextoBusqueda) when not &TextoBusqueda.IsEmpty();
+	#End
+
+	#Variables
+		FiltroEstado [ DataType = 'Character(1)', Description = 'Filtro por estado de cuota' ]
+		FiltroPeriodo [ DataType = 'Attribute:CuotaPeriodo', Description = 'Filtro por periodo' ]
+		TextoBusqueda [ DataType = 'VarChar(64)', Description = 'Texto de busqueda por socio o cedula' ]
+		TotalEsperado [ DataType = 'Numeric(12.2)', Description = 'Total esperado del periodo filtrado' ]
+		TotalCobrado [ DataType = 'Numeric(12.2)', Description = 'Total cobrado del periodo filtrado' ]
+		ResumenMes [ DataType = 'VarChar(80)', Description = 'Titulo del resumen mensual' ]
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+	#End
+
+	#Properties
+		Name = "AdminCuotas"
+
+		Description = "Listado administrativo de cuotas"
+
+		Type = "Web Panel"
+
+		MasterPage = ""
+
+		Style = "Caatenas1928"
+	#End
+
+	#Documentation
+		Panel administrativo para consulta y resumen de cuotas.
+	#End
+}

@@ -1,0 +1,128 @@
+WebPanel Gx0010
+{
+	#Rules
+		parm(out:&pCuotaId);
+		order(CuotaId);
+	#End
+
+	#Events
+		Event Start
+			Form.Caption = Format("GXSPC_SelectionList", "Cuota")
+			&ADVANCED_LABEL_TEMPLATE = "%1 <strong>%2</strong>"
+		EndEvent
+		
+		Event 'Toggle'
+			if AdvancedContainer.Class = StyleClass:AdvancedContainer
+				AdvancedContainer.Class = StyleClass:AdvancedContainer + !" " + StyleClass:AdvancedContainerVisible
+				BtnToggle.Class += !" " + StyleClass:BtnToggleActive
+			else
+				AdvancedContainer.Class = StyleClass:AdvancedContainer
+				BtnToggle.Class = StyleClass:BtnToggle
+			endif
+		Endevent
+		
+		Event LblCuotaIdFilter.Click
+			if CuotaIdFilterContainer.Class = StyleClass:AdvancedContainerItem
+				CuotaIdFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cCuotaId.Visible = true
+			else
+				CuotaIdFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cCuotaId.Visible = false
+			endif
+		EndEvent
+		
+		Event LblSocioIdFilter.Click
+			if SocioIdFilterContainer.Class = StyleClass:AdvancedContainerItem
+				SocioIdFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cSocioId.Visible = true
+			else
+				SocioIdFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cSocioId.Visible = false
+			endif
+		EndEvent
+		
+		Event LblCuotaPeriodoFilter.Click
+			if CuotaPeriodoFilterContainer.Class = StyleClass:AdvancedContainerItem
+				CuotaPeriodoFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cCuotaPeriodo.Visible = true
+			else
+				CuotaPeriodoFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cCuotaPeriodo.Visible = false
+			endif
+		EndEvent
+		
+		Event LblCuotaImporteFilter.Click
+			if CuotaImporteFilterContainer.Class = StyleClass:AdvancedContainerItem
+				CuotaImporteFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cCuotaImporte.Visible = true
+			else
+				CuotaImporteFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cCuotaImporte.Visible = false
+			endif
+		EndEvent
+		
+		Event LblCuotaEstadoFilter.Click
+			if CuotaEstadoFilterContainer.Class = StyleClass:AdvancedContainerItem
+				CuotaEstadoFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cCuotaEstado.Visible = true
+			else
+				CuotaEstadoFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cCuotaEstado.Visible = false
+			endif
+		EndEvent
+		
+		Event Load
+			&LinkSelection.FromImage(selectRow)
+		EndEvent
+		
+		Event Enter
+			&pCuotaId = CuotaId
+			Return
+		EndEvent
+	#End
+
+	#Conditions
+		CuotaId >= &cCuotaId ;
+		SocioId >= &cSocioId when not &cSocioId.IsEmpty();
+		CuotaPeriodo LIKE &cCuotaPeriodo when not &cCuotaPeriodo.IsEmpty();
+		CuotaImporte >= &cCuotaImporte when not &cCuotaImporte.IsEmpty();
+		CuotaEstado LIKE &cCuotaEstado when not &cCuotaEstado.IsEmpty();
+		CuotaFechaVencimiento >= &cCuotaFechaVencimiento when not &cCuotaFechaVencimiento.IsEmpty();
+		CuotaFechaPago >= &cCuotaFechaPago when not &cCuotaFechaPago.IsEmpty();
+	#End
+
+	#Variables
+			LinkSelection [ DataType = 'Image' ]
+
+			cCuotaId [ Description = 'Identificador de la cuota', DataType = 'Attribute:CuotaId' ]
+
+			cSocioId [ Description = 'Identificador del socio', DataType = 'Attribute:SocioId' ]
+
+			cCuotaPeriodo [ Description = 'Periodo en formato AAAA-MM. Ej: 2025-03', DataType = 'Attribute:CuotaPeriodo' ]
+
+			cCuotaImporte [ Description = 'Importe de la cuota en pesos uruguayos', DataType = 'Attribute:CuotaImporte' ]
+
+			cCuotaEstado [ Description = 'Estado: P=Pendiente G=Pagada V=Vencida', DataType = 'Attribute:CuotaEstado' ]
+
+			cCuotaFechaVencimiento [ Description = 'Fecha de vencimiento de la cuota', DataType = 'Attribute:CuotaFechaVencimiento' ]
+
+			cCuotaFechaPago [ Description = 'Fecha y hora del pago efectivo. Vacio hasta confirmar pago', DataType = 'Attribute:CuotaFechaPago' ]
+
+			pCuotaId [ Description = 'Identificador de la cuota', DataType = 'Attribute:CuotaId' ]
+
+			ADVANCED_LABEL_TEMPLATE [ DataType = 'Character(20)' ]
+	#End
+
+	#Properties
+		Name = "Gx0010"
+
+		Description = "Selection List Cuota"
+
+		MasterPage = "(none)"
+
+		AssociatedTable = "Cuota"
+
+		FocusControl = "Browser dependent"
+	#End
+
+}

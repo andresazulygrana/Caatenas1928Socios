@@ -1,0 +1,447 @@
+DesignSystem QueryViewer
+{
+	#DesignTokens
+		tokens QueryViewer (color-scheme:dark|[light]) {
+		    @color-scheme = light {
+		        #colors {
+		            gxqv-color-01: #182f53;
+		            gxqv-color-02: #a7e9e1;
+		            gxqv-color-03: #f57a4d;
+		            gxqv-color-04: #fbbc58;
+		            gxqv-color-05: #9c3725;
+		            gxqv-color-06: #2ed3c6;
+		            gxqv-color-07: #aa6890;
+		            gxqv-color-08: #c53b3d;
+		            gxqv-color-09: #8d89a3;
+		            gxqv-color-10: #095d6a;
+		        }
+		    }
+		    
+		    @color-scheme = dark {
+		        #colors { 
+		            gxqv-color-01: #345a8c;
+		            gxqv-color-02: #dcf6f4;
+		            gxqv-color-03: #f8af96;
+		            gxqv-color-04: #fde2b6;
+		            gxqv-color-05: #da553b;
+		            gxqv-color-06: #96e4dc;
+		            gxqv-color-07: #c490af;
+		            gxqv-color-08: #d8777b;
+		            gxqv-color-09: #b9b7c8;
+		            gxqv-color-10: #2eb7de;
+		        }
+		    }
+		}
+	#End
+
+	#DesignStyles
+		styles QueryViewer {
+		    @import GeneXusUnanimo.Unanimo.tokens;
+		    
+		    .QueryViewer {
+		        background-color: $colors.surface;
+		        color: $colors.surface-negative;
+		
+		        // Card
+		        gx-qv-card-element-title-class: gx-query-viewer-card__title;
+		        gx-qv-card-element-value-class: gx-query-viewer-card__value;
+		        gx-qv-card-max-min-title-class: gx-query-viewer-card__max-min-title;
+		        gx-qv-card-max-min-value-class: gx-query-viewer-card__max-min-value;
+		        gx-qv-card-sparkline-color: $colors.gxqv-color-01;
+		
+		        // Pivot
+		        --gx-query-viewer-pivot__cell-padding-inline: 8px;
+		        --gx-query-viewer-pivot__cell-padding-block: 5px;
+		        --gx-query-viewer-pivot__icon-color: $colors.primary;
+		        --gx-query-viewer-pivot__border-color: $colors.border-gray-01;
+		    }
+		
+		    .QueryViewer, 
+		    #pop-up,
+		    .oat_winrect_container {
+		        font-size: $fontSizes.s;
+		        line-height: 18px;
+		        letter-spacing: $spacing.letter-spacing-xs;
+		    }
+		
+		
+		    #region card
+		        .gx-query-viewer-card__value {
+		            color: $colors.gray02;
+		            font-family: $fonts.primary-semibold;
+		            font-size: 80px;
+		            height: 100px;
+		        }
+		
+		        .gx-query-viewer-card__title {
+		            color: $colors.on-background;
+		            font-family: $fonts.primary-bold;
+		            font-size: $fontSizes.s;
+		            letter-spacing: .38px;
+		            line-height: 13px;
+		        }
+		
+		        gx-query-viewer-card::part(trend) {
+		            color: $colors.primary;
+		        }
+		
+		        .gx-query-viewer-card__max-min-title{
+		
+		        }
+		
+		        .gx-query-viewer-card__max-min-value{
+		
+		        }
+		    #endregion
+		
+		    #region pivot
+		        .pivot_table,
+		        .oatgrid {
+		            font-size: $fontSizes.s;
+		            line-height: 18px; 
+		            letter-spacing: $spacing.letter-spacing-xs;
+		        }
+		
+		        .close_span_filter > .material-icons,
+		        .exportOptionsAnchor > .material-icons,
+		        .sort-asc > .material-icons,
+		        .sort-desc > .material-icons,
+		        .table-sort-asc > .material-icons,
+		        .table-sort-desc > .material-icons,
+		        .pivot_pag_div .pagefirst > .material-icons,
+		        .pivot_pag_div .pagelast > .material-icons,
+		        .pivot_pag_div .pagenext > .material-icons,
+		        .pivot_pag_div .pageprev > .material-icons,
+		        .div_settings > .material-icons,
+		        .filterInfoUser > .material-icons,
+		        .oat_winrect_close_b > .material-icons,
+		        .drag_drop_indicator > .material-icons {
+		            inline-size: 24px;
+		            block-size: 24px;
+		            -webkit-mask-repeat: no-repeat;
+		            -webkit-mask-position: center;
+		            -webkit-mask-size: 100%;
+		            background-color: currentColor;
+		        }
+		
+		        
+		
+		        .inner_filter_div .close_span_filter > .material-icons {
+		            -webkit-mask-image: gx-image(GeneXusUnanimo.close_ico);
+		            inline-size: 22px;
+		            block-size: 22px;
+		            // color: var(--text-un-text__on-surface--positive);
+		        }
+		
+		        .exportOptionsAnchor{
+		            transform: scaleX(1.25);
+		        }
+		
+		        .exportOptionsAnchor > .material-icons{
+		            -webkit-mask-image: gx-image(GeneXusUnanimo.list_view);
+		            -webkit-mask-size: 80%;
+		        }
+		
+		        .sort-asc > .material-icons {
+		            -webkit-mask-image: gx-image(GeneXusUnanimo.arrow_asc);
+		        }
+		
+		        .sort-desc > .material-icons {
+		            -webkit-mask-image: gx-image(GeneXusUnanimo.arrow_desc);
+		        }
+		
+		        .table-sort-asc > .material-icons {
+		            -webkit-mask-image: gx-image(GeneXusUnanimo.arrow_asc);
+		        }
+		
+		        .table-sort-desc > .material-icons {
+		            -webkit-mask-image: gx-image(GeneXusUnanimo.arrow_desc);
+		        }
+		
+		        .pivot_pag_div .pagefirst > .material-icons {
+		            -webkit-mask-image: gx-image(GeneXusUnanimo.arrow_first);
+		            inline-size: 16px;
+		            block-size: 16px;
+		        }
+		
+		        .pivot_pag_div .pagelast > .material-icons {
+		            -webkit-mask-image: gx-image(GeneXusUnanimo.arrow_last);
+		            inline-size: 16px;
+		            block-size: 16px;
+		        }
+		
+		        .pivot_pag_div .pagenext > .material-icons {
+		            -webkit-mask-image: gx-image(GeneXusUnanimo.arrow_right);
+		            inline-size: 16px;
+		            block-size: 16px;
+		        }
+		
+		        .pivot_pag_div .pageprev > .material-icons {
+		            -webkit-mask-image: gx-image(GeneXusUnanimo.arrow_left);
+		            inline-size: 16px;
+		            block-size: 16px;
+		        }
+		
+		        .div_settings > .material-icons{
+		            -webkit-mask-image: gx-image(GeneXusUnanimo.settings);
+		        }
+		
+		        .pivot_filter_div .filterInfoUser > .spanHoverLabel {
+		            font-family: $fonts.primary-regular;
+		            color: $colors.on-primary;
+		            text-align: start;
+		            padding: $spacing.stack-m;
+		            background-color: $colors.border-gray-04;
+		            border-color: $colors.border-gray-04;
+		            border-radius: $radius.l;
+		            opacity: 1;
+		        }
+		
+		        .pivot_filter_div .filterInfoUser > .material-icons {
+		            -webkit-mask-image: gx-image(GeneXusUnanimo.info);
+		            inline-size: 18px;
+		            block-size: 18px;
+		        }
+		
+		        .oat_winrect_title {
+		            margin-inline: -8px;
+		            border-block-end: 1px solid $colors.border-gray-01;
+		            padding-inline: 5px;
+		            padding-block-end: 8px;
+		        }
+		
+		        .oat_winrect_title .oat_winrect_close_b > .material-icons {
+		            -webkit-mask-image: gx-image(GeneXusUnanimo.close_ico);
+		            inline-size: 18px;
+		            block-size: 18px;
+		        }
+		
+		        .drag_drop_indicator > .material-icons {
+		            -webkit-mask-image: gx-image(GeneXusUnanimo.grid_view); // drag icon missing
+		            -webkit-mask-size: 80%;
+		            inline-size: 18px;
+		            block-size: 18px;
+		            margin-bottom: 6px;
+		        }
+		
+		        
+		
+		        
+		
+		        .oat_winrect_container {
+		            border-radius: $radius.l;
+		            padding: $spacing.stack-m;
+		        }
+		
+		        .pivot_title_div {
+		            border: 1px solid $colors.border-gray-02;
+		            border-start-start-radius: $radius.l;
+		            border-start-end-radius: $radius.l;
+		        }
+		
+		        .pivot_table :is(td.gtotal.firstlevelvalue,
+		        td.gtotal.grandtotalvalue,
+		        th.h2subtitle.grandtotaltitle,
+		        th.h2subtitle.subtitleFirstLevel) {
+		            border-block-end: 2px solid $colors.primary;
+		        }
+		
+		        .pivot_table :is(th.even, td.even) :is(.expanded, .collapsed) {
+		            margin-inline: $spacing.stack-s;
+		        }
+		
+		        .grandtotaltitle,
+		        .grandtotalvalue {
+		            text-transform: uppercase;
+		        }
+		
+		        .pivot_title_div,
+		        .pivot_pag_div,
+		        .oatgrid_top_div,
+		        .gx-query-viewer-pivot-container > span {
+		            padding-block: 14px;
+		            padding-inline: 8px;
+		        }
+		        
+		        .gx-query-viewer-pivot-container > span, .oatgrid_top_div{
+		            border-start-end-radius: 6px;
+		            border-start-start-radius: 6px;
+		        }
+		         .pivot_title_div, .pivot_pag_div{
+		            border-end-start-radius: 6px;
+		            border-end-end-radius: 6px;
+		        }
+		
+		        .oatgrid_top_div > span {
+		            display: flex;
+		            align-items: center;
+		        }
+		
+		        .oatfilterwindow > .first_popup_subdiv{
+		            padding: 8px;
+		            border-bottom: 1px solid $colors.border-gray-01;
+		            margin-inline: -8px;
+		        }
+		
+		        .move_item_img{
+		            margin-block: 4px;
+		        }
+		
+		        .pivot_filter_div > span:first-child {
+		            border: $borders.extra-small dotted $colors.primary;
+		            padding: $spacing.stack-s;
+		        }
+		
+		        .check_item_img i,
+		        .check_item_img_small i,
+		        .uncheck_item_img i,
+		        .uncheck_item_img_small i {
+		            color: $colors.primary;
+		            position: relative;
+		            padding-block: 4px;
+		            top: 2px;
+		        }
+		
+		        .first_popup_subdiv i {
+		            color: $colors.primary;
+		            position: relative;
+		            top: 3px;
+		        }
+		
+		        .down_container{
+		            gap: 4px;
+		        }
+		
+		        .oatfilterwindow > .first_popup_subdiv > .first_div_label > span {
+		            padding-inline: 8px;
+		        }
+		
+		        .div_buttons_popup .btn {
+		            border-radius: unset;
+		            color: $colors.primary;
+		            font-family: $fonts.primary-semibold;
+		        }
+		
+		        .oatfilterwindow > hr {
+		            margin: 8px;
+		            width: unset;
+		        }
+		
+		        .div_buttons_popup .btn:nth-child(1) {
+		            border-start-start-radius: $radius.l;
+		            border-end-start-radius: $radius.l;
+		        }
+		
+		        .div_buttons_popup .btn:nth-child(2) {
+		            border-inline: unset;
+		        }
+		
+		        .div_buttons_popup .btn:nth-child(3) {
+		            border-start-end-radius: $radius.l;
+		            border-end-end-radius: $radius.l;
+		        }
+		
+		        .div_buttons_popup .btn:hover {
+		            background-color: $colors.primary;
+		            border-color: $colors.primary;
+		            color: $colors.alt-surface;
+		        }
+		
+		        #pop-up hr,
+		        .oat_winrect_container hr {
+		            margin-inline: -8px;
+		            border: 0.5px solid $colors.border-gray-01;
+		        }
+		
+		        .oat_winrect_container > .oat_winrect_title {
+		            padding-inline-start: $spacing.stack-m;
+		        }
+		
+		        .pivot_pag_div input {
+		            position: relative;
+		            border-radius: $radius.l;
+		            border: 1px solid $colors.border-gray-04;
+		            font-size: $fontSizes.s;
+		            line-height: 18px; 
+		            letter-spacing: $spacing.letter-spacing-xs;
+		            block-size: 24px;
+		        }
+		
+		        .inner_filter_div > select {
+		            position: relative;
+		            border-radius: $radius.l;
+		            border: 1px solid $colors.border-gray-04;
+		            // color: var(--body-texts-un-body-m__font-color--positive);
+		            font-size: $fontSizes.s;
+		            line-height: 18px; 
+		            letter-spacing: $spacing.letter-spacing-xs;
+		            block-size: 24px;
+		            padding: 5px;
+		            block-size: 32px;
+		            max-block-size: 32px;
+		        }
+		
+		        #tablePagination_perPage > select {
+		            padding-inline: 4px;
+		            block-size: 24px;
+		            position: relative;
+		            border-radius: $radius.l;
+		            border: 1px solid $colors.border-gray-04;
+		            // color: var(--body-texts-un-body-m__font-color--positive);
+		            font-size: $fontSizes.s;
+		            line-height: 18px; 
+		            letter-spacing: $spacing.letter-spacing-xs;
+		        }
+		
+		        .div_filter_input > .search_input {
+		            background-image: gx-image(GeneXusUnanimo.search);
+		            background-repeat: no-repeat;
+		            background-position: 4px;
+		            background-size: 20px;
+		            position: relative;
+		            block-size: 32px;
+		            max-block-size: 32px;
+		            padding-inline: 28px 8px;
+		            border-radius: $radius.l;
+		            border: 1px solid $colors.border-gray-04;
+		            font-size: $fontSizes.s;
+		            line-height: 18px; 
+		            letter-spacing: $spacing.letter-spacing-xs;
+		        }
+		
+		        .h2title,
+		        .h2titlewhite,
+		        .h2subtitle .grandtotaltitle,
+		        .winrect_title_label,
+		        .h2subtitle.subtitleFirstLevel,
+		        .QueryViewer-pivottable .pivot_table th.h2subtitle,
+		        .pivot_filter_div,
+		        .pivot_title_div,
+		        .grandtotaltitle,
+		        .grandtotalvalue,
+		        .gtotal.firstlevelvalue,
+		        .header_value > span,
+		        .oatgrid_top_div > span,
+		        .gx-query-viewer-pivot-container > span {
+		            font-family: $fonts.primary-semibold;
+		            font-size: $fontSizes.s;
+		            line-height: 18px;
+		            letter-spacing: $spacing.letter-spacing-m;
+		        }
+		
+		        .pivot_pag_div span:nth-child(2),
+		        #tablePagination_perPage {
+		            font-size: $fontSizes.xs;
+		            line-height: 13px; 
+		            letter-spacing: $spacing.letter-spacing-xs;
+		        }
+		        
+		    #endregion
+		}
+	#End
+
+	#Properties
+		Name = "QueryViewer"
+	#End
+
+}

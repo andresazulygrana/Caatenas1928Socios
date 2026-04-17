@@ -1,0 +1,153 @@
+SDT QueryViewerElements
+{
+		QueryViewerElements [ Collection = 'True', CollectionItemName = 'Element' ]	{
+
+			Name [ DataType = 'Character(20)' ]
+
+			Title [ DataType = 'Character(40)' ]
+
+			Visible [ DataType = 'QueryViewerVisible, GeneXusReporting' ]
+
+			Type [ DataType = 'QueryViewerElementType, GeneXusReporting' ]
+
+			Axis [ DataType = 'QueryViewerAxisType, GeneXusReporting' ]
+
+			Aggregation [ DataType = 'QueryViewerAggregationType, GeneXusReporting' ]
+
+			DataField [ DataType = 'Character(20)' ]
+
+			Filter		{
+
+				Type [ DataType = 'QueryViewerFilterType, GeneXusReporting' ]
+
+				Values [ DataType = 'Character(20)', Collection = 'True', CollectionItemName = 'Value' ]
+
+			}
+
+	
+
+			ExpandCollapse		{
+
+				Type [ DataType = 'QueryViewerExpandCollapse, GeneXusReporting' ]
+
+				Values [ DataType = 'Character(20)', Collection = 'True', CollectionItemName = 'Value' ]
+
+			}
+
+	
+
+			AxisOrder [ Collection = 'False' ]		{
+
+				Type [ DataType = 'QueryViewerAxisOrderType, GeneXusReporting' ]
+
+				Values [ DataType = 'Character(40)', Collection = 'True', CollectionItemName = 'Value' ]
+
+			}
+
+	
+
+			Format		{
+
+				Picture [ DataType = 'Character(20)' ]
+
+				Subtotals [ DataType = 'QueryViewerSubtotals, GeneXusReporting' ]
+
+				CanDragToPages [ DataType = 'Boolean', InitialValue = 'true' ]
+
+				Style [ DataType = 'Character(20)' ]
+
+				TargetValue [ DataType = 'Numeric(18.2)' ]
+
+				MaximumValue [ DataType = 'Numeric(18.2)' ]
+
+				ValuesStyles [ Collection = 'True', CollectionItemName = 'ValueStyle' ]			{
+
+					Value [ DataType = 'Character(20)' ]
+
+					StyleOrClass [ DataType = 'Character(20)' ]
+
+					ApplyToRowOrColumn [ DataType = 'Boolean' ]
+
+				}
+
+	
+
+				ConditionalStyles [ Collection = 'True', CollectionItemName = 'ConditionalStyle' ]			{
+
+					Operator [ DataType = 'QueryViewerConditionOperator, GeneXusReporting' ]
+
+					Value1 [ DataType = 'Character(20)' ]
+
+					Value2 [ DataType = 'Character(20)' ]
+
+					StyleOrClass [ DataType = 'Character(20)' ]
+
+				}
+
+	
+
+			}
+
+	
+
+			Grouping		{
+
+				GroupByYear [ DataType = 'Boolean' ]
+
+				YearTitle [ DataType = 'Character(20)' ]
+
+				GroupBySemester [ DataType = 'Boolean' ]
+
+				SemesterTitle [ DataType = 'Character(20)' ]
+
+				GroupByQuarter [ DataType = 'Boolean' ]
+
+				QuarterTitle [ DataType = 'Character(20)' ]
+
+				GroupByMonth [ DataType = 'Boolean' ]
+
+				MonthTitle [ DataType = 'Character(20)' ]
+
+				GroupByDayOfWeek [ DataType = 'Boolean' ]
+
+				DayOfWeekTitle [ DataType = 'Character(20)' ]
+
+				HideValue [ DataType = 'Boolean' ]
+
+			}
+
+	
+
+			Actions		{
+
+				RaiseItemClick [ DataType = 'Boolean', InitialValue = 'true' ]
+
+			}
+
+	
+
+			Analytics		{
+
+				ShowValuesAs [ DataType = 'QueryViewerShowValuesAs, GeneXusReporting' ]
+
+				RollingAverageType [ DataType = 'QueryViewerRollingAverageType, GeneXusReporting' ]
+
+				RollingAverageTerms
+
+				DifferenceFrom [ DataType = 'QueryViewerDifferenceFrom, GeneXusReporting' ]
+
+				ShowAsPercentage [ DataType = 'QueryViewerShowAsPercentage, GeneXusReporting' ]
+
+			}
+
+	
+
+		}
+
+	#Properties
+		Name = "QueryViewerElements"
+
+		ExposedNamespace = "GeneXus.Reporting"
+	#End
+
+}

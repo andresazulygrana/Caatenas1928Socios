@@ -1,0 +1,148 @@
+WebPanel Gx0040
+{
+	#Rules
+		parm(out:&pConfiguracionPagoId);
+		order(ConfiguracionPagoId);
+	#End
+
+	#Events
+		Event Start
+			Form.Caption = Format("GXSPC_SelectionList", "Configuracion Pago")
+			&ADVANCED_LABEL_TEMPLATE = "%1 <strong>%2</strong>"
+		EndEvent
+		
+		Event 'Toggle'
+			if AdvancedContainer.Class = StyleClass:AdvancedContainer
+				AdvancedContainer.Class = StyleClass:AdvancedContainer + !" " + StyleClass:AdvancedContainerVisible
+				BtnToggle.Class += !" " + StyleClass:BtnToggleActive
+			else
+				AdvancedContainer.Class = StyleClass:AdvancedContainer
+				BtnToggle.Class = StyleClass:BtnToggle
+			endif
+		Endevent
+		
+		Event LblConfiguracionPagoIdFilter.Click
+			if ConfiguracionPagoIdFilterContainer.Class = StyleClass:AdvancedContainerItem
+				ConfiguracionPagoIdFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cConfiguracionPagoId.Visible = true
+			else
+				ConfiguracionPagoIdFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cConfiguracionPagoId.Visible = false
+			endif
+		EndEvent
+		
+		Event LblConfiguracionPagoNombreFilter.Click
+			if ConfiguracionPagoNombreFilterContainer.Class = StyleClass:AdvancedContainerItem
+				ConfiguracionPagoNombreFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cConfiguracionPagoNombre.Visible = true
+			else
+				ConfiguracionPagoNombreFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cConfiguracionPagoNombre.Visible = false
+			endif
+		EndEvent
+		
+		Event LblConfiguracionPagoActivoFilter.Click
+			if ConfiguracionPagoActivoFilterContainer.Class = StyleClass:AdvancedContainerItem
+				ConfiguracionPagoActivoFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cConfiguracionPagoActivo.Visible = true
+			else
+				ConfiguracionPagoActivoFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cConfiguracionPagoActivo.Visible = false
+			endif
+		EndEvent
+		
+		Event LblConfiguracionPagoMailActivoFilter.Click
+			if ConfiguracionPagoMailActivoFilterContainer.Class = StyleClass:AdvancedContainerItem
+				ConfiguracionPagoMailActivoFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cConfiguracionPagoMailActivo.Visible = true
+			else
+				ConfiguracionPagoMailActivoFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cConfiguracionPagoMailActivo.Visible = false
+			endif
+		EndEvent
+		
+		Event LblConfiguracionPagoMailPortFilter.Click
+			if ConfiguracionPagoMailPortFilterContainer.Class = StyleClass:AdvancedContainerItem
+				ConfiguracionPagoMailPortFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cConfiguracionPagoMailPort.Visible = true
+			else
+				ConfiguracionPagoMailPortFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cConfiguracionPagoMailPort.Visible = false
+			endif
+		EndEvent
+		
+		Event LblConfiguracionPagoMailSenderNameFilter.Click
+			if ConfiguracionPagoMailSenderNameFilterContainer.Class = StyleClass:AdvancedContainerItem
+				ConfiguracionPagoMailSenderNameFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cConfiguracionPagoMailSenderName.Visible = true
+			else
+				ConfiguracionPagoMailSenderNameFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cConfiguracionPagoMailSenderName.Visible = false
+			endif
+		EndEvent
+		
+		Event LblConfiguracionPagoMailSecureFilter.Click
+			if ConfiguracionPagoMailSecureFilterContainer.Class = StyleClass:AdvancedContainerItem
+				ConfiguracionPagoMailSecureFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cConfiguracionPagoMailSecure.Visible = true
+			else
+				ConfiguracionPagoMailSecureFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cConfiguracionPagoMailSecure.Visible = false
+			endif
+		EndEvent
+		
+		Event Load
+			&LinkSelection.FromImage(selectRow)
+		EndEvent
+		
+		Event Enter
+			&pConfiguracionPagoId = ConfiguracionPagoId
+			Return
+		EndEvent
+	#End
+
+	#Conditions
+		ConfiguracionPagoId >= &cConfiguracionPagoId ;
+		ConfiguracionPagoNombre LIKE &cConfiguracionPagoNombre when not &cConfiguracionPagoNombre.IsEmpty();
+		ConfiguracionPagoActivo >= &cConfiguracionPagoActivo when not &cConfiguracionPagoActivo.IsEmpty();
+		ConfiguracionPagoMailActivo >= &cConfiguracionPagoMailActivo when not &cConfiguracionPagoMailActivo.IsEmpty();
+		ConfiguracionPagoMailPort >= &cConfiguracionPagoMailPort when not &cConfiguracionPagoMailPort.IsEmpty();
+		ConfiguracionPagoMailSenderName LIKE &cConfiguracionPagoMailSenderName when not &cConfiguracionPagoMailSenderName.IsEmpty();
+		ConfiguracionPagoMailSecure >= &cConfiguracionPagoMailSecure when not &cConfiguracionPagoMailSecure.IsEmpty();
+	#End
+
+	#Variables
+			LinkSelection [ DataType = 'Image' ]
+
+			cConfiguracionPagoId [ Description = 'Identificador unico de configuracion de pago', DataType = 'Attribute:ConfiguracionPagoId' ]
+
+			cConfiguracionPagoNombre [ Description = 'Nombre del entorno de pago. Ej: Sandbox Produccion', DataType = 'Attribute:ConfiguracionPagoNombre' ]
+
+			cConfiguracionPagoActivo [ Description = 'Indica si esta configuracion es la activa', DataType = 'Attribute:ConfiguracionPagoActivo' ]
+
+			cConfiguracionPagoMailActivo [ Description = 'Indica si el envio automatico de correos esta activo', DataType = 'Attribute:ConfiguracionPagoMailActivo' ]
+
+			cConfiguracionPagoMailPort [ Description = 'Puerto SMTP', DataType = 'Attribute:ConfiguracionPagoMailPort' ]
+
+			cConfiguracionPagoMailSenderName [ Description = 'Nombre visible del remitente', DataType = 'Attribute:ConfiguracionPagoMailSenderName' ]
+
+			cConfiguracionPagoMailSecure [ Description = 'Indica si el SMTP usa TLS/SSL', DataType = 'Attribute:ConfiguracionPagoMailSecure' ]
+
+			pConfiguracionPagoId [ Description = 'Identificador unico de configuracion de pago', DataType = 'Attribute:ConfiguracionPagoId' ]
+
+			ADVANCED_LABEL_TEMPLATE [ DataType = 'Character(20)' ]
+	#End
+
+	#Properties
+		Name = "Gx0040"
+
+		Description = "Selection List Configuracion Pago"
+
+		MasterPage = "(none)"
+
+		AssociatedTable = "ConfiguracionPago"
+
+		FocusControl = "Browser dependent"
+	#End
+
+}

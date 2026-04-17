@@ -1,0 +1,38 @@
+Transaction ConfiguracionPago
+{
+	ConfiguracionPagoId* [ DataType = 'Numeric(4.0)', Description = 'Identificador unico de configuracion de pago' ]
+	ConfiguracionPagoNombre! [ DataType = 'VarChar(40)', Description = 'Nombre del entorno de pago. Ej: Sandbox Produccion' ]
+	ConfiguracionPagoAccessToken! [ DataType = 'LongVarChar(1K)', Description = 'Access token de Mercado Pago' ]
+	ConfiguracionPagoBaseUrl! [ DataType = 'VarChar(512)', Description = 'URL base publica de la aplicacion' ]
+	ConfiguracionPagoActivo [ DataType = 'Boolean', Description = 'Indica si esta configuracion es la activa' ]
+	ConfiguracionPagoMailActivo [ DataType = 'Boolean', Description = 'Indica si el envio automatico de correos esta activo' ]
+	ConfiguracionPagoMailHost [ DataType = 'VarChar(120)', Description = 'Servidor SMTP para envio de correos' ]
+	ConfiguracionPagoMailPort [ DataType = 'Numeric(5.0)', Description = 'Puerto SMTP' ]
+	ConfiguracionPagoMailUser [ DataType = 'VarChar(120)', Description = 'Usuario SMTP' ]
+	ConfiguracionPagoMailPassword [ DataType = 'LongVarChar(512)', Description = 'Clave SMTP' ]
+	ConfiguracionPagoMailSender [ DataType = 'VarChar(120)', Description = 'Correo remitente' ]
+	ConfiguracionPagoMailSenderName [ DataType = 'VarChar(80)', Description = 'Nombre visible del remitente' ]
+	ConfiguracionPagoMailSecure [ DataType = 'Boolean', Description = 'Indica si el SMTP usa TLS/SSL' ]
+
+	#Rules
+		noaccept(ConfiguracionPagoId);
+		Default(ConfiguracionPagoActivo, true);
+		Default(ConfiguracionPagoMailActivo, false);
+		Default(ConfiguracionPagoMailPort, 587);
+		Default(ConfiguracionPagoMailSecure, true);
+	#End
+
+	#Events
+	#End
+
+	#Variables
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+		Mode [ DataType = 'Character(3)' ]
+		Today [ DataType = 'Date' ]
+	#End
+
+	#Properties
+		BusinessComponent = true
+	#End
+}

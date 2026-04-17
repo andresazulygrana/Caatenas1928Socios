@@ -1,0 +1,11 @@
+Domain QueryViewerShowDataLabelsIn
+{
+	#Properties
+		Name = "QueryViewerShowDataLabelsIn"
+
+		DataType = "Character(20)"
+
+		EnumValues = "Rows, Rows area, Rows; Columns, Columns area, Columns"
+	#End
+
+}

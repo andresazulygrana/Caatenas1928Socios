@@ -1,0 +1,11 @@
+Domain QueryViewerRegion
+{
+	#Properties
+		Name = "QueryViewerRegion"
+
+		DataType = "Character(20)"
+
+		EnumValues = "World, World, World; Country, Country, Country; Continent, Continent, Continent"
+	#End
+
+}

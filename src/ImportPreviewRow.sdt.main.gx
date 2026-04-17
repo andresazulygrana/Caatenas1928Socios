@@ -1,0 +1,25 @@
+SDT ImportPreviewRow
+{
+		ImportPreviewRow	{
+
+			Cedula [ DataType = 'Attribute:SocioCedula' ]
+
+			Nombre [ DataType = 'Attribute:SocioNombre' ]
+
+			Apellido [ DataType = 'Attribute:SocioApellido' ]
+
+			Telefono [ DataType = 'Attribute:SocioTelefono' ]
+
+			Plan [ DataType = 'VarChar(80)' ]
+
+			Observacion [ DataType = 'VarChar(160)' ]
+
+		}
+
+	#Properties
+		Name = "ImportPreviewRow"
+
+		Description = "Fila previsualizada para importacion de socios"
+	#End
+
+}

@@ -1,0 +1,15 @@
+Attribute CuotaPeriodo
+{
+	#Properties
+		Name = "CuotaPeriodo"
+
+		Description = "Periodo en formato AAAA-MM. Ej: 2025-03"
+
+		DataType = "Character(7)"
+
+		Length = "7"
+
+		MaximumLength = "7"
+	#End
+
+}

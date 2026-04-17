@@ -1,0 +1,274 @@
+<layout type="Web">
+	<view>
+		<smart name="MainLayout" columns="100%" rows="100%" width="100%" height="100%" class="backoffice-page">
+			<row>
+				<cell horizontalAlignment="Center" verticalAlignment="Top">
+					<smart name="Shell" columns="270px;100%" rows="100%" width="100%" height="100%" class="backoffice-shell">
+						<row>
+							<cell class="backoffice-sidebar" verticalAlignment="Top">
+								<smart name="SidebarLayout" columns="100%" rows="74px;98px;392px;58px" width="100%">
+									<row>
+										<cell verticalAlignment="Top">
+											<smart name="Brand" columns="56px;100%" rows="56px" width="100%">
+												<row>
+													<cell horizontalAlignment="Center" verticalAlignment="Middle">
+														<label name="LblCrest" caption="A" class="backoffice-crest" />
+													</cell>
+													<cell horizontalAlignment="Left" verticalAlignment="Middle">
+														<smart name="BrandText" columns="100%" rows="30px;18px" width="100%">
+															<row>
+																<cell horizontalAlignment="Left" verticalAlignment="Bottom">
+																	<label name="LblBrandTitle" caption="Club Atenas" class="backoffice-brand-title" />
+																</cell>
+															</row>
+															<row>
+																<cell horizontalAlignment="Left" verticalAlignment="Top">
+																	<label name="LblBrandMeta" caption="Backoffice de socios" class="backoffice-brand-meta" />
+																</cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell verticalAlignment="Middle">
+											<smart name="SidebarCard" columns="100%" rows="18px;52px" width="100%" class="backoffice-sidebar-card">
+												<row>
+													<cell horizontalAlignment="Left" verticalAlignment="Bottom">
+														<label name="LblSidebarTitle" caption="Sandbox interno" class="backoffice-sidebar-section" />
+													</cell>
+												</row>
+												<row>
+													<cell horizontalAlignment="Left" verticalAlignment="Middle">
+														<label name="LblSidebarText" caption="Prepara socio de prueba y verifica el flujo del portal antes de produccion." class="backoffice-sidebar-text" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell verticalAlignment="Top">
+											<smart name="SidebarNav" columns="100%" rows="44px;44px;44px;44px;44px;44px;44px;44px" width="100%">
+												<row>
+													<cell>
+														<action name="BtnNavDashboard" onClickEvent="'Dashboard'" caption="Dashboard" class="btn-sidebar" />
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<action name="BtnNavSocios" onClickEvent="'Socios'" caption="Socios" class="btn-sidebar" />
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<action name="BtnNavImportar" onClickEvent="'ImportarSocios'" caption="Importar socios" class="btn-sidebar" />
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<action name="BtnNavTipos" onClickEvent="'TiposCuota'" caption="Tipos de cuota" class="btn-sidebar" />
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<action name="BtnNavCuotas" onClickEvent="'Cuotas'" caption="Cuotas" class="btn-sidebar" />
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<action name="BtnNavConfig" onClickEvent="'ConfiguracionPago'" caption="Configuracion pago" class="btn-sidebar" />
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<action name="BtnNavPruebas" onClickEvent="'PruebasPago'" caption="Prueba de pago" class="btn-sidebar-active" />
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<action name="BtnNavSandbox" onClickEvent="'IrSandbox'" caption="Procesar sandbox" class="btn-sidebar" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell verticalAlignment="Bottom">
+											<label name="LblSidebarFooter" caption="Usuario: Secretaria Atenas | Admin / Operacion diaria" class="backoffice-sidebar-footer" />
+										</cell>
+									</row>
+								</smart>
+							</cell>
+							<cell class="backoffice-main" verticalAlignment="Top">
+								<smart name="PruebasBody" columns="100%" rows="128px;460px;280px" width="100%" class="backoffice-main-body">
+									<row>
+										<cell horizontalAlignment="Center" verticalAlignment="Middle">
+											<smart name="TopbarPruebas" columns="64%;36%" rows="44px;26px" width="100%" class="surface-elevated">
+												<row>
+													<cell horizontalAlignment="Left" verticalAlignment="Middle">
+														<label name="LblTitulo" caption="Prueba de pago sandbox" class="admin-topbar-title" />
+													</cell>
+													<cell horizontalAlignment="Right" verticalAlignment="Middle">
+														<smart name="TopbarActions" columns="50%;50%" rows="44px" width="100%">
+															<row>
+																<cell horizontalAlignment="Left" verticalAlignment="Middle">
+																	<action name="BtnInicializarTop" onClickEvent="'InicializarTipos'" caption="Inicializar tipos" class="btn-topbar-secondary" />
+																</cell>
+																<cell horizontalAlignment="Right" verticalAlignment="Middle">
+																	<action name="BtnPrepararTop" onClickEvent="'Preparar'" caption="Preparar socio prueba" class="btn-topbar" />
+																</cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+												<row>
+													<cell horizontalAlignment="Left" verticalAlignment="Top">
+														<label name="LblSubtitulo" caption="Prepara un socio de prueba y valida el recorrido antes de pasar al portal publico." class="admin-topbar-text" />
+													</cell>
+													<cell />
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell horizontalAlignment="Center" verticalAlignment="Top">
+											<smart name="BloquePruebas" columns="100%" rows="360px;36px;64px" width="100%">
+												<row>
+													<cell class="surface-elevated" horizontalAlignment="Center" verticalAlignment="Top">
+														<smart name="FormularioPrueba" columns="50%;50%" rows="28px;72px;28px;72px;28px;72px" width="100%">
+															<row>
+																<cell horizontalAlignment="Left" verticalAlignment="Bottom">
+																	<label name="LblCedula" caption="Cedula de prueba" class="field-label" />
+																</cell>
+																<cell horizontalAlignment="Left" verticalAlignment="Bottom">
+																	<label name="LblNombre" caption="Nombre" class="field-label" />
+																</cell>
+															</row>
+															<row>
+																<cell horizontalAlignment="Center" verticalAlignment="Middle">
+																	<input attribute="&amp;CedulaPrueba" class="field" />
+																</cell>
+																<cell horizontalAlignment="Center" verticalAlignment="Middle">
+																	<input attribute="&amp;NombrePrueba" class="field" />
+																</cell>
+															</row>
+															<row>
+																<cell horizontalAlignment="Left" verticalAlignment="Bottom">
+																	<label name="LblApellido" caption="Apellido" class="field-label" />
+																</cell>
+																<cell horizontalAlignment="Left" verticalAlignment="Bottom">
+																	<label name="LblEmail" caption="Email test Mercado Pago" class="field-label" />
+																</cell>
+															</row>
+															<row>
+																<cell horizontalAlignment="Center" verticalAlignment="Middle">
+																	<input attribute="&amp;ApellidoPrueba" class="field" />
+																</cell>
+																<cell horizontalAlignment="Center" verticalAlignment="Middle">
+																	<input attribute="&amp;EmailPrueba" class="field" />
+																</cell>
+															</row>
+															<row>
+																<cell horizontalAlignment="Left" verticalAlignment="Bottom">
+																	<label name="LblTelefono" caption="Telefono" class="field-label" />
+																</cell>
+																<cell horizontalAlignment="Left" verticalAlignment="Bottom">
+																	<label name="LblTipo" caption="Tipo de cuota" class="field-label" />
+																</cell>
+															</row>
+															<row>
+																<cell horizontalAlignment="Center" verticalAlignment="Middle">
+																	<input attribute="&amp;TelefonoPrueba" class="field" />
+																</cell>
+																<cell horizontalAlignment="Center" verticalAlignment="Middle">
+																	<input attribute="&amp;TipoCuotaId" class="field" />
+																</cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+												<row>
+													<cell horizontalAlignment="Left" verticalAlignment="Middle">
+														<label name="LblFormularioAyuda" caption="Usa datos de prueba consistentes y prepara primero el socio antes de abrir el portal publico." class="helper-text" />
+													</cell>
+												</row>
+												<row>
+													<cell horizontalAlignment="Left" verticalAlignment="Middle">
+														<smart name="AccionesFormulario" columns="50%;50%" rows="64px" width="100%">
+															<row>
+																<cell horizontalAlignment="Left" verticalAlignment="Middle">
+																	<action name="BtnPreparar" onClickEvent="'Preparar'" caption="Preparar socio prueba" class="btn-primary" />
+																</cell>
+																<cell horizontalAlignment="Center" verticalAlignment="Middle">
+																	<action name="BtnAbrirPago" onClickEvent="'AbrirPago'" caption="Abrir portal de pago" class="btn-secondary" />
+																</cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell horizontalAlignment="Center" verticalAlignment="Middle">
+											<smart name="ResultadoPrueba" columns="38%;62%" rows="30px;66px;30px;56px;40px" width="100%" class="surface-elevated">
+												<row>
+													<cell horizontalAlignment="Left" verticalAlignment="Bottom">
+														<label name="LblResultado" caption="Estado de la preparacion" class="field-label" />
+													</cell>
+													<cell horizontalAlignment="Left" verticalAlignment="Bottom">
+														<label name="LblChecklistPrueba" caption="Secuencia sugerida" class="field-label" />
+													</cell>
+												</row>
+												<row>
+													<cell horizontalAlignment="Left" verticalAlignment="Middle">
+														<input attribute="&amp;EstadoTexto" readonly="True" class="message-inline" />
+													</cell>
+													<cell horizontalAlignment="Left" verticalAlignment="Middle">
+														<label name="LblChecklistTexto" caption="1. Preparar socio. 2. Abrir portal. 3. Ejecutar checkout. 4. Confirmar retorno en la pantalla publica." class="helper-text" />
+													</cell>
+												</row>
+												<row>
+													<cell horizontalAlignment="Left" verticalAlignment="Bottom">
+														<label name="LblSocioPrueba" caption="Socio generado o reutilizado" class="field-label" />
+													</cell>
+													<cell />
+												</row>
+												<row>
+													<cell horizontalAlignment="Left" verticalAlignment="Middle">
+														<input attribute="&amp;SocioIdPrueba" readonly="True" class="text-caption" />
+													</cell>
+													<cell horizontalAlignment="Right" verticalAlignment="Middle">
+														<smart name="AccionesResultado" columns="50%;50%" rows="54px" width="100%">
+															<row>
+																<cell horizontalAlignment="Center" verticalAlignment="Middle">
+																	<action name="BtnDashboard" onClickEvent="'IrDashboard'" caption="Volver al dashboard" class="btn-secondary" />
+																</cell>
+																<cell horizontalAlignment="Center" verticalAlignment="Middle">
+																	<action name="BtnPortalPublico" onClickEvent="'IrPortalPublico'" caption="Abrir portal publico" class="btn-secondary" />
+																</cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+												<row>
+													<cell horizontalAlignment="Left" verticalAlignment="Middle">
+														<label name="LblPiePruebas" caption="Este panel es interno. El socio solo debe interactuar con BuscarSocio, PantallaPago y ConfirmacionPago." class="helper-text" />
+													</cell>
+													<cell />
+												</row>
+											</smart>
+										</cell>
+									</row>
+								</smart>
+							</cell>
+						</row>
+					</smart>
+				</cell>
+			</row>
+		</smart>
+		<actiongroups />
+	</view>
+</layout>

@@ -1,0 +1,15 @@
+Index ICuota
+{
+	CuotaId
+
+	#Index
+		Source = "Automatic"
+
+		Type = "Unique"
+	#End
+
+	#Properties
+		Name = "ICuota"
+	#End
+
+}

@@ -1,0 +1,15 @@
+Attribute ConfiguracionPagoMailPort
+{
+	#Properties
+		Name = "ConfiguracionPagoMailPort"
+
+		Description = "Puerto SMTP"
+
+		DataType = "Numeric(5.0)"
+
+		Length = "5"
+
+		MaximumLength = "5"
+	#End
+
+}

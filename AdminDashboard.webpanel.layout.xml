@@ -1,0 +1,83 @@
+<layout type="Web">
+	<view>
+		<smart name="MainLayout" class="backoffice-page" width="100%" height="100%" columnsStyle="100%" rowsStyle="100%">
+			<row>
+				<cell hAlign="Center" vAlign="Top">
+					<smart name="Shell" class="backoffice-shell" width="100%" height="100%" columnsStyle="270px;100%" rowsStyle="100%">
+						<row>
+							<cell class="backoffice-sidebar" vAlign="Top">
+								<smart name="SidebarLayout" width="100%" columnsStyle="100%" rowsStyle="74px;98px;392px;58px">
+									<row><cell vAlign="Top"><smart name="Brand" width="100%" columnsStyle="56px;100%" rowsStyle="56px"><row><cell hAlign="Center" vAlign="Middle"><label name="LblCrest" caption="A" class="backoffice-crest"/></cell><cell hAlign="Left" vAlign="Middle"><smart name="BrandText" width="100%" columnsStyle="100%" rowsStyle="30px;18px"><row><cell hAlign="Left" vAlign="Bottom"><label name="LblBrandTitle" caption="Club Atenas" class="backoffice-brand-title"/></cell></row><row><cell hAlign="Left" vAlign="Top"><label name="LblBrandMeta" caption="Backoffice de socios" class="backoffice-brand-meta"/></cell></row></smart></cell></row></smart></cell></row>
+									<row><cell vAlign="Middle"><smart name="SidebarCard" class="backoffice-sidebar-card" width="100%" columnsStyle="100%" rowsStyle="18px;52px"><row><cell hAlign="Left" vAlign="Bottom"><label name="LblSidebarTitle" caption="Resumen operativo" class="backoffice-sidebar-section"/></cell></row><row><cell hAlign="Left" vAlign="Middle"><label name="LblSidebarText" caption="Indicadores del dia, accesos rapidos y navegacion lateral persistente." class="backoffice-sidebar-text"/></cell></row></smart></cell></row>
+									<row><cell vAlign="Top"><smart name="SidebarNav" width="100%" columnsStyle="100%" rowsStyle="44px;44px;44px;44px;44px;44px;44px;44px"><row><cell><action name="BtnNavDashboard" caption="Dashboard" onClickEvent="'Dashboard'" class="btn-sidebar-active"/></cell></row><row><cell><action name="BtnNavSocios" caption="Socios" onClickEvent="'Socios'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavImportar" caption="Importar socios" onClickEvent="'ImportarSocios'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavTipos" caption="Tipos de cuota" onClickEvent="'TiposCuota'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavCuotas" caption="Cuotas" onClickEvent="'Cuotas'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavConfig" caption="Configuracion pago" onClickEvent="'ConfiguracionPago'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavPruebas" caption="Prueba de pago" onClickEvent="'PruebasPago'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavSandbox" caption="Procesar sandbox" onClickEvent="'Sandbox'" class="btn-sidebar"/></cell></row></smart></cell></row>
+									<row><cell vAlign="Bottom"><label name="LblSidebarFooter" caption="Usuario: Secretaria Atenas | Admin / Operacion diaria" class="backoffice-sidebar-footer"/></cell></row>
+								</smart>
+							</cell>
+							<cell class="backoffice-main" vAlign="Top">
+								<smart name="DashboardBody" class="backoffice-main-body" width="100%" columnsStyle="100%" rowsStyle="128px;160px;32px;220px">
+									<row>
+										<cell hAlign="Center" vAlign="Middle">
+											<smart name="Topbar" class="surface-elevated" width="100%" columnsStyle="100%" rowsStyle="44px;26px">
+												<row>
+													<cell hAlign="Left" vAlign="Middle"><label name="LblTituloDashboard" caption="Backoffice administrativo" class="admin-topbar-title"/></cell>
+												</row>
+												<row>
+													<cell hAlign="Left" vAlign="Top"><label name="LblTopbarTexto" caption="Entrada unica del equipo interno, con foco en padron, deuda, importaciones y cobranza." class="admin-topbar-text"/></cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell hAlign="Center" vAlign="Middle">
+											<smart name="ResumenGeneral" width="100%" columnsStyle="25%;25%;25%;25%" rowsStyle="160px">
+												<row>
+													<cell hAlign="Center" vAlign="Middle"><smart name="CardActivos" class="admin-kpi-card" width="100%" columnsStyle="100%" rowsStyle="18px;52px;24px"><row><cell hAlign="Left" vAlign="Middle"><label name="LblActivos" caption="Socios activos" class="admin-kpi-label"/></cell></row><row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;TotalSociosActivos" readonly="True" class="admin-kpi-value"/></cell></row><row><cell hAlign="Left" vAlign="Middle"><label name="LblActivosAyuda" caption="Base activa del club" class="admin-kpi-meta"/></cell></row></smart></cell>
+													<cell hAlign="Center" vAlign="Middle"><smart name="CardMorosos" class="admin-kpi-card" width="100%" columnsStyle="100%" rowsStyle="18px;52px;24px"><row><cell hAlign="Left" vAlign="Middle"><label name="LblMorosos" caption="Socios morosos" class="admin-kpi-label"/></cell></row><row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;TotalSociosMorosos" readonly="True" class="admin-kpi-value"/></cell></row><row><cell hAlign="Left" vAlign="Middle"><label name="LblMorososAyuda" caption="Seguimiento y regularizacion" class="admin-kpi-meta"/></cell></row></smart></cell>
+													<cell hAlign="Center" vAlign="Middle"><smart name="CardPendientes" class="admin-kpi-card" width="100%" columnsStyle="100%" rowsStyle="18px;52px;24px"><row><cell hAlign="Left" vAlign="Middle"><label name="LblPendientes" caption="Cuotas pendientes" class="admin-kpi-label"/></cell></row><row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;TotalCuotasPendientes" readonly="True" class="admin-kpi-value"/></cell></row><row><cell hAlign="Left" vAlign="Middle"><label name="LblPendientesAyuda" caption="Periodo actual" class="admin-kpi-meta"/></cell></row></smart></cell>
+													<cell hAlign="Center" vAlign="Middle"><smart name="CardRecaudado" class="admin-kpi-card" width="100%" columnsStyle="100%" rowsStyle="18px;52px;24px"><row><cell hAlign="Left" vAlign="Middle"><label name="LblRecaudado" caption="Recaudado del mes" class="admin-kpi-label"/></cell></row><row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;TotalRecaudadoMes" readonly="True" class="admin-kpi-value"/></cell></row><row><cell hAlign="Left" vAlign="Middle"><label name="LblRecaudadoAyuda" caption="Cuotas acreditadas" class="admin-kpi-meta"/></cell></row></smart></cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell hAlign="Left" vAlign="Middle"><label name="LblAccesosRapidos" caption="Accesos rapidos" class="admin-section-title"/></cell>
+									</row>
+									<row>
+										<cell hAlign="Center" vAlign="Middle">
+											<smart name="AccesosRapidos" width="100%" columnsStyle="33%;33%;34%" rowsStyle="220px">
+												<row>
+													<cell hAlign="Center" vAlign="Top">
+														<smart name="CardAccesoSocios" class="surface-elevated" width="100%" columnsStyle="100%" rowsStyle="28px;72px;52px">
+															<row><cell hAlign="Left" vAlign="Bottom"><label name="LblCardSociosTitulo" caption="Socios" class="admin-card-title"/></cell></row>
+															<row><cell hAlign="Left" vAlign="Middle"><label name="LblCardSociosTexto" caption="Vista operativa del padron con estado, deuda y acceso directo a la ficha individual." class="admin-card-text"/></cell></row>
+															<row><cell hAlign="Center" vAlign="Middle"><action name="BtnAccesoSocios" caption="Ir a socios" onClickEvent="'Socios'" class="btn-primary"/></cell></row>
+														</smart>
+													</cell>
+													<cell hAlign="Center" vAlign="Top">
+														<smart name="CardAccesoCuotas" class="surface-elevated" width="100%" columnsStyle="100%" rowsStyle="28px;72px;52px">
+															<row><cell hAlign="Left" vAlign="Bottom"><label name="LblCardCuotasTitulo" caption="Cuotas" class="admin-card-title"/></cell></row>
+															<row><cell hAlign="Left" vAlign="Middle"><label name="LblCardCuotasTexto" caption="Seguimiento de pendientes, vencidas y pagos acreditados del periodo actual." class="admin-card-text"/></cell></row>
+															<row><cell hAlign="Center" vAlign="Middle"><action name="BtnAccesoCuotas" caption="Ir a cuotas" onClickEvent="'Cuotas'" class="btn-primary"/></cell></row>
+														</smart>
+													</cell>
+													<cell hAlign="Center" vAlign="Top">
+														<smart name="CardAccesoImportar" class="surface-elevated" width="100%" columnsStyle="100%" rowsStyle="28px;72px;52px">
+															<row><cell hAlign="Left" vAlign="Bottom"><label name="LblCardImportarTitulo" caption="Importar socios" class="admin-card-title"/></cell></row>
+															<row><cell hAlign="Left" vAlign="Middle"><label name="LblCardImportarTexto" caption="Carga controlada de Excel con previsualizacion y confirmacion por lote." class="admin-card-text"/></cell></row>
+															<row><cell hAlign="Center" vAlign="Middle"><action name="BtnAccesoImportar" caption="Ir a importar" onClickEvent="'ImportarSocios'" class="btn-primary"/></cell></row>
+														</smart>
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+								</smart>
+							</cell>
+						</row>
+					</smart>
+				</cell>
+			</row>
+		</smart>
+		<actiongroups />
+	</view>
+</layout>

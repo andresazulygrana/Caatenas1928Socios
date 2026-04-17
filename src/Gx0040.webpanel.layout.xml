@@ -1,0 +1,148 @@
+<layout type="Web">
+	<view>
+		<responsive name="Main" class="ContainerFluid PromptContainer" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:25},{&quot;width&quot;:75}]]}]">
+			<row>
+				<cell class="PromptAdvancedBarCell">
+					<responsive name="AdvancedContainer" class="AdvancedContainerVisible" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}],[{&quot;width&quot;:100}],[{&quot;width&quot;:100}],[{&quot;width&quot;:100}],[{&quot;width&quot;:100}],[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]}]">
+						<row>
+							<cell>
+								<responsive name="ConfiguracionPagoIdFilterContainer" class="AdvancedContainerItem AdvancedContainerItemExpanded" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]}]">
+									<row>
+										<cell>
+											<label name="LblConfiguracionPagoIdFilter" caption="=ConfiguracionPagoId.Title" class="WWAdvancedLabel WWFilterLabel" gxFormat="HTML" />
+										</cell>
+									</row>
+									<row>
+										<cell class="WWFiltersCell">
+											<input attribute="&amp;cConfiguracionPagoId" labelPosition="None" />
+										</cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<responsive name="ConfiguracionPagoNombreFilterContainer" class="AdvancedContainerItem AdvancedContainerItemExpanded" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]}]">
+									<row>
+										<cell>
+											<label name="LblConfiguracionPagoNombreFilter" caption="=ConfiguracionPagoNombre.Title" class="WWAdvancedLabel WWFilterLabel" gxFormat="HTML" />
+										</cell>
+									</row>
+									<row>
+										<cell class="WWFiltersCell">
+											<input attribute="&amp;cConfiguracionPagoNombre" labelPosition="None" />
+										</cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<responsive name="ConfiguracionPagoActivoFilterContainer" class="AdvancedContainerItem AdvancedContainerItemExpanded" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]}]">
+									<row>
+										<cell>
+											<label name="LblConfiguracionPagoActivoFilter" caption="=ConfiguracionPagoActivo.Title" class="WWAdvancedLabel WWFilterLabel" gxFormat="HTML" />
+										</cell>
+									</row>
+									<row>
+										<cell class="WWFiltersCell">
+											<input attribute="&amp;cConfiguracionPagoActivo" labelPosition="None" />
+										</cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<responsive name="ConfiguracionPagoMailActivoFilterContainer" class="AdvancedContainerItem AdvancedContainerItemExpanded" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]}]">
+									<row>
+										<cell>
+											<label name="LblConfiguracionPagoMailActivoFilter" caption="=ConfiguracionPagoMailActivo.Title" class="WWAdvancedLabel WWFilterLabel" gxFormat="HTML" />
+										</cell>
+									</row>
+									<row>
+										<cell class="WWFiltersCell">
+											<input attribute="&amp;cConfiguracionPagoMailActivo" labelPosition="None" />
+										</cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<responsive name="ConfiguracionPagoMailPortFilterContainer" class="AdvancedContainerItem AdvancedContainerItemExpanded" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]}]">
+									<row>
+										<cell>
+											<label name="LblConfiguracionPagoMailPortFilter" caption="=ConfiguracionPagoMailPort.Title" class="WWAdvancedLabel WWFilterLabel" gxFormat="HTML" />
+										</cell>
+									</row>
+									<row>
+										<cell class="WWFiltersCell">
+											<input attribute="&amp;cConfiguracionPagoMailPort" labelPosition="None" />
+										</cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<responsive name="ConfiguracionPagoMailSenderNameFilterContainer" class="AdvancedContainerItem AdvancedContainerItemExpanded" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]}]">
+									<row>
+										<cell>
+											<label name="LblConfiguracionPagoMailSenderNameFilter" caption="=ConfiguracionPagoMailSenderName.Title" class="WWAdvancedLabel WWFilterLabel" gxFormat="HTML" />
+										</cell>
+									</row>
+									<row>
+										<cell class="WWFiltersCell">
+											<input attribute="&amp;cConfiguracionPagoMailSenderName" labelPosition="None" />
+										</cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<responsive name="ConfiguracionPagoMailSecureFilterContainer" class="AdvancedContainerItem AdvancedContainerItemExpanded" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]}]">
+									<row>
+										<cell>
+											<label name="LblConfiguracionPagoMailSecureFilter" caption="=ConfiguracionPagoMailSecure.Title" class="WWAdvancedLabel WWFilterLabel" gxFormat="HTML" />
+										</cell>
+									</row>
+									<row>
+										<cell class="WWFiltersCell">
+											<input attribute="&amp;cConfiguracionPagoMailSecure" labelPosition="None" />
+										</cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+					</responsive>
+				</cell>
+				<cell class="WWGridCell">
+					<responsive name="GridTable" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;visible&quot;:false}],[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]},{&quot;scale&quot;:&quot;xs&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}]]},{&quot;scale&quot;:&quot;md&quot;,&quot;rows&quot;:[[{&quot;visible&quot;:false}]]},{&quot;scale&quot;:&quot;lg&quot;,&quot;rows&quot;:[[{&quot;visible&quot;:false}]]}]">
+						<row>
+							<cell class="ToggleCell">
+								<action name="BtnToggle" onClickEvent="'Toggle'" caption="|||" class="BtnToggle" />
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<tabularGrid name="Grid1" class="PromptGrid" maxRows="10">
+									<input attribute="&amp;LinkSelection" title="" class="SelectionAttribute" columnClass="WWActionColumn" returnOnClick="True" />
+									<input attribute="ConfiguracionPagoId" title="=ConfiguracionPagoId.ContextualTitle" columnClass="WWColumn" />
+									<input attribute="ConfiguracionPagoNombre" title="=ConfiguracionPagoNombre.ContextualTitle" columnClass="WWColumn OptionalColumn" />
+									<input attribute="ConfiguracionPagoMailPort" title="=ConfiguracionPagoMailPort.ContextualTitle" columnClass="WWColumn OptionalColumn" />
+								</tabularGrid>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<action name="btn_cancel" onClickEvent="Cancel" caption="GX_BtnCancel" class="BtnCancel" />
+							</cell>
+						</row>
+					</responsive>
+				</cell>
+			</row>
+		</responsive>
+	</view>
+</layout>

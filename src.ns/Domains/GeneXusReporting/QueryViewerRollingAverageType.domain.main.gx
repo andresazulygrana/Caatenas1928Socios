@@ -1,0 +1,13 @@
+Domain QueryViewerRollingAverageType
+{
+	#Properties
+		Name = "QueryViewerRollingAverageType"
+
+		DataType = "Character(20)"
+
+		EnumValues = "Simple, Simple, Simple; Central, Central, Central; Cumulative, Cumulative, Cumulative; Weighted, Weighted, Weighted; Exponential, Exponential, Exponential"
+
+		InitialValue = "QueryViewerRollingAverageType.Simple"
+	#End
+
+}

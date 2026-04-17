@@ -1,0 +1,17 @@
+Attribute SocioId
+{
+	#Properties
+		Name = "SocioId"
+
+		Description = "Identificador del socio"
+
+		DataType = "Numeric(8.0)"
+
+		Length = "8"
+
+		MaximumLength = "8"
+
+		Autonumber = "True"
+	#End
+
+}

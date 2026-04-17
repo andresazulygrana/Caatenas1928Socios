@@ -1,0 +1,15 @@
+Attribute ConfiguracionPagoMailUser
+{
+	#Properties
+		Name = "ConfiguracionPagoMailUser"
+
+		Description = "Usuario SMTP"
+
+		DataType = "VarChar(120)"
+
+		Length = "120"
+
+		MaximumLength = "120"
+	#End
+
+}

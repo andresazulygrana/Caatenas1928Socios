@@ -1,0 +1,15 @@
+Index IConfiguracionPago
+{
+	ConfiguracionPagoId
+
+	#Index
+		Source = "Automatic"
+
+		Type = "Unique"
+	#End
+
+	#Properties
+		Name = "IConfiguracionPago"
+	#End
+
+}

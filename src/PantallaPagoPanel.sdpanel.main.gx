@@ -1,0 +1,9 @@
+SDPanel PantallaPagoPanel
+{
+	<Properties><Property><Name>IsDefault</Name><Value>False</Value></Property></Properties>
+
+	#Properties
+		Name = "PantallaPagoPanel"
+	#End
+
+}

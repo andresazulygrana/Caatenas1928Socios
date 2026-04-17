@@ -1,0 +1,13 @@
+Version Design
+{
+	#Environments
+		.NET
+	#End
+
+	#Properties
+		DefaultStyle = "Caatenas1928"
+
+		EnableNationalLanguageSupport = "Yes"
+	#End
+
+}

@@ -1,0 +1,15 @@
+Attribute SocioCedula
+{
+	#Properties
+		Name = "SocioCedula"
+
+		Description = "Cedula de identidad del socio. Clave de deduplicacion"
+
+		DataType = "VarChar(16)"
+
+		Length = "16"
+
+		MaximumLength = "16"
+	#End
+
+}

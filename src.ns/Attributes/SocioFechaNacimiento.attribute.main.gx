@@ -1,0 +1,11 @@
+Attribute SocioFechaNacimiento
+{
+	#Properties
+		Name = "SocioFechaNacimiento"
+
+		Description = "Fecha de nacimiento. Opcional"
+
+		DataType = "Date"
+	#End
+
+}

@@ -1,0 +1,132 @@
+Procedure EnviarCorreoSMTP
+{
+		&Enviado = false
+		&MensajeResultado = !""
+	
+		If &DestinoEmail.IsEmpty()
+			&MensajeResultado = !"El destinatario no tiene correo configurado"
+			Return
+		EndIf
+	
+		For Each ConfiguracionPago
+			Where ConfiguracionPagoId = 1
+			Where ConfiguracionPagoActivo = true
+			&MailActivo = ConfiguracionPagoMailActivo
+			&MailHost = Trim(ConfiguracionPagoMailHost)
+			&MailPort = ConfiguracionPagoMailPort
+			&MailUser = Trim(ConfiguracionPagoMailUser)
+			&MailPassword = Trim(ConfiguracionPagoMailPassword)
+			&MailSender = Trim(ConfiguracionPagoMailSender)
+			&MailSenderName = Trim(ConfiguracionPagoMailSenderName)
+			&MailSecure = ConfiguracionPagoMailSecure
+			Exit
+		EndFor
+	
+		If NOT &MailActivo
+			&MensajeResultado = !"El envio automatico de correos no esta activo"
+			Return
+		EndIf
+	
+		If &MailHost.IsEmpty() OR &MailPort = 0 OR &MailUser.IsEmpty() OR &MailPassword.IsEmpty() OR &MailSender.IsEmpty()
+			&MensajeResultado = !"La configuracion SMTP esta incompleta"
+			Return
+		EndIf
+	
+		&SmtpSession = new()
+		&SmtpSession.Host = &MailHost
+		&SmtpSession.Port = &MailPort
+		&SmtpSession.UserName = &MailUser
+		&SmtpSession.Password = &MailPassword
+		&SmtpSession.Authentication = 1
+		If &MailSecure
+			&SmtpSession.Secure = 1
+		Else
+			&SmtpSession.Secure = 0
+		EndIf
+	
+		&Sender = new()
+		&Sender.Address = &MailSender
+		If &MailSenderName.IsEmpty()
+			&Sender.Name = &MailSender
+		Else
+			&Sender.Name = &MailSenderName
+		EndIf
+		&SmtpSession.Sender = &Sender
+	
+		&Recipient = new()
+		&Recipient.Address = &DestinoEmail
+		If &DestinoNombre.IsEmpty()
+			&Recipient.Name = &DestinoEmail
+		Else
+			&Recipient.Name = &DestinoNombre
+		EndIf
+	
+		&MailMessage = new()
+		&MailMessage.To.Add(&Recipient)
+		&MailMessage.Subject = &Asunto
+		&MailMessage.Text = &TextoPlano
+		&MailMessage.HTMLText = &TextoHtml
+	
+		If &SmtpSession.Login() <> 0
+			&MensajeResultado = &SmtpSession.ErrDescription
+			Return
+		EndIf
+	
+		If &SmtpSession.Send(&MailMessage) = 0
+			&Enviado = true
+			&MensajeResultado = !"Correo enviado"
+		Else
+			&MensajeResultado = &SmtpSession.ErrDescription
+		EndIf
+	
+		&SmtpSession.Logout()
+
+	#Rules
+		parm(in: &DestinoEmail, in: &DestinoNombre, in: &Asunto, in: &TextoHtml, in: &TextoPlano, out: &Enviado, out: &MensajeResultado);
+	#End
+
+	#Variables
+			DestinoEmail [ Description = 'Correo del destinatario', DataType = 'VarChar(120)', AverageLength = '0', Collection = 'False', ControlType = 'Edit' ]
+
+			DestinoNombre [ Description = 'Nombre visible del destinatario', DataType = 'VarChar(120)' ]
+
+			Asunto [ Description = 'Asunto del correo', DataType = 'VarChar(200)' ]
+
+			TextoHtml [ Description = 'Cuerpo HTML del correo', DataType = 'LongVarChar(4K)', AverageLength = '0', Collection = 'False', ControlType = 'Edit' ]
+
+			TextoPlano [ Description = 'Cuerpo texto plano del correo', DataType = 'LongVarChar(4K)' ]
+
+			Enviado [ Description = 'Indica si el correo se envio correctamente', DataType = 'Boolean' ]
+
+			MensajeResultado [ Description = 'Resultado o error del envio', DataType = 'VarChar(512)' ]
+
+			MailActivo [ Description = '', DataType = 'Attribute:ConfiguracionPagoMailActivo' ]
+
+			MailHost [ Description = '', DataType = 'Attribute:ConfiguracionPagoMailHost' ]
+
+			MailPort [ Description = '', DataType = 'Attribute:ConfiguracionPagoMailPort' ]
+
+			MailUser [ Description = '', DataType = 'Attribute:ConfiguracionPagoMailUser' ]
+
+			MailPassword [ Description = '', DataType = 'Attribute:ConfiguracionPagoMailPassword' ]
+
+			MailSender [ Description = '', DataType = 'Attribute:ConfiguracionPagoMailSender' ]
+
+			MailSenderName [ Description = '', DataType = 'Attribute:ConfiguracionPagoMailSenderName' ]
+
+			MailSecure [ Description = '', DataType = 'Attribute:ConfiguracionPagoMailSecure' ]
+
+			SmtpSession [ Description = 'Sesion SMTP para envio de correos', DataType = 'SMTPSession' ]
+
+			MailMessage [ Description = 'Mensaje de correo a enviar', DataType = 'MailMessage' ]
+
+			Sender [ Description = 'Remitente del correo', DataType = 'MailRecipient' ]
+
+			Recipient [ Description = 'Destinatario del correo', DataType = 'MailRecipient' ]
+	#End
+
+	#Properties
+		Name = "EnviarCorreoSMTP"
+	#End
+
+}

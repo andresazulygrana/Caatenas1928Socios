@@ -1,0 +1,69 @@
+Environment .NET
+{
+	#Backend
+			Generators
+
+			{
+
+				Default
+
+					[
+
+						Generator = '.NET',
+
+						GenerateOpenAPIInterface = 'Yes',
+
+						AiProviderAddress = 'https://api.saia.ai',
+
+						DefaultAgentsAiModel = 'openai/gpt-4.1'
+
+					]
+
+		
+
+			}
+
+		
+
+			DataStores
+
+			{
+
+				Default
+
+					[
+
+						Dbms = 'SQL Server'
+
+					]
+
+		
+
+			}
+	#End
+
+	#Frontend
+			Frontend
+
+				[
+
+					GenerateAndroid = 'False',
+
+					GenerateApple = 'False'
+
+				]
+	#End
+
+	#Properties
+		UserInterface = "Web"
+
+		Language = ".NET"
+
+		DataSource = "SQL Server"
+
+		TargetPath = "NetModel"
+
+		Name = ".NET"
+	#End
+
+}

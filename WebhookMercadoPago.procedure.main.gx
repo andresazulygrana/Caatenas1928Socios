@@ -1,0 +1,38 @@
+Procedure WebhookMercadoPago
+{
+	// Receptor HTTP del webhook de Mercado Pago
+	Log.Info(!"WebhookMercadoPago RequestBody: " + Substr(&RequestBody, 1, 2000), !"$MercadoPago.Webhook")
+	&Notification.FromJson(&RequestBody)
+
+	If &Notification.Type = !"payment"
+		If NOT &Notification.Data.Id.IsEmpty()
+			&PaymentId = Trim(&Notification.Data.Id)
+			Log.Info(!"WebhookMercadoPago PaymentId: " + &PaymentId, !"$MercadoPago.Webhook")
+			ProcesarPagoMercadoPago(&PaymentId)
+		EndIf
+	EndIf
+
+	// Mercado Pago requiere siempre HTTP 200
+	&RestCode = 200
+
+	#Rules
+		parm(in: &RequestBody);
+	#End
+
+	#Conditions
+	#End
+
+	#Variables
+		RequestBody [ DataType = 'LongVarChar(4K)', Description = 'Cuerpo JSON del POST recibido de Mercado Pago' ]
+		PaymentId [ DataType = 'VarChar(128)', Description = 'ID del pago extraido de la notificacion' ]
+		Notification [ DataType = 'MercadoPagoWebhookNotification', Description = 'Webhook parseado recibido de Mercado Pago' ]
+		RestCode [ DataType = 'Numeric(3.0)', Description = 'Codigo de respuesta HTTP - siempre 200 para webhooks MP' ]
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+	#End
+
+	#Properties
+		MainProgram = true
+		CallProtocol = "HTTP"
+	#End
+}

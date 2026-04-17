@@ -1,0 +1,13 @@
+Domain QueryViewerDifferenceFrom
+{
+	#Properties
+		Name = "QueryViewerDifferenceFrom"
+
+		DataType = "Character(20)"
+
+		EnumValues = "PreviousValue, Previous value, PreviousValue; FirstValue, First value, FirstValue"
+
+		InitialValue = "QueryViewerDifferenceFrom.PreviousValue"
+	#End
+
+}

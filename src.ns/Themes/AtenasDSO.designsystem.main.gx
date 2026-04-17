@@ -1,0 +1,1167 @@
+DesignSystem AtenasDSO
+{
+	#DesignTokens
+				tokens AtenasDSO
+				{
+					#colors
+					{
+						navy:               #0D1B3E;
+						navy-mid:           #1A2F5A;
+						navy-light:         #243A6E;
+						navy-subtle:        rgba(13, 27, 62, 0.06);
+						red:                #C0202A;
+						red-hover:          #E53030;
+						red-muted:          rgba(192, 32, 42, 0.08);
+						gold:               #C9A84C;
+						page-bg:            #F8F7F4;
+						surface-1:          #FFFFFF;
+						surface-2:          #EEF0F4;
+						text-primary:       #0D1B3E;
+						text-secondary:     #4A5568;
+						text-muted:         #9AA3B2;
+						text-on-dark:       #FFFFFF;
+						text-on-dark-muted: rgba(255, 255, 255, 0.60);
+						border-default:     rgba(13, 27, 62, 0.12);
+						border-mid:         rgba(13, 27, 62, 0.20);
+						border-strong:      rgba(13, 27, 62, 0.35);
+						state-success:      #1A7F4B;
+						state-success-bg:   #E6F4EC;
+						state-warning:      #92620A;
+						state-warning-bg:   #FFF8E6;
+						state-error:        #A01020;
+						state-error-bg:     #FDEAEA;
+						state-info:         #185FA5;
+						state-info-bg:      #E6F1FB;
+					}
+		
+					#spacing
+					{
+						xxs:         4px;
+						xs:          8px;
+						sm:          12px;
+						md:          16px;
+						lg:          20px;
+						xl:          24px;
+						xxl:         28px;
+						xxxl:        32px;
+						xxxxl:       40px;
+						xxxxxl:      48px;
+						xxxxxxl:     64px;
+						input-h:     52px;
+						btn-h-lg:    54px;
+						btn-h-md:    46px;
+						header-h:    64px;
+						content-max: 480px;
+						content-web: 680px;
+					}
+		
+					#radius
+					{
+						sm:   6px;
+						md:   10px;
+						lg:   16px;
+						full: 9999px;
+					}
+		
+					#fontSizes
+					{
+						xs:    11px;
+						sm:    12px;
+						base:  14px;
+						md:    16px;
+						lg:    20px;
+						xl:    24px;
+						xxl:   28px;
+						xxxl:  38px;
+						xxxxl: 42px;
+					}
+		
+					#shadows
+					{
+						card:     0 2px 8px rgba(13, 27, 62, 0.07);
+						elevated: 0 8px 24px rgba(13, 27, 62, 0.11);
+					}
+		
+					#times
+					{
+						fast:   150ms;
+						normal: 220ms;
+					}
+				}
+	#End
+
+	#DesignStyles
+				styles AtenasDSO
+				{
+					@import GeneXusUnanimo.UnanimoWeb;
+					@import GeneXusUnanimo.Unanimo.Tokens;
+		
+					// ─── Page ─────────────────────────────────────────────────────
+		
+					.page
+					{
+						background-color: $colors.page-bg;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.base;
+						color: $colors.text-primary;
+						-webkit-font-smoothing: antialiased;
+					}
+		
+					.page-header
+					{
+						background-color: $colors.navy;
+						height: $spacing.header-h;
+						padding: 0 $spacing.lg;
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						position: sticky;
+						top: 0;
+						z-index: 100;
+						border-bottom: 4px solid transparent;
+					}
+		
+					.page-hero
+					{
+						background-color: $colors.navy-mid;
+						padding: $spacing.xxxxxl $spacing.xl $spacing.xxxxl;
+						text-align: center;
+						border-bottom: 4px solid $colors.red;
+					}
+		
+					.page-content
+					{
+						padding: $spacing.xxxl $spacing.lg $spacing.xxxxxl;
+						max-width: $spacing.content-max;
+						margin: 0 auto;
+						width: 100%;
+					}
+		
+					.page-content--web
+					{
+						padding: $spacing.xxxl $spacing.lg $spacing.xxxxxl;
+						max-width: $spacing.content-web;
+						margin: 0 auto;
+						width: 100%;
+					}
+		
+					.page-footer
+					{
+						text-align: center;
+						padding: $spacing.xl $spacing.lg;
+						font-size: $fontSizes.sm;
+						color: rgba(13, 27, 62, 0.35);
+					}
+		
+					// ─── Header ───────────────────────────────────────────────────
+		
+					.header-brand
+					{
+						display: flex;
+						align-items: center;
+						gap: $spacing.sm;
+					}
+		
+					.header-logo
+					{
+						width: 38px;
+						height: 38px;
+						border-radius: $radius.full;
+						background-color: $colors.surface-1;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						flex-shrink: 0;
+					}
+		
+					.header-crest
+					{
+						width: 38px;
+						height: 38px;
+						border-radius: $radius.full;
+						background-color: $colors.surface-1;
+						color: $colors.red;
+						display: inline-flex;
+						align-items: center;
+						justify-content: center;
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: 18px;
+						font-weight: 700;
+						flex-shrink: 0;
+						box-shadow: inset 0 0 0 1px rgba(13, 27, 62, 0.10);
+					}
+		
+					.header-name
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 15px;
+						font-weight: 600;
+						color: $colors.text-on-dark;
+						letter-spacing: 0.02em;
+						display: inline-block;
+					}
+		
+					.header-name--accent
+					{
+						color: $colors.gold !important;
+					}
+		
+					.header-tagline
+					{
+						font-size: $fontSizes.xs;
+						font-weight: 300;
+						color: $colors.text-on-dark-muted;
+						letter-spacing: 0.08em;
+						text-transform: uppercase;
+						display: block;
+					}
+		
+					// ─── Hero ─────────────────────────────────────────────────────
+		
+					.text-title
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: $fontSizes.xxl;
+						font-weight: 700;
+						color: $colors.text-on-dark;
+						line-height: 1.2;
+						margin-bottom: $spacing.xs;
+					}
+		
+					.text-subtitle
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.base;
+						font-weight: 300;
+						color: $colors.text-on-dark-muted;
+						line-height: 1.6;
+						max-width: 560px;
+						margin: 0 auto;
+						display: block;
+					}
+		
+					// ─── Surfaces ─────────────────────────────────────────────────
+		
+					.surface
+					{
+						background-color: $colors.surface-1;
+						border-color: $colors.border-default;
+						border-width: 1px;
+						border-radius: $radius.lg;
+						padding: $spacing.xxl $spacing.xl;
+						margin-bottom: $spacing.md;
+					}
+		
+					.surface-elevated
+					{
+						@include surface;
+						box-shadow: 0 2px 12px rgba(13, 27, 62, 0.07);
+					}
+		
+					.surface-muted
+					{
+						background-color: $colors.surface-2;
+						border-radius: $radius.md;
+						padding: $spacing.sm $spacing.md;
+					}
+		
+					.surface-title
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: $fontSizes.lg;
+						font-weight: 600;
+						color: $colors.text-primary;
+						margin-bottom: $spacing.lg;
+					}
+		
+					// ─── Typography ───────────────────────────────────────────────
+		
+					.text-body
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.base;
+						font-weight: 400;
+						color: $colors.text-secondary;
+						line-height: 1.6;
+					}
+		
+					.text-caption
+					{
+						font-size: $fontSizes.sm;
+						color: $colors.text-muted;
+					}
+		
+					.text-label
+					{
+						font-size: $fontSizes.sm;
+						font-weight: 600;
+						color: $colors.text-primary;
+						letter-spacing: 0.06em;
+						text-transform: uppercase;
+					}
+		
+					.text-amount
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: $fontSizes.xxxl;
+						font-weight: 700;
+						color: $colors.text-primary;
+						line-height: 1;
+						text-align: center;
+					}
+		
+					.text-mono
+					{
+						font-family: 'Courier New', monospace;
+						font-size: $fontSizes.base;
+						font-weight: 600;
+						color: $colors.text-primary;
+					}
+		
+					.text-divider
+					{
+						text-align: center;
+						color: $colors.text-muted;
+						font-size: $fontSizes.sm;
+						margin: $spacing.md 0;
+					}
+		
+					// ─── Forms ────────────────────────────────────────────────────
+		
+					.field
+					{
+						margin-bottom: $spacing.xs;
+					}
+		
+					.field-label
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.sm;
+						font-weight: 600;
+						color: $colors.text-primary;
+						letter-spacing: 0.06em;
+						text-transform: uppercase;
+						display: block;
+						margin-bottom: 6px;
+					}
+		
+					.field-input
+					{
+						width: 100%;
+						height: $spacing.input-h;
+						border-color: $colors.border-mid;
+						border-width: 1.5px;
+						border-radius: $radius.md;
+						padding: 0 $spacing.md;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.md;
+						color: $colors.text-primary;
+						background-color: $colors.surface-1;
+						transition: border-color 150ms ease;
+					}
+		
+					.field-input:hover
+					{
+						border-color: $colors.border-strong;
+					}
+		
+					.field-input:focus,
+					.field-input:focus-visible
+					{
+						border-color: $colors.navy;
+						border-width: 2px;
+						box-shadow: 0 0 0 3px rgba(13, 27, 62, 0.10);
+					}
+		
+					.field-input::placeholder
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.md;
+						font-weight: 400;
+						color: $colors.text-muted;
+					}
+		
+					// GeneXus input wrappers — the field-input class is on <input>,
+					// wrappers are ancestors; use :has() to target them
+					.gx-default-form-group:has(input.field-input),
+					.gx-default-form-group:has(textarea.field-input)
+					{
+						width: 100% !important;
+						box-sizing: border-box;
+					}
+		
+					.gx-form-item:has(input.field-input),
+					.gx-form-item:has(textarea.field-input)
+					{
+						width: 100% !important;
+						box-sizing: border-box;
+					}
+		
+					.gx-default-form-group:has(input.info-value),
+					.gx-default-form-group:has(textarea.info-value),
+					.gx-default-form-group:has(input.text-mono),
+					.gx-default-form-group:has(textarea.field-help),
+					.gx-default-form-group:has(textarea.message-inline),
+					.gx-form-item:has(input.info-value),
+					.gx-form-item:has(textarea.info-value),
+					.gx-form-item:has(input.text-mono),
+					.gx-form-item:has(textarea.field-help),
+					.gx-form-item:has(textarea.message-inline)
+					{
+						width: 100% !important;
+						box-sizing: border-box;
+					}
+		
+					.field-help
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.sm;
+						color: $colors.text-muted;
+						margin-top: $spacing.xxs;
+						display: block;
+						width: 100%;
+					}
+		
+					.field-error
+					{
+						background-color: $colors.state-error-bg;
+						border-color: rgba(160, 16, 32, 0.20);
+						border-width: 1px;
+						border-radius: $radius.md;
+						padding: $spacing.sm $spacing.md;
+						color: $colors.state-error;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 13px;
+						font-weight: 500;
+						display: block;
+						margin-top: $spacing.sm;
+					}
+		
+					// ─── Actions ──────────────────────────────────────────────────
+		
+					.btn-primary
+					{
+						display: block;
+						width: 100%;
+						height: $spacing.btn-h-lg;
+						background-color: $colors.red;
+						color: $colors.text-on-dark;
+						border-width: 0;
+						border-radius: $radius.md;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 15px;
+						font-weight: 600;
+						letter-spacing: 0.02em;
+						text-align: center;
+						cursor: pointer;
+						margin-top: $spacing.xs;
+						transition: background-color 150ms ease;
+					}
+		
+					.btn-primary:hover
+					{
+						background-color: $colors.red-hover;
+					}
+		
+					.btn-primary:active
+					{
+						transform: scale(0.99);
+					}
+		
+					.btn-primary:focus-visible
+					{
+						box-shadow: 0 0 0 3px rgba(192, 32, 42, 0.30);
+					}
+		
+					.btn-secondary
+					{
+						display: block;
+						width: 100%;
+						height: $spacing.btn-h-md;
+						background-color: transparent;
+						color: $colors.text-primary;
+						border-color: $colors.border-mid;
+						border-width: 1.5px;
+						border-radius: $radius.md;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.base;
+						font-weight: 500;
+						text-align: center;
+						cursor: pointer;
+						margin-top: $spacing.xs;
+						transition: border-color 150ms ease, background-color 150ms ease;
+					}
+		
+					.btn-secondary:hover
+					{
+						border-color: $colors.navy;
+						background-color: $colors.surface-2;
+					}
+		
+					.btn-ghost
+					{
+						display: block;
+						text-align: center;
+						margin-top: $spacing.lg;
+						color: $colors.text-primary;
+						font-size: $fontSizes.base;
+						font-weight: 400;
+						background: transparent;
+						border: none;
+						cursor: pointer;
+						padding: $spacing.xs;
+					}
+		
+					.btn-danger
+					{
+						@include btn-primary;
+						background-color: $colors.state-error;
+					}
+		
+					.btn-danger:hover
+					{
+						background-color: $colors.red;
+					}
+		
+					// ─── PlanSelector ─────────────────────────────────────────────
+		
+					.plan-option
+					{
+						border-color: $colors.border-default;
+						border-width: 1.5px;
+						border-radius: $radius.lg;
+						padding: $spacing.sm $spacing.md;
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						margin-bottom: $spacing.xs;
+						cursor: pointer;
+						transition: border-color 150ms ease, background-color 150ms ease;
+					}
+		
+					.plan-option:hover
+					{
+						border-color: $colors.navy-mid;
+						background-color: $colors.navy-subtle;
+					}
+		
+					.plan-option--selected
+					{
+						@include plan-option;
+						border-color: $colors.red;
+						border-width: 2px;
+						background-color: $colors.red-muted;
+					}
+		
+					.plan-name
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.base;
+						font-weight: 500;
+						color: $colors.text-primary;
+						line-height: 1.3;
+					}
+		
+					.plan-freq
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.sm;
+						color: $colors.text-muted;
+						margin-top: 2px;
+					}
+		
+					.plan-price
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: $fontSizes.lg;
+						font-weight: 700;
+						color: $colors.text-primary;
+						text-align: right;
+						line-height: 1.1;
+					}
+		
+					.atenas-plan-action
+					{
+						display: inline-block;
+						background-color: transparent;
+						border-color: $colors.border-mid;
+						border-width: 1px;
+						border-radius: $radius.sm;
+						color: $colors.text-primary;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.sm;
+						font-weight: 600;
+						padding: 4px 10px;
+						min-width: 76px;
+						text-align: center;
+						cursor: pointer;
+					}
+		
+					// ─── InfoRows ─────────────────────────────────────────────────
+		
+					.info-row
+					{
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+						padding: $spacing.sm 0;
+						border-bottom-color: $colors.surface-2;
+						border-bottom-width: 1px;
+					}
+		
+					.info-label
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 13px;
+						color: $colors.text-muted;
+						font-weight: 400;
+					}
+		
+					.info-value
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.base;
+						color: $colors.text-primary;
+						font-weight: 600;
+						text-align: right;
+					}
+		
+					.amount-block
+					{
+						text-align: center;
+						padding: $spacing.xl 0;
+						border-bottom-color: $colors.surface-2;
+						border-bottom-width: 1px;
+						margin-bottom: $spacing.xxs;
+					}
+		
+					.amount-label
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.sm;
+						color: $colors.text-muted;
+						letter-spacing: 0.05em;
+						text-transform: uppercase;
+						margin-bottom: $spacing.xxs;
+					}
+		
+					// ─── StatusPills ──────────────────────────────────────────────
+		
+					.status-pill
+					{
+						display: inline-block;
+						padding: $spacing.xxs $spacing.sm;
+						border-radius: $radius.full;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.sm;
+						font-weight: 600;
+						letter-spacing: 0.03em;
+					}
+		
+					.status-pill--pending
+					{
+						@include status-pill;
+						background-color: $colors.state-warning-bg;
+						color: $colors.state-warning;
+					}
+		
+					.status-pill--ok
+					{
+						@include status-pill;
+						background-color: $colors.state-success-bg;
+						color: $colors.state-success;
+					}
+		
+					.status-pill--error
+					{
+						@include status-pill;
+						background-color: $colors.state-error-bg;
+						color: $colors.state-error;
+					}
+		
+					// ─── ResultStates ─────────────────────────────────────────────
+		
+					.state-success
+					{
+						text-align: center;
+						padding: $spacing.xxl $spacing.xl;
+					}
+		
+					.state-error
+					{
+						@include state-success;
+					}
+		
+					.state-loading
+					{
+						text-align: center;
+						padding: $spacing.xxxl $spacing.xl;
+						color: $colors.text-muted;
+					}
+		
+					.state-empty
+					{
+						@include state-loading;
+					}
+		
+					.result-icon
+					{
+						width: 72px;
+						height: 72px;
+						border-radius: $radius.full;
+						margin: 0 auto $spacing.lg;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+					}
+		
+					.result-icon--ok
+					{
+						@include result-icon;
+						background-color: $colors.state-success-bg;
+					}
+		
+					.result-icon--error
+					{
+						@include result-icon;
+						background-color: $colors.state-error-bg;
+					}
+		
+					.result-icon--warning
+					{
+						@include result-icon;
+						background-color: $colors.state-warning-bg;
+					}
+		
+					.result-title
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: $fontSizes.xl;
+						font-weight: 700;
+						color: $colors.text-primary;
+						text-align: center;
+						line-height: 1.15;
+						margin-bottom: $spacing.xs;
+					}
+		
+					.result-message
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.base;
+						color: $colors.text-secondary;
+						text-align: center;
+						line-height: 1.6;
+						margin-bottom: $spacing.xl;
+					}
+		
+					.ref-block
+					{
+						@include surface-muted;
+						margin-bottom: $spacing.lg;
+					}
+		
+					.ref-label
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.xs;
+						letter-spacing: 0.06em;
+						text-transform: uppercase;
+						color: $colors.text-muted;
+						margin-bottom: $spacing.xxs;
+					}
+		
+					// ─── Comprobante ──────────────────────────────────────────────
+		
+					.receipt
+					{
+						background-color: $colors.surface-1;
+						border-color: $colors.border-default;
+						border-width: 1px;
+						border-radius: $radius.lg;
+						overflow: hidden;
+						margin-bottom: $spacing.sm;
+					}
+		
+					.receipt-header
+					{
+						background-color: $colors.navy;
+						padding: $spacing.xxxl $spacing.xl $spacing.xxl;
+						text-align: center;
+					}
+		
+					.receipt-logo
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: $fontSizes.lg;
+						color: $colors.text-on-dark;
+						font-weight: 700;
+					}
+		
+					.receipt-sub
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.xs;
+						color: $colors.text-on-dark-muted;
+						letter-spacing: 0.08em;
+						text-transform: uppercase;
+						margin-top: $spacing.xxs;
+					}
+		
+					.receipt-badge
+					{
+						@include status-pill--ok;
+						display: inline-block;
+						margin-top: $spacing.sm;
+						letter-spacing: 0.04em;
+						padding-left: $spacing.md;
+						padding-right: $spacing.md;
+					}
+		
+					.receipt-body
+					{
+						padding: $spacing.xl;
+					}
+		
+					.receipt-amount
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: $fontSizes.xxxl;
+						font-weight: 700;
+						color: $colors.text-primary;
+						line-height: 1;
+						text-align: center;
+						display: block;
+						width: 100%;
+					}
+		
+					.receipt-divider
+					{
+						border: none;
+						border-top-color: rgba(13, 27, 62, 0.12);
+						border-top-width: 1px;
+						border-top-style: dashed;
+						margin: $spacing.md 0;
+					}
+		
+					.receipt-footer
+					{
+						text-align: center;
+						padding: $spacing.md $spacing.xl $spacing.xl;
+						border-top-color: $colors.surface-2;
+						border-top-width: 1px;
+					}
+		
+					.receipt-footer-text
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: $fontSizes.xs;
+						color: $colors.text-muted;
+						line-height: 1.6;
+					}
+		
+					// ─── message-inline — transparent error para variables WebPanel ─
+		
+					.message-inline
+					{
+						background-color: transparent;
+						border-width: 0;
+						padding: 0;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 13px;
+						font-weight: 500;
+						color: $colors.state-error;
+						display: block;
+						width: 100%;
+						min-height: 0;
+						text-align: center;
+					}
+		
+					input.plan-name,
+					input.plan-price,
+					input.info-value,
+					input.text-amount,
+					input.text-mono,
+					input.receipt-amount,
+					input.message-inline,
+					input.text-divider,
+					input.status-pill--pending,
+					input.status-pill--ok,
+					input.status-pill--error
+					{
+						background: transparent !important;
+						border: 0 !important;
+						box-shadow: none !important;
+						padding: 0 !important;
+						height: auto !important;
+						min-height: 0 !important;
+					}
+		
+					span.info-value,
+					span.text-mono,
+					span.field-help,
+					span.result-message,
+					span.result-title,
+					span.message-inline
+					{
+						display: block;
+						width: 100%;
+					}
+		
+					input.plan-name,
+					input.plan-price,
+					input.info-value,
+					input.text-amount,
+					input.text-mono,
+					input.receipt-amount
+					{
+						width: 100% !important;
+					}
+		
+					input.plan-name
+					{
+						text-align: left !important;
+					}
+		
+					input.plan-price,
+					input.info-value,
+					input.text-mono
+					{
+						text-align: right !important;
+					}
+		
+					input.text-amount
+					{
+						text-align: center !important;
+					}
+		
+					input.receipt-amount
+					{
+						text-align: center !important;
+						letter-spacing: 0 !important;
+						line-height: 1 !important;
+					}
+		
+					input.status-pill--pending,
+					input.status-pill--ok,
+					input.status-pill--error
+					{
+						display: inline-block !important;
+						width: auto !important;
+						padding: $spacing.xxs $spacing.sm !important;
+						text-align: center !important;
+					}
+		
+					.gx-default-form-group:has(input.plan-name),
+					.gx-default-form-group:has(textarea.plan-name),
+					.gx-default-form-group:has(input.plan-price),
+					.gx-default-form-group:has(textarea.plan-price),
+					.gx-default-form-group:has(input.info-value),
+					.gx-default-form-group:has(textarea.info-value),
+					.gx-default-form-group:has(input.text-amount),
+					.gx-default-form-group:has(textarea.text-amount),
+					.gx-default-form-group:has(input.text-mono),
+					.gx-default-form-group:has(textarea.text-mono),
+					.gx-default-form-group:has(input.receipt-amount),
+					.gx-default-form-group:has(textarea.receipt-amount),
+					.gx-default-form-group:has(input.status-pill--pending),
+					.gx-default-form-group:has(input.status-pill--ok),
+					.gx-default-form-group:has(input.status-pill--error),
+					.gx-default-form-group:has(input.message-inline),
+					.gx-default-form-group:has(textarea.message-inline),
+					.gx-default-form-group:has(input.text-divider),
+					.gx-default-form-group:has(textarea.result-message),
+					.gx-default-form-group:has(textarea.field-help),
+					.gx-form-item:has(input.plan-name),
+					.gx-form-item:has(textarea.plan-name),
+					.gx-form-item:has(input.plan-price),
+					.gx-form-item:has(textarea.plan-price),
+					.gx-form-item:has(input.info-value),
+					.gx-form-item:has(textarea.info-value),
+					.gx-form-item:has(input.text-amount),
+					.gx-form-item:has(textarea.text-amount),
+					.gx-form-item:has(input.text-mono),
+					.gx-form-item:has(textarea.text-mono),
+					.gx-form-item:has(input.receipt-amount),
+					.gx-form-item:has(textarea.receipt-amount),
+					.gx-form-item:has(input.status-pill--pending),
+					.gx-form-item:has(input.status-pill--ok),
+					.gx-form-item:has(input.status-pill--error),
+					.gx-form-item:has(input.message-inline),
+					.gx-form-item:has(textarea.message-inline),
+					.gx-form-item:has(input.text-divider),
+					.gx-form-item:has(textarea.result-message),
+					.gx-form-item:has(textarea.field-help)
+					{
+						width: 100% !important;
+						box-sizing: border-box;
+						margin: 0 !important;
+					}
+		
+					.gx-default-form-group:has(input.plan-name) > .gx-attribute,
+					.gx-default-form-group:has(textarea.plan-name) > .gx-attribute,
+					.gx-default-form-group:has(input.plan-price) > .gx-attribute,
+					.gx-default-form-group:has(textarea.plan-price) > .gx-attribute,
+					.gx-default-form-group:has(input.info-value) > .gx-attribute,
+					.gx-default-form-group:has(textarea.info-value) > .gx-attribute,
+					.gx-default-form-group:has(input.text-amount) > .gx-attribute,
+					.gx-default-form-group:has(textarea.text-amount) > .gx-attribute,
+					.gx-default-form-group:has(input.text-mono) > .gx-attribute,
+					.gx-default-form-group:has(textarea.text-mono) > .gx-attribute,
+					.gx-default-form-group:has(input.receipt-amount) > .gx-attribute,
+					.gx-default-form-group:has(textarea.receipt-amount) > .gx-attribute,
+					.gx-default-form-group:has(input.message-inline) > .gx-attribute,
+					.gx-default-form-group:has(textarea.message-inline) > .gx-attribute,
+					.gx-default-form-group:has(textarea.result-message) > .gx-attribute,
+					.gx-default-form-group:has(textarea.field-help) > .gx-attribute
+					{
+						width: 100% !important;
+						max-width: 100% !important;
+						min-width: 0 !important;
+						margin: 0 !important;
+						padding: 0 !important;
+						box-sizing: border-box;
+					}
+		
+					#MAINCONTENT .gx-default-form-group
+					{
+						display: grid !important;
+						grid-template-columns: minmax(0, 1fr) !important;
+						align-items: center !important;
+						column-gap: 0 !important;
+						width: 100% !important;
+						max-width: 100% !important;
+						margin: 0 !important;
+						padding: 0 !important;
+						box-sizing: border-box;
+					}
+		
+					#MAINCONTENT .gx-default-form-group > label,
+					#MAINCONTENT .gx-default-form-group > .control-label,
+					#MAINCONTENT .gx-default-form-group > .gx-form-item:not(.gx-attribute)
+					{
+						display: none !important;
+						width: 0 !important;
+						min-width: 0 !important;
+						max-width: 0 !important;
+						margin: 0 !important;
+						padding: 0 !important;
+						border: 0 !important;
+						overflow: hidden !important;
+					}
+		
+					#MAINCONTENT .gx-default-form-group > .gx-attribute,
+					#MAINCONTENT .gx-default-form-group > .gx-form-item.gx-attribute
+					{
+						display: block !important;
+						width: 100% !important;
+						max-width: 100% !important;
+						min-width: 0 !important;
+						margin: 0 !important;
+						padding: 0 !important;
+						box-sizing: border-box;
+					}
+		
+					.result-message,
+					.field-help,
+					.receipt-footer-text
+					{
+						white-space: normal;
+						word-break: break-word;
+					}
+		
+					.receipt-footer
+					{
+						padding-bottom: $spacing.lg;
+					}
+		
+					#RECEIPTCARD,
+					#RECEIPTCARD .receipt-header,
+					#RECEIPTCARD .ref-block,
+					#RECEIPTCARD .info-row,
+					#RECEIPTCARD .receipt-footer
+					{
+						height: auto !important;
+						min-height: 0 !important;
+					}
+		
+					#RECEIPTCARD .receipt-footer
+					{
+						padding-top: $spacing.md;
+						padding-bottom: $spacing.md;
+					}
+		
+					#RECEIPTCARD .receipt-footer-text
+					{
+						display: block;
+						width: 100%;
+						text-align: center;
+					}
+		
+					#BTNIMPRIMIR,
+					#BTNINICIO
+					{
+						margin-top: 0 !important;
+					}
+		
+					.btn-primary,
+					.btn-secondary
+					{
+						white-space: normal;
+						line-height: 1.2;
+					}
+		
+					// ─── GeneXus label suppression ────────────────────────────────
+					// GeneXus genera labels automáticos para controles con clase CSS.
+					// Se ocultan cuando la clase cubre toda la presentación visual.
+		
+					.field-inputLabel,
+					.field-helpLabel,
+					.field-labelLabel,
+					.field-errorLabel,
+					.message-inlineLabel,
+					.btn-primaryLabel,
+					.btn-secondaryLabel,
+					.btn-ghostLabel,
+					.btn-dangerLabel,
+					.text-titleLabel,
+					.text-subtitleLabel,
+					.text-bodyLabel,
+					.text-captionLabel,
+					.text-labelLabel,
+					.text-amountLabel,
+					.text-monoLabel,
+					.text-dividerLabel,
+					.surface-titleLabel,
+					.status-pill--pendingLabel,
+					.status-pill--okLabel,
+					.status-pill--errorLabel,
+					.result-titleLabel,
+					.result-messageLabel,
+					.ref-labelLabel,
+					.receipt-logoLabel,
+					.receipt-subLabel,
+					.receipt-amountLabel,
+					.receipt-footer-textLabel,
+					.info-labelLabel,
+					.info-valueLabel,
+					.amount-labelLabel,
+					.plan-nameLabel,
+					.plan-freqLabel,
+					.plan-priceLabel,
+					.header-nameLabel,
+					.header-name--accentLabel,
+					.header-taglineLabel,
+					.header-crestLabel
+					{
+						display: none !important;
+					}
+				}
+	#End
+
+	#Properties
+		Name = "AtenasDSO"
+
+		Description = "Design System del Portal de Socios — Club Atlético Atenas. Identidad: azul marino + rojo institucional."
+	#End
+
+}

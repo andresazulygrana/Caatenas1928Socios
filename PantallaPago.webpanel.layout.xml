@@ -1,0 +1,99 @@
+<layout type="Web">
+	<view>
+		<responsive name="PageContent" class="page">
+			<row>
+				<cell>
+					<responsive name="HeaderBand" class="page-header">
+						<row>
+							<cell hAlign="Left" vAlign="Middle">
+								<table name="HeaderBrand" class="header-brand" tableType="Flex" alignItems="Center" width="100%">
+									<row>
+										<cell flexGrow="0" vAlign="Middle">
+											<label name="LblEscudoPortal" caption="A" class="header-crest"/>
+										</cell>
+										<cell flexGrow="0">
+											<responsive name="HeaderTextBlock">
+												<row>
+													<cell>
+														<table name="HeaderNameRow" tableType="Flex" alignItems="Center">
+															<row>
+																<cell flexGrow="0"><label name="LblBrandClub" caption="Club" class="header-name"/></cell>
+																<cell flexGrow="0"><label name="LblBrandAtenas" caption="Atenas" class="header-name header-name--accent"/></cell>
+															</row>
+														</table>
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<label name="LblPortalSub" caption="Estado de cuenta" class="header-tagline"/>
+													</cell>
+												</row>
+											</responsive>
+										</cell>
+									</row>
+								</table>
+							</cell>
+						</row>
+					</responsive>
+				</cell>
+			</row>
+			<row>
+				<cell hAlign="Center" vAlign="Top">
+					<responsive name="HeroBand" class="page-hero">
+						<row>
+							<cell hAlign="Center" vAlign="Top">
+								<smart name="HeroPago" width="100%" columnsStyle="100%" rowsStyle="48px;48px">
+									<row><cell hAlign="Center" vAlign="Middle"><label name="LblTitulo" caption="Tu cuota" class="text-title"/></cell></row>
+									<row><cell hAlign="Center" vAlign="Middle"><label name="LblSubtitulo" caption="Revisa tu estado actual y realiza el pago de tu membresia." class="text-subtitle"/></cell></row>
+								</smart>
+							</cell>
+						</row>
+					</responsive>
+				</cell>
+			</row>
+			<row>
+				<cell hAlign="Center" vAlign="Top">
+					<smart name="MainContent" class="page-content" width="520px" columnsStyle="100%" rowsStyle="auto;14px;auto;12px;54px;8px;46px">
+						<row>
+							<cell>
+								<smart name="ImporteCard" class="surface" width="100%" columnsStyle="100%" rowsStyle="92px;auto;auto;auto">
+									<row>
+										<cell>
+											<smart name="AmountBlock" class="amount-block" width="100%" columnsStyle="100%" rowsStyle="48px;44px">
+												<row><cell hAlign="Center"><label name="LblImporteTitulo" caption="Importe a pagar" class="amount-label"/></cell></row>
+												<row><cell hAlign="Center"><input attribute="&amp;ImporteTexto" readonly="True" class="text-amount"/></cell></row>
+											</smart>
+										</cell>
+									</row>
+									<row><cell><smart name="RowEstadoPago" class="info-row" width="100%" columnsStyle="30%;70%" rowsStyle="24px"><row><cell><label name="LblEstadoPago" caption="Estado actual" class="info-label"/></cell><cell hAlign="Right"><input attribute="&amp;MensajeEstado" readonly="True" class="info-value"/></cell></row></smart></cell></row>
+									<row><cell><smart name="RowPeriodoPago" class="info-row" width="100%" columnsStyle="30%;70%" rowsStyle="24px"><row><cell><label name="LblPeriodo" caption="Periodo / vencimiento" class="info-label"/></cell><cell hAlign="Right"><input attribute="&amp;CuotaPeriodo" readonly="True" class="info-value"/></cell></row></smart></cell></row>
+									<row><cell vAlign="Middle"><input attribute="&amp;ResumenCuota" readonly="True" class="field-help"/></cell></row>
+								</smart>
+							</cell>
+						</row>
+						<row><cell></cell></row>
+						<row>
+							<cell>
+								<smart name="SocioCard" class="surface" width="100%" columnsStyle="100%" rowsStyle="auto;auto;auto;auto">
+									<row><cell><smart name="RowSocio" class="info-row" width="100%" columnsStyle="30%;70%" rowsStyle="24px"><row><cell><label name="LblSocio" caption="Socio" class="info-label"/></cell><cell hAlign="Right"><input attribute="&amp;SocioNombreCompleto" readonly="True" class="info-value"/></cell></row></smart></cell></row>
+									<row><cell><smart name="RowCedula" class="info-row" width="100%" columnsStyle="30%;70%" rowsStyle="24px"><row><cell><label name="LblDocumento" caption="Cedula" class="info-label"/></cell><cell hAlign="Right"><input attribute="&amp;SocioCedula" readonly="True" class="info-value"/></cell></row></smart></cell></row>
+									<row><cell><smart name="RowPlan" class="info-row" width="100%" columnsStyle="30%;70%" rowsStyle="24px"><row><cell><label name="LblPlan" caption="Plan" class="info-label"/></cell><cell hAlign="Right"><input attribute="&amp;TipoCuotaNombre" readonly="True" class="info-value"/></cell></row></smart></cell></row>
+									<row><cell><smart name="RowVencimiento" width="100%" columnsStyle="30%;70%" rowsStyle="24px"><row><cell><label name="LblVencimiento" caption="Vencimiento" class="info-label"/></cell><cell hAlign="Right"><input attribute="&amp;VencimientoTexto" readonly="True" class="info-value"/></cell></row></smart></cell></row>
+								</smart>
+							</cell>
+						</row>
+						<row><cell></cell></row>
+						<row><cell><action name="BtnPagar" caption="Pagar con Mercado Pago" onClickEvent="'AccionPrincipal'" class="btn-primary"/></cell></row>
+						<row><cell><action name="BtnCambiarDocumento" caption="Consultar otro documento" onClickEvent="'CambiarSocio'" class="btn-secondary"/></cell></row>
+					</smart>
+				</cell>
+			</row>
+			<row>
+				<cell hAlign="Center">
+					<label name="LblFooterPortal" caption="clubatenas.uy &#183; Socios" class="page-footer"/>
+				</cell>
+			</row>
+		</responsive>
+		<actiongroups/>
+	</view>
+</layout>

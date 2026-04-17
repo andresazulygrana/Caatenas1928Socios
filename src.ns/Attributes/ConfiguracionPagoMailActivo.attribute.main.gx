@@ -1,0 +1,11 @@
+Attribute ConfiguracionPagoMailActivo
+{
+	#Properties
+		Name = "ConfiguracionPagoMailActivo"
+
+		Description = "Indica si el envio automatico de correos esta activo"
+
+		DataType = "Boolean"
+	#End
+
+}

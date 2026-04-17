@@ -1,0 +1,138 @@
+WebPanel Gx0020
+{
+	#Rules
+		parm(out:&pSocioId);
+		order(SocioId);
+	#End
+
+	#Events
+		Event Start
+			Form.Caption = Format("GXSPC_SelectionList", "Socio")
+			&ADVANCED_LABEL_TEMPLATE = "%1 <strong>%2</strong>"
+		EndEvent
+		
+		Event 'Toggle'
+			if AdvancedContainer.Class = StyleClass:AdvancedContainer
+				AdvancedContainer.Class = StyleClass:AdvancedContainer + !" " + StyleClass:AdvancedContainerVisible
+				BtnToggle.Class += !" " + StyleClass:BtnToggleActive
+			else
+				AdvancedContainer.Class = StyleClass:AdvancedContainer
+				BtnToggle.Class = StyleClass:BtnToggle
+			endif
+		Endevent
+		
+		Event LblSocioIdFilter.Click
+			if SocioIdFilterContainer.Class = StyleClass:AdvancedContainerItem
+				SocioIdFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cSocioId.Visible = true
+			else
+				SocioIdFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cSocioId.Visible = false
+			endif
+		EndEvent
+		
+		Event LblSocioCedulaFilter.Click
+			if SocioCedulaFilterContainer.Class = StyleClass:AdvancedContainerItem
+				SocioCedulaFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cSocioCedula.Visible = true
+			else
+				SocioCedulaFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cSocioCedula.Visible = false
+			endif
+		EndEvent
+		
+		Event LblSocioNombreFilter.Click
+			if SocioNombreFilterContainer.Class = StyleClass:AdvancedContainerItem
+				SocioNombreFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cSocioNombre.Visible = true
+			else
+				SocioNombreFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cSocioNombre.Visible = false
+			endif
+		EndEvent
+		
+		Event LblSocioApellidoFilter.Click
+			if SocioApellidoFilterContainer.Class = StyleClass:AdvancedContainerItem
+				SocioApellidoFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cSocioApellido.Visible = true
+			else
+				SocioApellidoFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cSocioApellido.Visible = false
+			endif
+		EndEvent
+		
+		Event LblSocioTelefonoFilter.Click
+			if SocioTelefonoFilterContainer.Class = StyleClass:AdvancedContainerItem
+				SocioTelefonoFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cSocioTelefono.Visible = true
+			else
+				SocioTelefonoFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cSocioTelefono.Visible = false
+			endif
+		EndEvent
+		
+		Event LblTipoCuotaIdFilter.Click
+			if TipoCuotaIdFilterContainer.Class = StyleClass:AdvancedContainerItem
+				TipoCuotaIdFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cTipoCuotaId.Visible = true
+			else
+				TipoCuotaIdFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cTipoCuotaId.Visible = false
+			endif
+		EndEvent
+		
+		Event Load
+			&LinkSelection.FromImage(selectRow)
+		EndEvent
+		
+		Event Enter
+			&pSocioId = SocioId
+			Return
+		EndEvent
+	#End
+
+	#Conditions
+		SocioId >= &cSocioId ;
+		SocioCedula LIKE &cSocioCedula when not &cSocioCedula.IsEmpty();
+		SocioNombre LIKE &cSocioNombre when not &cSocioNombre.IsEmpty();
+		SocioApellido LIKE &cSocioApellido when not &cSocioApellido.IsEmpty();
+		SocioTelefono LIKE &cSocioTelefono when not &cSocioTelefono.IsEmpty();
+		SocioFechaNacimiento >= &cSocioFechaNacimiento when not &cSocioFechaNacimiento.IsEmpty();
+		TipoCuotaId >= &cTipoCuotaId when not &cTipoCuotaId.IsEmpty();
+	#End
+
+	#Variables
+			LinkSelection [ DataType = 'Image' ]
+
+			cSocioId [ Description = 'Identificador del socio', DataType = 'Attribute:SocioId' ]
+
+			cSocioCedula [ Description = 'Cedula de identidad del socio. Clave de deduplicacion', DataType = 'Attribute:SocioCedula' ]
+
+			cSocioNombre [ Description = 'Nombre del socio', DataType = 'Attribute:SocioNombre' ]
+
+			cSocioApellido [ Description = 'Apellido del socio', DataType = 'Attribute:SocioApellido' ]
+
+			cSocioTelefono [ Description = 'Telefono. Opcional', DataType = 'Attribute:SocioTelefono' ]
+
+			cSocioFechaNacimiento [ Description = 'Fecha de nacimiento. Opcional', DataType = 'Attribute:SocioFechaNacimiento' ]
+
+			cTipoCuotaId [ Description = 'FK a TipoCuota, copiado al momento de crear la cuota', DataType = 'Attribute:TipoCuotaId' ]
+
+			pSocioId [ Description = 'Identificador del socio', DataType = 'Attribute:SocioId' ]
+
+			ADVANCED_LABEL_TEMPLATE [ DataType = 'Character(20)' ]
+	#End
+
+	#Properties
+		Name = "Gx0020"
+
+		Description = "Selection List Socio"
+
+		MasterPage = "(none)"
+
+		AssociatedTable = "Socio"
+
+		FocusControl = "Browser dependent"
+	#End
+
+}

@@ -1,0 +1,35 @@
+Transaction Cuota
+{
+	CuotaId* [ DataType = 'Numeric(10.0)', Autonumber = 'True', Description = 'Identificador de la cuota' ]
+	SocioId []
+	SocioNombre []
+	TipoCuotaId [ DataType = 'Numeric(4.0)', Description = 'FK a TipoCuota, copiado al momento de crear la cuota' ]
+	TipoCuotaDescripcion []
+	CuotaPeriodo [ DataType = 'Character(7)', Description = 'Periodo en formato AAAA-MM. Ej: 2025-03' ]
+	CuotaImporte [ DataType = 'Numeric(10.2)', Description = 'Importe de la cuota en pesos uruguayos' ]
+	CuotaEstado [ DataType = 'Character(1)', Description = 'Estado: P=Pendiente G=Pagada V=Vencida' ]
+	CuotaFechaVencimiento [ DataType = 'Date', Description = 'Fecha de vencimiento de la cuota' ]
+	CuotaFechaPago [ DataType = 'DateTime', Description = 'Fecha y hora del pago efectivo. Vacio hasta confirmar pago' ]
+	CuotaMPPaymentId [ DataType = 'VarChar(128)', Description = 'ID de pago devuelto por Mercado Pago' ]
+	CuotaMPExternalUrl [ DataType = 'VarChar(512)', Description = 'URL del codigo de barras para Abitab o Redpagos' ]
+	CuotaMPEstado [ DataType = 'VarChar(32)', Description = 'Estado crudo devuelto por el webhook de Mercado Pago' ]
+
+	#Rules
+		noaccept(CuotaId);
+		Default(CuotaEstado, 'P');
+	#End
+
+	#Events
+	#End
+
+	#Variables
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+		Mode [ DataType = 'Character(3)' ]
+		Today [ DataType = 'Date' ]
+	#End
+
+	#Properties
+		BusinessComponent = true
+	#End
+}

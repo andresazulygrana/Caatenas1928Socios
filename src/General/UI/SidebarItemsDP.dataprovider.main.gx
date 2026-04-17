@@ -1,0 +1,69 @@
+DataProvider SidebarItemsDP
+{
+	SidebarItems
+	{
+		SidebarItem
+		{
+			id = "dashboard"
+			title = "Dashboard"
+			target = Link(AdminDashboard)
+			hasSubItems = false
+		}
+		SidebarItem
+		{
+			id = "socios"
+			title = "Socios"
+			target = Link(AdminSocios)
+			hasSubItems = false
+		}
+		SidebarItem
+		{
+			id = "importar"
+			title = "Importar socios"
+			target = Link(AdminImportarSocios)
+			hasSubItems = false
+		}
+		SidebarItem
+		{
+			id = "tiposcuota"
+			title = "Tipos de cuota"
+			target = Link(AdminTipoCuota)
+			hasSubItems = false
+		}
+		SidebarItem
+		{
+			id = "cuotas"
+			title = "Cuotas"
+			target = Link(AdminCuotas)
+			hasSubItems = false
+		}
+		SidebarItem
+		{
+			id = "configuracion"
+			title = "Configuracion pago"
+			target = Link(AdminConfiguracionPago)
+			hasSubItems = false
+		}
+		SidebarItem
+		{
+			id = "pruebapago"
+			title = "Prueba de pago"
+			target = Link(AdminPruebaPago)
+			hasSubItems = false
+		}
+		SidebarItem
+		{
+			id = "procesarsandbox"
+			title = "Procesar sandbox"
+			target = Link(AdminProcesarPagoSandbox)
+			hasSubItems = false
+		}
+	}
+
+	#Properties
+		Name = "SidebarItemsDP"
+
+		Output = "SidebarItems"
+	#End
+
+}

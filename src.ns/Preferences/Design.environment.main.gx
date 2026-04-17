@@ -1,0 +1,97 @@
+Environment Design
+{
+	#Backend
+			Generators
+
+			{
+
+				Default
+
+					[
+
+						Generator = 'Java',
+
+						AiProviderAddress = 'https://api.saia.ai',
+
+						TomcatVersion = '8 or 9',
+
+						DefaultAgentsAiModel = 'openai/gpt-4.1'
+
+					]
+
+		
+
+				Frontend
+
+					[
+
+						Generator = 'Java',
+
+						AiProviderAddress = 'https://api.saia.ai',
+
+						TomcatVersion = '8 or 9',
+
+						DefaultAgentsAiModel = 'openai/gpt-4.1'
+
+					]
+
+		
+
+				Android
+
+					[
+
+						Generator = 'Java',
+
+						AiProviderAddress = 'https://api.saia.ai',
+
+						TomcatVersion = '8 or 9',
+
+						DefaultAgentsAiModel = 'openai/gpt-4.1'
+
+					]
+
+		
+
+				Apple
+
+					[
+
+						Generator = 'Java',
+
+						AiProviderAddress = 'https://api.saia.ai',
+
+						TomcatVersion = '8 or 9',
+
+						DefaultAgentsAiModel = 'openai/gpt-4.1'
+
+					]
+
+		
+
+			}
+
+		
+
+			DataStores
+
+			{
+
+				Default
+
+					[
+
+						Dbms = 'Oracle'
+
+					]
+
+		
+
+			}
+	#End
+
+	#Properties
+		
+	#End
+
+}

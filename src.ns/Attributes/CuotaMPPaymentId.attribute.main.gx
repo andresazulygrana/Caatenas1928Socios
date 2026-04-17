@@ -1,0 +1,15 @@
+Attribute CuotaMPPaymentId
+{
+	#Properties
+		Name = "CuotaMPPaymentId"
+
+		Description = "ID de pago devuelto por Mercado Pago"
+
+		DataType = "VarChar(128)"
+
+		Length = "128"
+
+		MaximumLength = "128"
+	#End
+
+}

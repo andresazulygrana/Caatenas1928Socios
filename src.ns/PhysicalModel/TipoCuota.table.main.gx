@@ -1,0 +1,21 @@
+Table TipoCuota
+{
+		TipoCuotaId*
+
+		TipoCuotaDescripcion
+
+		TipoCuotaImporte
+
+		TipoCuotaActivo
+
+	#Indexes
+		ITipoCuota
+	#End
+
+	#Properties
+		Name = "TipoCuota"
+
+		Description = "Tipo Cuota"
+	#End
+
+}

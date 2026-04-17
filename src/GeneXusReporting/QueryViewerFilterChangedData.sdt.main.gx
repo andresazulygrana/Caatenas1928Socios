@@ -1,0 +1,17 @@
+SDT QueryViewerFilterChangedData
+{
+		QueryViewerFilterChangedData	{
+
+			Name [ DataType = 'Character(20)' ]
+
+			SelectedValues [ DataType = 'Character(20)', Collection = 'True' ]
+
+		}
+
+	#Properties
+		Name = "QueryViewerFilterChangedData"
+
+		ExposedNamespace = "GeneXus.Reporting"
+	#End
+
+}

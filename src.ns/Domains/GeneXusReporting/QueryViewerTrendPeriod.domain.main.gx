@@ -1,0 +1,11 @@
+Domain QueryViewerTrendPeriod
+{
+	#Properties
+		Name = "QueryViewerTrendPeriod"
+
+		DataType = "Character(20)"
+
+		EnumValues = "SinceTheBeginning, Since the beginning, SinceTheBeginning; LastYear, Last year, LastYear; LastSemester, Last semester, LastSemester; LastQuarter, Last quarter, LastQuarter; LastMonth, Last month, LastMonth; LastWeek, Last week, LastWeek; LastDay, Last day, LastDay; LastHour, Last hour, LastHour; LastMinute, Last minute, LastMinute; LastSecond, Last second, LastSecond"
+	#End
+
+}

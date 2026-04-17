@@ -1,0 +1,11 @@
+Attribute CuotaFechaPago
+{
+	#Properties
+		Name = "CuotaFechaPago"
+
+		Description = "Fecha y hora del pago efectivo. Vacio hasta confirmar pago"
+
+		DataType = "DateTime"
+	#End
+
+}

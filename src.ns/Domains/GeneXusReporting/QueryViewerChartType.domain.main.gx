@@ -1,0 +1,15 @@
+Domain QueryViewerChartType
+{
+	#Properties
+		Name = "QueryViewerChartType"
+
+		DataType = "Character(40)"
+
+		Length = "40"
+
+		MaximumLength = "40"
+
+		EnumValues = "Column, Column, Column; Column3D, Column 3D, Column3D; StackedColumn, Stacked column, StackedColumn; StackedColumn3D, Stacked column 3D, StackedColumn3D; StackedColumn100, 100% stacked column, StackedColumn100; Bar, Bar, Bar; StackedBar, Stacked bar, StackedBar; StackedBar100, 100% stacked bar, StackedBar100; Area, Area, Area; StackedArea, Stacked area, StackedArea; StackedArea100, 100% stacked area, StackedArea100; SmoothArea, Smooth area, SmoothArea; StepArea, Step area, StepArea; Line, Line, Line; StackedLine, Stacked line, StackedLine; StackedLine100, 100% stacked line, StackedLine100; SmoothLine, Smooth line, SmoothLine; StepLine, Step line, StepLine; Pie, Pie, Pie; Pie3D, Pie 3D, Pie3D; Doughnut, Doughnut, Doughnut; Doughnut3D, Doughnut 3D, Doughnut3D; LinearGauge, Linear gauge, LinearGauge; CircularGauge, Circular gauge, CircularGauge; Radar, Radar, Radar; FilledRadar, Filled radar, FilledRadar; PolarArea, Polar area, PolarArea; Funnel, Funnel, Funnel; Pyramid, Pyramid, Pyramid; ColumnLine, Column & line, ColumnLine; Column3DLine, Column 3D & line, Column3DLine; Timeline, Timeline, Timeline; SmoothTimeline, Smooth timeline, SmoothTimeline; StepTimeline, Step timeline, StepTimeline; Sparkline, Sparkline, Sparkline"
+	#End
+
+}

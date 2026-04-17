@@ -1,0 +1,15 @@
+Attribute CuotaMPEstado
+{
+	#Properties
+		Name = "CuotaMPEstado"
+
+		Description = "Estado crudo devuelto por el webhook de Mercado Pago"
+
+		DataType = "VarChar(32)"
+
+		Length = "32"
+
+		MaximumLength = "32"
+	#End
+
+}

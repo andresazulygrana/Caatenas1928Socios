@@ -1,0 +1,141 @@
+<layout type="Web">
+	<view>
+		<smart name="MainLayout" class="backoffice-page" width="100%" height="100%" columnsStyle="100%" rowsStyle="100%">
+			<row>
+				<cell hAlign="Center" vAlign="Top">
+					<smart name="Shell" class="backoffice-shell" width="100%" height="100%" columnsStyle="270px;100%" rowsStyle="100%">
+						<row>
+							<cell class="backoffice-sidebar" vAlign="Top">
+								<smart name="SidebarLayout" width="100%" columnsStyle="100%" rowsStyle="74px;98px;392px;58px">
+									<row><cell vAlign="Top"><smart name="Brand" width="100%" columnsStyle="56px;100%" rowsStyle="56px"><row><cell hAlign="Center" vAlign="Middle"><label name="LblCrest" caption="A" class="backoffice-crest"/></cell><cell hAlign="Left" vAlign="Middle"><smart name="BrandText" width="100%" columnsStyle="100%" rowsStyle="30px;18px"><row><cell hAlign="Left" vAlign="Bottom"><label name="LblBrandTitle" caption="Club Atenas" class="backoffice-brand-title"/></cell></row><row><cell hAlign="Left" vAlign="Top"><label name="LblBrandMeta" caption="Backoffice de socios" class="backoffice-brand-meta"/></cell></row></smart></cell></row></smart></cell></row>
+									<row><cell vAlign="Middle"><smart name="SidebarCard" class="backoffice-sidebar-card" width="100%" columnsStyle="100%" rowsStyle="18px;52px"><row><cell hAlign="Left" vAlign="Bottom"><label name="LblSidebarTitle" caption="Diagnostico tecnico" class="backoffice-sidebar-section"/></cell></row><row><cell hAlign="Left" vAlign="Middle"><label name="LblSidebarText" caption="Procesa payment_id y verifica la respuesta del proveedor de pago en tiempo real." class="backoffice-sidebar-text"/></cell></row></smart></cell></row>
+									<row><cell vAlign="Top"><smart name="SidebarNav" width="100%" columnsStyle="100%" rowsStyle="44px;44px;44px;44px;44px;44px;44px;44px"><row><cell><action name="BtnNavDashboard" caption="Dashboard" onClickEvent="'Dashboard'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavSocios" caption="Socios" onClickEvent="'Socios'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavImportar" caption="Importar socios" onClickEvent="'ImportarSocios'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavTipos" caption="Tipos de cuota" onClickEvent="'TiposCuota'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavCuotas" caption="Cuotas" onClickEvent="'Cuotas'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavConfig" caption="Configuracion pago" onClickEvent="'ConfiguracionPago'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavPruebas" caption="Prueba de pago" onClickEvent="'PruebasPago'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavSandbox" caption="Procesar sandbox" onClickEvent="'Sandbox'" class="btn-sidebar-active"/></cell></row></smart></cell></row>
+									<row><cell vAlign="Bottom"><label name="LblSidebarFooter" caption="Usuario: Secretaria Atenas | Admin / Operacion diaria" class="backoffice-sidebar-footer"/></cell></row>
+								</smart>
+							</cell>
+							<cell class="backoffice-main" vAlign="Top">
+								<smart name="SandboxBody" class="backoffice-main-body" width="100%" columnsStyle="100%" rowsStyle="128px;228px;220px;388px;56px">
+									<row>
+										<cell hAlign="Center" vAlign="Middle">
+											<smart name="TopbarSandbox" class="surface-elevated" width="100%" columnsStyle="52%;48%" rowsStyle="44px;26px">
+												<row>
+													<cell hAlign="Left" vAlign="Middle"><label name="LblTitulo" caption="Procesar pago sandbox" class="admin-topbar-title"/></cell>
+													<cell hAlign="Right" vAlign="Middle">
+														<smart name="TopbarActions" width="100%" columnsStyle="50%;50%" rowsStyle="44px">
+															<row>
+																<cell hAlign="Left" vAlign="Middle"><action name="BtnProcesarTop" caption="Procesar payment" onClickEvent="'Procesar'" class="btn-topbar"/></cell>
+																<cell hAlign="Center" vAlign="Middle"><action name="BtnDiagnosticarTop" caption="Diagnosticar" onClickEvent="'Diagnosticar'" class="btn-topbar-secondary"/></cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+												<row>
+													<cell hAlign="Left" vAlign="Top"><label name="LblSubtitulo" caption="Pantalla interna para depuracion y conciliacion tecnica de la respuesta de Mercado Pago." class="admin-topbar-text"/></cell>
+													<cell/>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell hAlign="Center" vAlign="Middle">
+											<smart name="EntradaPago" class="surface-elevated" width="100%" columnsStyle="55%;45%" rowsStyle="30px;68px;28px;44px">
+												<row>
+													<cell hAlign="Left" vAlign="Bottom"><label name="LblPayment" caption="PaymentId Mercado Pago" class="field-label"/></cell>
+													<cell hAlign="Left" vAlign="Bottom"><label name="LblSocio" caption="SocioId de prueba" class="field-label"/></cell>
+												</row>
+												<row>
+													<cell hAlign="Center" vAlign="Middle"><input attribute="&amp;PaymentIdPrueba" class="field"/></cell>
+													<cell hAlign="Center" vAlign="Middle"><input attribute="&amp;SocioIdPrueba" class="field"/></cell>
+												</row>
+												<row>
+													<cell hAlign="Left" vAlign="Bottom"><label name="LblEstadoSandbox" caption="Estado de la ejecucion" class="field-label"/></cell>
+													<cell/>
+												</row>
+												<row>
+													<cell hAlign="Left" vAlign="Middle"><input attribute="&amp;EstadoTexto" readonly="True" class="message-inline"/></cell>
+													<cell/>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell hAlign="Center" vAlign="Middle">
+											<smart name="ResultadoPago" class="surface-elevated" width="100%" columnsStyle="100%" rowsStyle="30px;70px;64px">
+												<row><cell hAlign="Left" vAlign="Bottom"><label name="LblUltimaCuota" caption="Ultima cuota encontrada y configuracion activa" class="field-label"/></cell></row>
+												<row>
+													<cell hAlign="Left" vAlign="Middle">
+														<smart name="ResumenTecnico" width="100%" columnsStyle="12%;14%;12%;12%;18%;12%;10%;10%" rowsStyle="24px;28px">
+															<row>
+																<cell hAlign="Left" vAlign="Bottom"><label name="LblCuotaId" caption="Id" class="field-label"/></cell>
+																<cell hAlign="Left" vAlign="Bottom"><label name="LblCuotaPeriodo" caption="Periodo" class="field-label"/></cell>
+																<cell hAlign="Left" vAlign="Bottom"><label name="LblCuotaEstado" caption="Estado" class="field-label"/></cell>
+																<cell hAlign="Left" vAlign="Bottom"><label name="LblCuotaMPEstado" caption="MP" class="field-label"/></cell>
+																<cell hAlign="Left" vAlign="Bottom"><label name="LblConfigNombre" caption="Configuracion" class="field-label"/></cell>
+																<cell hAlign="Left" vAlign="Bottom"><label name="LblTokenLength" caption="Token" class="field-label"/></cell>
+																<cell hAlign="Left" vAlign="Bottom"><label name="LblConfigActiva" caption="Activa" class="field-label"/></cell>
+																<cell/>
+															</row>
+															<row>
+																<cell hAlign="Left" vAlign="Middle"><input attribute="&amp;CuotaIdUltima" readonly="True" class="text-caption"/></cell>
+																<cell hAlign="Left" vAlign="Middle"><input attribute="&amp;CuotaPeriodo" readonly="True" class="text-caption"/></cell>
+																<cell hAlign="Left" vAlign="Middle"><input attribute="&amp;CuotaEstado" readonly="True" class="text-caption"/></cell>
+																<cell hAlign="Left" vAlign="Middle"><input attribute="&amp;CuotaMPEstado" readonly="True" class="text-caption"/></cell>
+																<cell hAlign="Left" vAlign="Middle"><input attribute="&amp;ConfigNombre" readonly="True" class="text-caption"/></cell>
+																<cell hAlign="Left" vAlign="Middle"><input attribute="&amp;TokenLength" readonly="True" class="text-caption"/></cell>
+																<cell hAlign="Left" vAlign="Middle"><input attribute="&amp;ConfigActiva" readonly="True" class="text-caption"/></cell>
+																<cell/>
+															</row>
+														</smart>
+													</cell>
+												</row>
+												<row>
+													<cell hAlign="Left" vAlign="Top">
+														<smart name="RutasTecnicas" width="100%" columnsStyle="50%;50%" rowsStyle="24px;40px">
+															<row>
+																<cell hAlign="Left" vAlign="Bottom"><label name="LblBaseUrlTec" caption="Base URL" class="field-label"/></cell>
+																<cell hAlign="Left" vAlign="Bottom"><label name="LblDebugPathTec" caption="Archivo de debug" class="field-label"/></cell>
+															</row>
+															<row>
+																<cell hAlign="Left" vAlign="Top"><input attribute="&amp;ConfigBaseUrl" readonly="True" class="helper-text"/></cell>
+																<cell hAlign="Left" vAlign="Top"><input attribute="&amp;DebugFilePath" readonly="True" class="helper-text"/></cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell hAlign="Center" vAlign="Middle">
+											<smart name="DiagnosticoPago" class="surface-elevated" width="100%" columnsStyle="100%" rowsStyle="28px;34px;34px;34px;34px;120px;108px">
+												<row><cell hAlign="Left" vAlign="Bottom"><label name="LblDiagnostico" caption="Diagnostico tecnico del pago" class="field-label"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;HttpStatus" readonly="True" class="text-caption"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;ErrCode" readonly="True" class="text-caption"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;ErrDescription" readonly="True" class="text-caption"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Middle"><label name="LblJson" caption="JSON devuelto por la consulta" class="field-label"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;JsonPago" readonly="True" class="message-inline"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Top"><label name="LblSandboxAyuda" caption="Usa este panel para validar respuestas del proveedor y verificar el archivo de debug cuando el webhook o la consulta manual no coinciden con el estado de la cuota." class="helper-text"/></cell></row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell hAlign="Center" vAlign="Middle">
+											<smart name="AccionesPago" width="100%" columnsStyle="34%;33%;33%" rowsStyle="56px">
+												<row>
+													<cell hAlign="Center" vAlign="Middle"><action name="BtnProcesar" caption="Procesar payment" onClickEvent="'Procesar'" class="btn-primary"/></cell>
+													<cell hAlign="Center" vAlign="Middle"><action name="BtnDiagnosticar" caption="Diagnosticar" onClickEvent="'Diagnosticar'" class="btn-secondary"/></cell>
+													<cell hAlign="Center" vAlign="Middle"><action name="BtnAbrirPortal" caption="Abrir portal" onClickEvent="'AbrirPortal'" class="btn-secondary"/></cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+								</smart>
+							</cell>
+						</row>
+					</smart>
+				</cell>
+			</row>
+		</smart>
+		<actiongroups />
+	</view>
+</layout>

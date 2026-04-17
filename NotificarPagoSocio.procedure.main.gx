@@ -1,0 +1,57 @@
+Procedure NotificarPagoSocio
+{
+	For Each
+		Where CuotaId = &CuotaId
+		&DestinoEmail = Trim(SocioEmail)
+		&DestinoNombre = Trim(SocioNombre) + !" " + Trim(SocioApellido)
+		&Cedula = SocioCedula
+		&Periodo = CuotaPeriodo
+		&Importe = CuotaImporte
+		If NOT CuotaFechaPago.IsEmpty()
+			&FechaPagoTexto = Format(!"%1", CuotaFechaPago)
+		EndIf
+		If NOT CuotaMPPaymentId.IsEmpty()
+			&Referencia = CuotaMPPaymentId
+		Else
+			&Referencia = !"Cuota " + Trim(Str(CuotaId, 10, 0))
+		EndIf
+		Exit
+	EndFor
+
+	If &DestinoEmail.IsEmpty()
+		Return
+	EndIf
+
+	&ImporteTexto = Trim(Str(&Importe, 12, 2))
+	&Asunto = !"Pago confirmado - Club Atletico Atenas"
+	&TextoPlano = !"Hola " + &DestinoNombre + !". Registramos el pago de tu cuota. Periodo: " + &Periodo + !". Importe: $" + &ImporteTexto + !". Referencia: " + &Referencia + !". Fecha: " + &FechaPagoTexto + !"."
+	&TextoHtml = !"<h2>Club Atletico Atenas</h2><p>Hola " + &DestinoNombre + !", registramos el pago de tu cuota.</p><p><strong>Periodo:</strong> " + &Periodo + !"<br/><strong>Importe:</strong> $" + &ImporteTexto + !"<br/><strong>Referencia:</strong> " + &Referencia + !"<br/><strong>Fecha:</strong> " + &FechaPagoTexto + !"<br/><strong>Cedula:</strong> " + &Cedula + !"</p><p>Este correo funciona como comprobante de pago.</p>"
+
+	EnviarCorreoSMTP(&DestinoEmail, &DestinoNombre, &Asunto, &TextoHtml, &TextoPlano, &Enviado, &MensajeResultado)
+
+	#Rules
+		parm(in: &CuotaId);
+	#End
+
+	#Conditions
+	#End
+
+	#Variables
+		CuotaId [ DataType = 'Attribute:CuotaId', Description = 'Cuota pagada a notificar' ]
+		DestinoEmail [ DataType = 'VarChar(120)', Description = '' ]
+		DestinoNombre [ DataType = 'VarChar(120)', Description = '' ]
+		Cedula [ DataType = 'Attribute:SocioCedula', Description = '' ]
+		Periodo [ DataType = 'Attribute:CuotaPeriodo', Description = '' ]
+		Importe [ DataType = 'Attribute:CuotaImporte', Description = '' ]
+		ImporteTexto [ DataType = 'VarChar(30)', Description = '' ]
+		FechaPagoTexto [ DataType = 'VarChar(40)', Description = '' ]
+		Referencia [ DataType = 'VarChar(128)', Description = '' ]
+		Asunto [ DataType = 'VarChar(200)', Description = '' ]
+		TextoHtml [ DataType = 'LongVarChar(4K)', Description = '' ]
+		TextoPlano [ DataType = 'LongVarChar(4K)', Description = '' ]
+		Enviado [ DataType = 'Boolean', Description = '' ]
+		MensajeResultado [ DataType = 'VarChar(512)', Description = '' ]
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+	#End
+}

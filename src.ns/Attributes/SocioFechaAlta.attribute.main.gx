@@ -1,0 +1,11 @@
+Attribute SocioFechaAlta
+{
+	#Properties
+		Name = "SocioFechaAlta"
+
+		Description = "Fecha y hora de alta del socio"
+
+		DataType = "DateTime"
+	#End
+
+}

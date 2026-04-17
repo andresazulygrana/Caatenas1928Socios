@@ -1,0 +1,117 @@
+<layout type="Web">
+	<view>
+		<smart name="MainLayout" class="backoffice-page" width="100%" height="100%" columnsStyle="100%" rowsStyle="100%">
+			<row>
+				<cell hAlign="Center" vAlign="Top">
+					<smart name="Shell" class="backoffice-shell" width="100%" height="100%" columnsStyle="270px;100%" rowsStyle="100%">
+						<row>
+							<cell class="backoffice-sidebar" vAlign="Top">
+								<smart name="SidebarLayout" width="100%" columnsStyle="100%" rowsStyle="74px;98px;392px;58px">
+									<row><cell vAlign="Top"><smart name="Brand" width="100%" columnsStyle="56px;100%" rowsStyle="56px"><row><cell hAlign="Center" vAlign="Middle"><label name="LblCrest" caption="A" class="backoffice-crest"/></cell><cell hAlign="Left" vAlign="Middle"><smart name="BrandText" width="100%" columnsStyle="100%" rowsStyle="30px;18px"><row><cell hAlign="Left" vAlign="Bottom"><label name="LblBrandTitle" caption="Club Atenas" class="backoffice-brand-title"/></cell></row><row><cell hAlign="Left" vAlign="Top"><label name="LblBrandMeta" caption="Backoffice de socios" class="backoffice-brand-meta"/></cell></row></smart></cell></row></smart></cell></row>
+									<row><cell vAlign="Middle"><smart name="SidebarCard" class="backoffice-sidebar-card" width="100%" columnsStyle="100%" rowsStyle="18px;52px"><row><cell hAlign="Left" vAlign="Bottom"><label name="LblSidebarTitle" caption="Importacion guiada" class="backoffice-sidebar-section"/></cell></row><row><cell hAlign="Left" vAlign="Middle"><label name="LblSidebarText" caption="Carga CSV con preview, contadores y acceso directo al resto de la operacion diaria." class="backoffice-sidebar-text"/></cell></row></smart></cell></row>
+									<row><cell vAlign="Top"><smart name="SidebarNav" width="100%" columnsStyle="100%" rowsStyle="44px;44px;44px;44px;44px;44px;44px;44px"><row><cell><action name="BtnNavDashboard" caption="Dashboard" onClickEvent="'Dashboard'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavSocios" caption="Socios" onClickEvent="'Socios'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavImportar" caption="Importar socios" onClickEvent="'ImportarSocios'" class="btn-sidebar-active"/></cell></row><row><cell><action name="BtnNavTipos" caption="Tipos de cuota" onClickEvent="'TiposCuota'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavCuotas" caption="Cuotas" onClickEvent="'Cuotas'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavConfig" caption="Configuracion pago" onClickEvent="'ConfiguracionPago'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavPruebas" caption="Prueba de pago" onClickEvent="'PruebasPago'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavSandbox" caption="Procesar sandbox" onClickEvent="'Sandbox'" class="btn-sidebar"/></cell></row></smart></cell></row>
+									<row><cell vAlign="Bottom"><label name="LblSidebarFooter" caption="Usuario: Secretaria Atenas | Admin / Operacion diaria" class="backoffice-sidebar-footer"/></cell></row>
+								</smart>
+							</cell>
+							<cell class="backoffice-main" vAlign="Top">
+								<smart name="ImportarBody" class="backoffice-main-body" width="100%" columnsStyle="100%" rowsStyle="128px;172px;176px;360px;40px">
+									<row>
+										<cell hAlign="Center" vAlign="Middle">
+											<smart name="TopbarImportar" class="surface-elevated" width="100%" columnsStyle="100%" rowsStyle="44px;26px">
+												<row>
+													<cell hAlign="Left" vAlign="Middle"><label name="LblTitulo" caption="Importar socios" class="admin-topbar-title"/></cell>
+												</row>
+												<row>
+													<cell hAlign="Left" vAlign="Top"><label name="LblSubtituloImportar" caption="Carga controlada de Excel con reglas visibles antes de ejecutar el proceso." class="admin-topbar-text"/></cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell hAlign="Center" vAlign="Top">
+											<smart name="CargaCard" class="surface-elevated" width="100%" columnsStyle="100%" rowsStyle="24px;46px;24px;46px">
+												<row><cell hAlign="Left" vAlign="Bottom"><label name="LblArchivo" caption="Archivo Excel (ruta completa)" class="field-label"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;RutaArchivo" class="field"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Bottom"><label name="LblFormato" caption="Columnas esperadas: Cedula, Nombre, Apellido, Email, Telefono." class="helper-text"/></cell></row>
+												<row>
+													<cell hAlign="Right" vAlign="Middle">
+														<smart name="AccionesCarga" width="100%" columnsStyle="50%;50%" rowsStyle="46px">
+															<row>
+																<cell hAlign="Left" vAlign="Middle"><action name="BtnPrevisualizar" caption="Previsualizar" onClickEvent="'Previsualizar'" class="btn-secondary"/></cell>
+																<cell hAlign="Right" vAlign="Middle"><action name="BtnImportar" caption="Procesar Excel" onClickEvent="'Importar'" class="btn-primary"/></cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell hAlign="Center" vAlign="Middle">
+											<smart name="Resumen" width="100%" columnsStyle="33%;33%;34%" rowsStyle="34px;140px">
+												<row>
+													<cell hAlign="Center" vAlign="Bottom"><label name="LblPreview" caption="Filas preview" class="field-label"/></cell>
+													<cell hAlign="Center" vAlign="Bottom"><label name="LblCreados" caption="Creados" class="field-label"/></cell>
+													<cell hAlign="Center" vAlign="Bottom"><label name="LblActualizados" caption="Actualizados" class="field-label"/></cell>
+												</row>
+												<row>
+													<cell hAlign="Center" vAlign="Middle"><smart name="CardPreview" class="surface-elevated" width="92%" columnsStyle="100%" rowsStyle="54px;28px"><row><cell hAlign="Center" vAlign="Middle"><input attribute="&amp;FilasPreview" readonly="True" class="text-title"/></cell></row><row><cell hAlign="Center" vAlign="Middle"><label name="LblPreviewAyuda" caption="Filas analizadas" class="helper-text"/></cell></row></smart></cell>
+													<cell hAlign="Center" vAlign="Middle"><smart name="CardCreados" class="surface-elevated" width="92%" columnsStyle="100%" rowsStyle="54px;28px"><row><cell hAlign="Center" vAlign="Middle"><input attribute="&amp;Creados" readonly="True" class="text-title"/></cell></row><row><cell hAlign="Center" vAlign="Middle"><label name="LblCreadosAyuda" caption="Socios nuevos" class="helper-text"/></cell></row></smart></cell>
+													<cell hAlign="Center" vAlign="Middle"><smart name="CardActualizados" class="surface-elevated" width="92%" columnsStyle="100%" rowsStyle="54px;28px"><row><cell hAlign="Center" vAlign="Middle"><input attribute="&amp;Actualizados" readonly="True" class="text-title"/></cell></row><row><cell hAlign="Center" vAlign="Middle"><label name="LblActualizadosAyuda" caption="Registros existentes" class="helper-text"/></cell></row></smart></cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell hAlign="Center" vAlign="Top">
+											<smart name="PreviewCard" class="surface-elevated" width="100%" columnsStyle="100%" rowsStyle="28px;28px;260px">
+												<row><cell hAlign="Left" vAlign="Bottom"><label name="LblPreviewTitulo" caption="Vista previa de las primeras 5 filas detectadas" class="text-subtitle"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;ResumenPreview" readonly="True" class="helper-text"/></cell></row>
+												<row>
+													<cell vAlign="Top">
+														<smart name="GridPreviewContainer" class="grid-wrap" width="100%" columnsStyle="100%" rowsStyle="40px;240px">
+															<row><cell vAlign="Middle">
+																<smart name="CabeceraPreview" class="grid-head" width="100%" columnsStyle="14%;18%;18%;16%;16%;18%" rowsStyle="40px">
+																	<row>
+																		<cell vAlign="Middle"><label name="LblPreColCedula" caption="Cedula" class="grid-col-head"/></cell>
+																		<cell vAlign="Middle"><label name="LblPreColNombre" caption="Nombre" class="grid-col-head"/></cell>
+																		<cell vAlign="Middle"><label name="LblPreColApellido" caption="Apellido" class="grid-col-head"/></cell>
+																		<cell vAlign="Middle"><label name="LblPreColTelefono" caption="Telefono" class="grid-col-head"/></cell>
+																		<cell vAlign="Middle"><label name="LblPreColPlan" caption="Plan" class="grid-col-head"/></cell>
+																		<cell vAlign="Middle"><label name="LblPreColObs" caption="Obs" class="grid-col-head"/></cell>
+																	</row>
+																</smart>
+															</cell></row>
+															<row><cell vAlign="Top">
+																<grid name="GridPreview" class="grid-body" controlType="table">
+																	<table name="GridPreviewItem" width="100%" columnsStyle="14%;18%;18%;16%;16%;18%" rowsStyle="44px">
+																		<row>
+																			<cell vAlign="Middle"><input attribute="&amp;CedulaPreview" readonly="True" class="grid-col-text"/></cell>
+																			<cell vAlign="Middle"><input attribute="&amp;NombrePreview" readonly="True" class="grid-col-text"/></cell>
+																			<cell vAlign="Middle"><input attribute="&amp;ApellidoPreview" readonly="True" class="grid-col-text"/></cell>
+																			<cell vAlign="Middle"><input attribute="&amp;TelefonoPreview" readonly="True" class="grid-col-meta"/></cell>
+																			<cell vAlign="Middle"><input attribute="&amp;PlanPreview" readonly="True" class="grid-col-meta"/></cell>
+																			<cell vAlign="Middle"><input attribute="&amp;ObservacionPreview" readonly="True" class="grid-col-meta"/></cell>
+																		</row>
+																	</table>
+																</grid>
+															</cell></row>
+														</smart>
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell class="page-footer" hAlign="Center" vAlign="Middle"><label name="LblPie" caption="Previsualiza primero, corrige la ruta si hace falta y luego ejecuta la importacion definitiva." class="helper-text"/></cell>
+									</row>
+								</smart>
+							</cell>
+						</row>
+					</smart>
+				</cell>
+			</row>
+		</smart>
+		<actiongroups />
+	</view>
+</layout>

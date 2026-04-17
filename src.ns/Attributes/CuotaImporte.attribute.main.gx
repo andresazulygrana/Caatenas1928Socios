@@ -1,0 +1,19 @@
+Attribute CuotaImporte
+{
+	#Properties
+		Name = "CuotaImporte"
+
+		Description = "Importe de la cuota en pesos uruguayos"
+
+		DataType = "Numeric(10.2)"
+
+		Length = "10"
+
+		Decimals = "2"
+
+		MaximumLength = "10"
+
+		AverageLength = "2"
+	#End
+
+}

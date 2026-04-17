@@ -1,0 +1,15 @@
+Index ISocio
+{
+	SocioId
+
+	#Index
+		Source = "Automatic"
+
+		Type = "Unique"
+	#End
+
+	#Properties
+		Name = "ISocio"
+	#End
+
+}

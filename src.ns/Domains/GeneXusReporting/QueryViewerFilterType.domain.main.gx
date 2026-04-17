@@ -1,0 +1,11 @@
+Domain QueryViewerFilterType
+{
+	#Properties
+		Name = "QueryViewerFilterType"
+
+		DataType = "Character(20)"
+
+		EnumValues = "ShowAllValues, Show All Values, ShowAllValues; HideAllValues, Hide All Values, HideAllValues; ShowSomeValues, Show Some Values, ShowSomeValues"
+	#End
+
+}

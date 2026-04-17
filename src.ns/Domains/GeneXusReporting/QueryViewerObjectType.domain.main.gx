@@ -1,0 +1,11 @@
+Domain QueryViewerObjectType
+{
+	#Properties
+		Name = "QueryViewerObjectType"
+
+		DataType = "Character(20)"
+
+		EnumValues = "DataProvider, DataProvider, DataProvider; Query, Query, Query"
+	#End
+
+}

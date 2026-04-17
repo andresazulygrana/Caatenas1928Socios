@@ -1,0 +1,109 @@
+WebPanel Gx0030
+{
+	#Rules
+		parm(out:&pTipoCuotaId);
+		order(TipoCuotaId);
+	#End
+
+	#Events
+		Event Start
+			Form.Caption = Format("GXSPC_SelectionList", "Tipo Cuota")
+			&ADVANCED_LABEL_TEMPLATE = "%1 <strong>%2</strong>"
+		EndEvent
+		
+		Event 'Toggle'
+			if AdvancedContainer.Class = StyleClass:AdvancedContainer
+				AdvancedContainer.Class = StyleClass:AdvancedContainer + !" " + StyleClass:AdvancedContainerVisible
+				BtnToggle.Class += !" " + StyleClass:BtnToggleActive
+			else
+				AdvancedContainer.Class = StyleClass:AdvancedContainer
+				BtnToggle.Class = StyleClass:BtnToggle
+			endif
+		Endevent
+		
+		Event LblTipoCuotaIdFilter.Click
+			if TipoCuotaIdFilterContainer.Class = StyleClass:AdvancedContainerItem
+				TipoCuotaIdFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cTipoCuotaId.Visible = true
+			else
+				TipoCuotaIdFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cTipoCuotaId.Visible = false
+			endif
+		EndEvent
+		
+		Event LblTipoCuotaDescripcionFilter.Click
+			if TipoCuotaDescripcionFilterContainer.Class = StyleClass:AdvancedContainerItem
+				TipoCuotaDescripcionFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cTipoCuotaDescripcion.Visible = true
+			else
+				TipoCuotaDescripcionFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cTipoCuotaDescripcion.Visible = false
+			endif
+		EndEvent
+		
+		Event LblTipoCuotaImporteFilter.Click
+			if TipoCuotaImporteFilterContainer.Class = StyleClass:AdvancedContainerItem
+				TipoCuotaImporteFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cTipoCuotaImporte.Visible = true
+			else
+				TipoCuotaImporteFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cTipoCuotaImporte.Visible = false
+			endif
+		EndEvent
+		
+		Event LblTipoCuotaActivoFilter.Click
+			if TipoCuotaActivoFilterContainer.Class = StyleClass:AdvancedContainerItem
+				TipoCuotaActivoFilterContainer.Class = StyleClass:AdvancedContainerItem + !" " + StyleClass:AdvancedContainerItemExpanded
+				&cTipoCuotaActivo.Visible = true
+			else
+				TipoCuotaActivoFilterContainer.Class = StyleClass:AdvancedContainerItem
+				&cTipoCuotaActivo.Visible = false
+			endif
+		EndEvent
+		
+		Event Load
+			&LinkSelection.FromImage(selectRow)
+		EndEvent
+		
+		Event Enter
+			&pTipoCuotaId = TipoCuotaId
+			Return
+		EndEvent
+	#End
+
+	#Conditions
+		TipoCuotaId >= &cTipoCuotaId ;
+		TipoCuotaDescripcion LIKE &cTipoCuotaDescripcion when not &cTipoCuotaDescripcion.IsEmpty();
+		TipoCuotaImporte >= &cTipoCuotaImporte when not &cTipoCuotaImporte.IsEmpty();
+		TipoCuotaActivo >= &cTipoCuotaActivo when not &cTipoCuotaActivo.IsEmpty();
+	#End
+
+	#Variables
+			LinkSelection [ DataType = 'Image' ]
+
+			cTipoCuotaId [ Description = 'FK a TipoCuota, copiado al momento de crear la cuota', DataType = 'Attribute:TipoCuotaId' ]
+
+			cTipoCuotaDescripcion [ Description = 'Descripcion del tipo de cuota. Ej: Mensual Anual', DataType = 'Attribute:TipoCuotaDescripcion' ]
+
+			cTipoCuotaImporte [ Description = 'Importe en pesos uruguayos', DataType = 'Attribute:TipoCuotaImporte' ]
+
+			cTipoCuotaActivo [ Description = 'Indica si el tipo de cuota esta activo', DataType = 'Attribute:TipoCuotaActivo' ]
+
+			pTipoCuotaId [ Description = 'FK a TipoCuota, copiado al momento de crear la cuota', DataType = 'Attribute:TipoCuotaId' ]
+
+			ADVANCED_LABEL_TEMPLATE [ DataType = 'Character(20)' ]
+	#End
+
+	#Properties
+		Name = "Gx0030"
+
+		Description = "Selection List Tipo Cuota"
+
+		MasterPage = "(none)"
+
+		AssociatedTable = "TipoCuota"
+
+		FocusControl = "Browser dependent"
+	#End
+
+}

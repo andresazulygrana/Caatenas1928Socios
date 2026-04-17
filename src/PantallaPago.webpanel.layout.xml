@@ -1,0 +1,213 @@
+<layout type="Web">
+	<view>
+		<responsive name="PageContent" class="page">
+			<row>
+				<cell>
+					<responsive name="HeaderBand" class="page-header">
+						<row>
+							<cell horizontalAlignment="Left" verticalAlignment="Middle">
+								<table name="HeaderBrand" width="100%" class="header-brand" tableType="Flex" alignItems="Center">
+									<row>
+										<cell verticalAlignment="Middle" flexGrow="0">
+											<label name="LblEscudoPortal" caption="A" class="header-crest" />
+										</cell>
+										<cell flexGrow="0">
+											<responsive name="HeaderTextBlock">
+												<row>
+													<cell>
+														<table name="HeaderNameRow" tableType="Flex" alignItems="Center">
+															<row>
+																<cell flexGrow="0">
+																	<label name="LblBrandClub" caption="Club" class="header-name" />
+																</cell>
+																<cell flexGrow="0">
+																	<label name="LblBrandAtenas" caption="Atenas" class="header-name header-name--accent" />
+																</cell>
+															</row>
+														</table>
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<label name="LblPortalSub" caption="Estado de cuenta" class="header-tagline" />
+													</cell>
+												</row>
+											</responsive>
+										</cell>
+									</row>
+								</table>
+							</cell>
+						</row>
+					</responsive>
+				</cell>
+			</row>
+			<row>
+				<cell horizontalAlignment="Center" verticalAlignment="Top">
+					<responsive name="HeroBand" class="page-hero">
+						<row>
+							<cell horizontalAlignment="Center" verticalAlignment="Top">
+								<smart name="HeroPago" columns="100%" rows="48px;48px" width="100%">
+									<row>
+										<cell horizontalAlignment="Center" verticalAlignment="Middle">
+											<label name="LblTitulo" caption="Tu cuota" class="text-title" />
+										</cell>
+									</row>
+									<row>
+										<cell horizontalAlignment="Center" verticalAlignment="Middle">
+											<label name="LblSubtitulo" caption="Revisa tu estado actual y realiza el pago de tu membresia." class="text-subtitle" />
+										</cell>
+									</row>
+								</smart>
+							</cell>
+						</row>
+					</responsive>
+				</cell>
+			</row>
+			<row>
+				<cell horizontalAlignment="Center" verticalAlignment="Top">
+					<smart name="MainContent" columns="100%" rows="auto;auto;auto;auto;auto;auto" width="520dip" class="page-content">
+						<row>
+							<cell>
+								<smart name="ImporteCard" columns="100%" rows="92px;auto;auto;auto" width="100%" class="surface">
+									<row>
+										<cell>
+											<smart name="AmountBlock" columns="100%" rows="48px;44px" width="100%" class="amount-block">
+												<row>
+													<cell horizontalAlignment="Center">
+														<label name="LblImporteTitulo" caption="Importe a pagar" class="amount-label" />
+													</cell>
+												</row>
+												<row>
+													<cell horizontalAlignment="Center">
+														<input attribute="&amp;ImporteTexto" readonly="True" class="text-amount" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="RowEstadoPago" columns="30%;70%" rows="24px" width="100%" class="info-row">
+												<row>
+													<cell>
+														<label name="LblEstadoPago" caption="Estado actual" class="info-label" />
+													</cell>
+													<cell horizontalAlignment="Right">
+														<input attribute="&amp;MensajeEstado" readonly="True" class="info-value" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="RowPeriodoPago" columns="30%;70%" rows="24px" width="100%" class="info-row">
+												<row>
+													<cell>
+														<label name="LblPeriodo" caption="Periodo / vencimiento" class="info-label" />
+													</cell>
+													<cell horizontalAlignment="Right">
+														<input attribute="&amp;CuotaPeriodo" readonly="True" class="info-value" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell verticalAlignment="Middle">
+											<input attribute="&amp;ResumenCuota" readonly="True" class="field-help" />
+										</cell>
+									</row>
+								</smart>
+							</cell>
+						</row>
+						<row>
+							<cell />
+						</row>
+						<row>
+							<cell>
+								<smart name="SocioCard" columns="100%" rows="auto;auto;auto;auto" width="100%" class="surface">
+									<row>
+										<cell>
+											<smart name="RowSocio" columns="30%;70%" rows="24px" width="100%" class="info-row">
+												<row>
+													<cell>
+														<label name="LblSocio" caption="Socio" class="info-label" />
+													</cell>
+													<cell horizontalAlignment="Right">
+														<input attribute="&amp;SocioNombreCompleto" readonly="True" class="info-value" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="RowCedula" columns="30%;70%" rows="24px" width="100%" class="info-row">
+												<row>
+													<cell>
+														<label name="LblDocumento" caption="Cedula" class="info-label" />
+													</cell>
+													<cell horizontalAlignment="Right">
+														<input attribute="&amp;SocioCedula" readonly="True" class="info-value" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="RowPlan" columns="30%;70%" rows="24px" width="100%" class="info-row">
+												<row>
+													<cell>
+														<label name="LblPlan" caption="Plan" class="info-label" />
+													</cell>
+													<cell horizontalAlignment="Right">
+														<input attribute="&amp;TipoCuotaNombre" readonly="True" class="info-value" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="RowVencimiento" columns="30%;70%" rows="24px" width="100%">
+												<row>
+													<cell>
+														<label name="LblVencimiento" caption="Vencimiento" class="info-label" />
+													</cell>
+													<cell horizontalAlignment="Right">
+														<input attribute="&amp;VencimientoTexto" readonly="True" class="info-value" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+								</smart>
+							</cell>
+						</row>
+						<row>
+							<cell />
+						</row>
+						<row>
+							<cell>
+								<action name="BtnPagar" onClickEvent="'AccionPrincipal'" caption="Pagar con Mercado Pago" class="btn-primary" />
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<action name="BtnCambiarDocumento" onClickEvent="'CambiarSocio'" caption="Consultar otro documento" class="btn-secondary" />
+							</cell>
+						</row>
+					</smart>
+				</cell>
+			</row>
+			<row>
+				<cell horizontalAlignment="Center">
+					<label name="LblFooterPortal" caption="clubatenas.uy · Socios" class="page-footer" />
+				</cell>
+			</row>
+		</responsive>
+		<actiongroups />
+	</view>
+</layout>

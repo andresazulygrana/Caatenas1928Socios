@@ -1,0 +1,39 @@
+Table ConfiguracionPago
+{
+		ConfiguracionPagoId*
+
+		ConfiguracionPagoNombre
+
+		ConfiguracionPagoAccessToken
+
+		ConfiguracionPagoBaseUrl
+
+		ConfiguracionPagoActivo
+
+		ConfiguracionPagoMailActivo
+
+		ConfiguracionPagoMailHost
+
+		ConfiguracionPagoMailPort
+
+		ConfiguracionPagoMailUser
+
+		ConfiguracionPagoMailPassword
+
+		ConfiguracionPagoMailSender
+
+		ConfiguracionPagoMailSenderName
+
+		ConfiguracionPagoMailSecure
+
+	#Indexes
+		IConfiguracionPago
+	#End
+
+	#Properties
+		Name = "ConfiguracionPago"
+
+		Description = "Configuracion Pago"
+	#End
+
+}

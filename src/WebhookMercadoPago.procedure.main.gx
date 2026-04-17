@@ -1,0 +1,38 @@
+Procedure WebhookMercadoPago
+{
+		// Receptor HTTP del webhook de Mercado Pago
+		GeneXus.Common.Log.Info(!"WebhookMercadoPago RequestBody: " + Substr(&RequestBody, 1, 2000), !"$MercadoPago.Webhook")
+		&Notification.FromJson(&RequestBody)
+	
+		If &Notification.Type = !"payment"
+			If NOT &Notification.Data.Id.IsEmpty()
+				&PaymentId = Trim(&Notification.Data.Id)
+				GeneXus.Common.Log.Info(!"WebhookMercadoPago PaymentId: " + &PaymentId, !"$MercadoPago.Webhook")
+				ProcesarPagoMercadoPago(&PaymentId)
+			EndIf
+		EndIf
+	
+		// Mercado Pago requiere siempre HTTP 200
+		&RestCode = 200
+
+	#Rules
+		parm(in: &RequestBody);
+	#End
+
+	#Variables
+			RequestBody [ Description = 'Cuerpo JSON del POST recibido de Mercado Pago', DataType = 'LongVarChar(4K)' ]
+
+			PaymentId [ Description = 'ID del pago extraido de la notificacion', DataType = 'VarChar(128)' ]
+
+			Notification [ Description = 'Webhook parseado recibido de Mercado Pago', DataType = 'MercadoPagoWebhookNotification' ]
+	#End
+
+	#Properties
+		Name = "WebhookMercadoPago"
+
+		MainProgram = "True"
+
+		CallProtocol = "HTTP"
+	#End
+
+}

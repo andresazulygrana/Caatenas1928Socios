@@ -1,0 +1,1318 @@
+DesignSystem QueryViewerWeb
+{
+	#DesignTokens
+		tokens QueryViewer (color-scheme:dark|[light])
+		{
+		    
+		    #colors
+		    {
+		        gxqv-color-main: $colors.primary;
+		    }
+		
+		    @color-scheme = light {
+		        #colors
+		        {
+		        gxqv-color-01: #182f53;
+		        gxqv-color-02: #a7e9e1;
+		        gxqv-color-03: #f57a4d;
+		        gxqv-color-04: #fbbc58;
+		        gxqv-color-05: #9c3725;
+		        gxqv-color-06: #2ed3c6;
+		        gxqv-color-07: #aa6890;
+		        gxqv-color-08: #c53b3d;
+		        gxqv-color-09: #8d89a3;
+		        gxqv-color-10: #095d6a;
+		           
+		        }
+		    }
+		    
+		    @color-scheme = dark {
+		        #colors
+		        { 
+		        gxqv-color-01: #345a8c;
+		        gxqv-color-02: #dcf6f4;
+		        gxqv-color-03: #f8af96;
+		        gxqv-color-04: #fde2b6;
+		        gxqv-color-05: #da553b;
+		        gxqv-color-06: #96e4dc;
+		        gxqv-color-07: #c490af;
+		        gxqv-color-08: #d8777b;
+		        gxqv-color-09: #b9b7c8;
+		        gxqv-color-10: #2eb7de;
+		    
+		        }
+		    }
+		
+		}
+	#End
+
+	#DesignStyles
+		styles QueryViewer {   
+		
+		    @import GeneXusUnanimo.UnanimoWeb;
+		
+		    .QueryViewer
+			{
+		        //Output colors
+				gx-qv-chart-color-first: $colors.gxqv-color-01;
+				gx-qv-chart-color-second: $colors.gxqv-color-02;
+				gx-qv-chart-color-third: $colors.gxqv-color-03;
+				gx-qv-chart-color-fourth: $colors.gxqv-color-04;
+				gx-qv-chart-color-fifth: $colors.gxqv-color-05;
+				gx-qv-chart-color-sixth: $colors.gxqv-color-06;
+				gx-qv-chart-color-seventh: $colors.gxqv-color-07;
+				gx-qv-chart-color-eighth: $colors.gxqv-color-08;
+				gx-qv-chart-color-nineth: $colors.gxqv-color-09;
+				gx-qv-chart-color-tenth: $colors.gxqv-color-10;
+		        gx-qv-chart-background-color: $colors.elevation-01;
+		        gx-qv-map-background-color: $colors.elevation-01;
+		        gx-qv-card-sparkline-color: $colors.gxqv-color-01;
+		        gx-qv-pivot-table-footer-background-color:  $colors.elevation-01;
+		        gx-qv-pivot-table-dialog-color: $colors.on-background;
+		        gx-qv-pivot-table-header-background-color: $colors.elevation-01;
+		        gx-qv-pivot-table-dialog-title-background-color: $colors.elevation-01;
+		        gx-qv-table-dialog-title-background-color: $colors.elevation-01;
+		        gx-qv-table-footer-background-color:  $colors.elevation-01;
+		        gx-qv-table-header-background-color: $colors.elevation-01;
+		        
+		        //Border style
+		        gx-qv-chart-background-border-color: $colors.gray01;
+		       
+		        //Fonts style
+		        gx-qv-chart-series-labels-font-size: $fontSizes.s;
+		        gx-qv-pivot-table-axes-title-font-size: $fontSizes.s;
+		        gx-qv-pivot-table-data-title-font-size: $fontSizes.s;
+		        gx-qv-chart-series-labels-font-family: $fonts.primary-regular;
+		        gx-qv-chart-series-labels-color: $colors.on-background;
+		        gx-qv-pivot-table-axes-total-font-family: $fonts.primary-bold;
+		        gx-qv-pivot-table-data-title-font-family: $fonts.primary-bold;
+		        gx-qv-pivot-table-axes-title-font-family: $fonts.primary-bold;
+		        gx-qv-pivot-table-header-font-family: $fonts.primary-bold;
+		        gx-qv-table-column-headers-font-size: $fontSizes.s;
+		        gx-qv-table-column-headers-font-family: $fonts.primary-bold;
+		        gx-qv-map-series-labels-color: $colors.on-background;
+		        gx-qv-map-series-labels-font-family: $fonts.primary-regular;
+		        gx-qv-map-series-labels-font-size: $fontSizes.s;
+		        
+		        //Axes style
+		        gx-qv-chart-axes-line-color: $colors.gray01;
+		        gx-qv-chart-axes-title-font-family: $fonts.primary-regular;
+		        gx-qv-chart-axes-title-font-size: $fontSizes.s;
+		        gx-qv-chart-axes-title-color: $colors.gray03;
+		        gx-qv-chart-axes-labels-color: $colors.gray03;
+		        gx-qv-chart-axes-labels-font-family:$fonts.primary-regular;
+		        gx-qv-chart-axes-labels-font-size: $fontSizes.s;
+		
+		        //Title style
+		        gx-qv-chart-title-font-family: $fonts.primary-bold;
+		        gx-qv-chart-title-font-size: $fontSizes.s;
+		        gx-qv-chart-title-font-weight: bold;
+		        gx-qv-chart-title-color: $colors.on-background;
+		        gx-qv-map-title-color: $colors.on-background;
+		        gx-qv-map-title-font-family: $fonts.primary-bold;
+		        gx-qv-map-title-font-size: $fontSizes.s;
+		        gx-qv-pivot-table-title-font-family: $fonts.primary-bold;
+		        gx-qv-pivot-table-title-font-size: $fontSizes.s;
+		        gx-qv-pivot-table-title-color: $colors.on-background;
+		        gx-qv-table-title-font-family: $fonts.primary-bold;
+		        gx-qv-table-title-font-size: $fontSizes.s;
+		        gx-qv-table-title-color: $colors.on-background;
+		        
+		        //Legend style
+		        gx-qv-chart-legend-font-size: $fontSizes.xs;
+		        gx-qv-chart-legend-color: $colors.on-background;
+		        gx-qv-chart-legend-font-family: $fonts.primary-regular;
+		        gx-qv-chart-legend-font-weight: normal;
+		        gx-qv-map-legend-color: $colors.on-background;
+		        gx-qv-map-legend-font-family: $fonts.primary-regular;
+		        gx-qv-map-legend-font-size: $fontSizes.s;
+		
+		        //Tooltip style
+		        gx-qv-chart-tooltip-background-color: $colors.gray04;
+		        gx-qv-chart-tooltip-border-color: $colors.gray04;
+		        gx-qv-chart-tooltip-font-family: $fonts.primary-bold;
+		        gx-qv-chart-tooltip-font-size: $fontSizes.s;
+		        gx-qv-chart-tooltip-color: $colors.on-primary;
+		        gx-qv-map-tooltip-background-color: $colors.gray04 !important;
+		        gx-qv-map-tooltip-border-color: $colors.gray04 !important;
+		        gx-qv-map-tooltip-font-family: $fonts.primary-regular !important;
+		        gx-qv-map-tooltip-font-size: $fontSizes.s !important;
+		        gx-qv-map-tooltip-color: $colors.on-primary;
+		    }
+		
+		    .highcharts-grid-line
+		    {
+		        color: $colors.gray01;
+		    }
+		
+		    .highcharts-title
+		    { 
+		        fill: $colors.on-background;
+		    }
+		
+		    .qv-chart .highcharts-root text, .qv-chart .QVTimelineHeaderContainer, .qv-chart .QVTimelineHeaderContainer a, .qv-chart .QVTimelineHeaderContainer select
+		    {
+		        font-family: $fonts.primary-regular; 
+		        font-size: $fontSizes.s; 
+		    }
+		
+		    .highcharts-container
+		    {
+		        font-family: $fonts.primary-regular; 
+		        font-size: $fontSizes.s; 
+		    }
+		
+		    #region table
+		        
+		        .QueryViewer-table .material-icons, .QueryViewer-table  .div_buttons_popup .btn:not(:hover) {
+		            color: $colors.gxqv-color-main;
+		        }
+		        
+		        .QueryViewer-table .div_buttons_popup .btn {
+		            border-color: $colors.gxqv-color-main;
+		        }
+		        
+		        .QueryViewer-table .div_buttons_popup .btn:hover {
+		            background: $colors.gxqv-color-main;
+		        }
+		
+		        .oatgrid_top_div, .oatgrid
+		        {
+		            font-family: $fonts.primary-regular; 
+		            font-size: $fontSizes.s;
+		        }
+		
+		        .oatgrid_top_div
+		        {
+		            @include heading-04;
+		            border: 0px solid;
+		            border-bottom: $borders.extra-small solid $colors.gray01;
+		            float: left;
+		            text-transform: none !important;
+		            height: 48px;
+		            padding-left: $spacing.inline-xl;
+		            padding-right: $spacing.inline-xl;
+		            line-height: 34px;
+		            background: $colors.elevation-01; 
+		            border-top-right-radius: $radius.xl;
+		            border-top-left-radius: $radius.l;
+		            box-shadow: $shadows.xxs;
+		            border: $borders.extra-small solid $colors.gray01;
+		            border-color: $colors.gray01;
+		            overflow: inherit;
+		        }
+		
+		        .exportOptionsAnchor
+		        {
+		            float: inherit;
+		            position: absolute;
+		            display: inline;
+		            inset-inline-end: 32px;
+		        }
+		
+		        .table-sort-image table-sort-none > .material-icons
+		        {
+		            color: $colors.on-primary;
+		        }
+		
+		        .exportOptionsAnchor .material-icons
+		        {
+		            font-size: 20px;
+		            padding-top: $spacing.stack-xs;
+		        }
+		
+		        .pivot_pag_div > span > span
+		        {
+		            display: inline-block;
+		        }
+		
+		        .table-sort-image
+		        {
+		            bottom: 0px;
+		        }
+		
+		        .oatgrid .header_value
+		        {
+		            background-color: $colors.elevation-01;
+		            text-align: start;
+		            padding-inline-start: $spacing.inline-xl;
+		            color: $colors.on-background;
+		            font-size: $fontSizes.s;
+		            font-family: $fonts.primary-bold;
+		        }
+		
+		        #pivot_pag_div > span
+		        {
+		            float: right;
+		            margin-top: $spacing.stack-s;
+		        }
+		
+		
+		        .oatgrid .row_value
+		        {
+		            padding: $spacing.inset-xs;
+		            padding-inline-start: $spacing.inline-xl;
+		            padding-inline-end: $spacing.inline-xl;
+		        }
+		    
+		        .oat_winrect_container .btn, .oat_winrect_container_small .btn
+		        {
+		            font-weight: 600;
+		        } 
+		
+		        .oat_winrect_close_b > .material-icons
+		        {
+		            color: $colors.on-background !important;
+		            font-size: $fontSizes.m;
+		            margin-bottom: $spacing.stack-s;
+		            display: inline;
+		        }
+		
+		        .oat_winrect_close_b 
+		        {
+		            position: absolute;
+		            display: inline;
+		            inset-inline-end: 10px;
+		            float: unset;
+		        }
+		
+		        .search_input
+		        {
+		            font-family: $fonts.primary-regular;
+		            text-indent: $spacing.inline-xl;
+		            height: 30px;
+		            border-color: $colors.on-background;
+		            margin-top: 8px !important;
+		            margin-bottom: $spacing.stack-xs;
+		            background: $colors.elevation-02;
+		            color: $colors.on-background;
+		            text-shadow: none;
+		            position: relative;        
+		        }
+		        
+		        .oat_winrect_content_small .search_input
+		        {
+		            width:revert;
+		        }
+		
+		        .oatfilterwindow > .last_div_popup > .div_filter_input > .material-icons , .oatpop-up > .last_div_popup > .div_filter_input > .material-icons
+		        {
+		            position: relative;
+		            color: $colors.on-background !important;
+		            z-index: 1;    
+		            top: 27px;
+		            padding-inline-end: 8px;
+		            padding-inline-start: 8px;
+		        }
+		
+		        .oatpop-up > div:nth-child(2)
+		        {
+		            padding-inline-start: $spacing.inline-l !important;
+		        }
+		
+		        .div_filter_input
+		        {
+		            text-align: start;
+		        }
+		
+		        .oatfilterwindow > .last_div_popup
+		        {
+		            padding-top: 5px;
+		            margin-top: 0px;
+		        }
+		
+		        .span_txt_pivot
+		        {
+		            margin-left: $spacing.inline-m;
+		        }
+		  
+		        .gx-db-object-table
+		        {
+		            background-color: $colors.elevation-01;
+		            border-radius: $radius.xl;
+		            box-shadow: $shadows.xxs;
+		            border: $borders.extra-small solid $colors.gray01;
+		            border-bottom: 0px;
+		        }
+		
+		        .divIeContainer
+		        {
+		            display: contents;
+		        }
+		
+		        .oatgrid_top_div::before, .oatgrid .even td::before
+		        {
+		            background: transparent;
+		            content: none;
+		        }
+		
+		        .header_value > .material-icons
+		        { 
+		            padding-left: $spacing.inline-m;
+		            padding-right: $spacing.inline-m;
+		            visibility: hidden;
+		        }
+		
+		        .header_value:hover > .div_settings > .material-icons
+		        {
+		            visibility: visible; 
+		        }
+		
+		        .move_item_img
+		        {
+		            margin-bottom: 0px;
+		            padding-top: $spacing.stack-s;
+		        }
+		
+		        .oatfilterwindow > div:nth-child(2)
+		        {
+		            border-top: $borders.extra-small solid $colors.gray01;
+		        }
+		
+		        .oatfilterwindow > div
+		        {
+		            margin-left: 0px;
+		            margin-right: 0px;
+		            margin-bottom: 0px;
+		        }
+		
+		        .oatgrid thead td
+		        {
+		            background-color: $colors.elevation-01;
+		        }
+		
+		        .oatgrid .odd, .oatgrid .even
+		        {
+		            background: $colors.elevation-01;
+		        }
+		
+		        .oatgrid td
+		        {
+		            border-bottom: $borders.extra-small solid $colors.gray01;
+		            border-inline-start: $borders.extra-small solid $colors.gray01;
+		            border-inline-end: 0px solid;
+		            color: $colors.on-background;
+		        }
+		
+		        .oatgrid > tbody > tr > td:nth-child(1)
+		        {
+		            border-left: 0px solid;
+		            border-right: 0px solid;
+		        }
+		
+		        .oatgrid td:nth-child(1)
+		        {
+		            border-left: 0px solid;
+		            border-right: 0px solid;
+		        }
+		
+		        .material-icons
+		        {
+		            font-size: 16px;
+		        }
+		
+		        .oat_winrect_container hr
+		        {
+		            border-top: $borders.extra-small solid $colors.gray01;
+		            border-bottom: $borders.extra-small solid $colors.gray01;
+		            border-bottom-width: 1px;
+		            border-top-width: 0px;
+		            margin-bottom: 0px;
+		        }
+		
+		        #pop-up > .last_div_popup
+		        {
+		            margin-top: 5px;
+		            border-bottom-width: 0px;
+		        }
+		
+		        .oat_winrect_container
+		        {
+		            border-radius: $radius.xl;
+		            box-shadow: $shadows.s;
+			        border: 0px solid;
+		            background-color: $colors.elevation-02;
+		            font-family: $fonts.primary-regular;
+		            font-size: $fontSizes.s;
+		            margin-bottom: 0px;
+		            color: $colors.on-background;
+		        }
+		
+		        .oat_winrect_container > label
+		        {
+		            display: inline;
+		        }
+		
+		        .oat_winrect_title
+		        {    
+		            text-align: inherit;
+		            color: $colors.on-background;
+		            font-family: $fonts.primary-semibold;
+		            padding-inline-end: $spacing.inline-l;
+		            padding-inline-start: $spacing.inline-xl;
+		            font-size: $fontSizes.s;
+		            border-bottom: $borders.extra-small solid $colors.gray01;
+		            border-color:  $colors.gray01;
+		            border-top-left-radius: $radius.xl;
+		            border-top-right-radius: $radius.xl;
+		            margin-bottom: 0px;
+		            background-color: $colors.elevation-02;
+		        }
+		
+		        .div_label_win > span
+		        {
+		            letter-spacing: $spacing.letter-spacing-xs;
+		        }
+		
+		        .table-sort-asc i , .table-sort-desc i
+		        {
+		            line-height: $spacing.line-height-xs;
+		        }
+		
+		    #endregion
+		
+		    #region pivot_table
+		
+		        .QueryViewer-pivottable .material-icons, .QueryViewer-pivottable  .div_buttons_popup .btn:not(:hover) {
+		            color: $colors.gxqv-color-main;
+		        }
+		        .QueryViewer-pivottable .div_buttons_popup .btn, .QueryViewer-pivottable  .pivot_filter_div > span:first-child {
+		            border-color: $colors.gxqv-color-main;
+		        }
+		        .QueryViewer-pivottable .h2subtitle, .QueryViewer-pivottable  .gtotal {
+		            border-bottom-color: $colors.gxqv-color-main;
+		        }
+		        .QueryViewer-pivottable .div_buttons_popup .btn:hover {
+		            background: $colors.gxqv-color-main;
+		        }
+		
+		        .gx-db-object-pivottable
+		        {
+		            background-color: $colors.elevation-01;
+		            border-radius: $radius.xl;
+		            box-shadow: $shadows.xxs;
+		            border: $borders.extra-small solid $colors.gray01;
+		        }
+		
+		        .pivot_filter_div::before, .grandtotaltitle::before, .h2subtitle::before, .gtotal::before, .grandtotalvalue::before, .firstlevelvalue::before, .subtitleFirstLevel::before
+		        {
+		            background-color: transparent;
+		            content: none;
+		        }
+		
+		        .pivot_pag_div
+		        {
+		            padding-left: 0px;
+		            padding-right: 0px;
+		            border-left: 0px solid;
+		            border-bottom: 0px solid;
+		            border-right: 0px solid;
+		            border-bottom-left-radius: $radius.xl;
+		            border-bottom-right-radius: $radius.xl;
+		            box-shadow: $shadows.xxs;
+		            border: $borders.extra-small solid $colors.gray01 !important;
+		            border-top: 0px solid !important;
+		            background: $colors.elevation-01;
+		            overflow: inherit;
+		            height: 52px;
+		            text-align: start;
+		        }
+		
+		        .disabled_pivot_button
+		        {
+		            pointer-events: none;
+		            opacity: 0.4;
+		        }
+		
+		        .check_item_img, .check_item_img_small, .uncheck_item_img, .uncheck_item_img_small
+		        {
+		            padding-bottom: $spacing.stack-s;
+		            padding-top: $spacing.stack-s;
+		            margin-bottom: 0px;
+		        }
+		
+		        .check_item_img:hover, .check_item_img_small:hover, .uncheck_item_img:hover, .uncheck_item_img_small:hover , .export_item_div:hover
+		        {
+		            background-color: $colors.elevation-01;
+		        }
+		
+		        .check_item_img i, .check_item_img_small i, .uncheck_item_img i, .uncheck_item_img_small i, .first_popup_subdiv i
+		        {
+		            margin-right: 0px;
+		        }
+		
+		        .check_item_img > label > span , .check_item_img_small > label > span, .uncheck_item_img > label  > span, .uncheck_item_img_small > label > span, .first_popup_subdiv > label > span
+		        {
+		            margin-inline-start: $spacing.inline-l;
+		        }
+		
+		        .div_buttons_popup
+		        {
+		            margin-bottom: $spacing.stack-m;
+		            margin-top: $spacing.stack-m;
+		            margin-left: 15px !important;
+		            text-align: center;
+		            display: contents;
+		        }
+		
+		        .div_buttons_popup .btn
+		        {
+		            border-radius: $radius.m;
+		            font-family: $fonts.primary-semibold;
+		            font-size: $fontSizes.s;
+		            text-transform: uppercase;
+		            min-width: 58px;
+		            background-color: $colors.elevation-02;            
+		        }
+		
+		        .div_buttons_popup .btn:hover, .div_buttons_popup .btn:focus
+		        {
+		            color: $colors.on-primary;
+		        }
+		
+		        .winrect_title_label
+		        {
+		            color: $colors.on-background;
+		            font-family: $fonts.primary-bold;
+		        }
+		
+		        .pivot_table tr
+		        {
+		            border-radius: 0px;
+		        }
+		
+		        .grandtotalvalue
+		        {
+		            background-color: $colors.elevation-01;
+		            font-weight: none;
+		        }
+		
+		        .firstlevelvalue
+		        {
+		            font-weight: none;
+		        }
+		
+		        .h2title
+		        {
+		            color: $colors.on-alert;
+		            background-color: $colors.elevation-01;
+		            font-size: $fontSizes.s;
+		            font-family: $fonts.primary-bold;
+		            text-align: start;
+			        font-weight: none;
+		            padding: 0px 16px 0px 16px !important;
+		        }
+		
+		        .h2titlewhite
+		        {
+		            color: $colors.on-alert;
+		            background-color: $colors.elevation-01;
+		            font-size: $fontSizes.s;
+		            font-family: $fonts.primary-bold;
+		            text-align: start;
+			        font-weight: none;
+		            padding: 0px 16px 0px 16px !important;
+		        }
+		
+		        .h2subtitle
+		        {
+		            font-size: $fontSizes.s;
+		            text-align: left;
+		            padding-left: $spacing.inline-xl;
+		            background: revert;
+		            background-color: $colors.elevation-01;
+		            font-family: $fonts.primary-regular;
+		        }
+		
+		        .grandtotaltitle
+		        {
+		            text-align: start;
+		            padding-left: $spacing.inline-xl;
+		        }
+		
+		        .subtitleFirstLevel
+		        {
+		            text-align: left;
+		            padding-left: $spacing.inline-xl;
+		        }
+		
+		        .inner_filter_div > span
+		        {
+		            color: $colors.on-background;
+		            font-family: $fonts.primary-semibold;
+		            font-size: $fontSizes.s;
+		        }
+		
+		        .inner_filter_div
+		        {
+		            float: initial;
+		            display: inline;
+		            margin-right: 0px;
+		        }
+		
+		        .close_span_filter i
+		        {
+		            font-size: $fontSizes.l;
+		            color: $colors.on-background !important;
+		            padding-left: $spacing.inline-xs;
+		        }
+		
+		        .pivot_table th.even .expanded, .pivot_table td.even .expanded, .pivot_table th.even .collapsed, .pivot_table td.even .collapsed
+		        {
+		            display: initial;
+		            margin-inline-start: 0px !important;
+		        }
+		
+		        .oatgrid tr
+		        {
+		            border-left: 0px solid;
+		            border-right: 0px solid;
+		        }
+		
+		        .oatgrid
+		        {
+		            border-radius: $radius.xl;
+		            box-shadow: $shadows.xxs;
+		            border: $borders.extra-small solid $colors.gray01;
+		            border-top: 0px !important;
+		            border-color: $colors.gray01;
+		            overflow: inherit;
+		        }
+		
+		        .pivot_title_div
+		        {
+		            height: 48px;
+		            text-align: start;
+		            line-height: 38px;
+		            height: 48px;
+		            font-size: $fontSizes.s;
+		            font-family: $fonts.primary-bold;
+		            padding-inline-start: $spacing.inline-xl;
+		            padding-inline-end: $spacing.inline-xl;
+		            background-color: $colors.elevation-01;
+		            border-top-left-radius: $radius.xl;
+		            border-top-right-radius: $radius.xl;
+		            box-shadow: $shadows.xxs;
+		            border: $borders.extra-small solid $colors.gray01 !important;
+		            border-bottom: 0px solid !important;
+		            overflow: hidden !important;
+		            color: $colors.on-background;
+		        }
+		
+		        .h2title, .h2titlewhite
+		        {
+		            border-bottom-width: $borders.extra-small !important;
+		            border-bottom-color: $colors.gray01;
+		        }
+		
+		        .pivot_pag_div .pagefirst, .pivot_pag_div .pagelast, .pivot_pag_div .pagenext, .pivot_pag_div .pageprev
+		        {
+		            display: inline-block;
+		            cursor: pointer;
+		            width: 22px;
+		            height: 22px;
+		        }
+		
+		        .QueryViewer-pivottable .pivot_table th.h2title, .QueryViewer-pivottable .pivot_table th.h2titlewhite, .QueryViewer-pivottable .oat_winrect_title
+		        {
+		            padding-inline-start: $spacing.inline-xl;
+		            font-family: $fonts.primary-bold;
+		            font-size: $fontSizes.s;
+		            color: $colors.on-background;
+		            letter-spacing: 0.25px;
+		        }
+		
+		        .QueryViewer-pivottable .pivot_table th.h2subtitle
+		        {
+		            padding-left: $spacing.inline-xl;
+		        }
+		
+		        .sort-asc, .sort-desc , .table-sort-image
+		        {
+		            right: revert !important;
+		            display: inline;
+		            inset-inline-end: 10px  !important;
+		        }
+		
+		        .sort-asc > .material-icons
+		        {
+		            font-size: $fontSizes.m;
+		            visibility: visible !important;
+		        }
+		
+		        .pivot_table th.h2subtitle, .pivot_table td.gtotal
+		        {
+			        border-bottom-width: $borders.extra-small;
+		        }
+		
+		        .pivot_table td.gtotal.firstlevelvalue, .pivot_table td.gtotal.grandtotalvalue, .pivot_table th.h2subtitle.grandtotaltitle, .pivot_table th.h2subtitle.subtitleFirstLevel
+		        {
+			        border-bottom-width: $borders.small;
+		        }
+		
+		        .pivot_pag_div span:nth-child(2)
+		        {
+		            color: $colors.gray02;
+		            font-family: $fonts.primary-regular;
+		            font-size: $fontSizes.s;
+		            height: 16px;
+		            top: 4px;
+		            letter-spacing: $spacing.letter-spacing-xs;
+		            position: absolute;
+		            display: inline;
+		            inset-inline-end: 10px;
+		            direction: inherit;
+		        }
+		
+		        .filterInfoUser > .material-icons:hover
+		        {
+		            color: $colors.gray02 !important;
+		            cursor: pointer;
+		        }
+		
+		        .div_filter_search
+		        {
+		            display: inline-block;
+		        }
+		
+		        .div_filter_search > .material-icons
+		        {
+		            position: absolute;
+		            left: 19px;
+		            bottom: 154px;
+		            color: $colors.on-background;
+		            font-size: $fontSizes.m;
+		        }
+		
+		        .drag_drop_indicator > .material-icons
+		        {
+		            color: $colors.gray02;
+		        }
+		
+		        .pivot_filter_div, .pivot_table
+		        { 
+		            font-family: $fonts.primary-regular; 
+		            font-size: $fontSizes.s; 
+		        }
+		
+		        .h2title > div > div:nth-child(1) > .material-icons
+		        {
+		            visibility: hidden;
+		        }
+		
+		        .h2title:hover > div > div > .div_settings > .material-icons
+		        {
+		            visibility: visible;  
+		        }
+		
+		        .h2title > div
+		        {
+		            display: inline;
+		        }
+		
+		        .oat_winrect_content > div > div
+		        {
+		            padding-inline-start: $spacing.inline-xl;
+		            padding-inline-end: $spacing.inline-xl;
+		            padding-top: 4px;
+		            padding-bottom: 4px;
+		        }
+		
+		        .div_label_win
+		        {
+		            padding-inline-end: $spacing.inline-xl;
+		            padding-bottom: $spacing.stack-s;
+		            margin-bottom: 0px;
+		            padding-top: $spacing.stack-s;
+		            margin-top: 0px;
+		        }
+		
+		        .down_container
+		        {
+		            margin-left: 0px; 
+		            margin-right: 0px;
+		        }
+		        .export_item_div
+		        {
+		            margin-bottom: 0px;
+		        }
+		
+		        .export_item_div > .pivot_checkbox_restoreview
+		        {
+		            padding-left: 0px !important;
+		        }
+		
+		        .download_file_img, .download_file_img_small
+		        {
+		            padding-top: 0px;
+		            padding-bottom: $spacing.stack-m;
+		            margin-right: 0px;
+		            margin-inline-end: $spacing.inline-l;
+		        }
+		
+		        #pop-up > div
+		        {
+		            margin-left: 0px;
+		            margin-right: 0px;
+		            margin-bottom: 0px;
+		        }
+		
+		        .upper_container
+		        {
+		            margin: 0px;
+		            margin-top: $spacing.stack-s;
+		            margin-bottom: $spacing.stack-s;
+		        }
+		       
+		        .div_buttons_popup > button:first-child
+		        {
+		            border-start-end-radius: 0px;
+		            border-end-end-radius: 0px;
+		        }
+		
+		        .div_buttons_popup > button:nth-child(2)
+		        {
+		            border-start: 0px;
+		            border-start-start-radius: 0px;
+		            border-end-start-radius: 0px;
+		            border-start-end-radius: 0px;
+		            border-end-end-radius: 0px;
+		            border-end: 0px;
+		        }
+		
+		        .div_buttons_popup > button:nth-child(3)
+		        {
+		            border-start-start-radius: 0px;
+		            border-end-start-radius: 0px;
+		            margin-inline-end: $spacing.inline-xl;
+		        }
+		
+		        .pivot_filter_div{
+		            border: 0px solid;
+		            padding-top: $spacing.stack-s !important;
+		            padding-left: $spacing.inline-xl !important;
+		            padding-right: $spacing.inline-xl !important;
+		            height: 37px;
+		            background: $colors.elevation-01;
+		            margin-bottom: 0px;
+		            padding-bottom: 0px;
+		            padding-top: 0px;
+		            border-top-left-radius: $radius.s;
+		            border-top-right-radius: $radius.s;
+		            box-shadow: $shadows.xxs;
+		            border: $borders.extra-small solid $colors.gray01 !important;
+		            border-bottom: 0px !important;
+		            background-color: $colors.elevation-01;
+		            overflow: hidden !important;
+		        }
+		
+		        .pivot_table > tbody
+		        {
+		            border-bottom-left-radius: $radius.xl;
+		            border-bottom-right-radius: $radius.xl;
+		            box-shadow: $shadows.xxs;
+		            border: $borders.extra-small solid $colors.gray01 !important;
+		            border-top: 0px !important;
+		            border-color: $colors.gray01;
+		            background-color: $colors.elevation-01;
+		            overflow: hidden;
+		        }
+		        
+		        .pivot_filter_div > span:first-child
+		        {
+		            float: unset;
+		            border-style: dotted;
+		            border-radius: $radius.xs;
+		            border-width: $borders.extra-small;
+		            padding: $spacing.inset-xs;
+		            padding-left: $spacing.inline-xl;
+		            padding-right: $spacing.inline-xl;
+		            color: $colors.on-background;
+		        }
+		
+		        .pivot_table th, .pivot_table td
+		        {
+		            padding-inline-start: $spacing.inline-xl;
+		            padding-inline-end: $spacing.inline-xl;
+		            height: 30px;
+		            border-width: 0px;
+		            color: $colors.on-background;
+		        }
+		
+		        .pivot_table th.even, .pivot_table td.even 
+		        {
+		            border-bottom-width: $borders.extra-small;
+		            border-bottom-color: $colors.gray01;
+		        }
+		
+		        .gtotal
+		        {
+		            border-top-width: 0px !important;
+		            border-left-width: 0px !important;
+		            border-right-width: 0px !important;
+		            background: revert;
+		            background-color: $colors.elevation-01;
+		        }
+		
+		        .subtotal
+		        {
+		            background-color: $colors.elevation-01;
+		            border-bottom-width: $borders.extra-small !important;
+		            border-bottom-color: $colors.gray01;            
+		        }
+		
+		        .inner_filter_div > select
+		        {
+		            border-radius: $radius.l;
+		            border: $borders.extra-small solid $colors.gray03;
+		            appearance: none;
+		            font-size: $fontSizes.s;
+		            background-position: right;
+		            background-size:  $fontSizes.s;
+		            background-repeat: no-repeat;
+		            min-width: 120px;
+		            max-width: 180px;
+		            margin-inline-start: 10px;
+		            height: 32px;
+		            padding-inline-end: $spacing.inline-xl !important;
+		            box-shadow: none !important;
+		            background-image: gx-image(GeneXusReporting.arrow_double);
+		        }
+		        body[dir="rtl"] .inner_filter_div > select
+		        {
+		            background-position-x: left;
+		        }
+		
+		        .pivot_table th.even .expanded i, .pivot_table td.even .expanded i, .pivot_table th.even .collapsed i, .pivot_table td.even .collapsed i
+		        {
+		            font-size: $fontSizes.m;
+		            opacity: 1;
+		            padding-inline-start: $spacing.inline-xl;
+		        }
+		
+		        .gx_usercontrol qv-chart QueryViewer-chart
+		        {
+		            margin: $spacing.inset-s;
+		            margin-bottom: $spacing.stack-m;
+		            margin-right: $spacing.inline-l;
+		            margin-left: $spacing.inline-l;
+		        }
+		
+		        .ExportPopup
+		        {
+		            min-width: 168px;
+		            background-color: $colors.elevation-02;
+		        }
+		
+		        #tablePagination_perPage
+		        {
+		            display: flex;
+		            order: 1;
+		            line-height: 36px;  
+		            font-family: $fonts.primary-regular;
+		            padding-inline-start: $spacing.inline-xl;
+		            font-size: $fontSizes.s;
+		            color: $colors.gray02;
+		        }
+		
+		        .pivot_pag_div > span > span > div
+		        {
+		            display: inline-block;
+		        }
+		
+		        #tablePagination_perPage > select
+		        {
+		            margin-inline-start: 4px;
+		            display: flex;
+		            order: 2;
+		            border-radius: $radius.xl;
+		            border-color: $colors.border-gray-03;
+		            color: $colors.on-background;
+		            background-color: $colors.elevation-01;
+		            height: 26px;
+		            width: 42px !important;
+		            font-size: $fontSizes.xs;
+		            font-family: $fonts.primary-regular;
+		            margin-top: $spacing.stack-s;
+		            line-height: 20px;   
+		        }
+		
+		        .pagelast .material-icons , .pagenext .material-icons , .pagefirst .material-icons ,.pageprev .material-icons
+		        {
+		            color: $colors.gxqv-color-main;
+		        }
+		
+		        .sort-desc > .material-icons
+		        {
+		            font-size: $fontSizes.m;
+		        }
+		
+		        #tablePagination_currPage
+		        {
+		            border-radius: $radius.xl;
+		            border: $borders.extra-small solid $colors.border-gray-03;
+		            height: 26px;
+		            width: 39px;
+		            text-align: center;
+		            margin-top: $spacing.stack-s;
+		            color: $colors.on-background;
+		            background-color: $colors.elevation-01;
+		            font-family: $fonts.primary-regular;
+		            font-size: $fontSizes.s;
+		        }
+		
+		        .spanHoverLabel
+		        {
+		            color: $colors.on-primary;
+		            font-family: $fonts.primary-regular;
+		            font-size: $fontSizes.s;
+		            text-align: left;
+		            padding: $spacing.inline-l;
+		            padding-right: $spacing.inline-m;
+		            position: absolute;
+		            z-index: 1;
+		            width: 300px;
+		            background: $colors.gray04;
+		            border-color: $colors.gray04;
+		            border-radius: $radius.s;
+		            opacity: 0.9;
+		        }
+		
+		        .drag_drop_indicator
+		        {
+		            position: absolute;
+		            top: -2px;
+		            left: 0px;
+		            float: left;
+		            display: inline-block;
+		        }
+		
+		        .filterInfoUser
+		        {
+		            display: inline-block;
+		            width: 18px;
+		            height: 23px;
+		            margin-inline-start: $spacing.inline-xs;
+		            margin-top: $spacing.stack-xs;
+		        }
+		
+		        .filterInfoUser .spanHoverLabel
+		        {
+		            visibility: hidden;
+		            position: absolute;
+		            z-index: 1;
+		            opacity: 0;
+		        }
+		
+		        .filterInfoUser:hover .spanHoverLabel
+		        {
+		            visibility: visible;
+		            opacity: 1;
+		        }
+		
+		        .drag_drop_arrow
+		        {
+		            position: absolute;
+		            top: -2px;
+		            right: 0px;
+		            float: right;
+		            display: inline-block;
+		        }
+		
+		        .gx-qv-selected-element 
+		        {
+			        background: rgba(105, 110, 242, 0.2);
+		        }
+		
+		    #endregion
+		
+		    #region chart
+		
+		        .QVTimelineHeaderGroup
+		        {
+		            color: $colors.on-background;
+		        }
+		
+		        .QVTimelineHeaderGroup > div > span 
+		        {
+		            opacity: 1 !important;
+		        }
+		
+		        .QVTimelineHeaderGroup input[type="checkbox"] 
+		        {
+		            -webkit-appearance: revert;     // reverts UnanimoWeb setting
+		            appearance: revert;             // reverts UnanimoWeb setting
+		            width: 16px;
+		            height: 16px;
+		        }
+		
+		        .QVTimelineHeaderGroup input[type="checkbox"]:after 
+		        {
+		            background-color: revert;       // reverts UnanimoWeb setting
+		        }
+		
+		        .QVTimelineHeaderGroup input[type="checkbox"]:disabled:after  
+		        {
+		            background-color: $colors.on-disabled;
+		        }
+		
+		        .gx-qv-chart-title
+		        {
+		            text-align: left;
+		        }
+		        
+		        .highcharts-legend-item path.highcharts-graph
+		        {
+		            display: none;
+		        }
+		
+		        .highcharts-legend-item path.highcharts-point
+		        {
+		            d : path("M 2 5 L 14 5 L 14 17 L 2 17 Z");
+		        }
+		
+		        .highcharts-point
+		        {
+		            rx:0;
+		            ry:0;
+		        }
+		
+		        .highcharts-series:not(.highcharts-pie-series) .highcharts-point-select, .highcharts-markers .highcharts-point-select
+		        {
+		            fill: rgba(105, 110, 242, 0.5);
+		            stroke: rgba(105, 110, 242, 0.5);
+		        }
+		
+		        .att_drag_drop
+		        {
+		            background-color: $colors.elevation-01;
+		            border-radius: $radius.s;
+		            cursor: grabbing;
+		            box-shadow: $shadows.xxs;
+		            height: 30px;
+		            color: $colors.on-alert;
+		            font-family: $fonts.primary-bold;
+		            font-size: $fontSizes.s;
+		            line-height: 30px;
+		            padding-inline-end: $spacing.inline-xl;
+		            padding-inline-start: $spacing.inline-xl;
+		        }
+		
+		        .drag_drop_indicator
+		        {
+		            padding-inline-start: 0px;
+		            float: right;
+		        }
+		
+		        .div_settings
+		        {
+		            display: inline-block;
+		            padding-inline-start: $spacing.inline-m !important;
+		            position: absolute;
+		        }
+		
+		        .div_settings > .material-icons
+		        {
+		            visibility: hidden;
+		            padding-bottom: $spacing.stack-xs;
+		        }
+		
+		        .div_filter_input > .material-icons
+		        {
+		            display: table;
+		        }
+		
+		        body[dir="rtl"] .pagenext
+		        {
+		            transform: rotate(180deg);
+		        }
+		
+		        body[dir="rtl"] .pagelast 
+		        {
+		            transform: rotate(180deg);
+		        }
+		
+		        body[dir="rtl"] .pagefirst
+		        {
+		            transform: rotate(180deg);
+		        }
+		
+		        body[dir="rtl"] .pageprev
+		        {
+		            transform: rotate(180deg);
+		        }
+		
+		    #endregion
+		
+		    #region map
+		        
+		        .QueryViewer-map .gx-qv-tooltip-text
+		        {
+		            letter-spacing: 0.38px !important;
+		            line-height: 13px !important;
+		        }
+		 
+		        .QueryViewer-map .gx-qv-tooltip-box
+		        {
+		            height: 30px !important;
+		            border-radius: 2px !important;
+		            opacity: 0.9 !important;
+		        }
+		       
+		        .QueryViewer-map .gx-qv-selected-element 
+		        {
+			        background: rgba(105, 110, 242, 0.4);
+		        }
+		
+		    #endregion
+		
+		    #region Card
+		
+		        .qv-card
+		        {
+		            font-family: $fonts.primary-regular; 
+		            font-size: $fontSizes.s;
+		            color: $colors.on-background;
+		        }
+		
+		        .qv-card i
+		        {
+		            color: $colors.gxqv-color-main;
+		        }
+		        
+		        .qv-card-element-value
+		        {
+		            color: $colors.gray02;
+		            font-family:  $fonts.primary-semibold;
+		            font-size: 80px;
+		            font-weight: 600;
+		            height: 100px;
+		            letter-spacing: 0px;
+		            text-align: center;
+		            width: 168px;
+		        }
+		
+		        .qv-card-element-title
+		        {
+		            color:  $colors.on-background;
+		            font-family:  $fonts.primary-bold;
+		            font-size: $fontSizes.s;
+		            font-weight: bold;
+		            height: 13px;
+		            letter-spacing: 0.38px;
+		            line-height: 13px;
+		            text-align: center;
+		            width: 119px;
+		        }
+		
+		
+		    #endregion
+		
+		}
+	#End
+
+	#Properties
+		Name = "QueryViewerWeb"
+	#End
+
+}

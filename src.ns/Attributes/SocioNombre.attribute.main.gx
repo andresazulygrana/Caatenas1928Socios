@@ -1,0 +1,15 @@
+Attribute SocioNombre
+{
+	#Properties
+		Name = "SocioNombre"
+
+		Description = "Nombre del socio"
+
+		DataType = "VarChar(64)"
+
+		Length = "64"
+
+		MaximumLength = "64"
+	#End
+
+}

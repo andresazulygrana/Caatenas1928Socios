@@ -1,0 +1,15 @@
+Attribute ConfiguracionPagoMailSenderName
+{
+	#Properties
+		Name = "ConfiguracionPagoMailSenderName"
+
+		Description = "Nombre visible del remitente"
+
+		DataType = "VarChar(80)"
+
+		Length = "80"
+
+		MaximumLength = "80"
+	#End
+
+}

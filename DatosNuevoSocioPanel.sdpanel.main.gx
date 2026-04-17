@@ -1,0 +1,458 @@
+SDPanel DatosNuevoSocioPanel
+{
+	#Events
+		Event Start
+			If &CedulaIngreso.IsEmpty()
+				&CedulaIngreso = &Cedula
+			EndIf
+			Do 'CargarPlanes'
+			&PlanElegidoTexto = !""
+			&MensajeError = !""
+		EndEvent
+
+		Event 'ElegirAMensual'
+			&TipoCuotaId = &PlanAMensualId
+			&PlanElegidoTexto = &PlanAMensualTexto + !" - " + &PlanAMensualImporte
+		EndEvent
+
+		Event 'ElegirAAnual'
+			&TipoCuotaId = &PlanAAnualId
+			&PlanElegidoTexto = &PlanAAnualTexto + !" - " + &PlanAAnualImporte
+		EndEvent
+
+		Event 'ElegirDBasquetMensual'
+			&TipoCuotaId = &PlanDBasquetMensualId
+			&PlanElegidoTexto = &PlanDBasquetMensualTexto + !" - " + &PlanDBasquetMensualImporte
+		EndEvent
+
+		Event 'ElegirDBasquetAnual'
+			&TipoCuotaId = &PlanDBasquetAnualId
+			&PlanElegidoTexto = &PlanDBasquetAnualTexto + !" - " + &PlanDBasquetAnualImporte
+		EndEvent
+
+		Event 'ElegirDBasquetBeca'
+			&TipoCuotaId = &PlanDBasquetBecaId
+			&PlanElegidoTexto = &PlanDBasquetBecaTexto + !" - " + &PlanDBasquetBecaImporte
+		EndEvent
+
+		Event 'Registrar'
+			If &CedulaIngreso.IsEmpty()
+				&MensajeError = !"La cedula es obligatoria"
+				Return
+			EndIf
+
+			&CedulaNormalizada = Trim(&CedulaIngreso)
+			&CedulaNormalizada = &CedulaNormalizada.ReplaceRegEx(!"[.]", !"")
+			&CedulaNormalizada = &CedulaNormalizada.ReplaceRegEx(!"[-]", !"")
+			&CedulaNormalizada = &CedulaNormalizada.ReplaceRegEx(!"[ ]", !"")
+			&CedulaSoloDigitos = Trim(&CedulaNormalizada.ReplaceRegEx(!"[^0-9]", !""))
+
+			&NombreNormalizado = Trim(&Nombre)
+			&ApellidoNormalizado = Trim(&Apellido)
+			&EmailNormalizado = Trim(&Email)
+			&TelefonoNormalizado = Trim(&Telefono)
+
+			If &CedulaSoloDigitos <> Trim(&CedulaNormalizada)
+				&MensajeError = !"La cedula debe tener solo numeros o formato uruguayo valido"
+				Return
+			EndIf
+
+			If &CedulaSoloDigitos.Length() < 7 OR &CedulaSoloDigitos.Length() > 8
+				&MensajeError = !"Ingresa una cedula valida de 7 u 8 digitos"
+				Return
+			EndIf
+
+			If &NombreNormalizado.IsEmpty()
+				&MensajeError = !"El nombre es obligatorio"
+				Return
+			EndIf
+
+			If &ApellidoNormalizado.IsEmpty()
+				&MensajeError = !"El apellido es obligatorio"
+				Return
+			EndIf
+
+			If NOT &EmailNormalizado.IsEmpty()
+				If NOT &EmailNormalizado.Contains(!"@") OR NOT &EmailNormalizado.Contains(!".")
+					&MensajeError = !"Ingresa un correo electronico valido"
+					Return
+				EndIf
+
+				&PosicionArroba = &EmailNormalizado.IndexOf(!"@")
+				If &PosicionArroba <= 1 OR &PosicionArroba >= &EmailNormalizado.Length()
+					&MensajeError = !"Ingresa un correo electronico valido"
+					Return
+				EndIf
+			EndIf
+
+			If NOT &TelefonoNormalizado.IsEmpty()
+				&TelefonoSinSignos = &TelefonoNormalizado.ReplaceRegEx(!"[+]", !"")
+				&TelefonoSinSignos = &TelefonoSinSignos.ReplaceRegEx(!"[ ]", !"")
+				&TelefonoSinSignos = &TelefonoSinSignos.ReplaceRegEx(!"[-]", !"")
+				&TelefonoSoloDigitos = Trim(&TelefonoSinSignos.ReplaceRegEx(!"[^0-9]", !""))
+
+				If &TelefonoSoloDigitos <> Trim(&TelefonoSinSignos)
+					&MensajeError = !"Ingresa un celular valido. Ejemplo: 099123456"
+					Return
+				EndIf
+
+				If &TelefonoSoloDigitos.Length() < 8 OR &TelefonoSoloDigitos.Length() > 15
+					&MensajeError = !"Ingresa un celular valido con codigo de area si corresponde"
+					Return
+				EndIf
+			EndIf
+
+			If &TipoCuotaId = 0
+				&MensajeError = !"Selecciona un tipo de cuota"
+				Return
+			EndIf
+
+			&CedulaIngreso = &CedulaSoloDigitos
+			&Nombre = &NombreNormalizado
+			&Apellido = &ApellidoNormalizado
+			&Email = &EmailNormalizado
+			&Telefono = &TelefonoNormalizado
+			&DetalleAlta = !""
+
+			CrearSocioYPrimeraCuota(&CedulaIngreso, &Nombre, &Apellido, &Email, &Telefono, &TipoCuotaId, &SocioId, &DetalleAlta)
+
+			If &SocioId > 0
+				PantallaPagoPanel(&SocioId)
+			Else
+				If &DetalleAlta.IsEmpty()
+					&MensajeError = !"No se pudo registrar el socio. Intenta nuevamente."
+				Else
+					&MensajeError = &DetalleAlta
+				EndIf
+			EndIf
+		EndEvent
+
+		Event 'Volver'
+			BuscarSocioPanel()
+		EndEvent
+
+		Sub 'CargarPlanes'
+			&PlanAMensualTexto = !"Socio A - Mensual"
+			&PlanAAnualTexto = !"Socio A - Anual"
+			&PlanDBasquetMensualTexto = !"Socio D Basquet - Mensual"
+			&PlanDBasquetAnualTexto = !"Socio D Basquet - Anual"
+			&PlanDBasquetBecaTexto = !"Socio D Basquet - Beca 50%"
+			&PlanAMensualImporte = !"$ 500.00"
+			&PlanAAnualImporte = !"$ 5000.00"
+			&PlanDBasquetMensualImporte = !"$ 1300.00"
+			&PlanDBasquetAnualImporte = !"$ 13000.00"
+			&PlanDBasquetBecaImporte = !"$ 650.00"
+
+			For Each TipoCuota
+				Where TipoCuotaActivo = true
+				Do Case
+					Case TipoCuotaDescripcion = &PlanAMensualTexto
+						&PlanAMensualId = TipoCuotaId
+						&PlanAMensualImporte = Format(!"$ %1", TipoCuotaImporte)
+					Case TipoCuotaDescripcion = &PlanAAnualTexto
+						&PlanAAnualId = TipoCuotaId
+						&PlanAAnualImporte = Format(!"$ %1", TipoCuotaImporte)
+					Case TipoCuotaDescripcion = &PlanDBasquetMensualTexto
+						&PlanDBasquetMensualId = TipoCuotaId
+						&PlanDBasquetMensualImporte = Format(!"$ %1", TipoCuotaImporte)
+					Case TipoCuotaDescripcion = &PlanDBasquetAnualTexto
+						&PlanDBasquetAnualId = TipoCuotaId
+						&PlanDBasquetAnualImporte = Format(!"$ %1", TipoCuotaImporte)
+					Case TipoCuotaDescripcion = &PlanDBasquetBecaTexto
+						&PlanDBasquetBecaId = TipoCuotaId
+						&PlanDBasquetBecaImporte = Format(!"$ %1", TipoCuotaImporte)
+				EndCase
+			EndFor
+		EndSub
+	#End
+
+	#Rules
+		parm(in: &Cedula);
+	#End
+
+	#Conditions
+	#End
+
+	#Variables
+		Cedula [ DataType = 'Attribute:SocioCedula' ]
+		CedulaIngreso [ DataType = 'Attribute:SocioCedula' ]
+		Nombre [ DataType = 'Attribute:SocioNombre' ]
+		Apellido [ DataType = 'Attribute:SocioApellido' ]
+		Email [ DataType = 'Attribute:SocioEmail' ]
+		Telefono [ DataType = 'Attribute:SocioTelefono' ]
+		TipoCuotaId [ DataType = 'Attribute:TipoCuotaId' ]
+		SocioId [ DataType = 'Attribute:SocioId' ]
+		MensajeError [ DataType = 'VarChar(200)' ]
+		PlanElegidoTexto [ DataType = 'VarChar(120)' ]
+		CedulaNormalizada [ DataType = 'Attribute:SocioCedula' ]
+		CedulaSoloDigitos [ DataType = 'VarChar(16)' ]
+		NombreNormalizado [ DataType = 'VarChar(80)' ]
+		ApellidoNormalizado [ DataType = 'VarChar(80)' ]
+		EmailNormalizado [ DataType = 'Attribute:SocioEmail' ]
+		PosicionArroba [ DataType = 'Numeric(4.0)' ]
+		TelefonoNormalizado [ DataType = 'Attribute:SocioTelefono' ]
+		TelefonoSinSignos [ DataType = 'Attribute:SocioTelefono' ]
+		TelefonoSoloDigitos [ DataType = 'VarChar(32)' ]
+		PlanAMensualId [ DataType = 'Attribute:TipoCuotaId' ]
+		PlanAAnualId [ DataType = 'Attribute:TipoCuotaId' ]
+		PlanDBasquetMensualId [ DataType = 'Attribute:TipoCuotaId' ]
+		PlanDBasquetAnualId [ DataType = 'Attribute:TipoCuotaId' ]
+		PlanDBasquetBecaId [ DataType = 'Attribute:TipoCuotaId' ]
+		PlanAMensualTexto [ DataType = 'VarChar(80)' ]
+		PlanAAnualTexto [ DataType = 'VarChar(80)' ]
+		PlanDBasquetMensualTexto [ DataType = 'VarChar(80)' ]
+		PlanDBasquetAnualTexto [ DataType = 'VarChar(80)' ]
+		PlanDBasquetBecaTexto [ DataType = 'VarChar(80)' ]
+		PlanAMensualImporte [ DataType = 'VarChar(30)' ]
+		PlanAAnualImporte [ DataType = 'VarChar(30)' ]
+		PlanDBasquetMensualImporte [ DataType = 'VarChar(30)' ]
+		PlanDBasquetAnualImporte [ DataType = 'VarChar(30)' ]
+		PlanDBasquetBecaImporte [ DataType = 'VarChar(30)' ]
+		DetalleAlta [ DataType = 'LongVarChar' ]
+	#End
+
+	#Layout
+		<layout type="SD">
+			<view>
+				<smart
+					name="PageShell"
+					class="page"
+					width="100%"
+					height="100%"
+					columnsStyle="100%"
+					rowsStyle="72dip;144dip;1fr;40dip">
+					<row>
+						<cell class="page-header" hAlign="Left" vAlign="Middle">
+							<smart name="HeaderBrand" width="100%" columnsStyle="100%" rowsStyle="24dip;18dip">
+								<row>
+									<cell>
+										<smart name="HeaderNameRow" width="100%" columnsStyle="Auto;Auto" rowsStyle="24dip">
+											<row>
+												<cell flexGrow="0">
+													<label name="LblBrandClub" caption="Club" class="header-name"/>
+												</cell>
+												<cell flexGrow="0">
+													<label name="LblBrandAtenas" caption="Atenas" class="header-name header-name--accent"/>
+												</cell>
+											</row>
+										</smart>
+									</cell>
+								</row>
+								<row>
+									<cell>
+										<label name="LblPortalSub" caption="Nueva membresia" class="header-tagline"/>
+									</cell>
+								</row>
+							</smart>
+						</cell>
+					</row>
+					<row>
+						<cell class="page-hero" hAlign="Center" vAlign="Middle">
+							<smart name="HeroPortal" width="100%" columnsStyle="100%" rowsStyle="40dip;10dip;24dip">
+								<row>
+									<cell hAlign="Center" vAlign="Middle">
+										<label name="LblTitulo" caption="Registrate como socio" class="text-title"/>
+									</cell>
+								</row>
+								<row><cell/></row>
+								<row>
+									<cell hAlign="Center" vAlign="Middle">
+										<label name="LblSubtitulo" caption="Completa tus datos y elegi el plan que mas te convenga." class="text-subtitle"/>
+									</cell>
+								</row>
+							</smart>
+						</cell>
+					</row>
+					<row>
+						<cell hAlign="Center" vAlign="Top">
+							<smart name="MainContent" class="page-content--web" width="760dip" columnsStyle="100%" rowsStyle="260dip;16dip;330dip;16dip;28dip;16dip;54dip;16dip;46dip">
+								<row>
+									<cell>
+										<smart name="CardDatos" class="surface" width="100%" columnsStyle="49%;2%;49%" rowsStyle="24dip;48dip;18dip;48dip;18dip;48dip">
+											<row>
+												<cell>
+													<label name="LblDatosTitle" caption="Tus datos" class="surface-title"/>
+												</cell>
+												<cell/>
+												<cell/>
+											</row>
+											<row>
+												<cell>
+													<input attribute="&CedulaIngreso" readonly="True" class="field-input" width="100%"/>
+												</cell>
+												<cell/>
+												<cell/>
+											</row>
+											<row>
+												<cell>
+													<label name="LblNombre" caption="Nombre" class="field-label"/>
+												</cell>
+												<cell/>
+												<cell>
+													<label name="LblApellido" caption="Apellido" class="field-label"/>
+												</cell>
+											</row>
+											<row>
+												<cell>
+													<input attribute="&Nombre" class="field-input" width="100%"/>
+												</cell>
+												<cell/>
+												<cell>
+													<input attribute="&Apellido" class="field-input" width="100%"/>
+												</cell>
+											</row>
+											<row>
+												<cell>
+													<label name="LblTelefono" caption="Celular" class="field-label"/>
+												</cell>
+												<cell/>
+												<cell>
+													<label name="LblEmail" caption="Email" class="field-label"/>
+												</cell>
+											</row>
+											<row>
+												<cell>
+													<input attribute="&Telefono" class="field-input" width="100%"/>
+												</cell>
+												<cell/>
+												<cell>
+													<input attribute="&Email" class="field-input" width="100%"/>
+												</cell>
+											</row>
+										</smart>
+									</cell>
+								</row>
+								<row><cell/></row>
+								<row>
+									<cell>
+										<smart name="CardPlanes" class="surface" width="100%" columnsStyle="100%" rowsStyle="24dip;48dip;48dip;48dip;48dip;48dip;22dip">
+											<row>
+												<cell>
+													<label name="LblPlanesTitle" caption="Elegi tu plan" class="surface-title"/>
+												</cell>
+											</row>
+											<row>
+												<cell>
+													<smart name="Plan1" class="plan-option" width="100%" columnsStyle="58%;22%;20%" rowsStyle="40dip">
+														<row>
+															<cell vAlign="Middle">
+																<label name="LblPlan1" caption="Socio A - Mensual" class="plan-name"/>
+															</cell>
+															<cell hAlign="Center" vAlign="Middle">
+																<input attribute="&PlanAMensualImporte" readonly="True" class="plan-price"/>
+															</cell>
+															<cell hAlign="Right" vAlign="Middle">
+																<button name="BtnPlan1" caption="Elegir" event="'ElegirAMensual'" class="btn-secondary"/>
+															</cell>
+														</row>
+													</smart>
+												</cell>
+											</row>
+											<row>
+												<cell>
+													<smart name="Plan2" class="plan-option" width="100%" columnsStyle="58%;22%;20%" rowsStyle="40dip">
+														<row>
+															<cell vAlign="Middle">
+																<label name="LblPlan2" caption="Socio A - Anual" class="plan-name"/>
+															</cell>
+															<cell hAlign="Center" vAlign="Middle">
+																<input attribute="&PlanAAnualImporte" readonly="True" class="plan-price"/>
+															</cell>
+															<cell hAlign="Right" vAlign="Middle">
+																<button name="BtnPlan2" caption="Elegir" event="'ElegirAAnual'" class="btn-secondary"/>
+															</cell>
+														</row>
+													</smart>
+												</cell>
+											</row>
+											<row>
+												<cell>
+													<smart name="Plan3" class="plan-option" width="100%" columnsStyle="58%;22%;20%" rowsStyle="40dip">
+														<row>
+															<cell vAlign="Middle">
+																<label name="LblPlan3" caption="Socio D Basquet - Mensual" class="plan-name"/>
+															</cell>
+															<cell hAlign="Center" vAlign="Middle">
+																<input attribute="&PlanDBasquetMensualImporte" readonly="True" class="plan-price"/>
+															</cell>
+															<cell hAlign="Right" vAlign="Middle">
+																<button name="BtnPlan3" caption="Elegir" event="'ElegirDBasquetMensual'" class="btn-secondary"/>
+															</cell>
+														</row>
+													</smart>
+												</cell>
+											</row>
+											<row>
+												<cell>
+													<smart name="Plan4" class="plan-option" width="100%" columnsStyle="58%;22%;20%" rowsStyle="40dip">
+														<row>
+															<cell vAlign="Middle">
+																<label name="LblPlan4" caption="Socio D Basquet - Anual" class="plan-name"/>
+															</cell>
+															<cell hAlign="Center" vAlign="Middle">
+																<input attribute="&PlanDBasquetAnualImporte" readonly="True" class="plan-price"/>
+															</cell>
+															<cell hAlign="Right" vAlign="Middle">
+																<button name="BtnPlan4" caption="Elegir" event="'ElegirDBasquetAnual'" class="btn-secondary"/>
+															</cell>
+														</row>
+													</smart>
+												</cell>
+											</row>
+											<row>
+												<cell>
+													<smart name="Plan5" class="plan-option" width="100%" columnsStyle="58%;22%;20%" rowsStyle="40dip">
+														<row>
+															<cell vAlign="Middle">
+																<label name="LblPlan5" caption="Socio D Basquet - Beca 50%" class="plan-name"/>
+															</cell>
+															<cell hAlign="Center" vAlign="Middle">
+																<input attribute="&PlanDBasquetBecaImporte" readonly="True" class="plan-price"/>
+															</cell>
+															<cell hAlign="Right" vAlign="Middle">
+																<button name="BtnPlan5" caption="Elegir" event="'ElegirDBasquetBeca'" class="btn-secondary"/>
+															</cell>
+														</row>
+													</smart>
+												</cell>
+											</row>
+											<row>
+												<cell>
+													<input attribute="&PlanElegidoTexto" readonly="True" class="field-help"/>
+												</cell>
+											</row>
+										</smart>
+									</cell>
+								</row>
+								<row><cell/></row>
+								<row>
+									<cell>
+										<input attribute="&MensajeError" readonly="True" class="field-error"/>
+									</cell>
+								</row>
+								<row><cell/></row>
+								<row>
+									<cell>
+										<button name="BtnContinuar" caption="Continuar al pago" event="'Registrar'" class="btn-primary"/>
+									</cell>
+								</row>
+								<row><cell/></row>
+								<row>
+									<cell>
+										<button name="BtnVolver" caption="Volver" event="'Volver'" class="btn-secondary"/>
+									</cell>
+								</row>
+							</smart>
+						</cell>
+					</row>
+					<row>
+						<cell hAlign="Center" vAlign="Middle">
+							<label name="LblFooterPortal" caption="clubatenas.uy - Socios" class="page-footer"/>
+						</cell>
+					</row>
+				</smart>
+			</view>
+		</layout>
+	#End
+
+}

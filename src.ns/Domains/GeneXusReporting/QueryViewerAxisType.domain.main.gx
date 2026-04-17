@@ -1,0 +1,11 @@
+Domain QueryViewerAxisType
+{
+	#Properties
+		Name = "QueryViewerAxisType"
+
+		DataType = "Character(20)"
+
+		EnumValues = "Rows, Rows, Rows; Columns, Columns, Columns; Pages, Pages, Pages"
+	#End
+
+}

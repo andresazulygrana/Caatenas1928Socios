@@ -1,0 +1,66 @@
+WebPanel BuscarSocio
+{
+	#Events
+				Event 'Acceder'
+					If &Cedula.IsEmpty()
+						&MensajeError = !"Ingresa tu cedula para continuar"
+						Return
+					EndIf
+					&CedulaNormalizada = Trim(&Cedula)
+					&CedulaNormalizada = &CedulaNormalizada.ReplaceRegEx(!"[.]", !"")
+					&CedulaNormalizada = &CedulaNormalizada.ReplaceRegEx(!"[-]", !"")
+					&CedulaNormalizada = &CedulaNormalizada.ReplaceRegEx(!"[ ]", !"")
+					If &CedulaNormalizada.IsEmpty()
+						&MensajeError = !"Ingresa una cedula valida. Ejemplo: 42345678"
+						Return
+					EndIf
+					If &CedulaNormalizada.ReplaceRegEx(!"[0-9]", !"").Length() <> &CedulaNormalizada.Length()
+						&MensajeError = !"La cedula debe contener solo numeros, con o sin puntos o guion"
+						Return
+					EndIf
+					If &CedulaNormalizada.Length() < 7 OR &CedulaNormalizada.Length() > 8
+						&MensajeError = !"Ingresa una cedula valida de 7 u 8 digitos"
+						Return
+					EndIf
+					&Cedula = &CedulaNormalizada
+					&MensajeError = !""
+					BuscarOCrearSocio(&Cedula, &SocioId, &EsNuevo)
+					If &EsNuevo
+						&MensajeError = !"Aun no encontramos esa cedula como socio. Si todavia no eres socio, registrate aqui."
+					Else
+						PantallaPago(&SocioId)
+					EndIf
+				EndEvent
+		
+				Event 'Registrarse'
+					DatosNuevoSocio(&Cedula)
+				EndEvent
+	#End
+
+	#Variables
+			Cedula [ Description = '', DataType = 'Attribute:SocioCedula' ]
+
+			MensajeError [ Description = '', DataType = 'VarChar(200)' ]
+
+			SocioId [ Description = 'Identificador del socio encontrado', DataType = 'Attribute:SocioId' ]
+
+			EsNuevo [ Description = 'True si el socio no existe y debe registrarse', DataType = 'Boolean' ]
+
+			CedulaNormalizada [ Description = '', DataType = 'Attribute:SocioCedula' ]
+	#End
+
+	#Properties
+		Name = "BuscarSocio"
+
+		Description = "Entrada publica para busqueda o alta de socio"
+
+		Style = "AtenasDSO"
+
+		Type = "Web Page"
+
+		MasterPage = "(none)"
+
+		MainProgram = "True"
+	#End
+
+}

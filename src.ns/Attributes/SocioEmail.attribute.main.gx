@@ -1,0 +1,35 @@
+Attribute SocioEmail
+{
+	#Properties
+		Name = "SocioEmail"
+
+		Description = "Correo electronico. Opcional"
+
+		NullsInForms = "Empty as Null"
+
+		DataType = "VarChar(128)"
+
+		Length = "128"
+
+		Decimals = "0"
+
+		MaximumLength = "128"
+
+		AverageLength = "0"
+
+		Collection = "False"
+
+		Autonumber = "False"
+
+		AutonumberStart = "1"
+
+		AutonumberStep = "1"
+
+		AutonumberForReplication = "True"
+
+		DateFormat = "Year with two digits  (99/99/99)"
+
+		ControlType = "Edit"
+	#End
+
+}

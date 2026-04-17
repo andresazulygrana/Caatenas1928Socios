@@ -1,0 +1,95 @@
+Procedure InicializarDatos
+{
+		// Normalizar el catalogo vigente de tipos de cuota del club.
+		&Ajustados = 0
+		&Obsoletos = 0
+	
+		&DescripcionObjetivo = !"Socio A - Anual"
+		&ImporteObjetivo = 5000.00
+		Do 'AsegurarTipoCuota'
+	
+		&DescripcionObjetivo = !"Socio A - Mensual"
+		&ImporteObjetivo = 500.00
+		Do 'AsegurarTipoCuota'
+	
+		&DescripcionObjetivo = !"Socio D Basquet - Mensual"
+		&ImporteObjetivo = 1300.00
+		Do 'AsegurarTipoCuota'
+	
+		&DescripcionObjetivo = !"Socio D Basquet - Anual"
+		&ImporteObjetivo = 13000.00
+		Do 'AsegurarTipoCuota'
+	
+		&DescripcionObjetivo = !"Socio D Basquet - Beca 50%"
+		&ImporteObjetivo = 650.00
+		Do 'AsegurarTipoCuota'
+	
+		For Each TipoCuota
+			Where TipoCuotaDescripcion <> !"Socio A - Anual"
+			Where TipoCuotaDescripcion <> !"Socio A - Mensual"
+			Where TipoCuotaDescripcion <> !"Socio D Basquet - Mensual"
+			Where TipoCuotaDescripcion <> !"Socio D Basquet - Anual"
+			Where TipoCuotaDescripcion <> !"Socio D Basquet - Beca 50%"
+			If TipoCuotaActivo
+				&TC = new()
+				&TC.Load(TipoCuotaId)
+				&TC.TipoCuotaActivo = false
+				&TC.Save()
+				If &TC.Success()
+					&Obsoletos = &Obsoletos + 1
+				Else
+					msg(Format(!"Error al desactivar tipo obsoleto %1: %2", TipoCuotaDescripcion, &TC.GetMessages().ToJson()), status)
+				EndIf
+			EndIf
+		EndFor
+	
+		Commit
+		msg(Format(!"Catalogo de tipos de cuota normalizado. Vigentes: %1. Obsoletos desactivados: %2.", &Ajustados, &Obsoletos), status)
+	
+		Sub 'AsegurarTipoCuota'
+			&TipoCuotaEncontradoId = 0
+	
+			For Each TipoCuota
+				Where TipoCuotaDescripcion = &DescripcionObjetivo
+				&TipoCuotaEncontradoId = TipoCuotaId
+				Exit
+			EndFor
+	
+			&TC = new()
+			If &TipoCuotaEncontradoId > 0
+				&TC.Load(&TipoCuotaEncontradoId)
+			EndIf
+			&TC.TipoCuotaDescripcion = &DescripcionObjetivo
+			&TC.TipoCuotaImporte = &ImporteObjetivo
+			&TC.TipoCuotaActivo = true
+			&TC.Save()
+			If &TC.Success()
+				&Ajustados = &Ajustados + 1
+			Else
+				msg(Format(!"Error al ajustar tipo %1: %2", &DescripcionObjetivo, &TC.GetMessages().ToJson()), status)
+			EndIf
+		EndSub
+
+	#Variables
+			TC [ Description = 'Instancia BC de TipoCuota para insercion inicial', DataType = 'TipoCuota' ]
+
+			Ajustados [ Description = 'Cantidad de tipos vigentes ajustados o insertados', DataType = 'Numeric(4.0)' ]
+
+			Obsoletos [ Description = 'Cantidad de tipos fuera del catalogo actual desactivados', DataType = 'Numeric(4.0)' ]
+
+			DescripcionObjetivo [ Description = 'Descripcion del tipo de cuota a asegurar en el catalogo', DataType = 'VarChar(64)' ]
+
+			ImporteObjetivo [ Description = 'Importe esperado del tipo de cuota', DataType = 'Numeric(10.2)' ]
+
+			TipoCuotaEncontradoId [ Description = 'Tipo encontrado para actualizar por descripcion', DataType = 'Attribute:TipoCuotaId' ]
+	#End
+
+	#Properties
+		Name = "InicializarDatos"
+
+		MainProgram = "True"
+
+		CallProtocol = "Command Line"
+	#End
+
+}

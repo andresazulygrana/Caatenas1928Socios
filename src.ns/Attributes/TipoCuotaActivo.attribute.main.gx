@@ -1,0 +1,11 @@
+Attribute TipoCuotaActivo
+{
+	#Properties
+		Name = "TipoCuotaActivo"
+
+		Description = "Indica si el tipo de cuota esta activo"
+
+		DataType = "Boolean"
+	#End
+
+}

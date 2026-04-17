@@ -1,0 +1,13 @@
+Attribute TipoCuotaId
+{
+	#Properties
+		Name = "TipoCuotaId"
+
+		Description = "FK a TipoCuota, copiado al momento de crear la cuota"
+
+		DataType = "Numeric(4.0)"
+
+		Autonumber = "True"
+	#End
+
+}

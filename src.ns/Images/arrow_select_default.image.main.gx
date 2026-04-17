@@ -1,0 +1,17 @@
+Image arrow_select_default
+{
+	<?xml version="1.0" encoding="utf-16"?>
+
+	<Images>
+
+	  <ImageItem><Properties><Property><Name>Description</Name><Value /></Property><Property><Name>ThemeReference</Name><Value>NULL</Value></Property><Property><Name>LanguageReference</Name><Value>NULL</Value></Property></Properties></ImageItem>
+
+	</Images>
+
+	#Properties
+		Name = "arrow_select_default"
+
+		Description = "arrow_select_default"
+	#End
+
+}

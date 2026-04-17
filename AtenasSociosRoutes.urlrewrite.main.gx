@@ -1,0 +1,14 @@
+URLRewrite AtenasSociosRoutes
+{
+	api/mp/webhook => WebhookMercadoPago;
+
+	#Variables
+	#End
+
+	#Properties
+		Name = "AtenasSociosRoutes"
+
+		Description = "Rutas publicas del portal de socios y webhooks de Mercado Pago"
+	#End
+
+}

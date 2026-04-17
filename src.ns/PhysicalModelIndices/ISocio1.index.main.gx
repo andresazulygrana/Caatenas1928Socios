@@ -1,0 +1,15 @@
+Index ISocio1
+{
+	TipoCuotaId
+
+	#Index
+		Source = "Automatic"
+
+		Type = "Duplicate"
+	#End
+
+	#Properties
+		Name = "ISocio1"
+	#End
+
+}

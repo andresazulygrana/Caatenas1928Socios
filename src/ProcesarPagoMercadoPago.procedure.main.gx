@@ -1,0 +1,102 @@
+Procedure ProcesarPagoMercadoPago
+{
+		// Token desde configuracion persistida
+		&Token = !""
+		For Each ConfiguracionPago
+			Where ConfiguracionPagoId = 1
+			Where ConfiguracionPagoActivo = true
+			&Token = ConfiguracionPagoAccessToken
+			Exit
+		EndFor
+		If &Token.IsEmpty()
+			Return
+		EndIf
+	
+		&HttpClient = new()
+		&HttpClient.BaseUrl = !"https://api.mercadopago.com"
+		&HttpClient.AddHeader(!"Authorization", Format(!"Bearer %1", &Token))
+		&HttpClient.Execute(HttpMethod.GET, Format(!"/v1/payments/%1", &PaymentId))
+	
+		If &HttpClient.StatusCode = 200
+			&ResponseBody = &HttpClient.ToString()
+			GeneXus.Common.Log.Info(!"ProcesarPagoMercadoPago ResponseBody: " + Substr(&ResponseBody, 1, 2000), !"$MercadoPago.Payment")
+			&ResponseBody = StrReplace(&ResponseBody, !"status_detail", !"StatusDetail")
+			&ResponseBody = StrReplace(&ResponseBody, !"external_reference", !"ExternalReference")
+			&ResponseBody = StrReplace(&ResponseBody, !"status", !"Status")
+			&PaymentResponse.FromJson(&ResponseBody)
+			&MPEstado = &PaymentResponse.Status
+			&ExternalReference = &PaymentResponse.ExternalReference
+			GeneXus.Common.Log.Info(!"ProcesarPagoMercadoPago Parsed Status=" + &MPEstado + !" ExternalReference=" + &ExternalReference + !" PaymentId=" + &PaymentId, !"$MercadoPago.Payment")
+	
+			// Buscar cuota por external_reference
+			&CuotaIdActual = 0
+			&SocioIdActual = 0
+			If NOT &ExternalReference.IsEmpty()
+				&CuotaIdActual = Val(&ExternalReference)
+				For Each Cuota
+					Where CuotaId = &CuotaIdActual
+					&SocioIdActual = SocioId
+					Exit
+				EndFor
+			EndIf
+	
+			If &CuotaIdActual > 0
+				&CuotaBC = new()
+				&CuotaBC.Load(&CuotaIdActual)
+				&CuotaBC.CuotaMPPaymentId = &PaymentId
+				&CuotaBC.CuotaMPEstado = &MPEstado
+				If &MPEstado = !"approved"
+					&CuotaBC.CuotaEstado = !"G"
+					&CuotaBC.CuotaFechaPago = Now()
+				EndIf
+				&CuotaBC.Save()
+	
+				If &MPEstado = !"approved"
+					&SocioBC = new()
+					&SocioBC.Load(&SocioIdActual)
+					If &SocioBC.SocioEstado = !"M"
+						&SocioBC.SocioEstado = !"A"
+						&SocioBC.Save()
+					EndIf
+				EndIf
+				Commit
+	
+				If &MPEstado = !"approved"
+					NotificarPagoSocio(&CuotaIdActual)
+				EndIf
+			EndIf
+		EndIf
+
+	#Rules
+		parm(in: &PaymentId);
+	#End
+
+	#Variables
+			PaymentId [ Description = 'ID del pago a verificar en Mercado Pago', DataType = 'Attribute:CuotaMPPaymentId' ]
+
+			MPEstado [ Description = 'Estado real del pago verificado en la API de MP', DataType = 'Attribute:CuotaMPEstado' ]
+
+			CuotaIdActual [ Description = 'CuotaId resuelto por external_reference', DataType = 'Attribute:CuotaId' ]
+
+			SocioIdActual [ Description = 'SocioId capturado del contexto de la cuota', DataType = 'Attribute:SocioId' ]
+
+			CuotaBC [ Description = 'Instancia BC de Cuota para actualizacion de estado de pago', DataType = 'Cuota' ]
+
+			SocioBC [ Description = 'Instancia BC de Socio para reactivacion si era moroso', DataType = 'Socio' ]
+
+			Token [ Description = 'Token de acceso de Mercado Pago desde configuracion', DataType = 'VarChar(256)' ]
+
+			HttpClient [ Description = 'Cliente HTTP para verificar pago en la API de MP', DataType = 'HttpClient' ]
+
+			ResponseBody [ Description = 'Respuesta JSON del payment consultado', DataType = 'LongVarChar(4K)' ]
+
+			PaymentResponse [ Description = 'Respuesta parseada del payment consultado', DataType = 'MercadoPagoPaymentResponse' ]
+
+			ExternalReference [ Description = 'External reference extraido del JSON crudo', DataType = 'VarChar(64)' ]
+	#End
+
+	#Properties
+		Name = "ProcesarPagoMercadoPago"
+	#End
+
+}

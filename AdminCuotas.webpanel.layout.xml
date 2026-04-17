@@ -1,0 +1,138 @@
+<layout type="Web">
+	<view>
+		<smart name="MainLayout" class="backoffice-page" width="100%" height="100%" columnsStyle="100%" rowsStyle="100%">
+			<row>
+				<cell hAlign="Center" vAlign="Top">
+					<smart name="Shell" class="backoffice-shell" width="100%" height="100%" columnsStyle="270px;100%" rowsStyle="100%">
+						<row>
+							<cell class="backoffice-sidebar" vAlign="Top">
+								<smart name="SidebarLayout" width="100%" columnsStyle="100%" rowsStyle="74px;98px;392px;58px">
+									<row><cell vAlign="Top"><smart name="Brand" width="100%" columnsStyle="56px;100%" rowsStyle="56px"><row><cell hAlign="Center" vAlign="Middle"><label name="LblCrest" caption="A" class="backoffice-crest"/></cell><cell hAlign="Left" vAlign="Middle"><smart name="BrandText" width="100%" columnsStyle="100%" rowsStyle="30px;18px"><row><cell hAlign="Left" vAlign="Bottom"><label name="LblBrandTitle" caption="Club Atenas" class="backoffice-brand-title"/></cell></row><row><cell hAlign="Left" vAlign="Top"><label name="LblBrandMeta" caption="Backoffice de socios" class="backoffice-brand-meta"/></cell></row></smart></cell></row></smart></cell></row>
+									<row><cell vAlign="Middle"><smart name="SidebarCard" class="backoffice-sidebar-card" width="100%" columnsStyle="100%" rowsStyle="18px;52px"><row><cell hAlign="Left" vAlign="Bottom"><label name="LblSidebarTitle" caption="Cobranza operativa" class="backoffice-sidebar-section"/></cell></row><row><cell hAlign="Left" vAlign="Middle"><label name="LblSidebarText" caption="Seguimiento de periodos, cobros y estados desde un shell lateral persistente." class="backoffice-sidebar-text"/></cell></row></smart></cell></row>
+									<row><cell vAlign="Top"><smart name="SidebarNav" width="100%" columnsStyle="100%" rowsStyle="44px;44px;44px;44px;44px;44px;44px;44px"><row><cell><action name="BtnNavDashboard" caption="Dashboard" onClickEvent="'Dashboard'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavSocios" caption="Socios" onClickEvent="'Socios'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavImportar" caption="Importar socios" onClickEvent="'ImportarSocios'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavTipos" caption="Tipos de cuota" onClickEvent="'TiposCuota'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavCuotas" caption="Cuotas" onClickEvent="'Cuotas'" class="btn-sidebar-active"/></cell></row><row><cell><action name="BtnNavConfig" caption="Configuracion pago" onClickEvent="'ConfiguracionPago'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavPruebas" caption="Prueba de pago" onClickEvent="'PruebasPago'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavSandbox" caption="Procesar sandbox" onClickEvent="'Sandbox'" class="btn-sidebar"/></cell></row></smart></cell></row>
+									<row><cell vAlign="Bottom"><label name="LblSidebarFooter" caption="Usuario: Secretaria Atenas | Admin / Operacion diaria" class="backoffice-sidebar-footer"/></cell></row>
+								</smart>
+							</cell>
+							<cell class="backoffice-main" vAlign="Top">
+								<smart name="CuotasBody" class="backoffice-main-body" width="100%" columnsStyle="100%" rowsStyle="128px;208px;700px;1px">
+									<row>
+										<cell hAlign="Center" vAlign="Middle">
+											<smart name="TopbarCuotas" class="surface-elevated" width="100%" columnsStyle="62%;38%" rowsStyle="44px;26px">
+												<row>
+													<cell hAlign="Left" vAlign="Middle"><label name="LblTitulo" caption="Cuotas" class="admin-topbar-title"/></cell>
+													<cell hAlign="Right" vAlign="Middle">
+														<smart name="TopbarActions" width="100%" columnsStyle="50%;50%" rowsStyle="44px">
+															<row>
+																<cell hAlign="Left" vAlign="Middle"><action name="BtnDashboardTop" caption="Volver al dashboard" onClickEvent="'Dashboard'" class="btn-topbar-secondary"/></cell>
+																<cell hAlign="Right" vAlign="Middle"><action name="BtnFiltrarTop" caption="Aplicar filtros" onClickEvent="'Filtrar'" class="btn-topbar"/></cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+												<row>
+													<cell hAlign="Left" vAlign="Top"><label name="LblSubtituloCuotas" caption="Vista operativa para detectar pendientes, vencidas y pagos acreditados." class="admin-topbar-text"/></cell>
+													<cell/>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell hAlign="Center" vAlign="Middle">
+											<smart name="FiltrosCard" class="surface-elevated" width="100%" columnsStyle="30%;22%;26%;22%" rowsStyle="34px;82px;34px">
+												<row>
+													<cell hAlign="Left" vAlign="Bottom"><label name="LblPeriodo" caption="Periodo AAAA-MM" class="field-label"/></cell>
+													<cell hAlign="Left" vAlign="Bottom"><label name="LblEstado" caption="Estado" class="field-label"/></cell>
+													<cell hAlign="Left" vAlign="Bottom"><label name="LblBusqueda" caption="Socio o cedula" class="field-label"/></cell>
+													<cell/>
+												</row>
+												<row>
+													<cell vAlign="Middle"><input attribute="&amp;FiltroPeriodo" class="field"/></cell>
+													<cell vAlign="Middle"><input attribute="&amp;FiltroEstado" class="field"/></cell>
+													<cell vAlign="Middle"><input attribute="&amp;TextoBusqueda" class="field"/></cell>
+													<cell hAlign="Right" vAlign="Middle"><action name="BtnFiltrar" caption="Aplicar filtros" onClickEvent="'Filtrar'" class="btn-primary"/></cell>
+												</row>
+												<row>
+													<cell hAlign="Left" vAlign="Middle"><label name="LblFiltrosAyuda" caption="El periodo vacio muestra todas las cuotas registradas." class="helper-text"/></cell>
+													<cell/>
+													<cell/>
+													<cell/>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell hAlign="Center" vAlign="Top">
+											<smart name="BloqueCuotas" width="100%" columnsStyle="100%" rowsStyle="178px;510px">
+												<row>
+													<cell hAlign="Center" vAlign="Middle">
+														<smart name="Resumen" width="100%" columnsStyle="50%;50%" rowsStyle="36px;142px">
+															<row>
+																<cell hAlign="Center" vAlign="Bottom"><label name="LblEsperado" caption="Total esperado" class="field-label"/></cell>
+																<cell hAlign="Center" vAlign="Bottom"><label name="LblCobrado" caption="Total cobrado" class="field-label"/></cell>
+															</row>
+															<row>
+																<cell hAlign="Center" vAlign="Middle"><smart name="CardEsperado" class="admin-kpi-card" width="96%" columnsStyle="100%" rowsStyle="54px;28px"><row><cell hAlign="Center" vAlign="Middle"><input attribute="&amp;TotalEsperado" readonly="True" class="admin-kpi-value"/></cell></row><row><cell hAlign="Center" vAlign="Middle"><label name="LblEsperadoHint" caption="Periodo filtrado" class="admin-kpi-meta"/></cell></row></smart></cell>
+																<cell hAlign="Center" vAlign="Middle"><smart name="CardCobrado" class="admin-kpi-card" width="96%" columnsStyle="100%" rowsStyle="54px;28px"><row><cell hAlign="Center" vAlign="Middle"><input attribute="&amp;TotalCobrado" readonly="True" class="admin-kpi-value"/></cell></row><row><cell hAlign="Center" vAlign="Middle"><label name="LblCobradoHint" caption="Cuotas pagadas" class="admin-kpi-meta"/></cell></row></smart></cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+												<row>
+													<cell hAlign="Center" vAlign="Top">
+														<smart name="ListadoCard" class="surface-elevated" width="100%" columnsStyle="100%" rowsStyle="28px;460px">
+															<row><cell hAlign="Left" vAlign="Bottom"><label name="LblListado" caption="Listado de cuotas" class="text-subtitle"/></cell></row>
+															<row>
+																<cell vAlign="Top">
+																	<smart name="GridContainer" class="grid-wrap" width="100%" columnsStyle="100%" rowsStyle="40px;420px">
+																		<row>
+																			<cell vAlign="Middle">
+																				<smart name="CabeceraGrid" class="grid-head" width="100%" columnsStyle="14%;28%;14%;15%;15%;14%" rowsStyle="40px">
+																					<row>
+																						<cell vAlign="Middle"><label name="LblColCedula" caption="Cedula" class="grid-col-head"/></cell>
+																						<cell vAlign="Middle"><label name="LblColNombre" caption="Nombre" class="grid-col-head"/></cell>
+																						<cell vAlign="Middle"><label name="LblColPeriodo" caption="Periodo" class="grid-col-head"/></cell>
+																						<cell vAlign="Middle"><label name="LblColImporte" caption="Importe" class="grid-col-head"/></cell>
+																						<cell vAlign="Middle"><label name="LblColEstado" caption="Estado" class="grid-col-head"/></cell>
+																						<cell vAlign="Middle"><label name="LblColFechaPago" caption="Fecha pago" class="grid-col-head"/></cell>
+																					</row>
+																				</smart>
+																			</cell>
+																		</row>
+																		<row>
+																			<cell vAlign="Top">
+																				<grid name="GridCuotas" class="grid-body" controlType="table">
+																					<table name="GridCuotasItem" width="100%" columnsStyle="14%;28%;14%;15%;15%;14%" rowsStyle="48px">
+																						<row>
+																							<cell vAlign="Middle"><input attribute="SocioCedula" readonly="True" class="grid-col-text"/></cell>
+																							<cell vAlign="Middle"><input attribute="SocioNombre" readonly="True" class="grid-col-text"/></cell>
+																							<cell vAlign="Middle"><input attribute="CuotaPeriodo" readonly="True" class="grid-col-meta"/></cell>
+																							<cell vAlign="Middle"><input attribute="CuotaImporte" readonly="True" class="grid-col-meta"/></cell>
+																							<cell vAlign="Middle"><input attribute="CuotaEstado" readonly="True" class="grid-col-meta"/></cell>
+																							<cell vAlign="Middle"><input attribute="CuotaFechaPago" readonly="True" class="grid-col-meta"/></cell>
+																						</row>
+																					</table>
+																				</grid>
+																			</cell>
+																		</row>
+																	</smart>
+																</cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell class="page-footer" hAlign="Center" vAlign="Middle"><label name="LblPieCuotas" caption="" class="helper-text"/></cell>
+									</row>
+								</smart>
+							</cell>
+						</row>
+					</smart>
+				</cell>
+			</row>
+		</smart>
+		<actiongroups />
+	</view>
+</layout>

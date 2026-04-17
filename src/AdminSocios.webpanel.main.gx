@@ -1,0 +1,327 @@
+WebPanel AdminSocios
+{
+	#Events
+				Event Start
+					If &RegistrosPorPagina = 0
+						&RegistrosPorPagina = 15
+					EndIf
+					If &PaginaActual = 0
+						&PaginaActual = 1
+					EndIf
+					If &FiltroEstado.IsEmpty()
+						&TituloFiltros = !"Todos los estados"
+					Else
+						If &FiltroEstado = !"A"
+							&TituloFiltros = !"Estado: Activo"
+						Else
+							If &FiltroEstado = !"M"
+								&TituloFiltros = !"Estado: Moroso"
+							Else
+								&TituloFiltros = !"Estado: Inactivo"
+							EndIf
+						EndIf
+					EndIf
+				EndEvent
+		
+				Event Refresh
+					&TotalRegistros = 0
+					For Each
+						Order SocioApellido, SocioNombre, SocioCedula
+						&CumpleEstado = false
+						&CumpleBusqueda = false
+		
+						If &FiltroEstado.IsEmpty()
+							&CumpleEstado = true
+						Else
+							If SocioEstado = &FiltroEstado
+								&CumpleEstado = true
+							EndIf
+						EndIf
+		
+						If &TextoBusqueda.IsEmpty()
+							&CumpleBusqueda = true
+						Else
+							If SocioCedula.Contains(&TextoBusqueda)
+								&CumpleBusqueda = true
+							Else
+								If SocioNombre.Contains(&TextoBusqueda)
+									&CumpleBusqueda = true
+								Else
+									If SocioApellido.Contains(&TextoBusqueda)
+										&CumpleBusqueda = true
+									EndIf
+								EndIf
+							EndIf
+						EndIf
+		
+						If &CumpleEstado
+							If &CumpleBusqueda
+								&TotalRegistros = &TotalRegistros + 1
+							EndIf
+						EndIf
+					EndFor
+		
+					If &TotalRegistros <= 0
+						&TotalPaginas = 1
+						&PaginaActual = 1
+					Else
+						&TotalPaginas = Trunc(((&TotalRegistros + &RegistrosPorPagina) - 1) / &RegistrosPorPagina, 0)
+						If &PaginaActual > &TotalPaginas
+							&PaginaActual = &TotalPaginas
+						EndIf
+						If &PaginaActual < 1
+							&PaginaActual = 1
+						EndIf
+					EndIf
+		
+					&ResumenPaginacion = !"Pagina " + Trim(Str(&PaginaActual, 4, 0)) + !" de " + Trim(Str(&TotalPaginas, 4, 0)) + !" - " + Trim(Str(&TotalRegistros, 8, 0)) + !" socios"
+				EndEvent
+		
+				Event Load
+					&FilaActual = 0
+					&RegistrosCargados = 0
+		
+					For Each
+						Order SocioApellido, SocioNombre, SocioCedula
+						&CumpleEstado = false
+						&CumpleBusqueda = false
+		
+						If &FiltroEstado.IsEmpty()
+							&CumpleEstado = true
+						Else
+							If SocioEstado = &FiltroEstado
+								&CumpleEstado = true
+							EndIf
+						EndIf
+		
+						If &TextoBusqueda.IsEmpty()
+							&CumpleBusqueda = true
+						Else
+							If SocioCedula.Contains(&TextoBusqueda)
+								&CumpleBusqueda = true
+							Else
+								If SocioNombre.Contains(&TextoBusqueda)
+									&CumpleBusqueda = true
+								Else
+									If SocioApellido.Contains(&TextoBusqueda)
+										&CumpleBusqueda = true
+									EndIf
+								EndIf
+							EndIf
+						EndIf
+		
+						If &CumpleEstado
+							If &CumpleBusqueda
+								&FilaActual = &FilaActual + 1
+								If &FilaActual > ((&PaginaActual - 1) * &RegistrosPorPagina)
+									If &RegistrosCargados < &RegistrosPorPagina
+										&SocioIdFila = SocioId
+										&CedulaFila = SocioCedula
+										&NombreFila = SocioNombre
+										&ApellidoFila = SocioApellido
+										&TipoCuotaFila = TipoCuotaDescripcion
+										&PendienteFila = !"No"
+										&ProximaCuotaFila = !"Sin deuda actual"
+		
+										For Each Cuota
+											Where SocioId = &SocioIdFila
+											Where CuotaEstado = !"P"
+											&PendienteFila = !"Si"
+											&ProximaCuotaFila = CuotaPeriodo + !" pendiente"
+											Exit
+										EndFor
+		
+										If &PendienteFila = !"No"
+											For Each Cuota
+												Where SocioId = &SocioIdFila
+												Where CuotaEstado = !"V"
+												&PendienteFila = !"Si"
+												&ProximaCuotaFila = CuotaPeriodo + !" vencida"
+												Exit
+											EndFor
+										EndIf
+		
+										If &PendienteFila = !"No"
+											If TipoCuotaDescripcion.Contains(!"Anual")
+												&ProximaCuotaFila = !"Anual sin deuda actual"
+											Else
+												If TipoCuotaDescripcion.Contains(!"Basquet")
+													&ProximaCuotaFila = !"Proxima entre el 1 y el 10"
+												Else
+													&ProximaCuotaFila = !"Proxima a fin de mes"
+												EndIf
+											EndIf
+										EndIf
+		
+										&EstadoActivoTextoFila = !""
+										&EstadoMorosoTextoFila = !""
+										&EstadoPendienteTextoFila = !""
+		
+										If SocioEstado = !"M"
+											&EstadoFila = !"Moroso"
+											&EstadoActivoTextoFila = !""
+											&EstadoMorosoTextoFila = !"Moroso"
+											&EstadoPendienteTextoFila = !""
+										Else
+											If &PendienteFila = !"Si"
+												&EstadoFila = !"Pendiente"
+												&EstadoActivoTextoFila = !""
+												&EstadoMorosoTextoFila = !""
+												&EstadoPendienteTextoFila = !"Pendiente"
+											Else
+												&EstadoFila = !"Activo"
+												&EstadoActivoTextoFila = !"Activo"
+												&EstadoMorosoTextoFila = !""
+												&EstadoPendienteTextoFila = !""
+											EndIf
+										EndIf
+										Load
+										&RegistrosCargados = &RegistrosCargados + 1
+									Else
+										Exit
+									EndIf
+								EndIf
+							EndIf
+						EndIf
+					EndFor
+				EndEvent
+		
+				Event 'Buscar'
+					&PaginaActual = 1
+					If &FiltroEstado.IsEmpty()
+						&TituloFiltros = !"Todos los estados"
+					Else
+						If &FiltroEstado = !"A"
+							&TituloFiltros = !"Estado: Activo"
+						Else
+							If &FiltroEstado = !"M"
+								&TituloFiltros = !"Estado: Moroso"
+							Else
+								&TituloFiltros = !"Estado: Inactivo"
+							EndIf
+						EndIf
+					EndIf
+					Refresh
+				EndEvent
+		
+				Event 'PaginaAnterior'
+					If &PaginaActual > 1
+						&PaginaActual = &PaginaActual - 1
+					EndIf
+					Refresh
+				EndEvent
+		
+				Event 'PaginaSiguiente'
+					If &PaginaActual < &TotalPaginas
+						&PaginaActual = &PaginaActual + 1
+					EndIf
+					Refresh
+				EndEvent
+		
+				Event 'VerDetalle'
+					AdminSocioDetalle(&SocioIdFila)
+				EndEvent
+		
+				Event 'Dashboard'
+					AdminDashboard()
+				EndEvent
+		
+				Event 'Socios'
+					AdminSocios()
+				EndEvent
+		
+				Event 'Cuotas'
+					AdminCuotas()
+				EndEvent
+		
+				Event 'TiposCuota'
+					AdminTipoCuota()
+				EndEvent
+		
+				Event 'ImportarSocios'
+					AdminImportarSocios()
+				EndEvent
+		
+				Event 'ConfiguracionPago'
+					AdminConfiguracionPago()
+				EndEvent
+		
+				Event 'PruebasPago'
+					AdminPruebaPago()
+				EndEvent
+		
+				Event 'Sandbox'
+					AdminProcesarPagoSandbox()
+				EndEvent
+		
+				Event 'PortalSocios'
+					BuscarSocio()
+				EndEvent
+	#End
+
+	#Conditions
+					SocioEstado = &FiltroEstado when not &FiltroEstado.IsEmpty();
+					SocioCedula.Contains(&TextoBusqueda) when not &TextoBusqueda.IsEmpty();
+	#End
+
+	#Variables
+			FiltroEstado [ Description = 'Filtro por estado del socio', DataType = 'Character(1)' ]
+
+			TextoBusqueda [ Description = 'Texto de busqueda por cedula, nombre o apellido', DataType = 'VarChar(64)' ]
+
+			TituloFiltros [ Description = 'Resumen de filtros aplicados', DataType = 'VarChar(120)' ]
+
+			PaginaActual [ Description = 'Pagina actual del grid', DataType = 'Numeric(4.0)' ]
+
+			RegistrosPorPagina [ Description = 'Cantidad de registros por pagina', DataType = 'Numeric(4.0)' ]
+
+			TotalRegistros [ Description = 'Total de registros filtrados', DataType = 'Numeric(8.0)' ]
+
+			TotalPaginas [ Description = 'Total de paginas disponibles', DataType = 'Numeric(4.0)' ]
+
+			ResumenPaginacion [ Description = 'Resumen de paginacion', DataType = 'VarChar(120)' ]
+
+			FilaActual [ Description = 'Fila recorrida durante la carga', DataType = 'Numeric(8.0)' ]
+
+			RegistrosCargados [ Description = 'Registros cargados en la pagina actual', DataType = 'Numeric(4.0)' ]
+
+			SocioIdFila [ Description = 'Socio seleccionado en la fila', DataType = 'Attribute:SocioId' ]
+
+			CedulaFila [ Description = 'Cedula visible en la fila', DataType = 'Attribute:SocioCedula' ]
+
+			NombreFila [ Description = 'Nombre visible en la fila', DataType = 'Attribute:SocioNombre' ]
+
+			ApellidoFila [ Description = 'Apellido visible en la fila', DataType = 'Attribute:SocioApellido' ]
+
+			TipoCuotaFila [ Description = 'Tipo de cuota visible en la fila', DataType = 'Attribute:TipoCuotaDescripcion' ]
+
+			EstadoFila [ Description = 'Estado legible visible en la fila', DataType = 'VarChar(20)' ]
+
+			PendienteFila [ Description = 'Indica si el socio tiene cuota pendiente o vencida', DataType = 'VarChar(10)' ]
+
+			ProximaCuotaFila [ Description = 'Resumen corto de deuda o proximo vencimiento', DataType = 'VarChar(80)' ]
+
+			CumpleEstado [ Description = 'Control interno de filtro por estado', DataType = 'Boolean' ]
+
+			CumpleBusqueda [ Description = 'Control interno de filtro por busqueda', DataType = 'Boolean' ]
+
+			EstadoActivoTextoFila [ Description = 'Texto visible para pill Activo en la fila', DataType = 'VarChar(20)' ]
+
+			EstadoMorosoTextoFila [ Description = 'Texto visible para pill Moroso en la fila', DataType = 'VarChar(20)' ]
+
+			EstadoPendienteTextoFila [ Description = 'Texto visible para pill Pendiente en la fila', DataType = 'VarChar(20)' ]
+	#End
+
+	#Properties
+		Name = "AdminSocios"
+
+		Description = "Listado administrativo de socios"
+
+		Style = "Caatenas1928"
+
+		Type = "Web Page"
+
+		MasterPage = "(none)"
+	#End
+
+}

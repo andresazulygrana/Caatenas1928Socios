@@ -1,0 +1,19 @@
+SDT QueryViewerItemCollapseData
+{
+		QueryViewerItemCollapseData	{
+
+			Name [ DataType = 'Character(20)' ]
+
+			Value [ DataType = 'Character(20)' ]
+
+			ExpandedValues [ DataType = 'Character(20)', Collection = 'True' ]
+
+		}
+
+	#Properties
+		Name = "QueryViewerItemCollapseData"
+
+		ExposedNamespace = "GeneXus.Reporting"
+	#End
+
+}

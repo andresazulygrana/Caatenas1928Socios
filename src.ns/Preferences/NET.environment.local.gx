@@ -1,0 +1,25 @@
+Environment .NET
+{
+	#Backend.Local
+			DataStores
+
+			{
+
+				Default
+
+					[
+
+						DatabaseName = 'ClubAtenasPortalDB',
+
+						ServerName = 'UY-IT03563\\SQLEXPRESS01',
+
+						UseTrustedConnection = 'Yes'
+
+					]
+
+		
+
+			}
+	#End
+
+}

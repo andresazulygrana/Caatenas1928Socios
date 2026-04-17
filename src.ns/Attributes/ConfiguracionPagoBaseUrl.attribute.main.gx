@@ -1,0 +1,35 @@
+Attribute ConfiguracionPagoBaseUrl
+{
+	#Properties
+		Name = "ConfiguracionPagoBaseUrl"
+
+		Description = "URL base publica de la aplicacion"
+
+		NullsInForms = "Empty as Null"
+
+		DataType = "VarChar(512)"
+
+		Length = "512"
+
+		Decimals = "0"
+
+		MaximumLength = "512"
+
+		AverageLength = "0"
+
+		Collection = "False"
+
+		Autonumber = "False"
+
+		AutonumberStart = "1"
+
+		AutonumberStep = "1"
+
+		AutonumberForReplication = "True"
+
+		DateFormat = "Year with two digits  (99/99/99)"
+
+		ControlType = "Edit"
+	#End
+
+}

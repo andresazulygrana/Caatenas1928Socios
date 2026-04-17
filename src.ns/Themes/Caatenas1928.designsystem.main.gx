@@ -1,0 +1,2591 @@
+DesignSystem Caatenas1928
+{
+	#DesignTokens
+				tokens Caatenas1928
+				{
+					#colors
+					{
+						navy:                #0d1b3e;
+						navy-mid:            #1a2f5a;
+						navy-light:          #243a6e;
+						navy-dark:           #142d55;
+						navy-subtle:         rgba(13, 27, 62, 0.06);
+						red:                 #c0202a;
+						red-dark:            #a01020;
+						red-light:           #fdeaea;
+						red-hover:           #e53030;
+						red-muted:           rgba(192, 32, 42, 0.08);
+						gold:                #c9a84c;
+						page-bg:             #f8f7f4;
+						surface-1:           #ffffff;
+						surface-2:           #eef0f4;
+						card-bg:             #ffffff;
+						card-border:         rgba(13, 27, 62, 0.12);
+						head-bg:             #eef0f4;
+						head-border:         rgba(13, 27, 62, 0.12);
+						row-border:          rgba(13, 27, 62, 0.08);
+						field-border:        rgba(13, 27, 62, 0.20);
+						text-primary:        #0d1b3e;
+						text-body:           #4a5568;
+						text-secondary:      #4a5568;
+						text-muted:          #9aa3b2;
+						text-on-dark:        #ffffff;
+						text-on-dark-muted:  rgba(255, 255, 255, 0.60);
+						border-default:      rgba(13, 27, 62, 0.12);
+						border-mid:          rgba(13, 27, 62, 0.20);
+						border-strong:       rgba(13, 27, 62, 0.35);
+						state-success:       #1a7f4b;
+						state-success-bg:    #e6f4ec;
+						state-warning:       #92620a;
+						state-warning-bg:    #fff8e6;
+						state-error:         #a01020;
+						state-error-bg:      #fdeaea;
+						state-info:          #185fa5;
+						state-info-bg:       #e6f1fb;
+					}
+		
+					#spacing
+					{
+						xxs: 4px;
+						xs:  8px;
+						sm:  12px;
+						md:  16px;
+						lg:  20px;
+						xl:  24px;
+						xxl: 28px;
+						xxxl: 32px;
+						xxxxl: 40px;
+						xxxxxl: 48px;
+						xxxxxxl: 64px;
+						input-h: 52px;
+						btn-h-lg: 54px;
+						btn-h-md: 46px;
+						header-h: 64px;
+						content-max: 480px;
+						content-web: 680px;
+					}
+		
+					#radius
+					{
+						sm:   6px;
+						md:   10px;
+						lg:   16px;
+						xl:   20px;
+						full: 9999px;
+					}
+		
+					#fontSizes
+					{
+						xs:   11px;
+						sm:   12px;
+						base: 14px;
+						md:   16px;
+						lg:   20px;
+						xl:   24px;
+						xxl:  28px;
+						xxxl: 38px;
+						xxxxl: 42px;
+					}
+		
+					#shadows
+					{
+						card:     0 2px 8px rgba(13, 27, 62, 0.07);
+						elevated: 0 8px 24px rgba(13, 27, 62, 0.11);
+						focus:    0 0 0 3px rgba(13, 27, 62, 0.14);
+					}
+		
+					#times
+					{
+						fast:   150ms;
+						normal: 220ms;
+					}
+				}
+	#End
+
+	#DesignStyles
+				styles Caatenas1928
+				{
+					@import GeneXusUnanimo.UnanimoWeb;
+					@import GeneXusUnanimo.Unanimo.Tokens;
+					@import GeneXusReporting.QueryViewerWeb;
+					@import GeneXusReporting.DashboardViewerWeb;
+		
+		
+		
+					// ─── Unanimo component overrides via CSS variables ─────────────
+					// Sidebar: navy background, white text, red accents
+		
+					:root
+					{
+						--colors_sidebar-bg:              $colors.navy;
+						--colors_item-hover:              rgba(255,255,255,0.10);
+						--colors_item-active:             rgba(255,255,255,0.18);
+						--colors_un-text__on-secondary:   #ffffff;
+						--colors_un-icon__on-secondary:   rgba(255,255,255,0.80);
+						--colors_un-accent__primary:      $colors.red;
+						--colors_un-accent__secondary--active: $colors.red-dark;
+						--colors_row-hover:               $colors.navy-light;
+						--colors_row-active:              $colors.navy-light;
+						--ch-sidebar-inline-size--expanded:   240px;
+						--ch-sidebar-inline-size--collapsed:  48px;
+					}
+		
+					// ─── Page shell ───────────────────────────────────────────────
+		
+					.page
+					{
+						background-color: #f8f7f4;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 14px;
+						color: #0d1b3e;
+						-webkit-font-smoothing: antialiased;
+					}
+		
+					.page-header
+					{
+						background-color: #0d1b3e;
+						height: 64px;
+						padding: 0 20px;
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						position: sticky;
+						top: 0;
+						z-index: 100;
+						border-bottom: 4px solid transparent;
+					}
+		
+					.page-content
+					{
+						padding: 32px 20px 48px;
+						max-width: 480px;
+						margin: 0 auto;
+						width: 100%;
+					}
+		
+					.page-footer
+					{
+						text-align: center;
+						padding: 24px 20px;
+						font-size: 12px;
+						color: rgba(13, 27, 62, 0.35);
+					}
+		
+					// ─── Surfaces ─────────────────────────────────────────────────
+		
+					.surface
+					{
+						background-color: #ffffff;
+						border-color: rgba(13, 27, 62, 0.12);
+						border-width: 1px;
+						border-radius: 16px;
+						padding: 28px 24px;
+						margin-bottom: 16px;
+					}
+		
+					.surface-elevated
+					{
+						@include surface;
+						box-shadow: 0 2px 12px rgba(13, 27, 62, 0.07);
+					}
+		
+					.surface-muted
+					{
+						background-color: #eef0f4;
+						border-radius: 10px;
+						padding: 12px 16px;
+					}
+		
+					// ─── Typography ───────────────────────────────────────────────
+		
+					.text-title
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: 28px;
+						font-weight: 700;
+						line-height: 1.2;
+						color: #ffffff;
+						margin-bottom: 8px;
+					}
+		
+					.text-subtitle
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 14px;
+						font-weight: 300;
+						line-height: 1.6;
+						color: rgba(255,255,255,0.60);
+						max-width: 300px;
+						margin: 0 auto;
+					}
+		
+					.text-body
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 14px;
+						font-weight: 400;
+						line-height: 1.6;
+						color: #4a5568;
+					}
+		
+					.text-caption
+					{
+						font-size: 12px;
+						color: #9aa3b2;
+					}
+		
+					// ─── Form controls ────────────────────────────────────────────
+		
+					.field-label
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 12px;
+						font-weight: 600;
+						letter-spacing: 0.06em;
+						text-transform: uppercase;
+						color: #0d1b3e;
+						display: block;
+						margin-bottom: 11px;
+					}
+		
+					.helper-text
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 12px;
+						color: #9aa3b2;
+					}
+		
+					.backoffice-page
+					{
+						background: linear-gradient(180deg, #f6f3ee 0%, #f1eee8 100%);
+						font-family: 'DM Sans', system-ui, sans-serif;
+						color: #132b58;
+					}
+		
+					.backoffice-shell
+					{
+						background-color: #fbf9f5;
+						border-color: rgba(13, 27, 62, 0.10);
+						border-width: 1px;
+						border-radius: 24px;
+						box-shadow: 0 16px 34px rgba(19,43,88,.08);
+						overflow: hidden;
+					}
+		
+					.backoffice-sidebar
+					{
+						background: linear-gradient(180deg, #0f1c3d, #16264b);
+						padding: 22px 16px;
+						box-sizing: border-box;
+					}
+		
+					.backoffice-brand-title
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: 24px;
+						font-weight: 700;
+						color: #ffffff;
+						display: block;
+						line-height: 1.15;
+					}
+		
+					.backoffice-brand-accent
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: 24px;
+						font-weight: 700;
+						color: #c9a84c;
+						display: inline;
+					}
+		
+					.backoffice-brand-meta
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 10px;
+						font-weight: 700;
+						letter-spacing: 0.12em;
+						text-transform: uppercase;
+						color: rgba(255,255,255,.58);
+						display: block;
+					}
+		
+					.backoffice-crest
+					{
+						background-color: #ffffff;
+						border-radius: 9999px;
+						width: 42px;
+						height: 42px;
+						padding-top: 7px;
+						text-align: center;
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: 20px;
+						font-weight: 700;
+						color: #c0202a;
+						display: block;
+						box-sizing: border-box;
+					}
+		
+					.backoffice-sidebar-card
+					{
+						background-color: rgba(255,255,255,.06);
+						border-color: rgba(255,255,255,.08);
+						border-width: 1px;
+						border-radius: 18px;
+						padding: 14px;
+						box-sizing: border-box;
+					}
+		
+					.backoffice-sidebar-section
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 11px;
+						font-weight: 700;
+						letter-spacing: 0.12em;
+						text-transform: uppercase;
+						color: rgba(255,255,255,.64);
+						display: block;
+					}
+		
+					.backoffice-sidebar-text
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 14px;
+						font-weight: 400;
+						line-height: 1.5;
+						color: rgba(255,255,255,.80);
+						display: block;
+					}
+		
+					.btn-sidebar
+					{
+						background-color: transparent;
+						border-color: transparent;
+						border-radius: 12px;
+						padding: 12px 14px;
+						color: rgba(255,255,255,.82);
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 14px;
+						font-weight: 700;
+						text-align: left;
+						display: block;
+						width: 100%;
+						box-sizing: border-box;
+					}
+		
+					.btn-sidebar-active
+					{
+						background-color: #ffffff;
+						border-color: #ffffff;
+						border-radius: 12px;
+						padding: 12px 14px;
+						color: #132b58;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 14px;
+						font-weight: 700;
+						text-align: left;
+						display: block;
+						width: 100%;
+						box-sizing: border-box;
+					}
+		
+					.backoffice-sidebar-footer
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 13px;
+						font-weight: 400;
+						line-height: 1.5;
+						color: rgba(255,255,255,.72);
+						display: block;
+					}
+		
+					.backoffice-main
+					{
+						background: linear-gradient(180deg, #f9f6f2 0%, #f5f2ec 100%);
+						padding: 18px;
+						box-sizing: border-box;
+					}
+		
+					.backoffice-main-body
+					{
+						width: 100%;
+						max-width: 1120px;
+						margin-left: auto;
+						margin-right: auto;
+					}
+		
+					.admin-topbar-title
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: 32px;
+						font-weight: 700;
+						color: #132b58;
+						display: block;
+						line-height: 1.15;
+					}
+		
+					.admin-topbar-text
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 14px;
+						font-weight: 400;
+						color: #7d89a1;
+						line-height: 1.6;
+						display: block;
+					}
+		
+					.admin-hero
+					{
+						background: linear-gradient(135deg, #16264b, #2b467c);
+						border-radius: 24px;
+						padding: 24px 22px;
+						box-shadow: 0 16px 34px rgba(19,43,88,.08);
+						box-sizing: border-box;
+					}
+		
+					.admin-hero-title
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: 28px;
+						font-weight: 700;
+						color: #ffffff;
+						display: block;
+						line-height: 1.2;
+					}
+		
+					.admin-hero-text
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 14px;
+						font-weight: 400;
+						color: rgba(255,255,255,.78);
+						line-height: 1.6;
+						display: block;
+					}
+		
+					.admin-section-title
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 12px;
+						font-weight: 700;
+						letter-spacing: 0.14em;
+						text-transform: uppercase;
+						color: #7d89a1;
+						display: block;
+					}
+		
+					.admin-card-title
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: 24px;
+						font-weight: 700;
+						color: #132b58;
+						display: block;
+						line-height: 1.2;
+					}
+		
+					.admin-card-text
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 14px;
+						font-weight: 400;
+						color: #7d89a1;
+						line-height: 1.6;
+						display: block;
+					}
+		
+					.admin-card-divider
+					{
+						border-bottom-color: rgba(13, 27, 62, 0.08);
+						border-bottom-width: 1px;
+						margin: 0;
+					}
+		
+					.admin-kpi-card
+					{
+						background-color: #ffffff;
+						border-color: rgba(13, 27, 62, 0.12);
+						border-width: 1px;
+						border-radius: 20px;
+						padding: 17px;
+						box-shadow: 0 2px 12px rgba(13, 27, 62, 0.07);
+						box-sizing: border-box;
+					}
+		
+					.admin-kpi-label
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 11px;
+						font-weight: 700;
+						letter-spacing: 0.12em;
+						text-transform: uppercase;
+						color: #7d89a1;
+						display: block;
+					}
+		
+					.admin-kpi-value
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: 36px;
+						font-weight: 700;
+						color: #132b58;
+						display: block;
+						line-height: 1.1;
+					}
+		
+					.admin-kpi-meta
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 14px;
+						font-weight: 400;
+						color: #7d89a1;
+						line-height: 1.5;
+						display: block;
+					}
+		
+					.admin-mini
+					{
+						background-color: #eef0f4;
+						border-radius: 16px;
+						padding: 14px 15px;
+						box-sizing: border-box;
+					}
+		
+					.admin-mini-value
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: 22px;
+						font-weight: 700;
+						color: #132b58;
+						display: block;
+						line-height: 1.2;
+					}
+		
+					.admin-mini-text
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 14px;
+						font-weight: 400;
+						color: #7d89a1;
+						line-height: 1.5;
+						display: block;
+					}
+		
+					.admin-pill-ok
+					{
+						background-color: #e8f6ee;
+						color: #2f8f63;
+						border-radius: 9999px;
+						padding: 7px 12px;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 12px;
+						font-weight: 700;
+						display: inline-block;
+						text-align: center;
+					}
+		
+					.admin-pill-warn
+					{
+						background-color: #fff5df;
+						color: #a16f0d;
+						border-radius: 9999px;
+						padding: 7px 12px;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 12px;
+						font-weight: 700;
+						display: inline-block;
+						text-align: center;
+					}
+		
+					.admin-pill-danger
+					{
+						background-color: #fdecef;
+						color: #b62636;
+						border-radius: 9999px;
+						padding: 7px 12px;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 12px;
+						font-weight: 700;
+						display: inline-block;
+						text-align: center;
+					}
+		
+					.admin-pill-ok,
+					.admin-pill-warn,
+					.admin-pill-danger
+					{
+						display: inline-flex !important;
+						align-items: center;
+						justify-content: center;
+						width: auto !important;
+						max-width: max-content;
+						min-width: 86px;
+						white-space: nowrap;
+					}
+		
+					.admin-pill-ok:empty,
+					.admin-pill-warn:empty,
+					.admin-pill-danger:empty
+					{
+						display: none;
+					}
+		
+					.field
+					{
+						font-family: $fonts.un-font__family;
+						font-size: 14px;
+						color: $colors.text-body;
+						background-color: $colors.card-bg;
+						border-color: $colors.field-border;
+						border-width: $borders.un-width--xs;
+						border-radius: $radius.md;
+						padding: 10px $spacing.md;
+						width: 100%;
+						min-height: 40px;
+						display: block;
+					}
+		
+					.field:focus,
+					.field:focus-visible
+					{
+						border-color: $colors.navy;
+						box-shadow: $shadows.focus;
+					}
+		
+					// ─── Buttons ──────────────────────────────────────────────────
+		
+					.btn-primary
+					{
+						display: block;
+						width: 100%;
+						height: 46px;
+						background-color: #c0202a;
+						color: #ffffff;
+						border-width: 0;
+						border-radius: 10px;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 15px;
+						font-weight: 600;
+						letter-spacing: 0.02em;
+						text-align: center;
+						cursor: pointer;
+						margin-top: 0;
+						transition: background-color 150ms ease;
+					}
+		
+					.btn-primary:hover
+					{
+						background-color: #e53030;
+					}
+		
+					.btn-secondary
+					{
+						display: block;
+						width: 100%;
+						height: 46px;
+						background-color: transparent;
+						border-color: rgba(13, 27, 62, 0.20);
+						border-width: 1.5px;
+						border-radius: 10px;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 14px;
+						font-weight: 500;
+						color: #0d1b3e;
+						text-align: center;
+						cursor: pointer;
+						margin-top: 0;
+						transition: border-color 150ms ease, background-color 150ms ease;
+					}
+		
+					.btn-secondary:hover
+					{
+						border-color: #0d1b3e;
+						background-color: #eef0f4;
+					}
+		
+					// Topbar button: compact, auto-width, for use in backoffice topbar cells
+					// Use instead of btn-primary when the button should NOT be full-width
+		
+					.btn-topbar
+					{
+						display: inline-flex;
+						align-items: center;
+						justify-content: center;
+						height: 44px;
+						padding: 0 24px;
+						background-color: #c0202a;
+						color: #ffffff;
+						border-width: 0;
+						border-radius: 10px;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 14px;
+						font-weight: 600;
+						letter-spacing: 0.02em;
+						cursor: pointer;
+						white-space: nowrap;
+						transition: background-color 150ms ease;
+					}
+		
+					.btn-topbar:hover
+					{
+						background-color: #e53030;
+					}
+		
+					.btn-topbar-secondary
+					{
+						display: inline-flex;
+						align-items: center;
+						justify-content: center;
+						height: 44px;
+						padding: 0 20px;
+						background-color: transparent;
+						border-color: rgba(13, 27, 62, 0.20);
+						border-width: 1.5px;
+						border-radius: 10px;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 14px;
+						font-weight: 500;
+						color: #0d1b3e;
+						cursor: pointer;
+						white-space: nowrap;
+						transition: border-color 150ms ease, background-color 150ms ease;
+					}
+		
+					.btn-topbar-secondary:hover
+					{
+						border-color: #0d1b3e;
+						background-color: #eef0f4;
+					}
+		
+					// Compact buttons for use inside grid rows
+		
+					.btn-sm
+					{
+						border-radius: $radius.sm;
+						padding: 6px $spacing.md;
+						font-family: $fonts.un-font__family;
+						font-size: 13px;
+						font-weight: 600;
+						cursor: pointer;
+						display: inline-flex;
+						align-items: center;
+						justify-content: center;
+						white-space: nowrap;
+					}
+		
+					.btn-sm-primary
+					{
+						@include btn-sm;
+						background-color: $colors.navy;
+						border-color: $colors.navy;
+						border-width: $borders.un-width--xs;
+						color: #ffffff;
+					}
+		
+					.btn-sm-primary:hover
+					{
+						background-color: $colors.navy-dark;
+					}
+		
+					.btn-sm-secondary
+					{
+						@include btn-sm;
+						background-color: transparent;
+						border-color: $colors.red;
+						border-width: $borders.un-width--xs;
+						color: $colors.red;
+					}
+		
+					.btn-sm-secondary:hover
+					{
+						background-color: $colors.red-light;
+					}
+		
+					.btn-link
+					{
+						background-color: transparent;
+						border-width: 0;
+						padding: 4px 0;
+						font-family: $fonts.un-font__family;
+						font-size: 13px;
+						font-weight: 600;
+						color: $colors.navy;
+						cursor: pointer;
+						display: inline-flex;
+						align-items: center;
+						box-shadow: none;
+					}
+		
+					.btn-link:hover
+					{
+						color: $colors.red;
+					}
+		
+					// ─── Grid ─────────────────────────────────────────────────────
+					// grid-wrap  → outer card container
+					// grid-head  → header smart  (width="100%" in layout)
+					// grid-body  → data grid     (width="100%" in layout)
+					// Both use table-layout:fixed via multiple selectors to cover
+					// GeneXus wrapper div OR direct table element generation
+		
+					.grid-wrap
+					{
+						background-color: $colors.card-bg;
+						border-color: $colors.card-border;
+						border-width: $borders.un-width--xs;
+						border-radius: $radius.lg;
+						box-shadow: $shadows.card;
+						overflow: hidden;
+						width: 100%;
+					}
+		
+					// Applied to wrapper div OR to table element directly
+					.grid-head,
+					table.grid-head
+					{
+						background-color: $colors.head-bg;
+						border-bottom-color: $colors.head-border;
+						border-bottom-width: 2px;
+						border-bottom-style: solid;
+						table-layout: fixed;
+						width: 100%;
+						border-collapse: collapse;
+					}
+		
+					// Target inner table when GeneXus wraps in a div
+					.grid-head table
+					{
+						table-layout: fixed;
+						width: 100%;
+						border-collapse: collapse;
+						background-color: $colors.head-bg;
+					}
+		
+					// Applied to wrapper div OR to table element directly
+					.grid-body,
+					table.grid-body
+					{
+						background-color: $colors.card-bg;
+						table-layout: fixed;
+						width: 100%;
+						border-collapse: collapse;
+					}
+		
+					// Target inner table when GeneXus wraps in a div
+					.grid-body table
+					{
+						table-layout: fixed;
+						width: 100%;
+						border-collapse: collapse;
+					}
+		
+					// td cells — header
+					.grid-head td,
+					table.grid-head td
+					{
+						overflow: hidden;
+						padding: 0;
+						vertical-align: middle;
+					}
+		
+					// td cells — data body
+					.grid-body td,
+					table.grid-body td
+					{
+						overflow: hidden;
+						padding: 0;
+						vertical-align: middle;
+						border-bottom-color: $colors.row-border;
+						border-bottom-width: $borders.un-width--xs;
+						border-bottom-style: solid;
+					}
+		
+					.grid-body tr:last-child td,
+					table.grid-body tr:last-child td
+					{
+						border-bottom: none;
+					}
+		
+					.grid-body tr:hover,
+					table.grid-body tr:hover
+					{
+						background-color: rgba(13, 27, 62, 0.04);
+					}
+		
+					// GeneXus generates wrapper divs around inputs inside grid cells.
+					// Force them to full cell width so content doesn't compress columns.
+					.grid-body .gx-form-item,
+					.grid-body .gx-attribute,
+					.grid-body .gx-form-field,
+					.grid-body .gx-edit,
+					.grid-body .gx-not-edit,
+					.grid-body .gx-readonly
+					{
+						width: 100%;
+						max-width: 100%;
+						overflow: hidden;
+						box-sizing: border-box;
+						display: block;
+					}
+		
+					.grid-body .gx-default-form-group,
+					table.grid-body .gx-default-form-group
+					{
+						display: block !important;
+						width: 100% !important;
+						max-width: 100% !important;
+						padding: 0 !important;
+						margin: 0 !important;
+						box-sizing: border-box;
+					}
+		
+					.grid-body .gx-default-form-group > .gx-attribute,
+					.grid-body .gx-default-form-group > .gx-form-item.gx-attribute,
+					table.grid-body .gx-default-form-group > .gx-attribute,
+					table.grid-body .gx-default-form-group > .gx-form-item.gx-attribute
+					{
+						display: block !important;
+						width: 100% !important;
+						max-width: 100% !important;
+						min-width: 0 !important;
+						margin: 0 !important;
+						padding: 0 !important;
+						box-sizing: border-box;
+					}
+		
+					.grid-body .gx-default-form-group,
+					table.grid-body .gx-default-form-group
+					{
+						display: grid !important;
+						grid-template-columns: minmax(0, 1fr) !important;
+						align-items: center !important;
+						column-gap: 0 !important;
+					}
+		
+					.grid-body .gx-default-form-group > label,
+					.grid-body .gx-default-form-group > .control-label,
+					.grid-body .gx-default-form-group > .gx-form-item:not(.gx-attribute),
+					table.grid-body .gx-default-form-group > label,
+					table.grid-body .gx-default-form-group > .control-label,
+					table.grid-body .gx-default-form-group > .gx-form-item:not(.gx-attribute)
+					{
+						display: none !important;
+						width: 0 !important;
+						min-width: 0 !important;
+						max-width: 0 !important;
+						margin: 0 !important;
+						padding: 0 !important;
+						border: 0 !important;
+						overflow: hidden !important;
+					}
+		
+					// Hide ALL auto-generated labels/prompts inside grid data rows.
+					.grid-body label,
+					table.grid-body label,
+					.grid-body .gx-form-item label,
+					.grid-body .gx-label,
+					.grid-body .gx-prompt,
+					.grid-body [class$="Label"],
+					table.grid-body .gx-label,
+					table.grid-body .gx-prompt
+					{
+						display: none !important;
+					}
+		
+					.grid-body span.admin-pill-ok,
+					.grid-body span.admin-pill-warn,
+					.grid-body span.admin-pill-danger,
+					.grid-body input.admin-pill-ok,
+					.grid-body input.admin-pill-warn,
+					.grid-body input.admin-pill-danger,
+					table.grid-body span.admin-pill-ok,
+					table.grid-body span.admin-pill-warn,
+					table.grid-body span.admin-pill-danger,
+					table.grid-body input.admin-pill-ok,
+					table.grid-body input.admin-pill-warn,
+					table.grid-body input.admin-pill-danger
+					{
+						display: inline-flex !important;
+						align-items: center;
+						justify-content: center;
+						width: auto !important;
+						max-width: max-content;
+					}
+		
+					.grid-body .gx-form-item.grid-col-textLabel,
+					.grid-body .gx-form-item.grid-col-metaLabel,
+					.grid-body .gx-form-item.admin-pill-okLabel,
+					.grid-body .gx-form-item.admin-pill-warnLabel,
+					.grid-body .gx-form-item.admin-pill-dangerLabel,
+					table.grid-body .gx-form-item.grid-col-textLabel,
+					table.grid-body .gx-form-item.grid-col-metaLabel,
+					table.grid-body .gx-form-item.admin-pill-okLabel,
+					table.grid-body .gx-form-item.admin-pill-warnLabel,
+					table.grid-body .gx-form-item.admin-pill-dangerLabel
+					{
+						display: none !important;
+						width: 0 !important;
+						min-width: 0 !important;
+						max-width: 0 !important;
+						padding: 0 !important;
+						margin: 0 !important;
+						overflow: hidden !important;
+					}
+		
+					.grid-body td:nth-child(1),
+					table.grid-body td:nth-child(1)
+					{
+						width: 18%;
+					}
+		
+					.grid-body td:nth-child(2),
+					table.grid-body td:nth-child(2)
+					{
+						width: 30%;
+					}
+		
+					.grid-body td:nth-child(3),
+					table.grid-body td:nth-child(3)
+					{
+						width: 14%;
+					}
+		
+					.grid-body td:nth-child(4),
+					table.grid-body td:nth-child(4)
+					{
+						width: 12%;
+					}
+		
+					.grid-body td:nth-child(5),
+					table.grid-body td:nth-child(5)
+					{
+						width: 16%;
+					}
+		
+					.grid-body td:nth-child(6),
+					table.grid-body td:nth-child(6)
+					{
+						width: 10%;
+					}
+		
+					.grid-body td:nth-child(4),
+					table.grid-body td:nth-child(4)
+					{
+						width: 14%;
+						text-align: center;
+						overflow: visible;
+						white-space: nowrap;
+					}
+		
+					.grid-body td:nth-child(5),
+					table.grid-body td:nth-child(5)
+					{
+						width: 14%;
+						vertical-align: top;
+					}
+		
+					.grid-body .admin-pill-ok:empty,
+					.grid-body .admin-pill-warn:empty,
+					.grid-body .admin-pill-danger:empty,
+					table.grid-body .admin-pill-ok:empty,
+					table.grid-body .admin-pill-warn:empty,
+					table.grid-body .admin-pill-danger:empty
+					{
+						display: none !important;
+						width: 0 !important;
+						min-width: 0 !important;
+						max-width: 0 !important;
+						padding: 0 !important;
+						margin: 0 !important;
+						border: 0 !important;
+						overflow: hidden !important;
+					}
+		
+					.grid-body .gx-default-form-group:has(.admin-pill-ok:empty),
+					.grid-body .gx-default-form-group:has(.admin-pill-warn:empty),
+					.grid-body .gx-default-form-group:has(.admin-pill-danger:empty),
+					table.grid-body .gx-default-form-group:has(.admin-pill-ok:empty),
+					table.grid-body .gx-default-form-group:has(.admin-pill-warn:empty),
+					table.grid-body .gx-default-form-group:has(.admin-pill-danger:empty)
+					{
+						display: none !important;
+					}
+		
+					.grid-body .admin-pill-ok,
+					.grid-body .admin-pill-warn,
+					.grid-body .admin-pill-danger,
+					table.grid-body .admin-pill-ok,
+					table.grid-body .admin-pill-warn,
+					table.grid-body .admin-pill-danger
+					{
+						padding: 4px 6px;
+						font-size: 9px;
+						line-height: 1.1;
+						letter-spacing: 0;
+					}
+		
+					// Column header cell content
+					.grid-col-head
+					{
+						font-family: $fonts.un-font__family;
+						font-size: 11px;
+						font-weight: 700;
+						letter-spacing: 0.5px;
+						text-transform: uppercase;
+						color: $colors.text-secondary;
+						padding: 10px $spacing.md;
+						display: block;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						box-sizing: border-box;
+						width: 100%;
+					}
+		
+					// Primary data cell content
+					.grid-col-text
+					{
+						font-family: $fonts.un-font__family;
+						font-size: 14px;
+						font-weight: 500;
+						color: $colors.text-body;
+						padding: 12px $spacing.md;
+						display: block;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						box-sizing: border-box;
+						width: 100%;
+						border: none;
+						background-color: transparent;
+					}
+		
+					// Secondary / muted data cell content
+					.grid-col-meta
+					{
+						@include grid-col-text;
+						color: $colors.text-muted;
+						font-weight: 400;
+						font-size: 13px;
+					}
+		
+					// ─── Feedback states ──────────────────────────────────────────
+		
+					.state-error
+					{
+						background-color: $colors.red-light;
+						border-color: #efc1bb;
+						border-width: $borders.un-width--xs;
+						border-radius: $radius.md;
+						padding: 10px $spacing.md;
+						font-family: $fonts.un-font__family;
+						font-size: 14px;
+						font-weight: 500;
+						color: $colors.red-dark;
+						width: 100%;
+						display: block;
+					}
+		
+					.state-success
+					{
+						background-color: #edf8f1;
+						border-color: #b8dfc2;
+						border-width: $borders.un-width--xs;
+						border-radius: $radius.md;
+						padding: 10px $spacing.md;
+						font-family: $fonts.un-font__family;
+						font-size: 14px;
+						font-weight: 500;
+						color: #1d7a43;
+						width: 100%;
+						display: block;
+					}
+		
+					.message-inline
+					{
+						background-color: transparent;
+						border-width: 0;
+						padding: 0;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 13px;
+						font-weight: 500;
+						color: #a01020;
+						display: block;
+						min-height: 18px;
+						margin-top: 12px;
+					}
+		
+					// ─── Hero card (public portal) ─────────────────────────────────
+		
+					.hero-card
+					{
+						background-color: $colors.card-bg;
+						border-color: $colors.card-border;
+						border-width: $borders.un-width--xs;
+						border-radius: $radius.xl;
+						box-shadow: $shadows.elevated;
+						padding: $spacing.xl;
+						position: relative;
+						overflow: hidden;
+					}
+		
+					// ─── Portal público (BuscarSocio, DatosNuevoSocio, PantallaPago) ─
+		
+					.portal-shell
+					{
+						min-height: 100vh;
+						display: flex;
+						flex-direction: column;
+						background: linear-gradient(160deg, #dce6f5 0%, #f4f7fb 55%, #dce6f5 100%);
+					}
+		
+					.portal-header
+					{
+						background-color: $colors.navy;
+						padding: 16px 40px;
+						width: 100%;
+						box-sizing: border-box;
+					}
+		
+					.portal-brand-title
+					{
+						font-family: $fonts.un-font__family;
+						font-size: 17px;
+						font-weight: 700;
+						color: #ffffff;
+						letter-spacing: 0.4px;
+						display: block;
+					}
+		
+					.portal-brand-sub
+					{
+						font-family: $fonts.un-font__family;
+						font-size: 12px;
+						font-weight: 400;
+						color: rgba(255,255,255,0.72);
+						display: block;
+					}
+		
+					.portal-content-shell
+					{
+						min-height: calc(100vh - 128px);
+					}
+		
+					.portal-page-content
+					{
+						padding: 48px 16px 40px;
+					}
+		
+					.portal-main-title
+					{
+						font-family: $fonts.un-font__family;
+						font-size: 36px;
+						font-weight: 700;
+						color: $colors.navy;
+						text-align: center;
+						display: block;
+					}
+		
+					.portal-subtitle
+					{
+						font-family: $fonts.un-font__family;
+						font-size: 16px;
+						font-weight: 400;
+						color: $colors.text-secondary;
+						text-align: center;
+						display: block;
+					}
+		
+					.portal-card
+					{
+						background-color: $colors.card-bg;
+						border-radius: 16px;
+						box-shadow: 0 8px 32px rgba(26,58,107,0.13);
+						padding: 40px 48px;
+						box-sizing: border-box;
+					}
+		
+					.portal-card-title
+					{
+						font-family: $fonts.un-font__family;
+						font-size: 22px;
+						font-weight: 700;
+						color: $colors.navy;
+						text-align: center;
+						display: block;
+					}
+		
+					.portal-card-hint
+					{
+						font-family: $fonts.un-font__family;
+						font-size: 14px;
+						font-weight: 400;
+						color: $colors.text-secondary;
+						text-align: center;
+						display: block;
+					}
+		
+					.field-label-red
+					{
+						font-family: $fonts.un-font__family;
+						font-size: 11px;
+						font-weight: 700;
+						letter-spacing: 0.6px;
+						text-transform: uppercase;
+						color: $colors.red;
+						display: block;
+					}
+		
+					.field-lg
+					{
+						font-family: $fonts.un-font__family;
+						font-size: 16px;
+						color: $colors.text-body;
+						background-color: $colors.card-bg;
+						border-color: $colors.field-border;
+						border-width: 2px;
+						border-radius: $radius.md;
+						padding: 14px $spacing.md;
+						width: 100%;
+						min-height: 52px;
+						display: block;
+						box-sizing: border-box;
+					}
+		
+					.field-lg:focus,
+					.field-lg:focus-visible
+					{
+						border-color: $colors.navy;
+						box-shadow: $shadows.focus;
+					}
+		
+					.portal-bullet-text
+					{
+						font-family: $fonts.un-font__family;
+						font-size: 14px;
+						color: $colors.text-secondary;
+						padding: 4px 0;
+						display: block;
+					}
+		
+					.btn-cta
+					{
+						background-color: $colors.red;
+						border-color: $colors.red;
+						border-width: $borders.un-width--xs;
+						border-radius: $radius.md;
+						padding: 16px $spacing.lg;
+						font-family: $fonts.un-font__family;
+						font-size: 16px;
+						font-weight: 700;
+						color: #ffffff;
+						cursor: pointer;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						width: 100%;
+						white-space: nowrap;
+					}
+		
+					.btn-cta:hover
+					{
+						background-color: $colors.red-dark;
+						border-color: $colors.red-dark;
+					}
+		
+					.portal-link-text
+					{
+						font-family: $fonts.un-font__family;
+						font-size: 14px;
+						color: $colors.text-secondary;
+						text-align: center;
+						display: block;
+					}
+		
+					.portal-footer
+					{
+						background-color: $colors.navy;
+						padding: 16px 40px;
+						width: 100%;
+						box-sizing: border-box;
+					}
+		
+					.portal-footer-text
+					{
+						font-family: $fonts.un-font__family;
+						font-size: 13px;
+						color: rgba(255,255,255,0.68);
+					}
+		
+					// Atenas portal exact-match layer
+		
+					.atenas-shell
+					{
+						min-height: 100vh;
+						display: flex;
+						flex-direction: column;
+						background-color: #f8f7f4;
+					}
+		
+					.atenas-header
+					{
+						background-color: #0d1b3e;
+						padding: 12px 24px;
+						width: 100%;
+						box-sizing: border-box;
+					}
+		
+					.atenas-header-inner
+					{
+						display: flex;
+						align-items: center;
+						gap: 10px;
+					}
+		
+					.atenas-brand-logo
+					{
+						width: 34px;
+						height: 34px;
+						display: block;
+						flex-shrink: 0;
+					}
+		
+					.atenas-brand-stack
+					{
+						display: flex;
+						flex-direction: column;
+						gap: 1px;
+					}
+		
+					.atenas-brand-row
+					{
+						display: flex;
+						align-items: center;
+						gap: 4px;
+					}
+		
+					.atenas-brand-club
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 12px;
+						font-weight: 700;
+						color: #ffffff;
+						display: block;
+					}
+		
+					.atenas-brand-atenas
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 12px;
+						font-weight: 700;
+						color: #c9a84c;
+						display: block;
+					}
+		
+					.atenas-brand-sub
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 10px;
+						font-weight: 600;
+						color: rgba(255,255,255,0.42);
+						letter-spacing: 0.12em;
+						text-transform: uppercase;
+						display: block;
+					}
+		
+					.atenas-content-shell
+					{
+						flex: 1 1 auto;
+					}
+		
+					.atenas-page
+					{
+						padding: 0 0 64px;
+					}
+		
+					.atenas-hero
+					{
+						background-color: #203a6d;
+						border-bottom-color: #c0202a;
+						border-bottom-width: 2px;
+						padding: 0 16px;
+					}
+		
+					.atenas-hero-inner
+					{
+						max-width: 520px;
+						margin: 0 auto;
+						padding: 34px 0 28px;
+					}
+		
+					.atenas-hero-title
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: 28px;
+						font-weight: 700;
+						line-height: 1.24;
+						color: #ffffff;
+						text-align: center;
+						display: block;
+					}
+		
+					.atenas-hero-subtitle
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 13px;
+						font-weight: 500;
+						line-height: 1.7;
+						color: rgba(255,255,255,0.52);
+						text-align: center;
+						display: block;
+					}
+		
+					.atenas-card
+					{
+						background-color: #ffffff;
+						border-color: rgba(13,27,62,0.08);
+						border-width: 1px;
+						border-radius: 16px;
+						box-shadow: 0 4px 14px rgba(13,27,62,0.04);
+						padding: 18px 18px;
+						box-sizing: border-box;
+					}
+		
+					.atenas-card-title
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: 18px;
+						font-weight: 700;
+						line-height: 1.2;
+						color: #0d1b3e;
+						display: block;
+					}
+		
+					.atenas-label
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 11px;
+						font-weight: 700;
+						letter-spacing: 0.12em;
+						text-transform: uppercase;
+						color: #0d1b3e;
+						display: block;
+					}
+		
+					.atenas-input
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 14px;
+						color: #0d1b3e;
+						background-color: #ffffff;
+						border-color: rgba(13,27,62,0.14);
+						border-width: 1px;
+						border-radius: 10px;
+						padding: 12px 14px;
+						width: 100%;
+						min-height: 40px;
+						display: block;
+						box-sizing: border-box;
+					}
+		
+					.atenas-input:focus,
+					.atenas-input:focus-visible
+					{
+						border-color: #0d1b3e;
+						box-shadow: 0 0 0 3px rgba(13,27,62,0.10);
+					}
+		
+					.atenas-input-hint
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 12px;
+						font-weight: 500;
+						line-height: 1.45;
+						color: #b0b7c3;
+						display: block;
+					}
+		
+					.atenas-btn-primary
+					{
+						background-color: #c6202d;
+						border-color: #c6202d;
+						border-width: 1px;
+						border-radius: 8px;
+						padding: 14px 18px;
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 15px;
+						font-weight: 700;
+						color: #ffffff;
+						cursor: pointer;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						width: 100%;
+						white-space: nowrap;
+					}
+		
+					.atenas-btn-primary:hover
+					{
+						background-color: #a01020;
+						border-color: #a01020;
+					}
+		
+					.atenas-btn-secondary
+					{
+						background-color: #ffffff;
+						border-color: rgba(13,27,62,0.14);
+						border-width: 1px;
+						border-radius: 8px;
+						padding: 12px 18px;
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 15px;
+						font-weight: 600;
+						color: #334155;
+						cursor: pointer;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						width: 100%;
+						white-space: nowrap;
+					}
+		
+					.atenas-btn-secondary:hover
+					{
+						border-color: rgba(13,27,62,0.25);
+						background-color: #fafafa;
+					}
+		
+					.atenas-link-note
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 13px;
+						font-weight: 600;
+						color: #d1d7df;
+						text-align: center;
+						display: block;
+					}
+		
+					.atenas-footer-text
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 12px;
+						color: #c7cdd6;
+						text-align: center;
+						display: block;
+						padding-top: 18px;
+					}
+		
+					.atenas-info-card
+					{
+						background-color: #ffffff;
+						border-color: rgba(13,27,62,0.08);
+						border-width: 1px;
+						border-radius: 16px;
+						box-shadow: 0 4px 14px rgba(13,27,62,0.04);
+						padding: 16px 18px;
+						box-sizing: border-box;
+					}
+		
+					.atenas-info-row
+					{
+						padding: 12px 0;
+						border-bottom-color: rgba(13,27,62,0.08);
+						border-bottom-width: 1px;
+					}
+		
+					.atenas-info-label
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 13px;
+						font-weight: 500;
+						color: #aab2be;
+						display: block;
+					}
+		
+					.atenas-info-value
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 14px;
+						font-weight: 700;
+						color: #0d1b3e;
+						display: block;
+						text-align: right;
+					}
+		
+					.atenas-amount-label
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 11px;
+						font-weight: 700;
+						letter-spacing: 0.12em;
+						text-transform: uppercase;
+						color: #aab2be;
+						text-align: center;
+						display: block;
+					}
+		
+					.atenas-amount
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: 38px;
+						font-weight: 700;
+						color: #0d1b3e;
+						text-align: center;
+						display: block;
+					}
+		
+					.atenas-status-pill
+					{
+						background-color: #fff4d8;
+						color: #a06a00;
+						border-radius: 9999px;
+						padding: 5px 12px;
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 12px;
+						font-weight: 700;
+						display: inline-block;
+						text-align: center;
+					}
+		
+					.atenas-status-pending
+					{
+						background-color: #fff8e6;
+						color: #92620a;
+						border-radius: 9999px;
+						padding: 5px 10px;
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 12px;
+						font-weight: 700;
+						display: inline-block;
+					}
+		
+					.atenas-status-ok
+					{
+						background-color: #e6f4ec;
+						color: #1a7f4b;
+						border-radius: 9999px;
+						padding: 5px 10px;
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 12px;
+						font-weight: 700;
+						display: inline-block;
+					}
+		
+					.atenas-status-error
+					{
+						background-color: #fdeaea;
+						color: #a01020;
+						border-radius: 9999px;
+						padding: 5px 10px;
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 12px;
+						font-weight: 700;
+						display: inline-block;
+					}
+		
+					.atenas-ref-box
+					{
+						background-color: #eef2f7;
+						border-radius: 12px;
+						padding: 10px 14px;
+						box-sizing: border-box;
+					}
+		
+					.atenas-ref-label
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 11px;
+						font-weight: 700;
+						letter-spacing: 0.08em;
+						text-transform: uppercase;
+						color: #9aa3b2;
+						display: block;
+					}
+		
+					.atenas-ref-value
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 14px;
+						font-weight: 700;
+						color: #0d1b3e;
+						display: block;
+					}
+		
+					.atenas-hero-subline
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 11px;
+						font-weight: 700;
+						letter-spacing: 0.10em;
+						text-transform: uppercase;
+						color: rgba(255,255,255,0.40);
+						text-align: center;
+						display: block;
+					}
+		
+					.atenas-result-icon
+					{
+						width: 62px;
+						height: 62px;
+						border-radius: 9999px;
+						background-color: #e6f4ec;
+						color: #1a7f4b;
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 34px;
+						font-weight: 700;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						margin: 0 auto;
+					}
+		
+					.atenas-result-title
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: 18px;
+						font-weight: 700;
+						line-height: 1.25;
+						color: #0d1b3e;
+						text-align: center;
+						display: block;
+					}
+		
+					.atenas-result-message
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 14px;
+						font-weight: 500;
+						line-height: 1.65;
+						color: #6b7280;
+						text-align: center;
+						display: block;
+					}
+		
+					.atenas-receipt-header
+					{
+						background-color: #0d1b3e;
+						border-top-left-radius: 16px;
+						border-top-right-radius: 16px;
+						padding: 22px 18px 18px;
+						box-sizing: border-box;
+					}
+		
+					.atenas-receipt-title
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: 18px;
+						font-weight: 700;
+						color: #ffffff;
+						text-align: center;
+						display: block;
+					}
+		
+					.atenas-receipt-sub
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 11px;
+						font-weight: 700;
+						letter-spacing: 0.10em;
+						text-transform: uppercase;
+						color: rgba(255,255,255,0.42);
+						text-align: center;
+						display: block;
+					}
+		
+					.atenas-pill-ok
+					{
+						background-color: #eef9ee;
+						color: #1a7f4b;
+						border-radius: 9999px;
+						padding: 4px 12px;
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 12px;
+						font-weight: 700;
+						display: inline-block;
+					}
+		
+					.atenas-plan-row
+					{
+						background-color: #ffffff;
+						border-color: rgba(13,27,62,0.10);
+						border-width: 1px;
+						border-radius: 10px;
+						padding: 9px 10px;
+						box-sizing: border-box;
+					}
+		
+					.atenas-plan-row-selected
+					{
+						background-color: #ffffff;
+						border-color: #df4a55;
+						border-width: 2px;
+						border-radius: 10px;
+						padding: 8px 9px;
+						box-sizing: border-box;
+					}
+		
+					.atenas-plan-name
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 14px;
+						font-weight: 600;
+						color: #0d1b3e;
+						display: block;
+					}
+		
+					.atenas-plan-meta
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 11px;
+						font-weight: 500;
+						color: #b0b7c3;
+						display: block;
+					}
+		
+					.atenas-plan-price
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 14px;
+						font-weight: 700;
+						color: #0d1b3e;
+						display: block;
+						text-align: right;
+					}
+		
+					.atenas-plan-action
+					{
+						background-color: transparent;
+						border-width: 0;
+						padding: 0;
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 11px;
+						font-weight: 700;
+						letter-spacing: 0.06em;
+						text-transform: uppercase;
+						color: #c6202d;
+						cursor: pointer;
+						display: inline-flex;
+						align-items: center;
+						justify-content: flex-end;
+						width: 100%;
+						box-shadow: none;
+					}
+		
+					// Explicit Nexa-compatible aliases used by the public layouts
+		
+					.page-hero
+					{
+						background-color: #1a2f5a;
+						padding: 48px 24px 40px;
+						text-align: center;
+						border-bottom: 4px solid #c0202a;
+					}
+		
+					.page-content
+					{
+						padding: 32px 20px 48px;
+						max-width: 480px;
+						margin: 0 auto;
+						width: 100%;
+					}
+		
+					.page-footer
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 12px;
+						color: rgba(13, 27, 62, 0.35);
+						text-align: center;
+						display: block;
+						padding: 24px 20px;
+					}
+		
+					.header-brand
+					{
+						display: flex;
+						align-items: center;
+						gap: 12px;
+					}
+		
+					.header-logo
+					{
+						width: 38px;
+						height: 38px;
+						border-radius: 9999px;
+						background-color: #ffffff;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						flex-shrink: 0;
+					}
+		
+					.header-name
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 15px;
+						font-weight: 600;
+						color: #ffffff;
+						display: inline-block;
+						letter-spacing: 0.02em;
+					}
+		
+					.header-name--accent
+					{
+						color: #c9a84c;
+					}
+		
+					.header-tagline
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 11px;
+						font-weight: 300;
+						color: rgba(255,255,255,0.60);
+						letter-spacing: 0.08em;
+						text-transform: uppercase;
+						display: block;
+					}
+		
+					.surface
+					{
+						background-color: #ffffff;
+						border-color: rgba(13, 27, 62, 0.12);
+						border-width: 1px;
+						border-radius: 16px;
+						padding: 28px 24px;
+						margin-bottom: 16px;
+					}
+		
+					.surface-title
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: 20px;
+						font-weight: 600;
+						line-height: 1.2;
+						color: #0d1b3e;
+						margin-bottom: 20px;
+					}
+		
+					.field-input
+					{
+						width: 100%;
+						height: 52px;
+						border-color: rgba(13, 27, 62, 0.20);
+						border-width: 1.5px;
+						border-radius: 10px;
+						padding: 0 16px;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 16px;
+						color: #0d1b3e;
+						background-color: #ffffff;
+						transition: border-color 150ms ease;
+					}
+		
+					.field-input:hover
+					{
+						border-color: rgba(13, 27, 62, 0.35);
+					}
+		
+					.field-input:focus,
+					.field-input:focus-visible
+					{
+						border-color: #0d1b3e;
+						border-width: 2px;
+						box-shadow: 0 0 0 3px rgba(13, 27, 62, 0.10);
+					}
+		
+					.field-input::placeholder
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 16px;
+						font-weight: 400;
+						color: #9aa3b2;
+					}
+		
+					.field-help
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 12px;
+						color: #9aa3b2;
+						margin-top: 4px;
+					}
+		
+					.field-error
+					{
+						background-color: #fdeaea;
+						border-color: rgba(160, 16, 32, 0.20);
+						border-width: 1px;
+						border-radius: 10px;
+						padding: 12px 16px;
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 13px;
+						font-weight: 500;
+						color: #a01020;
+						display: block;
+						margin-top: 12px;
+					}
+		
+					.text-divider
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 12px;
+						color: #9aa3b2;
+						text-align: center;
+						margin: 16px 0;
+					}
+		
+					.plan-option
+					{
+						background-color: #ffffff;
+						border-color: rgba(13,27,62,0.10);
+						border-width: 1px;
+						border-radius: 10px;
+						padding: 10px 12px;
+						box-sizing: border-box;
+					}
+		
+					.plan-option--selected
+					{
+						background-color: #ffffff;
+						border-color: #df4a55;
+						border-width: 2px;
+						border-radius: 10px;
+						padding: 9px 11px;
+						box-sizing: border-box;
+					}
+		
+					.plan-name
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 14px;
+						font-weight: 600;
+						color: #0d1b3e;
+						display: block;
+					}
+		
+					.plan-freq
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 11px;
+						font-weight: 500;
+						color: #b0b7c3;
+						display: block;
+					}
+		
+					.plan-price
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 14px;
+						font-weight: 700;
+						color: #0d1b3e;
+						display: block;
+						text-align: right;
+					}
+		
+					.info-row
+					{
+						padding: 12px 0;
+						border-bottom-color: rgba(13,27,62,0.08);
+						border-bottom-width: 1px;
+					}
+		
+					.info-label
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 13px;
+						font-weight: 500;
+						color: #aab2be;
+						display: block;
+					}
+		
+					.info-value
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 14px;
+						font-weight: 700;
+						color: #0d1b3e;
+						display: block;
+						text-align: right;
+					}
+		
+					.amount-label
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 11px;
+						font-weight: 700;
+						letter-spacing: 0.12em;
+						text-transform: uppercase;
+						color: #aab2be;
+						text-align: center;
+						display: block;
+					}
+		
+					.amount-block
+					{
+						padding: 12px 0 18px;
+						box-sizing: border-box;
+					}
+		
+					.text-amount
+					{
+						font-family: 'Playfair Display', Georgia, serif;
+						font-size: 38px;
+						font-weight: 700;
+						color: #0d1b3e;
+						text-align: center;
+						display: block;
+					}
+		
+					.status-pill--pending
+					{
+						background-color: #fff4d8;
+						color: #a06a00;
+						border-radius: 9999px;
+						padding: 5px 12px;
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 12px;
+						font-weight: 700;
+						display: inline-block;
+						text-align: center;
+					}
+		
+					.status-pill--ok
+					{
+						background-color: #e6f4ec;
+						color: #1a7f4b;
+						border-radius: 9999px;
+						padding: 5px 10px;
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 12px;
+						font-weight: 700;
+						display: inline-block;
+					}
+		
+					.status-pill--error
+					{
+						background-color: #fdeaea;
+						color: #a01020;
+						border-radius: 9999px;
+						padding: 5px 10px;
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 12px;
+						font-weight: 700;
+						display: inline-block;
+					}
+		
+					.ref-block
+					{
+						background-color: #eef2f7;
+						border-radius: 12px;
+						padding: 10px 14px;
+						box-sizing: border-box;
+					}
+		
+					.ref-label
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 11px;
+						font-weight: 700;
+						letter-spacing: 0.08em;
+						text-transform: uppercase;
+						color: #9aa3b2;
+						display: block;
+					}
+		
+					.receipt
+					{
+						background-color: #ffffff;
+						border-color: rgba(13,27,62,0.08);
+						border-width: 1px;
+						border-radius: 16px;
+						box-shadow: 0 4px 14px rgba(13,27,62,0.04);
+						overflow: hidden;
+						box-sizing: border-box;
+					}
+		
+					.receipt-divider
+					{
+						border-bottom-color: rgba(13,27,62,0.08);
+						border-bottom-width: 1px;
+						margin: 10px 0;
+					}
+		
+					.receipt-footer
+					{
+						padding: 16px 18px 18px;
+						box-sizing: border-box;
+					}
+		
+					.receipt-footer-text
+					{
+						font-family: 'DM Sans', $fonts.un-font__family;
+						font-size: 13px;
+						font-weight: 500;
+						line-height: 1.6;
+						color: #6b7280;
+						text-align: center;
+						display: block;
+					}
+		
+					// ─── Label hiding ─────────────────────────────────────────────
+					// GeneXus auto-generates a <label> for every <input>.
+					// Hide them for classes where we either use our own explicit label
+					// or where no label is needed at all.
+		
+					.fieldLabel,
+					.text-titleLabel,
+					.text-subtitleLabel,
+					.text-bodyLabel,
+					.text-captionLabel,
+					.helper-textLabel,
+					.field-labelLabel,
+					.grid-col-textLabel,
+					.grid-col-metaLabel,
+					.grid-col-headLabel,
+					.btn-linkLabel,
+					.btn-sm-primaryLabel,
+					.btn-sm-secondaryLabel,
+					.message-inlineLabel,
+					.state-errorLabel,
+					.state-successLabel,
+					.portal-main-titleLabel,
+					.portal-subtitleLabel,
+					.portal-card-titleLabel,
+					.portal-card-hintLabel,
+					.portal-bullet-textLabel,
+					.portal-link-textLabel,
+					.portal-brand-titleLabel,
+					.portal-brand-subLabel,
+					.portal-footer-textLabel,
+					.atenas-header-innerLabel,
+					.atenas-brand-logoLabel,
+					.atenas-brand-stackLabel,
+					.atenas-brand-rowLabel,
+					.atenas-brand-clubLabel,
+					.atenas-brand-atenasLabel,
+					.atenas-brand-subLabel,
+					.atenas-hero-titleLabel,
+					.atenas-hero-subtitleLabel,
+					.atenas-hero-sublineLabel,
+					.atenas-card-titleLabel,
+					.atenas-labelLabel,
+					.atenas-inputLabel,
+					.atenas-input-hintLabel,
+					.atenas-btn-primaryLabel,
+					.atenas-btn-secondaryLabel,
+					.atenas-link-noteLabel,
+					.atenas-footer-textLabel,
+					.atenas-info-labelLabel,
+					.atenas-info-valueLabel,
+					.atenas-amount-labelLabel,
+					.atenas-amountLabel,
+					.atenas-status-pendingLabel,
+					.atenas-status-okLabel,
+					.atenas-status-errorLabel,
+					.atenas-ref-labelLabel,
+					.atenas-ref-valueLabel,
+					.atenas-result-iconLabel,
+					.atenas-result-titleLabel,
+					.atenas-result-messageLabel,
+					.atenas-receipt-titleLabel,
+					.atenas-receipt-subLabel,
+					.atenas-pill-okLabel,
+					.atenas-plan-nameLabel,
+					.atenas-plan-metaLabel,
+					.atenas-plan-priceLabel,
+					.field-inputLabel,
+					.field-helpLabel,
+					.field-errorLabel,
+					.text-dividerLabel,
+					.plan-nameLabel,
+					.plan-freqLabel,
+					.plan-priceLabel,
+					.info-labelLabel,
+					.info-valueLabel,
+					.amount-labelLabel,
+					.text-amountLabel,
+					.status-pill--pendingLabel,
+					.status-pill--okLabel,
+					.status-pill--errorLabel,
+					.ref-labelLabel,
+					.receipt-footer-textLabel,
+					.page-footerLabel,
+					.header-logoLabel,
+					.header-nameLabel,
+					.header-name--accentLabel,
+					.header-taglineLabel,
+					.field-label-redLabel,
+					.field-lgLabel,
+					.btn-ctaLabel,
+					.admin-topbar-titleLabel,
+					.admin-topbar-textLabel,
+					.admin-hero-titleLabel,
+					.admin-hero-textLabel,
+					.admin-section-titleLabel,
+					.admin-card-titleLabel,
+					.admin-card-textLabel,
+					.admin-kpi-labelLabel,
+					.admin-kpi-valueLabel,
+					.admin-kpi-metaLabel,
+					.admin-mini-valueLabel,
+					.admin-mini-textLabel,
+					.admin-pill-okLabel,
+					.admin-pill-warnLabel,
+					.admin-pill-dangerLabel,
+					.btn-topbarLabel,
+					.btn-topbar-secondaryLabel
+					{
+						display: none;
+					}
+		
+					// ─── gx-form-group full width ──────────────────────────────────
+		
+					.gx-form-group
+					{
+						width: 100%;
+						margin-bottom: 0;
+					}
+		
+					.gx-form-group .gx-attribute,
+					.gx-form-group .gx-form-item.gx-attribute
+					{
+						width: 100%;
+						max-width: 100%;
+					}
+		
+					.backoffice-main .gx-form-group > label.control-label,
+					.backoffice-main .gx-form-group > .gx-label.control-label
+					{
+						display: none !important;
+					}
+		
+					.backoffice-main .gx-form-group > .gx-form-item.gx-attribute,
+					.backoffice-main .gx-form-group > .gx-form-item.gx-attribute-readonly
+					{
+						width: 100% !important;
+						max-width: 100% !important;
+						margin-left: 0 !important;
+					}
+		
+					.backoffice-main textarea.field
+					{
+						min-height: 46px;
+						height: 46px;
+						resize: none;
+						overflow: hidden;
+					}
+		
+					#vRUTAARCHIVO
+					{
+						min-height: 46px !important;
+						height: 46px !important;
+						max-height: 46px !important;
+						line-height: 24px;
+						white-space: nowrap;
+						overflow: hidden !important;
+						overflow-y: hidden !important;
+						resize: none;
+					}
+		
+					#vRESUMENPREVIEW,
+					#span_vRESUMENPREVIEW
+					{
+						min-height: 18px !important;
+						height: auto !important;
+						display: block;
+						white-space: normal;
+					}
+		
+					#vACCESSTOKEN,
+					#vBASEURL,
+					#vMAILPASSWORD,
+					#vWEBHOOKURL,
+					#vMENSAJE,
+					#vESTADOTEXTO,
+					#vCONFIGBASEURL,
+					#vDEBUGFILEPATH,
+					#vERRDESCRIPTION
+					{
+						min-height: 46px !important;
+						height: 46px !important;
+						max-height: 46px !important;
+						line-height: 24px;
+						overflow: hidden !important;
+						overflow-y: hidden !important;
+						resize: none;
+					}
+		
+					.backoffice-main .gx-form-group .admin-pill-ok,
+					.backoffice-main .gx-form-group .admin-pill-warn,
+					.backoffice-main .gx-form-group .admin-pill-danger
+					{
+						margin-left: 0 !important;
+					}
+		
+					#PAGINACIONBAR
+					{
+						align-items: center;
+						padding: 14px 18px !important;
+						border-radius: 20px;
+						min-height: 64px;
+						box-sizing: border-box;
+					}
+		
+					#PAGINACIONBAR .btn-secondary,
+					#PAGINACIONBAR .btn-primary
+					{
+						display: inline-flex !important;
+						align-items: center;
+						justify-content: center;
+						width: auto !important;
+						min-width: 108px;
+						max-width: 148px;
+						height: 40px;
+						padding-left: 18px;
+						padding-right: 18px;
+						margin-top: 0;
+					}
+		
+					.admin-pager-host,
+					.backoffice-main .page-footer
+					{
+						height: auto !important;
+						padding-top: 0 !important;
+						padding-bottom: 0 !important;
+						padding-left: 0 !important;
+						padding-right: 0 !important;
+					}
+		
+					#BTNPAGINAANTERIOR
+					{
+						justify-self: start;
+					}
+		
+					#BTNPAGINASIGUIENTE
+					{
+						justify-self: end;
+					}
+		
+					#span_vRESUMENPAGINACION
+					{
+						display: inline-block;
+						text-align: center;
+						white-space: nowrap;
+					}
+		
+					#span_vWEBHOOKURL,
+					#span_vMENSAJE,
+					#span_vESTADOTEXTO,
+					#span_vCONFIGBASEURL,
+					#span_vDEBUGFILEPATH,
+					#span_vERRDESCRIPTION
+					{
+						display: block;
+						white-space: normal;
+						line-height: 1.45;
+					}
+				}
+	#End
+
+	#Properties
+		Name = "Caatenas1928"
+	#End
+
+}

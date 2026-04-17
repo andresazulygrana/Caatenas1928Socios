@@ -1,0 +1,148 @@
+<layout type="Web">
+	<view>
+		<responsive name="Main" class="ContainerFluid PromptContainer" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:25},{&quot;width&quot;:75}]]}]">
+			<row>
+				<cell class="PromptAdvancedBarCell">
+					<responsive name="AdvancedContainer" class="AdvancedContainerVisible" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}],[{&quot;width&quot;:100}],[{&quot;width&quot;:100}],[{&quot;width&quot;:100}],[{&quot;width&quot;:100}],[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]}]">
+						<row>
+							<cell>
+								<responsive name="SocioIdFilterContainer" class="AdvancedContainerItem AdvancedContainerItemExpanded" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]}]">
+									<row>
+										<cell>
+											<label name="LblSocioIdFilter" caption="=SocioId.Title" class="WWAdvancedLabel WWFilterLabel" gxFormat="HTML" />
+										</cell>
+									</row>
+									<row>
+										<cell class="WWFiltersCell">
+											<input attribute="&amp;cSocioId" labelPosition="None" />
+										</cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<responsive name="SocioCedulaFilterContainer" class="AdvancedContainerItem AdvancedContainerItemExpanded" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]}]">
+									<row>
+										<cell>
+											<label name="LblSocioCedulaFilter" caption="=SocioCedula.Title" class="WWAdvancedLabel WWFilterLabel" gxFormat="HTML" />
+										</cell>
+									</row>
+									<row>
+										<cell class="WWFiltersCell">
+											<input attribute="&amp;cSocioCedula" labelPosition="None" />
+										</cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<responsive name="SocioNombreFilterContainer" class="AdvancedContainerItem AdvancedContainerItemExpanded" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]}]">
+									<row>
+										<cell>
+											<label name="LblSocioNombreFilter" caption="=SocioNombre.Title" class="WWAdvancedLabel WWFilterLabel" gxFormat="HTML" />
+										</cell>
+									</row>
+									<row>
+										<cell class="WWFiltersCell">
+											<input attribute="&amp;cSocioNombre" labelPosition="None" />
+										</cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<responsive name="SocioApellidoFilterContainer" class="AdvancedContainerItem AdvancedContainerItemExpanded" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]}]">
+									<row>
+										<cell>
+											<label name="LblSocioApellidoFilter" caption="=SocioApellido.Title" class="WWAdvancedLabel WWFilterLabel" gxFormat="HTML" />
+										</cell>
+									</row>
+									<row>
+										<cell class="WWFiltersCell">
+											<input attribute="&amp;cSocioApellido" labelPosition="None" />
+										</cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<responsive name="SocioTelefonoFilterContainer" class="AdvancedContainerItem AdvancedContainerItemExpanded" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]}]">
+									<row>
+										<cell>
+											<label name="LblSocioTelefonoFilter" caption="=SocioTelefono.Title" class="WWAdvancedLabel WWFilterLabel" gxFormat="HTML" />
+										</cell>
+									</row>
+									<row>
+										<cell class="WWFiltersCell">
+											<input attribute="&amp;cSocioTelefono" labelPosition="None" />
+										</cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<responsive name="SocioFechaNacimientoFilterContainer" class="AdvancedContainerItem AdvancedContainerItemExpanded" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]}]">
+									<row>
+										<cell>
+											<label name="LblSocioFechaNacimientoFilter" caption="=SocioFechaNacimiento.Title" class="WWAdvancedLabel WWDateFilterLabel" gxFormat="HTML" />
+										</cell>
+									</row>
+									<row>
+										<cell class="WWFiltersCell">
+											<input attribute="&amp;cSocioFechaNacimiento" labelPosition="None" flatDatepicker="True" />
+										</cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<responsive name="TipoCuotaIdFilterContainer" class="AdvancedContainerItem AdvancedContainerItemExpanded" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]}]">
+									<row>
+										<cell>
+											<label name="LblTipoCuotaIdFilter" caption="=TipoCuotaId.Title" class="WWAdvancedLabel WWFilterLabel" gxFormat="HTML" />
+										</cell>
+									</row>
+									<row>
+										<cell class="WWFiltersCell">
+											<input attribute="&amp;cTipoCuotaId" labelPosition="None" />
+										</cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+					</responsive>
+				</cell>
+				<cell class="WWGridCell">
+					<responsive name="GridTable" responsiveSizes="[{&quot;scale&quot;:&quot;sm&quot;,&quot;rows&quot;:[[{&quot;visible&quot;:false}],[{&quot;width&quot;:100}],[{&quot;width&quot;:100}]]},{&quot;scale&quot;:&quot;xs&quot;,&quot;rows&quot;:[[{&quot;width&quot;:100}]]},{&quot;scale&quot;:&quot;md&quot;,&quot;rows&quot;:[[{&quot;visible&quot;:false}]]},{&quot;scale&quot;:&quot;lg&quot;,&quot;rows&quot;:[[{&quot;visible&quot;:false}]]}]">
+						<row>
+							<cell class="ToggleCell">
+								<action name="BtnToggle" onClickEvent="'Toggle'" caption="|||" class="BtnToggle" />
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<tabularGrid name="Grid1" class="PromptGrid" maxRows="10">
+									<input attribute="&amp;LinkSelection" title="" class="SelectionAttribute" columnClass="WWActionColumn" returnOnClick="True" />
+									<input attribute="SocioId" title="=SocioId.ContextualTitle" columnClass="WWColumn" />
+									<input attribute="SocioCedula" title="=SocioCedula.ContextualTitle" class="DescriptionAttribute" columnClass="WWColumn" returnOnClick="True" readOnly="True" />
+									<input attribute="SocioTelefono" title="=SocioTelefono.ContextualTitle" columnClass="WWColumn OptionalColumn" />
+								</tabularGrid>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<action name="btn_cancel" onClickEvent="Cancel" caption="GX_BtnCancel" class="BtnCancel" />
+							</cell>
+						</row>
+					</responsive>
+				</cell>
+			</row>
+		</responsive>
+	</view>
+</layout>

@@ -1,0 +1,19 @@
+Image arrow_left
+{
+	<?xml version="1.0" encoding="utf-16"?>
+
+	<Images>
+
+	  <ImageItem><Properties><Property><Name>Description</Name><Value /></Property><Property><Name>ThemeReference</Name><Value>NULL</Value></Property><Property><Name>LanguageReference</Name><Value>NULL</Value></Property></Properties></ImageItem>
+
+	  <ImageItem><Properties><Property><Name>Description</Name><Value /></Property><Property><Name>ThemeReference</Name><Value>NULL</Value></Property><Property><Name>LanguageReference</Name><Value>NULL</Value></Property></Properties></ImageItem>
+
+	</Images>
+
+	#Properties
+		Name = "arrow_left"
+
+		Description = "arrow_left"
+	#End
+
+}

@@ -1,0 +1,84 @@
+Procedure PrepararSocioPruebaPago
+{
+	&SocioId = 0
+	&Mensaje = !""
+	&CedulaNorm = Trim(&Cedula)
+	&CedulaNorm = &CedulaNorm.ReplaceRegEx(!"[.]", !"")
+	&CedulaNorm = &CedulaNorm.ReplaceRegEx(!"[-]", !"")
+	&CedulaNorm = &CedulaNorm.ReplaceRegEx(!"[ ]", !"")
+
+	If &CedulaNorm.IsEmpty() OR &Nombre.IsEmpty() OR &Apellido.IsEmpty() OR &Email.IsEmpty()
+		&Mensaje = !"Completa cedula, nombre, apellido y email"
+		Return
+	EndIf
+
+	InicializarDatos()
+
+	For Each Socio
+		Where SocioCedula = &CedulaNorm
+		&SocioId = SocioId
+		Exit
+	EndFor
+
+	If &SocioId > 0
+		&SocioBC = new()
+		&SocioBC.Load(&SocioId)
+		&SocioBC.SocioNombre = &Nombre
+		&SocioBC.SocioApellido = &Apellido
+		&SocioBC.SocioEmail = &Email
+		&SocioBC.SocioTelefono = &Telefono
+		&SocioBC.TipoCuotaId = &TipoCuotaId
+		&SocioBC.SocioEstado = !"A"
+		&SocioBC.Save()
+		If &SocioBC.Fail()
+			&Mensaje = Format(!"Error al actualizar socio de prueba: %1", &SocioBC.GetMessages().ToJson())
+			Rollback
+			Return
+		EndIf
+	Else
+		&SocioBC = new()
+		&SocioBC.SocioCedula = &CedulaNorm
+		&SocioBC.SocioNombre = &Nombre
+		&SocioBC.SocioApellido = &Apellido
+		&SocioBC.SocioEmail = &Email
+		&SocioBC.SocioTelefono = &Telefono
+		&SocioBC.TipoCuotaId = &TipoCuotaId
+		&SocioBC.SocioEstado = !"A"
+		&SocioBC.SocioOrigen = !"N"
+		&SocioBC.SocioFechaAlta = Now()
+		&SocioBC.Save()
+		If &SocioBC.Fail()
+			&Mensaje = Format(!"Error al crear socio de prueba: %1", &SocioBC.GetMessages().ToJson())
+			Rollback
+			Return
+		EndIf
+		&SocioId = &SocioBC.SocioId
+	EndIf
+
+	Commit
+	GenerarCuotaManual(&SocioId, &MensajeCuota)
+	&Mensaje = Format(!"Socio de prueba listo. %1", &MensajeCuota)
+
+	#Rules
+		parm(in: &Cedula, in: &Nombre, in: &Apellido, in: &Email, in: &Telefono, in: &TipoCuotaId, out: &SocioId, out: &Mensaje);
+	#End
+
+	#Conditions
+	#End
+
+	#Variables
+		Cedula [ DataType = 'Attribute:SocioCedula', Description = 'Cedula para el socio de prueba' ]
+		CedulaNorm [ DataType = 'Attribute:SocioCedula', Description = 'Cedula normalizada del socio de prueba' ]
+		Nombre [ DataType = 'Attribute:SocioNombre', Description = 'Nombre del socio de prueba' ]
+		Apellido [ DataType = 'Attribute:SocioApellido', Description = 'Apellido del socio de prueba' ]
+		Email [ DataType = 'Attribute:SocioEmail', Description = 'Email del socio de prueba' ]
+		Telefono [ DataType = 'Attribute:SocioTelefono', Description = 'Telefono del socio de prueba' ]
+		TipoCuotaId [ DataType = 'Attribute:TipoCuotaId', Description = 'Tipo de cuota para la prueba' ]
+		SocioId [ DataType = 'Attribute:SocioId', Description = 'Identificador del socio de prueba' ]
+		Mensaje [ DataType = 'VarChar(512)', Description = 'Resultado de la preparacion del socio de prueba' ]
+		MensajeCuota [ DataType = 'VarChar(256)', Description = 'Resultado de generar la cuota de prueba' ]
+		SocioBC [ DataType = 'Socio', Description = 'Instancia BC de socio para crear o actualizar el registro de prueba' ]
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+	#End
+}

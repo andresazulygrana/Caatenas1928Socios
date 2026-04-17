@@ -1,0 +1,70 @@
+Procedure NotificarPagoSocio
+{
+		For Each
+			Where CuotaId = &CuotaId
+			&DestinoEmail = Trim(SocioEmail)
+			&DestinoNombre = Trim(SocioNombre) + !" " + Trim(SocioApellido)
+			&Cedula = SocioCedula
+			&Periodo = CuotaPeriodo
+			&Importe = CuotaImporte
+			If NOT CuotaFechaPago.IsEmpty()
+				&FechaPagoTexto = Format(!"%1", CuotaFechaPago)
+			EndIf
+			If NOT CuotaMPPaymentId.IsEmpty()
+				&Referencia = CuotaMPPaymentId
+			Else
+				&Referencia = !"Cuota " + Trim(Str(CuotaId, 10, 0))
+			EndIf
+			Exit
+		EndFor
+	
+		If &DestinoEmail.IsEmpty()
+			Return
+		EndIf
+	
+		&ImporteTexto = Trim(Str(&Importe, 12, 2))
+		&Asunto = !"Pago confirmado - Club Atletico Atenas"
+		&TextoPlano = !"Hola " + &DestinoNombre + !". Registramos el pago de tu cuota. Periodo: " + &Periodo + !". Importe: $" + &ImporteTexto + !". Referencia: " + &Referencia + !". Fecha: " + &FechaPagoTexto + !"."
+		&TextoHtml = !"<h2>Club Atletico Atenas</h2><p>Hola " + &DestinoNombre + !", registramos el pago de tu cuota.</p><p><strong>Periodo:</strong> " + &Periodo + !"<br/><strong>Importe:</strong> $" + &ImporteTexto + !"<br/><strong>Referencia:</strong> " + &Referencia + !"<br/><strong>Fecha:</strong> " + &FechaPagoTexto + !"<br/><strong>Cedula:</strong> " + &Cedula + !"</p><p>Este correo funciona como comprobante de pago.</p>"
+	
+		EnviarCorreoSMTP(&DestinoEmail, &DestinoNombre, &Asunto, &TextoHtml, &TextoPlano, &Enviado, &MensajeResultado)
+
+	#Rules
+		parm(in: &CuotaId);
+	#End
+
+	#Variables
+			CuotaId [ Description = 'Cuota pagada a notificar', DataType = 'Attribute:CuotaId' ]
+
+			DestinoEmail [ Description = '', DataType = 'VarChar(120)', AverageLength = '0', Collection = 'False', ControlType = 'Edit' ]
+
+			DestinoNombre [ Description = '', DataType = 'VarChar(120)' ]
+
+			Cedula [ Description = '', DataType = 'Attribute:SocioCedula' ]
+
+			Periodo [ Description = '', DataType = 'Attribute:CuotaPeriodo' ]
+
+			Importe [ Description = '', DataType = 'Attribute:CuotaImporte' ]
+
+			ImporteTexto [ Description = '', DataType = 'VarChar(30)' ]
+
+			FechaPagoTexto [ Description = '', DataType = 'VarChar(40)' ]
+
+			Referencia [ Description = '', DataType = 'VarChar(128)' ]
+
+			Asunto [ Description = '', DataType = 'VarChar(200)' ]
+
+			TextoHtml [ Description = '', DataType = 'LongVarChar(4K)', AverageLength = '0', Collection = 'False', ControlType = 'Edit' ]
+
+			TextoPlano [ Description = '', DataType = 'LongVarChar(4K)' ]
+
+			Enviado [ Description = '', DataType = 'Boolean' ]
+
+			MensajeResultado [ Description = '', DataType = 'VarChar(512)' ]
+	#End
+
+	#Properties
+		Name = "NotificarPagoSocio"
+	#End
+
+}

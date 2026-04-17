@@ -1,0 +1,11 @@
+Domain QueryViewerExpandCollapse
+{
+	#Properties
+		Name = "QueryViewerExpandCollapse"
+
+		DataType = "Character(20)"
+
+		EnumValues = "ExpandAllValues, Expand all values, ExpandAllValues; CollapseAllValues, Collapse all values, CollapseAllValues; ExpandSomeValues, Expand some values, ExpandSomeValues"
+	#End
+
+}

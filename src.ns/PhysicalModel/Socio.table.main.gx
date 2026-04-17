@@ -1,0 +1,34 @@
+Table Socio
+{
+		SocioId*
+
+		SocioCedula
+
+		SocioNombre
+
+		SocioApellido
+
+		SocioEmail
+
+		SocioTelefono
+
+		SocioFechaNacimiento
+
+		TipoCuotaId
+
+		SocioEstado
+
+		SocioFechaAlta
+
+		SocioOrigen
+
+	#Indexes
+		ISocio
+		ISocio1
+	#End
+
+	#Properties
+		Name = "Socio"
+	#End
+
+}

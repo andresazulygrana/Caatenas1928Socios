@@ -1,0 +1,172 @@
+Procedure CrearSocioYPrimeraCuota
+{
+		// Normalizar cedula: quitar puntos, guiones y espacios
+		&CedulaNorm = Trim(&Cedula)
+		&CedulaNorm = &CedulaNorm.ReplaceRegEx(!"[.]", !"")
+		&CedulaNorm = &CedulaNorm.ReplaceRegEx(!"[-]", !"")
+		&CedulaNorm = &CedulaNorm.ReplaceRegEx(!"[ ]", !"")
+		&DebugTexto = !"Inicio alta" + NewLine() +
+			!"Cedula=" + &CedulaNorm + NewLine() +
+			!"Nombre=" + Trim(&Nombre) + NewLine() +
+			!"Apellido=" + Trim(&Apellido) + NewLine() +
+			!"Email=" + Trim(&Email) + NewLine() +
+			!"Telefono=" + Trim(&Telefono) + NewLine() +
+			!"TipoCuotaId=" + Trim(Str(&TipoCuotaId, 4, 0)) + NewLine()
+	
+		// Crear el socio via Business Component
+		&SocioId = 0
+		&SocioBC = new()
+		&SocioBC.SocioCedula = &CedulaNorm
+		&SocioBC.SocioNombre = &Nombre
+		&SocioBC.SocioApellido = &Apellido
+		&SocioBC.SocioEmail = &Email
+		&SocioBC.SocioTelefono = &Telefono
+		&SocioBC.TipoCuotaId = &TipoCuotaId
+		&SocioBC.SocioEstado = !"A"
+		&SocioBC.SocioOrigen = !"N"
+		&SocioBC.SocioFechaAlta = Now()
+		&Mensaje = !""
+		&SocioBC.Save()
+		If not &SocioBC.Success()
+			&Mensaje = Format(!"Error al crear socio: %1", &SocioBC.GetMessages().ToJson())
+			&DebugTexto += !"ResultadoSocio=ERROR" + NewLine() + &Mensaje + NewLine()
+			Do 'EscribirDebug'
+			Rollback
+			Return
+		EndIf
+		Commit
+	
+		// SocioId disponible directamente tras Save()
+		&SocioId = &SocioBC.SocioId
+		&DebugTexto += !"ResultadoSocio=OK" + NewLine() +
+			!"SocioId=" + Trim(Str(&SocioId, 8, 0)) + NewLine()
+	
+		// Resolver datos base del tipo de cuota
+		&TipoCuotaDescripcionActual = !""
+		&Importe = 0
+		For Each TipoCuota
+			Where TipoCuotaId = &TipoCuotaId
+			&TipoCuotaDescripcionActual = TipoCuotaDescripcion
+			&Importe = TipoCuotaImporte
+			Exit
+		EndFor
+		&DebugTexto += !"TipoCuotaDescripcion=" + Trim(&TipoCuotaDescripcionActual) + NewLine() +
+			!"Importe=" + Trim(Str(&Importe, 12, 2)) + NewLine()
+	
+		// Calcular periodo y vencimiento inicial segun el tipo de cuota
+		&Hoy = Today()
+		&Anio = Year(&Hoy)
+		&Mes = Month(&Hoy)
+		If &TipoCuotaDescripcionActual.Contains(!"Anual")
+			&Periodo = Trim(Str(&Anio)) + !"-AN"
+			&FechaVencimiento = AddMth(&Hoy, 12)
+		Else
+			If &Mes < 10
+				&Periodo = Trim(Str(&Anio)) + !"-0" + Trim(Str(&Mes))
+			Else
+				&Periodo = Trim(Str(&Anio)) + !"-" + Trim(Str(&Mes))
+			EndIf
+	
+			If &TipoCuotaDescripcionActual.Contains(!"Basquet") Or &TipoCuotaDescripcionActual.Contains(!"Beca 50%")
+				&FechaVencimiento = YMDtoD(&Anio, &Mes, 10)
+			Else
+				If &Mes = 12
+					&FechaVencimiento = YMDtoD(&Anio + 1, 1, 1) - 1
+				Else
+					&FechaVencimiento = YMDtoD(&Anio, &Mes + 1, 1) - 1
+				EndIf
+			EndIf
+		EndIf
+	
+		// Crear primera cuota pendiente via Business Component
+		&CuotaBC = new()
+		&CuotaBC.SocioId = &SocioId
+		&CuotaBC.TipoCuotaId = &TipoCuotaId
+		&CuotaBC.CuotaPeriodo = &Periodo
+		&CuotaBC.CuotaImporte = &Importe
+		&CuotaBC.CuotaEstado = !"P"
+		&CuotaBC.CuotaFechaVencimiento = &FechaVencimiento
+		&CuotaBC.Save()
+		If not &CuotaBC.Success()
+			&Mensaje = Format(!"Error al crear cuota: %1", &CuotaBC.GetMessages().ToJson())
+			&DebugTexto += !"ResultadoCuota=ERROR" + NewLine() +
+				!"Periodo=" + Trim(&Periodo) + NewLine() +
+				!"FechaVencimiento=" + DtoC(&FechaVencimiento) + NewLine() +
+				&Mensaje + NewLine()
+			Do 'EscribirDebug'
+			Rollback
+			&SocioId = 0
+			Return
+		EndIf
+		Commit
+		&DebugTexto += !"ResultadoCuota=OK" + NewLine() +
+			!"Periodo=" + Trim(&Periodo) + NewLine() +
+			!"FechaVencimiento=" + DtoC(&FechaVencimiento) + NewLine()
+	
+		NotificarAltaSocio(&SocioId)
+		&DebugTexto += !"NotificarAltaSocio=EJECUTADO" + NewLine()
+		Do 'EscribirDebug'
+	
+		Sub 'EscribirDebug'
+			&DebugFilePath = !"C:\Users\andres.cabrera\GeneXus\KBs\Caatenas1928\NetModel\web\alta_socio_debug.txt"
+			&DebugFile = new()
+			&DebugFile.Source = &DebugFilePath
+			&DebugFile.Create()
+			&DebugFile.OpenWrite()
+			&DebugFile.WriteLine(&DebugTexto)
+			&DebugFile.Close()
+		EndSub
+
+	#Rules
+		parm(in: &Cedula, in: &Nombre, in: &Apellido, in: &Email, in: &Telefono, in: &TipoCuotaId, out: &SocioId, out: &Mensaje);
+	#End
+
+	#Variables
+			Cedula [ Description = 'Cedula de identidad del nuevo socio', DataType = 'Attribute:SocioCedula' ]
+
+			Nombre [ Description = 'Nombre del nuevo socio', DataType = 'Attribute:SocioNombre' ]
+
+			Apellido [ Description = 'Apellido del nuevo socio', DataType = 'Attribute:SocioApellido' ]
+
+			Email [ Description = 'Correo electronico del nuevo socio', DataType = 'Attribute:SocioEmail' ]
+
+			Telefono [ Description = 'Telefono del nuevo socio', DataType = 'Attribute:SocioTelefono' ]
+
+			TipoCuotaId [ Description = 'Tipo de cuota seleccionado', DataType = 'Attribute:TipoCuotaId' ]
+
+			SocioId [ Description = 'Identificador del socio creado disponible tras Save()', DataType = 'Attribute:SocioId' ]
+
+			SocioBC [ Description = 'Instancia BC de Socio para insercion', DataType = 'Socio' ]
+
+			CuotaBC [ Description = 'Instancia BC de Cuota para la primera cuota', DataType = 'Cuota' ]
+
+			Hoy [ Description = 'Fecha actual del sistema', DataType = 'Date' ]
+
+			Anio [ Description = 'Anio del periodo actual', DataType = 'Numeric(4.0)' ]
+
+			Mes [ Description = 'Mes del periodo actual', DataType = 'Numeric(2.0)' ]
+
+			Periodo [ Description = 'Periodo en formato AAAA-MM', DataType = 'Attribute:CuotaPeriodo' ]
+
+			FechaVencimiento [ Description = 'Ultimo dia del mes actual', DataType = 'Date' ]
+
+			Importe [ Description = 'Importe del tipo de cuota seleccionado', DataType = 'Attribute:TipoCuotaImporte' ]
+
+			CedulaNorm [ Description = 'Cedula normalizada sin puntos, guiones ni espacios', DataType = 'Attribute:SocioCedula' ]
+
+			TipoCuotaDescripcionActual [ Description = 'Descripcion del tipo de cuota seleccionado', DataType = 'Attribute:TipoCuotaDescripcion' ]
+
+			Mensaje [ Description = 'Detalle del error de alta si el BC falla', DataType = 'LongVarChar(2M)' ]
+
+			DebugTexto [ Description = 'Traza temporal del flujo de alta', DataType = 'LongVarChar(4K)' ]
+
+			DebugFilePath [ Description = 'Ruta del archivo de traza del alta', DataType = 'VarChar(512)' ]
+
+			DebugFile [ Description = 'Archivo de traza del alta', DataType = 'File' ]
+	#End
+
+	#Properties
+		Name = "CrearSocioYPrimeraCuota"
+	#End
+
+}

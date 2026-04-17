@@ -1,0 +1,15 @@
+SDT MercadoPagoWebhookData
+{
+		MercadoPagoWebhookData [ Description = 'Nodo data del webhook de Mercado Pago' ]	{
+
+			Id [ DataType = 'VarChar(128)' ]
+
+		}
+
+	#Properties
+		Name = "MercadoPagoWebhookData"
+
+		Description = "Mercado Pago Webhook Data"
+	#End
+
+}

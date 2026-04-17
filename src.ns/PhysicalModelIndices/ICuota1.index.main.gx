@@ -1,0 +1,15 @@
+Index ICuota1
+{
+	SocioId
+
+	#Index
+		Source = "Automatic"
+
+		Type = "Duplicate"
+	#End
+
+	#Properties
+		Name = "ICuota1"
+	#End
+
+}

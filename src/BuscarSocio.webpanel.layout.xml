@@ -1,0 +1,129 @@
+<layout type="Web">
+	<view>
+		<responsive name="PageContent" class="page">
+			<row>
+				<cell>
+					<responsive name="HeaderBand" class="page-header">
+						<row>
+							<cell horizontalAlignment="Left" verticalAlignment="Middle">
+								<table name="HeaderBrand" width="100%" class="header-brand" tableType="Flex" alignItems="Center">
+									<row>
+										<cell verticalAlignment="Middle" flexGrow="0">
+											<label name="LblEscudoPortal" caption="A" class="header-crest" />
+										</cell>
+										<cell flexGrow="0">
+											<responsive name="HeaderTextBlock">
+												<row>
+													<cell>
+														<table name="HeaderNameRow" tableType="Flex" alignItems="Center">
+															<row>
+																<cell flexGrow="0">
+																	<label name="LblBrandClub" caption="Club" class="header-name" />
+																</cell>
+																<cell flexGrow="0">
+																	<label name="LblBrandAtenas" caption="Atenas" class="header-name header-name--accent" />
+																</cell>
+															</row>
+														</table>
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<label name="LblPortalSub" caption="Portal del socio" class="header-tagline" />
+													</cell>
+												</row>
+											</responsive>
+										</cell>
+									</row>
+								</table>
+							</cell>
+						</row>
+					</responsive>
+				</cell>
+			</row>
+			<row>
+				<cell horizontalAlignment="Center" verticalAlignment="Top">
+					<responsive name="HeroBand" class="page-hero">
+						<row>
+							<cell horizontalAlignment="Center" verticalAlignment="Middle">
+								<smart name="HeroPortal" columns="100%" rows="48px;48px" width="100%">
+									<row>
+										<cell horizontalAlignment="Center" verticalAlignment="Middle">
+											<label name="LblTituloHero" caption="Bienvenido al portal de socios" class="text-title" />
+										</cell>
+									</row>
+									<row>
+										<cell horizontalAlignment="Center" verticalAlignment="Middle">
+											<label name="LblSubtituloHero" caption="Consultá tu estado, pagá tu cuota y mantenete al día con tu membresía en el Club Atlético Atenas." class="text-subtitle" />
+										</cell>
+									</row>
+								</smart>
+							</cell>
+						</row>
+					</responsive>
+				</cell>
+			</row>
+			<row>
+				<cell horizontalAlignment="Center" verticalAlignment="Top">
+					<smart name="MainContent" columns="100%" rows="272px;12px;54px;46px;46px" width="520dip" class="page-content">
+						<row>
+							<cell horizontalAlignment="Center">
+								<smart name="PortalCard" columns="100%" rows="48px;48px;52px;48px;20px" width="100%" class="surface">
+									<row>
+										<cell horizontalAlignment="Left" verticalAlignment="Middle">
+											<label name="LblCardTitle" caption="Ingresá tu cédula" class="surface-title" />
+										</cell>
+									</row>
+									<row>
+										<cell verticalAlignment="Middle">
+											<label name="LblCedula" caption="NÚMERO DE CÉDULA" class="field-label" />
+										</cell>
+									</row>
+									<row>
+										<cell verticalAlignment="Middle">
+											<input attribute="&amp;Cedula" class="field-input" />
+										</cell>
+									</row>
+									<row>
+										<cell verticalAlignment="Middle">
+											<label name="LblHintCedula" caption="Sin puntos ni guión. Ingresá solo los números." class="field-help" />
+										</cell>
+									</row>
+									<row>
+										<cell verticalAlignment="Middle">
+											<input attribute="&amp;MensajeError" readonly="True" class="message-inline" />
+										</cell>
+									</row>
+								</smart>
+							</cell>
+						</row>
+						<row>
+							<cell />
+						</row>
+						<row>
+							<cell verticalAlignment="Middle">
+								<action name="BtnAcceder" onClickEvent="'Acceder'" caption="Continuar" class="btn-primary" />
+							</cell>
+						</row>
+						<row>
+							<cell horizontalAlignment="Center" verticalAlignment="Middle">
+								<label name="LblRegistro" caption="¿Todavía no sos socio?" class="text-divider" />
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<action name="BtnRegistrar" onClickEvent="'Registrarse'" caption="Registrarme como socio" class="btn-secondary" />
+							</cell>
+						</row>
+					</smart>
+				</cell>
+			</row>
+			<row>
+				<cell horizontalAlignment="Center">
+					<label name="LblFooterPortal" caption="clubatenas.uy · Socios" class="page-footer" />
+				</cell>
+			</row>
+		</responsive>
+		<actiongroups />
+	</view>
+</layout>

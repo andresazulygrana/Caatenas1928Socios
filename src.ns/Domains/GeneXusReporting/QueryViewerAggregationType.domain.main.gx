@@ -1,0 +1,11 @@
+Domain QueryViewerAggregationType
+{
+	#Properties
+		Name = "QueryViewerAggregationType"
+
+		DataType = "Character(20)"
+
+		EnumValues = "Sum, Sum, Sum; Count, Count, Count; Average, Average, Average; Max, Max, Max; Min, Min, Min"
+	#End
+
+}

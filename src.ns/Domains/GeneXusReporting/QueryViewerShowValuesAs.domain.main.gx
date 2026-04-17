@@ -1,0 +1,13 @@
+Domain QueryViewerShowValuesAs
+{
+	#Properties
+		Name = "QueryViewerShowValuesAs"
+
+		DataType = "Character(20)"
+
+		EnumValues = "NoCalculation, No calculation, NoCalculation; RunningTotal, Running total, RunningTotal; RollingAverage, Rolling average, RollingAverage; Difference, Difference, Difference"
+
+		InitialValue = "QueryViewerShowValuesAs.NoCalculation"
+	#End
+
+}

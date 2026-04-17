@@ -1,0 +1,11 @@
+Domain QueryViewerTotal
+{
+	#Properties
+		Name = "QueryViewerTotal"
+
+		DataType = "Character(20)"
+
+		EnumValues = "Yes, Yes, Yes; No, No, No"
+	#End
+
+}

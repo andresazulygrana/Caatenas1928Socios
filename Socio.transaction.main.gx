@@ -1,0 +1,35 @@
+Transaction Socio
+{
+	SocioId* [ DataType = 'Numeric(8.0)', Autonumber = 'True', Description = 'Identificador del socio' ]
+	SocioCedula! [ DataType = 'VarChar(16)', Description = 'Cedula de identidad del socio. Clave de deduplicacion' ]
+	SocioNombre [ DataType = 'VarChar(64)', Description = 'Nombre del socio' ]
+	SocioApellido [ DataType = 'VarChar(64)', Description = 'Apellido del socio' ]
+	SocioEmail [ DataType = 'VarChar(128)', Description = 'Correo electronico. Opcional' ]
+	SocioTelefono [ DataType = 'VarChar(32)', Description = 'Telefono. Opcional' ]
+	SocioFechaNacimiento [ DataType = 'Date', Description = 'Fecha de nacimiento. Opcional' ]
+	TipoCuotaId []
+	TipoCuotaDescripcion []
+	SocioEstado [ DataType = 'Character(1)', Description = 'Estado: A=Activo I=Inactivo M=Moroso' ]
+	SocioFechaAlta [ DataType = 'DateTime', Description = 'Fecha y hora de alta del socio' ]
+	SocioOrigen [ DataType = 'Character(1)', Description = 'Origen: I=Importado desde Excel N=Nuevo en web' ]
+
+	#Rules
+		noaccept(SocioId);
+		Default(SocioEstado, 'A');
+		Default(SocioFechaAlta, Now());
+	#End
+
+	#Events
+	#End
+
+	#Variables
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+		Mode [ DataType = 'Character(3)' ]
+		Today [ DataType = 'Date' ]
+	#End
+
+	#Properties
+		BusinessComponent = true
+	#End
+}

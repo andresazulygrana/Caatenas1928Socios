@@ -1,0 +1,11 @@
+Domain QueryViewerContinent
+{
+	#Properties
+		Name = "QueryViewerContinent"
+
+		DataType = "Character(20)"
+
+		EnumValues = "Africa, Africa, Africa; Antarctica, Antarctica, Antarctica; Asia, Asia, Asia; Europe, Europe, Europe; NorthAmerica, North America, NorthAmerica; Oceania, Oceania, Oceania; SouthAmerica, South America, SouthAmerica"
+	#End
+
+}

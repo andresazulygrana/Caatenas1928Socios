@@ -1,0 +1,42 @@
+<layout type="Web">
+	<view>
+		<responsive name="PortalShell" class="page">
+			<row>
+				<cell class="page-header" vAlign="Middle">
+					<table name="HeaderBrand" class="header-brand" tableType="Flex" alignItems="Center" width="100%">
+						<row>
+							<cell flexGrow="0" vAlign="Middle"><image name="ImgEscudoPortal" image="EscudoAtenas" class="header-logo"/></cell>
+							<cell flexGrow="0">
+								<responsive name="HeaderTextBlock">
+									<row>
+										<cell>
+											<table name="HeaderNameRow" tableType="Flex" alignItems="Center">
+												<row>
+													<cell flexGrow="0"><label name="LblBrandClub" caption="Club" class="header-name"/></cell>
+													<cell flexGrow="0"><label name="LblBrandAtenas" caption="Atenas" class="header-name header-name--accent"/></cell>
+												</row>
+											</table>
+										</cell>
+									</row>
+									<row>
+										<cell><label name="LblPortalSub" caption="Portal del socio" class="header-tagline"/></cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+					</table>
+				</cell>
+			</row>
+			<row>
+				<cell>
+					<contentholder name="ContentHolder"/>
+				</cell>
+			</row>
+			<row>
+				<cell hAlign="Center">
+					<label name="LblFooterPortal" caption="clubatenas.uy &#183; Socios" class="page-footer"/>
+				</cell>
+			</row>
+		</responsive>
+	</view>
+</layout>

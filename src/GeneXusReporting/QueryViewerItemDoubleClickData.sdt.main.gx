@@ -1,0 +1,41 @@
+SDT QueryViewerItemDoubleClickData
+{
+		QueryViewerItemDoubleClickData	{
+
+			Name [ DataType = 'Character(20)' ]
+
+			Type [ DataType = 'QueryViewerElementType, GeneXusReporting' ]
+
+			Axis [ DataType = 'QueryViewerAxisType, GeneXusReporting' ]
+
+			Value [ DataType = 'Character(20)' ]
+
+			Context [ Collection = 'True', CollectionItemName = 'Element' ]		{
+
+				Name [ DataType = 'Character(20)' ]
+
+				Values [ Description = 'Value', DataType = 'Character(20)', Collection = 'True' ]
+
+			}
+
+	
+
+			Filters [ Collection = 'True', CollectionItemName = 'Filter' ]		{
+
+				Name [ DataType = 'Character(20)' ]
+
+				Values [ DataType = 'Character(20)', Collection = 'True' ]
+
+			}
+
+	
+
+		}
+
+	#Properties
+		Name = "QueryViewerItemDoubleClickData"
+
+		ExposedNamespace = "GeneXus.Reporting"
+	#End
+
+}

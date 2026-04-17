@@ -1,0 +1,32 @@
+Table Cuota
+{
+		CuotaId*
+
+		SocioId
+
+		CuotaPeriodo
+
+		CuotaImporte
+
+		CuotaEstado
+
+		CuotaFechaVencimiento
+
+		CuotaFechaPago
+
+		CuotaMPPaymentId
+
+		CuotaMPExternalUrl
+
+		CuotaMPEstado
+
+	#Indexes
+		ICuota
+		ICuota1
+	#End
+
+	#Properties
+		Name = "Cuota"
+	#End
+
+}

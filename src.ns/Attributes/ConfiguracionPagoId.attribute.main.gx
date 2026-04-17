@@ -1,0 +1,11 @@
+Attribute ConfiguracionPagoId
+{
+	#Properties
+		Name = "ConfiguracionPagoId"
+
+		Description = "Identificador unico de configuracion de pago"
+
+		DataType = "Numeric(4.0)"
+	#End
+
+}

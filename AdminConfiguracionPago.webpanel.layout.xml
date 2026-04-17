@@ -1,0 +1,106 @@
+<layout type="Web">
+	<view>
+		<smart name="MainLayout" class="backoffice-page" width="100%" height="100%" columnsStyle="100%" rowsStyle="100%">
+			<row>
+				<cell hAlign="Center" vAlign="Top">
+					<smart name="Shell" class="backoffice-shell" width="100%" height="100%" columnsStyle="270px;100%" rowsStyle="100%">
+						<row>
+							<cell class="backoffice-sidebar" vAlign="Top">
+								<smart name="SidebarLayout" width="100%" columnsStyle="100%" rowsStyle="74px;98px;392px;58px">
+									<row><cell vAlign="Top"><smart name="Brand" width="100%" columnsStyle="56px;100%" rowsStyle="56px"><row><cell hAlign="Center" vAlign="Middle"><label name="LblCrest" caption="A" class="backoffice-crest"/></cell><cell hAlign="Left" vAlign="Middle"><smart name="BrandText" width="100%" columnsStyle="100%" rowsStyle="30px;18px"><row><cell hAlign="Left" vAlign="Bottom"><label name="LblBrandTitle" caption="Club Atenas" class="backoffice-brand-title"/></cell></row><row><cell hAlign="Left" vAlign="Top"><label name="LblBrandMeta" caption="Backoffice de socios" class="backoffice-brand-meta"/></cell></row></smart></cell></row></smart></cell></row>
+									<row><cell vAlign="Middle"><smart name="SidebarCard" class="backoffice-sidebar-card" width="100%" columnsStyle="100%" rowsStyle="18px;52px"><row><cell hAlign="Left" vAlign="Bottom"><label name="LblSidebarTitle" caption="Checkout Pro" class="backoffice-sidebar-section"/></cell></row><row><cell hAlign="Left" vAlign="Middle"><label name="LblSidebarText" caption="Token, Base URL, SMTP y visibilidad del circuito de cobro desde un unico punto." class="backoffice-sidebar-text"/></cell></row></smart></cell></row>
+									<row><cell vAlign="Top"><smart name="SidebarNav" width="100%" columnsStyle="100%" rowsStyle="44px;44px;44px;44px;44px;44px;44px;44px"><row><cell><action name="BtnNavDashboard" caption="Dashboard" onClickEvent="'Dashboard'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavSocios" caption="Socios" onClickEvent="'Socios'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavImportar" caption="Importar socios" onClickEvent="'ImportarSocios'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavTipos" caption="Tipos de cuota" onClickEvent="'TiposCuota'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavCuotas" caption="Cuotas" onClickEvent="'Cuotas'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavConfig" caption="Configuracion pago" onClickEvent="'ConfiguracionPago'" class="btn-sidebar-active"/></cell></row><row><cell><action name="BtnNavPruebas" caption="Prueba de pago" onClickEvent="'PruebasPago'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavSandbox" caption="Procesar sandbox" onClickEvent="'Sandbox'" class="btn-sidebar"/></cell></row></smart></cell></row>
+									<row><cell vAlign="Bottom"><label name="LblSidebarFooter" caption="Usuario: Secretaria Atenas | Admin / Operacion diaria" class="backoffice-sidebar-footer"/></cell></row>
+								</smart>
+							</cell>
+							<cell class="backoffice-main" vAlign="Top">
+								<smart name="ConfigBody" class="backoffice-main-body" width="100%" columnsStyle="100%" rowsStyle="136px;160px;900px;160px">
+									<row>
+										<cell hAlign="Center" vAlign="Middle">
+											<smart name="TopbarConfig" class="surface-elevated" width="100%" columnsStyle="70%;30%" rowsStyle="52px;26px">
+												<row>
+													<cell hAlign="Left" vAlign="Middle"><label name="LblTitulo" caption="Configuracion de pago" class="admin-topbar-title"/></cell>
+													<cell hAlign="Right" vAlign="Middle">
+														<smart name="TopbarActions" width="100%" columnsStyle="100%" rowsStyle="44px">
+															<row>
+																<cell hAlign="Right" vAlign="Middle"><action name="BtnGuardarTop" caption="Guardar configuracion" onClickEvent="'Guardar'" class="btn-topbar"/></cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+												<row>
+													<cell hAlign="Left" vAlign="Top"><label name="LblSubtitulo" caption="Modulo sensible de credenciales, correo, URL publica y circuito de pruebas." class="admin-topbar-text"/></cell>
+													<cell/>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell hAlign="Center" vAlign="Middle">
+											<smart name="ResumenConfig" class="surface-elevated" width="100%" columnsStyle="100%" rowsStyle="24px;40px;28px;40px">
+												<row><cell hAlign="Left" vAlign="Bottom"><label name="LblEstadoActual" caption="Estado operativo del checkout" class="field-label"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;TituloContexto" readonly="True" class="text-subtitle"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Middle"><label name="LblAyudaConfig" caption="Ajusta credenciales, URL publica y visibilidad del checkout desde un unico punto administrativo." class="helper-text"/></cell></row>
+												<row>
+													<cell hAlign="Left" vAlign="Middle">
+														<smart name="EstadoHero" width="100%" columnsStyle="100%" rowsStyle="40px">
+															<row>
+																<cell hAlign="Left" vAlign="Middle"><input attribute="&amp;EstadoConfiguracion" readonly="True" class="message-inline"/></cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell hAlign="Center" vAlign="Top">
+											<smart name="BloqueConfiguracion" width="100%" columnsStyle="100%" rowsStyle="900px">
+												<row>
+													<cell class="surface-elevated" hAlign="Center" vAlign="Top">
+														<smart name="CardConfiguracion" width="100%" columnsStyle="58%;42%" rowsStyle="24px;46px;24px;24px;96px;24px;46px;24px;24px;46px;24px;46px;24px;46px;24px;46px;24px;46px;24px;46px;24px;46px;24px;46px;46px">
+															<row><cell hAlign="Left" vAlign="Bottom"><label name="LblNombre" caption="Nombre de configuracion" class="field-label"/></cell><cell/></row>
+															<row><cell hAlign="Center" vAlign="Middle"><input attribute="&amp;NombreConfiguracion" class="field"/></cell><cell/></row>
+															<row><cell hAlign="Left" vAlign="Middle"><label name="LblMPHeader" caption="Mercado Pago" class="admin-section-title"/></cell><cell/></row>
+															<row><cell hAlign="Left" vAlign="Bottom"><label name="LblToken" caption="Access token Mercado Pago" class="field-label"/></cell><cell/></row>
+															<row><cell hAlign="Center" vAlign="Middle"><input attribute="&amp;AccessToken" class="field"/></cell><cell/></row>
+															<row><cell hAlign="Left" vAlign="Bottom"><label name="LblBaseUrl" caption="Base URL publica" class="field-label"/></cell><cell/></row>
+															<row><cell hAlign="Center" vAlign="Middle"><input attribute="&amp;BaseUrl" class="field"/></cell><cell/></row>
+															<row><cell hAlign="Left" vAlign="Middle"><label name="LblSMTPHeader" caption="SMTP" class="admin-section-title"/></cell><cell/></row>
+													<row><cell hAlign="Left" vAlign="Bottom"><label name="LblMailActivo" caption="Correo automatico activo" class="field-label"/></cell><cell hAlign="Left" vAlign="Bottom"><label name="LblMailSecure" caption="SMTP seguro" class="field-label"/></cell></row>
+															<row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;MailActivo" class="field"/></cell><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;MailSecure" class="field"/></cell></row>
+															<row><cell hAlign="Left" vAlign="Bottom"><label name="LblMailHost" caption="Servidor SMTP" class="field-label"/></cell><cell/></row>
+															<row><cell hAlign="Center" vAlign="Middle"><input attribute="&amp;MailHost" class="field"/></cell><cell/></row>
+															<row><cell hAlign="Left" vAlign="Bottom"><label name="LblMailPort" caption="Puerto SMTP" class="field-label"/></cell><cell hAlign="Left" vAlign="Bottom"><label name="LblMailUser" caption="Usuario SMTP" class="field-label"/></cell></row>
+															<row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;MailPort" class="field"/></cell><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;MailUser" class="field"/></cell></row>
+															<row><cell hAlign="Left" vAlign="Bottom"><label name="LblMailPassword" caption="Clave SMTP" class="field-label"/></cell><cell/></row>
+															<row><cell hAlign="Center" vAlign="Middle"><input attribute="&amp;MailPassword" class="field"/></cell><cell/></row>
+															<row><cell hAlign="Left" vAlign="Bottom"><label name="LblMailSender" caption="Correo remitente" class="field-label"/></cell><cell hAlign="Left" vAlign="Bottom"><label name="LblMailSenderName" caption="Nombre remitente" class="field-label"/></cell></row>
+															<row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;MailSender" class="field"/></cell><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;MailSenderName" class="field"/></cell></row>
+															<row><cell hAlign="Left" vAlign="Bottom"><label name="LblActivo" caption="Activa" class="field-label"/></cell><cell hAlign="Left" vAlign="Bottom"><label name="LblMensaje" caption="Resultado de la ultima accion" class="field-label"/></cell></row>
+															<row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;Activo" class="field"/></cell><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;Mensaje" readonly="True" class="message-inline"/></cell></row>
+															<row><cell hAlign="Left" vAlign="Middle"><action name="BtnGuardar" caption="Guardar configuracion" onClickEvent="'Guardar'" class="btn-primary"/></cell><cell/></row>
+														</smart>
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell hAlign="Center" vAlign="Top">
+											<smart name="CardOperativa" class="surface-elevated" width="100%" columnsStyle="58%;42%" rowsStyle="24px;64px">
+												<row><cell hAlign="Left" vAlign="Bottom"><label name="LblWebhook" caption="Webhook publico esperado" class="field-label"/></cell><cell hAlign="Left" vAlign="Bottom"><label name="LblChecklist" caption="Checklist operativo" class="field-label"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;WebhookUrl" readonly="True" class="text-caption"/></cell><cell hAlign="Left" vAlign="Middle"><label name="LblChecklistTexto" caption="1. Verifica token. 2. Confirma Base URL. 3. Revisa webhook generado. 4. Pasa a pruebas sandbox." class="helper-text"/></cell></row>
+																							</smart>
+										</cell>
+									</row>
+								</smart>
+							</cell>
+						</row>
+					</smart>
+				</cell>
+			</row>
+		</smart>
+		<actiongroups />
+	</view>
+</layout>

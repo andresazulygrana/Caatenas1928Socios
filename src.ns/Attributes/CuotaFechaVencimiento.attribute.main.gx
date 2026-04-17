@@ -1,0 +1,11 @@
+Attribute CuotaFechaVencimiento
+{
+	#Properties
+		Name = "CuotaFechaVencimiento"
+
+		Description = "Fecha de vencimiento de la cuota"
+
+		DataType = "Date"
+	#End
+
+}

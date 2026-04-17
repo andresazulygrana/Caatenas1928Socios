@@ -1,0 +1,15 @@
+Attribute SocioOrigen
+{
+	#Properties
+		Name = "SocioOrigen"
+
+		Description = "Origen: I=Importado desde Excel N=Nuevo en web"
+
+		DataType = "Character(1)"
+
+		Length = "1"
+
+		MaximumLength = "1"
+	#End
+
+}

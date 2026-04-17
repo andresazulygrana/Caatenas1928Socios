@@ -1,0 +1,15 @@
+Attribute ConfiguracionPagoMailSender
+{
+	#Properties
+		Name = "ConfiguracionPagoMailSender"
+
+		Description = "Correo remitente"
+
+		DataType = "VarChar(120)"
+
+		Length = "120"
+
+		MaximumLength = "120"
+	#End
+
+}

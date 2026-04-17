@@ -1,0 +1,15 @@
+Index ITipoCuota
+{
+	TipoCuotaId
+
+	#Index
+		Source = "Automatic"
+
+		Type = "Unique"
+	#End
+
+	#Properties
+		Name = "ITipoCuota"
+	#End
+
+}

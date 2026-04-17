@@ -1,0 +1,25 @@
+Query DashboardCuotasPorEstado
+{
+	Estado = CuotaEstado [ Description = 'Estado de cuota' ]
+	Cantidad = Count(CuotaId) [ Description = 'Cantidad de cuotas', Type = 'Datum', Picture = 'ZZZZZZ9' ]
+	Importe = Sum(CuotaImporte) [ Description = 'Importe acumulado', Type = 'Datum', Picture = 'ZZZZZZ9.99' ]
+
+	#Parameters
+	#End
+
+	#Filters
+	#End
+
+	#Orders
+		CuotaEstado
+	#End
+
+	#Properties
+		Title = "Cuotas por estado"
+		"Output Type" = "Chart"
+	#End
+
+	#Documentation
+		Query base para analitica de cuotas del dashboard administrativo.
+	#End
+}

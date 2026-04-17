@@ -1,0 +1,19 @@
+SDT MercadoPagoWebhookNotification
+{
+		MercadoPagoWebhookNotification [ Description = 'Notificacion webhook de Mercado Pago' ]	{
+
+			Type [ DataType = 'VarChar(40)' ]
+
+			Action [ DataType = 'VarChar(80)' ]
+
+			Data [ DataType = 'MercadoPagoWebhookData' ]
+
+		}
+
+	#Properties
+		Name = "MercadoPagoWebhookNotification"
+
+		Description = "Mercado Pago Webhook Notification"
+	#End
+
+}

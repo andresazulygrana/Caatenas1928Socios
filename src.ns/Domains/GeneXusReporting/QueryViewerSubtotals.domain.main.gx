@@ -1,0 +1,11 @@
+Domain QueryViewerSubtotals
+{
+	#Properties
+		Name = "QueryViewerSubtotals"
+
+		DataType = "Character(20)"
+
+		EnumValues = "Yes, Yes, Yes; Hidden, Hidden, Hidden; No, No, No"
+	#End
+
+}

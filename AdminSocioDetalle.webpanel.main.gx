@@ -1,0 +1,136 @@
+WebPanel AdminSocioDetalle
+{
+	#Events
+		Event Start
+			&SocioBC = new()
+			&SocioBC.Load(&SocioId)
+			If &SocioBC.Success()
+				&Cedula = &SocioBC.SocioCedula
+				&Nombre = &SocioBC.SocioNombre
+				&Apellido = &SocioBC.SocioApellido
+				&Email = &SocioBC.SocioEmail
+				&Telefono = &SocioBC.SocioTelefono
+				&Estado = &SocioBC.SocioEstado
+				&TipoCuotaId = &SocioBC.TipoCuotaId
+				For Each TipoCuota
+					Where TipoCuotaId = &TipoCuotaId
+					&TipoCuotaNombre = TipoCuotaDescripcion
+					Exit
+				EndFor
+				&NombreCompleto = &Nombre + !" " + &Apellido
+				&Mensaje = !""
+			Else
+				&NombreCompleto = !"Socio " + Trim(Str(&SocioId, 8, 0))
+				&Mensaje = !"Socio no encontrado"
+			EndIf
+		EndEvent
+
+		Event 'Guardar'
+			&SocioBC = new()
+			&SocioBC.Load(&SocioId)
+			&SocioBC.SocioNombre = &Nombre
+			&SocioBC.SocioApellido = &Apellido
+			&SocioBC.SocioEmail = &Email
+			&SocioBC.SocioTelefono = &Telefono
+			&SocioBC.SocioEstado = &Estado
+			&SocioBC.TipoCuotaId = &TipoCuotaId
+			&SocioBC.Save()
+			If &SocioBC.Success()
+				Commit
+				For Each TipoCuota
+					Where TipoCuotaId = &TipoCuotaId
+					&TipoCuotaNombre = TipoCuotaDescripcion
+					Exit
+				EndFor
+				&Mensaje = !"Socio actualizado correctamente"
+			Else
+				&Mensaje = &SocioBC.GetMessages().ToJson()
+			EndIf
+		EndEvent
+
+		Event 'GenerarCuota'
+			GenerarCuotaManual(&SocioId, &Mensaje)
+		EndEvent
+
+		Event 'Volver'
+			AdminSocios()
+		EndEvent
+
+		Event 'Dashboard'
+			AdminDashboard()
+		EndEvent
+
+		Event 'Socios'
+			AdminSocios()
+		EndEvent
+
+		Event 'ImportarSocios'
+			AdminImportarSocios()
+		EndEvent
+
+		Event 'TiposCuota'
+			AdminTipoCuota()
+		EndEvent
+
+		Event 'Cuotas'
+			AdminCuotas()
+		EndEvent
+
+		Event 'ConfiguracionPago'
+			AdminConfiguracionPago()
+		EndEvent
+
+		Event 'PruebasPago'
+			AdminPruebaPago()
+		EndEvent
+
+		Event 'Sandbox'
+			AdminProcesarPagoSandbox()
+		EndEvent
+
+		Event 'PortalSocios'
+			BuscarSocio()
+		EndEvent
+	#End
+
+	#Rules
+		parm(in: &SocioId);
+	#End
+
+	#Conditions
+		SocioId = &SocioId;
+	#End
+
+	#Variables
+		SocioId [ DataType = 'Attribute:SocioId', Description = 'Socio a editar' ]
+		Cedula [ DataType = 'Attribute:SocioCedula', Description = 'Cedula del socio' ]
+		Nombre [ DataType = 'Attribute:SocioNombre', Description = 'Nombre del socio' ]
+		Apellido [ DataType = 'Attribute:SocioApellido', Description = 'Apellido del socio' ]
+		Email [ DataType = 'Attribute:SocioEmail', Description = 'Email del socio' ]
+		Telefono [ DataType = 'Attribute:SocioTelefono', Description = 'Telefono del socio' ]
+		Estado [ DataType = 'Attribute:SocioEstado', Description = 'Estado del socio' ]
+		TipoCuotaId [ DataType = 'Attribute:TipoCuotaId', Description = 'Tipo de cuota del socio' ]
+		TipoCuotaNombre [ DataType = 'Attribute:TipoCuotaDescripcion', Description = 'Descripcion del tipo de cuota del socio' ]
+		Mensaje [ DataType = 'LongVarChar(1K)', Description = 'Resultado de acciones del panel' ]
+		NombreCompleto [ DataType = 'VarChar(80)', Description = 'Nombre y apellido del socio para el encabezado' ]
+		SocioBC [ DataType = 'Socio', Description = 'Instancia BC de Socio' ]
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+	#End
+
+	#Properties
+		Name = "AdminSocioDetalle"
+
+		Description = "Detalle administrativo editable de socio"
+
+		Type = "Web Panel"
+
+		MasterPage = ""
+
+		Style = "Caatenas1928"
+	#End
+
+	#Documentation
+		Panel administrativo para editar datos del socio y revisar sus cuotas.
+	#End
+}

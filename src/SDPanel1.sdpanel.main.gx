@@ -1,0 +1,13 @@
+SDPanel SDPanel1
+{
+	<Properties><Property><Name>IsDefault</Name><Value>False</Value></Property></Properties>
+
+	#Properties
+		Name = "SDPanel1"
+
+		Description = "SDPanel1"
+
+		MainProgram = "True"
+	#End
+
+}

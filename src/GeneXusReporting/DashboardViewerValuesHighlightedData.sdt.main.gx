@@ -1,0 +1,33 @@
+SDT DashboardViewerValuesHighlightedData
+{
+		DashboardViewerValuesHighlightedData	{
+
+			Elements [ Collection = 'True', CollectionItemName = 'Element' ]		{
+
+				Name [ DataType = 'Character(20)' ]
+
+				Value [ DataType = 'Character(20)' ]
+
+			}
+
+	
+
+			AllFilters [ Collection = 'True', CollectionItemName = 'Filter' ]		{
+
+				Name [ DataType = 'Character(20)' ]
+
+				Values [ DataType = 'Character(20)', Collection = 'True', CollectionItemName = 'Value' ]
+
+			}
+
+	
+
+		}
+
+	#Properties
+		Name = "DashboardViewerValuesHighlightedData"
+
+		ExposedNamespace = "GeneXus.Reporting"
+	#End
+
+}

@@ -1,0 +1,47 @@
+Procedure NotificarAltaSocio
+{
+	For Each
+		Where SocioId = &SocioId
+		&DestinoEmail = Trim(SocioEmail)
+		&DestinoNombre = Trim(SocioNombre) + !" " + Trim(SocioApellido)
+		&Cedula = SocioCedula
+		&TipoCuotaTexto = Trim(TipoCuotaDescripcion)
+		&Importe = TipoCuotaImporte
+		Exit
+	EndFor
+
+	If &DestinoEmail.IsEmpty()
+		Return
+	EndIf
+
+	&ImporteTexto = Trim(Str(&Importe, 12, 2))
+	&Asunto = !"Alta registrada - Club Atletico Atenas"
+	&TextoPlano = !"Hola " + &DestinoNombre + !". Tu alta como socio fue registrada correctamente. Plan: " + &TipoCuotaTexto + !". Importe: $" + &ImporteTexto + !". Cedula: " + &Cedula + !". Ya puedes continuar con el pago desde el portal."
+	&TextoHtml = !"<h2>Club Atletico Atenas</h2><p>Hola " + &DestinoNombre + !", tu alta como socio fue registrada correctamente.</p><p><strong>Plan:</strong> " + &TipoCuotaTexto + !"<br/><strong>Importe:</strong> $" + &ImporteTexto + !"<br/><strong>Cedula:</strong> " + &Cedula + !"</p><p>Ya puedes continuar con el pago desde el portal.</p>"
+
+	EnviarCorreoSMTP(&DestinoEmail, &DestinoNombre, &Asunto, &TextoHtml, &TextoPlano, &Enviado, &MensajeResultado)
+
+	#Rules
+		parm(in: &SocioId);
+	#End
+
+	#Conditions
+	#End
+
+	#Variables
+		SocioId [ DataType = 'Attribute:SocioId', Description = 'Socio a notificar' ]
+		DestinoEmail [ DataType = 'VarChar(120)', Description = '' ]
+		DestinoNombre [ DataType = 'VarChar(120)', Description = '' ]
+		Cedula [ DataType = 'Attribute:SocioCedula', Description = '' ]
+		TipoCuotaTexto [ DataType = 'Attribute:TipoCuotaDescripcion', Description = '' ]
+		Importe [ DataType = 'Attribute:TipoCuotaImporte', Description = '' ]
+		ImporteTexto [ DataType = 'VarChar(30)', Description = '' ]
+		Asunto [ DataType = 'VarChar(200)', Description = '' ]
+		TextoHtml [ DataType = 'LongVarChar(4K)', Description = '' ]
+		TextoPlano [ DataType = 'LongVarChar(4K)', Description = '' ]
+		Enviado [ DataType = 'Boolean', Description = '' ]
+		MensajeResultado [ DataType = 'VarChar(512)', Description = '' ]
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+	#End
+}

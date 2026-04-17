@@ -1,0 +1,69 @@
+Procedure DiagnosticarPagoMercadoPago
+{
+	&HttpStatus = 0
+	&ErrCode = 0
+	&ErrDescription = !""
+	&ResponseBody = !""
+	&Token = !""
+	&DebugFilePath = !"C:\Users\andres.cabrera\GeneXus\KBs\Caatenas1928\NetModel\web\mp_diagnostico.txt"
+	For Each ConfiguracionPago
+		Where ConfiguracionPagoId = 1
+		Where ConfiguracionPagoActivo = true
+		&Token = ConfiguracionPagoAccessToken
+		Exit
+	EndFor
+	If NOT &Token.IsEmpty()
+		&HttpClient = new()
+		&HttpClient.BaseUrl = !"https://api.mercadopago.com"
+		&HttpClient.AddHeader(!"Authorization", Format(!"Bearer %1", &Token))
+		&HttpClient.Execute(HttpMethod.GET, Format(!"/v1/payments/%1", &PaymentId))
+		&HttpStatus = &HttpClient.StatusCode
+		&ErrCode = &HttpClient.ErrCode
+		&ErrDescription = &HttpClient.ErrDescription
+		&ResponseBody = &HttpClient.ToString()
+	EndIf
+	&DebugFile = new()
+	&DebugFile.Source = &DebugFilePath
+	&DebugFile.Create()
+	&DebugFile.OpenWrite()
+	&DebugFile.WriteLine(!"PaymentId=" + &PaymentId)
+	&DebugFile.WriteLine(!"HttpStatus=" + Trim(Str(&HttpStatus, 4, 0)))
+	&DebugFile.WriteLine(!"ErrCode=" + Trim(Str(&ErrCode, 6, 0)))
+	&DebugFile.WriteLine(!"ErrDescription=" + &ErrDescription)
+	&DebugFile.WriteLine(!"ResponseBody=")
+	&DebugFile.WriteLine(&ResponseBody)
+	&DebugFile.Close()
+
+	#Rules
+		parm(in: &PaymentId, out: &HttpStatus, out: &ErrCode, out: &ErrDescription, out: &ResponseBody, out: &DebugFilePath);
+	#End
+
+	#Variables
+			PaymentId [ Description = 'PaymentId sandbox a consultar', DataType = 'VarChar(128)' ]
+
+			HttpStatus [ Description = 'Status HTTP devuelto por Mercado Pago', DataType = 'Numeric(4.0)' ]
+
+			ResponseBody [ Description = 'JSON crudo devuelto por Mercado Pago', DataType = 'LongVarChar(4K)' ]
+
+			Token [ Description = 'Token de acceso de Mercado Pago', DataType = 'VarChar(256)' ]
+
+			HttpClient [ Description = 'Cliente HTTP para consultar payment en Mercado Pago', DataType = 'HttpClient' ]
+
+			ErrCode [ Description = 'ErrCode devuelto por HttpClient', DataType = 'Numeric(6.0)', Collection = 'False', ControlType = 'Edit' ]
+
+			ErrDescription [ Description = 'ErrDescription devuelto por HttpClient', DataType = 'VarChar(512)', AverageLength = '0', Collection = 'False', ControlType = 'Edit' ]
+
+			DebugFilePath [ Description = 'Ruta del archivo de diagnostico generado', DataType = 'VarChar(512)' ]
+
+			DebugFile [ Description = 'Archivo de salida para diagnostico HTTP de Mercado Pago', DataType = 'File' ]
+	#End
+
+	#Properties
+		Name = "DiagnosticarPagoMercadoPago"
+
+		MainProgram = "False"
+
+		CallProtocol = "Internal"
+	#End
+
+}

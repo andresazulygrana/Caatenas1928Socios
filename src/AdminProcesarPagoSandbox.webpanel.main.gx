@@ -1,0 +1,184 @@
+WebPanel AdminProcesarPagoSandbox
+{
+	#Events
+				Event Start
+					If &PaymentIdPrueba.IsEmpty()
+						&PaymentIdPrueba = !"153018215411"
+					EndIf
+					If &SocioIdPrueba = 0
+						&SocioIdPrueba = 201
+					EndIf
+					If &EstadoTexto.IsEmpty()
+						&EstadoTexto = !"Ingresa un PaymentId sandbox y procesa el pago"
+					EndIf
+					&CuotaIdUltima = 0
+					&CuotaEstado = !""
+					&CuotaMPEstado = !""
+					&CuotaPeriodo = !""
+					For Each Cuota
+						Where SocioId = &SocioIdPrueba
+						&CuotaIdUltima = CuotaId
+						&CuotaPeriodo = CuotaPeriodo
+						&CuotaEstado = CuotaEstado
+						&CuotaMPEstado = CuotaMPEstado
+						Exit
+					EndFor
+					&ConfigNombre = !""
+					&ConfigBaseUrl = !""
+					&ConfigActiva = false
+					&TokenLength = 0
+					For Each ConfiguracionPago
+						Where ConfiguracionPagoId = 1
+						&ConfigNombre = ConfiguracionPagoNombre
+						&ConfigBaseUrl = ConfiguracionPagoBaseUrl
+						&ConfigActiva = ConfiguracionPagoActivo
+						&TokenLength = Len(Trim(ConfiguracionPagoAccessToken))
+						Exit
+					EndFor
+					&HttpStatus = 0
+					&ErrCode = 0
+					&ErrDescription = !""
+					&JsonPago = !""
+					&DebugFilePath = !""
+				EndEvent
+		
+				Event 'Procesar'
+					If &PaymentIdPrueba.IsEmpty()
+						&EstadoTexto = !"Ingresa un PaymentId"
+						Return
+					EndIf
+					ProcesarPagoMercadoPago(&PaymentIdPrueba)
+					&EstadoTexto = !"Pago procesado manualmente"
+					&CuotaIdUltima = 0
+					&CuotaEstado = !""
+					&CuotaMPEstado = !""
+					&CuotaPeriodo = !""
+					For Each Cuota
+						Where SocioId = &SocioIdPrueba
+						&CuotaIdUltima = CuotaId
+						&CuotaPeriodo = CuotaPeriodo
+						&CuotaEstado = CuotaEstado
+						&CuotaMPEstado = CuotaMPEstado
+						Exit
+					EndFor
+					&ConfigNombre = !""
+					&ConfigBaseUrl = !""
+					&ConfigActiva = false
+					&TokenLength = 0
+					For Each ConfiguracionPago
+						Where ConfiguracionPagoId = 1
+						&ConfigNombre = ConfiguracionPagoNombre
+						&ConfigBaseUrl = ConfiguracionPagoBaseUrl
+						&ConfigActiva = ConfiguracionPagoActivo
+						&TokenLength = Len(Trim(ConfiguracionPagoAccessToken))
+						Exit
+					EndFor
+				EndEvent
+		
+				Event 'Diagnosticar'
+					If &PaymentIdPrueba.IsEmpty()
+						&EstadoTexto = !"Ingresa un PaymentId"
+						Return
+					EndIf
+					DiagnosticarPagoMercadoPago(&PaymentIdPrueba, &HttpStatus, &ErrCode, &ErrDescription, &JsonPago, &DebugFilePath)
+					&ConfigNombre = !""
+					&ConfigBaseUrl = !""
+					&ConfigActiva = false
+					&TokenLength = 0
+					For Each ConfiguracionPago
+						Where ConfiguracionPagoId = 1
+						&ConfigNombre = ConfiguracionPagoNombre
+						&ConfigBaseUrl = ConfiguracionPagoBaseUrl
+						&ConfigActiva = ConfiguracionPagoActivo
+						&TokenLength = Len(Trim(ConfiguracionPagoAccessToken))
+						Exit
+					EndFor
+					&EstadoTexto = !"Diagnostico ejecutado"
+				EndEvent
+		
+				Event 'AbrirPortal'
+					If &SocioIdPrueba > 0
+						PantallaPago(&SocioIdPrueba)
+					EndIf
+				EndEvent
+		
+				Event 'Dashboard'
+					AdminDashboard()
+				EndEvent
+		
+				Event 'Socios'
+					AdminSocios()
+				EndEvent
+		
+				Event 'ImportarSocios'
+					AdminImportarSocios()
+				EndEvent
+		
+				Event 'TiposCuota'
+					AdminTipoCuota()
+				EndEvent
+		
+				Event 'Cuotas'
+					AdminCuotas()
+				EndEvent
+		
+				Event 'ConfiguracionPago'
+					AdminConfiguracionPago()
+				EndEvent
+		
+				Event 'PruebasPago'
+					AdminPruebaPago()
+				EndEvent
+		
+				Event 'PortalSocios'
+					BuscarSocio()
+				EndEvent
+	#End
+
+	#Variables
+			PaymentIdPrueba [ Description = '', DataType = 'VarChar(128)' ]
+
+			SocioIdPrueba [ Description = '', DataType = 'Attribute:SocioId' ]
+
+			CuotaIdUltima [ Description = '', DataType = 'Attribute:CuotaId' ]
+
+			CuotaPeriodo [ Description = '', DataType = 'Attribute:CuotaPeriodo' ]
+
+			CuotaEstado [ Description = '', DataType = 'Attribute:CuotaEstado' ]
+
+			CuotaMPEstado [ Description = '', DataType = 'Attribute:CuotaMPEstado' ]
+
+			EstadoTexto [ Description = '', DataType = 'VarChar(256)' ]
+
+			HttpStatus [ Description = '', DataType = 'Numeric(4.0)' ]
+
+			JsonPago [ Description = '', DataType = 'LongVarChar(4K)' ]
+
+			ConfigNombre [ Description = '', DataType = 'Attribute:ConfiguracionPagoNombre' ]
+
+			ConfigBaseUrl [ Description = '', DataType = 'Attribute:ConfiguracionPagoBaseUrl' ]
+
+			ConfigActiva [ Description = '', DataType = 'Attribute:ConfiguracionPagoActivo' ]
+
+			TokenLength [ Description = '', DataType = 'Numeric(6.0)' ]
+
+			ErrCode [ Description = '', DataType = 'Numeric(6.0)', Collection = 'False', ControlType = 'Edit' ]
+
+			ErrDescription [ Description = '', DataType = 'VarChar(512)', AverageLength = '0', Collection = 'False', ControlType = 'Edit' ]
+
+			DebugFilePath [ Description = '', DataType = 'VarChar(512)' ]
+	#End
+
+	#Properties
+		Name = "AdminProcesarPagoSandbox"
+
+		Description = "Panel auxiliar para reprocesar pagos sandbox"
+
+		Style = "Caatenas1928"
+
+		Type = "Web Page"
+
+		MasterPage = "(none)"
+	#End
+
+}

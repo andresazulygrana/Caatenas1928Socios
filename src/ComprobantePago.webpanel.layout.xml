@@ -1,0 +1,244 @@
+<layout type="Web">
+	<view>
+		<responsive name="PageContent" class="page">
+			<row>
+				<cell>
+					<responsive name="HeaderBand" class="page-header">
+						<row>
+							<cell horizontalAlignment="Left" verticalAlignment="Middle">
+								<table name="HeaderBrand" width="100%" class="header-brand" tableType="Flex" alignItems="Center">
+									<row>
+										<cell verticalAlignment="Middle" flexGrow="0">
+											<label name="LblEscudoPortal" caption="A" class="header-crest" />
+										</cell>
+										<cell flexGrow="0">
+											<responsive name="HeaderTextBlock">
+												<row>
+													<cell>
+														<table name="HeaderNameRow" tableType="Flex" alignItems="Center">
+															<row>
+																<cell flexGrow="0">
+																	<label name="LblBrandClub" caption="Club" class="header-name" />
+																</cell>
+																<cell flexGrow="0">
+																	<label name="LblBrandAtenas" caption="Atenas" class="header-name header-name--accent" />
+																</cell>
+															</row>
+														</table>
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<label name="LblPortalSub" caption="Resumen del pago" class="header-tagline" />
+													</cell>
+												</row>
+											</responsive>
+										</cell>
+									</row>
+								</table>
+							</cell>
+						</row>
+					</responsive>
+				</cell>
+			</row>
+			<row>
+				<cell horizontalAlignment="Center" verticalAlignment="Top">
+					<smart name="MainContent" columns="100%" rows="auto;auto;auto;auto" width="520dip" class="page-content">
+						<row>
+							<cell>
+								<smart name="ReceiptCard" columns="100%" rows="auto;auto;auto;auto;auto;auto;auto;24px;auto;auto;auto;auto" width="100%" class="receipt">
+									<row>
+										<cell>
+											<smart name="ReceiptHeader" columns="100%" rows="auto;auto;auto" width="100%" class="receipt-header">
+												<row>
+													<cell horizontalAlignment="Center">
+														<label name="LblReceiptTitle" caption="Club Atletico Atenas" class="receipt-logo" />
+													</cell>
+												</row>
+												<row>
+													<cell horizontalAlignment="Center">
+														<label name="LblReceiptSub" caption="Resumen de pago de membresia" class="receipt-sub" />
+													</cell>
+												</row>
+												<row>
+													<cell horizontalAlignment="Center">
+														<label name="LblReceiptEstado" caption="Pago acreditado" class="receipt-badge" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="ReceiptAmount" columns="100%" rows="auto;auto" width="100%">
+												<row>
+													<cell horizontalAlignment="Center">
+														<label name="LblTotalAbonado" caption="Importe acreditado" class="amount-label" />
+													</cell>
+												</row>
+												<row>
+													<cell horizontalAlignment="Center">
+														<input attribute="&amp;ImportePagadoTexto" readonly="True" class="receipt-amount" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="ReceiptRefBox" columns="100%" rows="auto;auto" width="100%" class="ref-block">
+												<row>
+													<cell horizontalAlignment="Center">
+														<label name="LblRefTitle" caption="Operacion" class="ref-label" />
+													</cell>
+												</row>
+												<row>
+													<cell horizontalAlignment="Center">
+														<input attribute="&amp;ReferenciaOperacion" readonly="True" class="text-mono" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="RowSocio" columns="35%;65%" rows="24px" width="100%" class="info-row">
+												<row>
+													<cell>
+														<label name="LblSocioComp" caption="Socio" class="info-label" />
+													</cell>
+													<cell horizontalAlignment="Right">
+														<input attribute="&amp;NombreSocio" readonly="True" class="info-value" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="RowCedula" columns="35%;65%" rows="24px" width="100%" class="info-row">
+												<row>
+													<cell>
+														<label name="LblCedulaComp" caption="Cedula" class="info-label" />
+													</cell>
+													<cell horizontalAlignment="Right">
+														<input attribute="&amp;CedulaSocio" readonly="True" class="info-value" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="RowPlan" columns="35%;65%" rows="24px" width="100%" class="info-row">
+												<row>
+													<cell>
+														<label name="LblTipoComp" caption="Plan" class="info-label" />
+													</cell>
+													<cell horizontalAlignment="Right">
+														<input attribute="&amp;TipoCuotaNombre" readonly="True" class="info-value" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="RowPeriodo" columns="35%;65%" rows="24px" width="100%" class="info-row">
+												<row>
+													<cell>
+														<label name="LblPeriodoComp" caption="Periodo" class="info-label" />
+													</cell>
+													<cell horizontalAlignment="Right">
+														<input attribute="&amp;PeriodoCuota" readonly="True" class="info-value" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<label name="LblDividerOne" caption="" class="receipt-divider" />
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="RowFecha" columns="35%;65%" rows="24px" width="100%" class="info-row">
+												<row>
+													<cell>
+														<label name="LblFechaComp" caption="Fecha y hora" class="info-label" />
+													</cell>
+													<cell horizontalAlignment="Right">
+														<input attribute="&amp;FechaPagoTexto" readonly="True" class="info-value" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="RowRef" columns="35%;65%" rows="24px" width="100%" class="info-row">
+												<row>
+													<cell>
+														<label name="LblRefComp" caption="Referencia" class="info-label" />
+													</cell>
+													<cell horizontalAlignment="Right">
+														<input attribute="&amp;ReferenciaOperacion" readonly="True" class="text-mono" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="RowEstado" columns="35%;65%" rows="auto" width="100%">
+												<row>
+													<cell>
+														<label name="LblEstadoComp" caption="Estado" class="info-label" />
+													</cell>
+													<cell horizontalAlignment="Right">
+														<label name="LblEstadoAprobado" caption="Aprobado" class="status-pill--ok" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="ReceiptFooter" columns="100%" rows="auto" width="100%" class="receipt-footer">
+												<row>
+													<cell horizontalAlignment="Center" verticalAlignment="Middle">
+														<label name="LblAyudaComprobante" caption="Este resumen te permite identificar el pago realizado en el portal. Si necesitas el comprobante formal del procesador, puedes descargarlo por separado desde Mercado Pago." class="receipt-footer-text" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+								</smart>
+							</cell>
+						</row>
+						<row>
+							<cell />
+						</row>
+						<row>
+							<cell>
+								<action name="BtnImprimir" onClickEvent="'Imprimir'" caption="Guardar este resumen" class="btn-primary" />
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<action name="BtnInicio" onClickEvent="'IrInicio'" caption="Volver al portal" class="btn-secondary" />
+							</cell>
+						</row>
+					</smart>
+				</cell>
+			</row>
+			<row>
+				<cell horizontalAlignment="Center">
+					<label name="LblFooterPortal" caption="clubatenas.uy · Socios" class="page-footer" />
+				</cell>
+			</row>
+		</responsive>
+		<actiongroups />
+	</view>
+</layout>

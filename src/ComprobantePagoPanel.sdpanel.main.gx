@@ -1,0 +1,9 @@
+SDPanel ComprobantePagoPanel
+{
+	<Properties />
+
+	#Properties
+		Name = "ComprobantePagoPanel"
+	#End
+
+}

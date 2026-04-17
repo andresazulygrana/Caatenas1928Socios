@@ -1,0 +1,11 @@
+Domain QueryViewerVisible
+{
+	#Properties
+		Name = "QueryViewerVisible"
+
+		DataType = "Character(20)"
+
+		EnumValues = "Yes, Yes, Yes; No, No, No; Never, Never, Never"
+	#End
+
+}

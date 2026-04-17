@@ -1,0 +1,7 @@
+Version Design
+{
+	#Properties.Local
+		CurrentEnvironment = ".NET"
+	#End
+
+}

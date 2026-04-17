@@ -1,0 +1,11 @@
+Domain QueryViewerMapType
+{
+	#Properties
+		Name = "QueryViewerMapType"
+
+		DataType = "Character(20)"
+
+		EnumValues = "Choropleth, Choropleth, Choropleth; Bubble, Bubble, Bubble"
+	#End
+
+}
