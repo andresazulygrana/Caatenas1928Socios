@@ -19,6 +19,25 @@ WebPanel AdminCuotas
 			EndFor
 		EndEvent
 
+		Event GridCuotas.Load
+			Do case
+				Case CuotaEstado = !"P"
+					&EstadoTexto = !"Pendiente"
+				Case CuotaEstado = !"G"
+					&EstadoTexto = !"Pagada"
+				Case CuotaEstado = !"V"
+					&EstadoTexto = !"Vencida"
+				Otherwise
+					&EstadoTexto = CuotaEstado
+			EndCase
+			If CuotaEstado = !"G" and NOT CuotaFechaPago.IsEmpty()
+				&FechaPagoTexto = Format(!"%1", CuotaFechaPago)
+			Else
+				&FechaPagoTexto = !"-"
+			EndIf
+			&ImporteTexto = Format(!"$ %1", CuotaImporte)
+		EndEvent
+
 		Event 'Filtrar'
 			refresh
 		EndEvent
@@ -76,6 +95,9 @@ WebPanel AdminCuotas
 		TotalEsperado [ DataType = 'Numeric(12.2)', Description = 'Total esperado del periodo filtrado' ]
 		TotalCobrado [ DataType = 'Numeric(12.2)', Description = 'Total cobrado del periodo filtrado' ]
 		ResumenMes [ DataType = 'VarChar(80)', Description = 'Titulo del resumen mensual' ]
+		EstadoTexto [ DataType = 'VarChar(20)', Description = 'Estado de la cuota legible para el grid' ]
+		FechaPagoTexto [ DataType = 'VarChar(20)', Description = 'Fecha de pago formateada para el grid' ]
+		ImporteTexto [ DataType = 'VarChar(20)', Description = 'Importe formateado con simbolo de moneda' ]
 		Pgmname [ DataType = 'Character(8)' ]
 		Pgmdesc [ DataType = 'Character(8)' ]
 	#End
@@ -85,11 +107,13 @@ WebPanel AdminCuotas
 
 		Description = "Listado administrativo de cuotas"
 
-		Type = "Web Panel"
+		Type = "Web Page"
 
-		MasterPage = ""
+		MasterPage = "(none)"
 
 		Style = "Caatenas1928"
+
+		IsDefault = "False"
 	#End
 
 	#Documentation

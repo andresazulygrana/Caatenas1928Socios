@@ -1,15 +1,26 @@
 Procedure WebhookMercadoPago
 {
 	// Receptor HTTP del webhook de Mercado Pago
-	Log.Info(!"WebhookMercadoPago RequestBody: " + Substr(&RequestBody, 1, 2000), !"$MercadoPago.Webhook")
+	Log.Info(!"WebhookMercadoPago RequestBody: " + Substr(&RequestBody, 1, 2000), !"$Atenas.MP.Webhook")
+
+	If &RequestBody.IsEmpty()
+		Log.Warning(!"WebhookMercadoPago body vacio", !"$Atenas.MP.Webhook")
+		&RestCode = 200
+		Return
+	EndIf
+
 	&Notification.FromJson(&RequestBody)
 
 	If &Notification.Type = !"payment"
 		If NOT &Notification.Data.Id.IsEmpty()
 			&PaymentId = Trim(&Notification.Data.Id)
-			Log.Info(!"WebhookMercadoPago PaymentId: " + &PaymentId, !"$MercadoPago.Webhook")
+			Log.Info(!"WebhookMercadoPago PaymentId: " + &PaymentId, !"$Atenas.MP.Webhook")
 			ProcesarPagoMercadoPago(&PaymentId)
+		Else
+			Log.Warning(!"WebhookMercadoPago payment sin Data.Id - body=" + Substr(&RequestBody, 1, 500), !"$Atenas.MP.Webhook")
 		EndIf
+	Else
+		Log.Info(!"WebhookMercadoPago tipo ignorado=" + &Notification.Type, !"$Atenas.MP.Webhook")
 	EndIf
 
 	// Mercado Pago requiere siempre HTTP 200

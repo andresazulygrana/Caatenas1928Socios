@@ -46,7 +46,7 @@
 					<responsive name="HeroBand" class="page-hero">
 						<row>
 							<cell horizontalAlignment="Center" verticalAlignment="Top">
-								<smart name="HeroPago" columns="100%" rows="48px;48px" width="100%">
+								<smart name="HeroPago" columns="100%" width="100%" rows="48dip;48dip">
 									<row>
 										<cell horizontalAlignment="Center" verticalAlignment="Middle">
 											<label name="LblTitulo" caption="Tu cuota" class="text-title" />
@@ -65,13 +65,13 @@
 			</row>
 			<row>
 				<cell horizontalAlignment="Center" verticalAlignment="Top">
-					<smart name="MainContent" columns="100%" rows="auto;auto;auto;auto;auto;auto" width="520dip" class="page-content">
+					<smart name="MainContent" columns="100%" width="520dip" class="page-content" rows="0dip;0dip;0dip;0dip;0dip;0dip">
 						<row>
 							<cell>
-								<smart name="ImporteCard" columns="100%" rows="92px;auto;auto;auto" width="100%" class="surface">
+								<smart name="ImporteCard" columns="100%" width="100%" class="surface" rows="92dip;0dip;0dip;0dip">
 									<row>
 										<cell>
-											<smart name="AmountBlock" columns="100%" rows="48px;44px" width="100%" class="amount-block">
+											<smart name="AmountBlock" columns="100%" width="100%" class="amount-block" rows="48dip;44dip">
 												<row>
 													<cell horizontalAlignment="Center">
 														<label name="LblImporteTitulo" caption="Importe a pagar" class="amount-label" />
@@ -87,7 +87,7 @@
 									</row>
 									<row>
 										<cell>
-											<smart name="RowEstadoPago" columns="30%;70%" rows="24px" width="100%" class="info-row">
+											<smart name="RowEstadoPago" columns="30%;70%" width="100%" class="info-row" rows="24dip">
 												<row>
 													<cell>
 														<label name="LblEstadoPago" caption="Estado actual" class="info-label" />
@@ -101,7 +101,7 @@
 									</row>
 									<row>
 										<cell>
-											<smart name="RowPeriodoPago" columns="30%;70%" rows="24px" width="100%" class="info-row">
+											<smart name="RowPeriodoPago" columns="30%;70%" width="100%" class="info-row" rows="24dip">
 												<row>
 													<cell>
 														<label name="LblPeriodo" caption="Periodo / vencimiento" class="info-label" />
@@ -126,10 +126,10 @@
 						</row>
 						<row>
 							<cell>
-								<smart name="SocioCard" columns="100%" rows="auto;auto;auto;auto" width="100%" class="surface">
+								<smart name="SocioCard" columns="100%" width="100%" class="surface" rows="0dip;0dip;0dip;0dip">
 									<row>
 										<cell>
-											<smart name="RowSocio" columns="30%;70%" rows="24px" width="100%" class="info-row">
+											<smart name="RowSocio" columns="30%;70%" width="100%" class="info-row" rows="24dip">
 												<row>
 													<cell>
 														<label name="LblSocio" caption="Socio" class="info-label" />
@@ -143,7 +143,7 @@
 									</row>
 									<row>
 										<cell>
-											<smart name="RowCedula" columns="30%;70%" rows="24px" width="100%" class="info-row">
+											<smart name="RowCedula" columns="30%;70%" width="100%" class="info-row" rows="24dip">
 												<row>
 													<cell>
 														<label name="LblDocumento" caption="Cedula" class="info-label" />
@@ -157,7 +157,7 @@
 									</row>
 									<row>
 										<cell>
-											<smart name="RowPlan" columns="30%;70%" rows="24px" width="100%" class="info-row">
+											<smart name="RowPlan" columns="30%;70%" width="100%" class="info-row" rows="24dip">
 												<row>
 													<cell>
 														<label name="LblPlan" caption="Plan" class="info-label" />
@@ -171,7 +171,7 @@
 									</row>
 									<row>
 										<cell>
-											<smart name="RowVencimiento" columns="30%;70%" rows="24px" width="100%">
+											<smart name="RowVencimiento" columns="30%;70%" width="100%" rows="24dip">
 												<row>
 													<cell>
 														<label name="LblVencimiento" caption="Vencimiento" class="info-label" />

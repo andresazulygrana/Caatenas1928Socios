@@ -1,0 +1,155 @@
+WebPanel AdminTipoCuotaDetalle
+{
+	#Events
+		Event Start
+			If &TipoCuotaId > 0
+				&TipoCuotaBC = new()
+				&TipoCuotaBC.Load(&TipoCuotaId)
+				If &TipoCuotaBC.Success()
+					&Descripcion = &TipoCuotaBC.TipoCuotaDescripcion
+					&Importe = &TipoCuotaBC.TipoCuotaImporte
+					&Activo = &TipoCuotaBC.TipoCuotaActivo
+					&ModoTitulo = !"Editar tipo de cuota"
+					&Mensaje = !""
+				Else
+					&ModoTitulo = !"Tipo de cuota no encontrado"
+					&Mensaje = !"No se encontro el tipo de cuota indicado"
+				EndIf
+			Else
+				&Descripcion = !""
+				&Importe = 0
+				&Activo = True
+				&ModoTitulo = !"Nuevo tipo de cuota"
+				&Mensaje = !""
+			EndIf
+		EndEvent
+
+		Event 'Guardar'
+			&TipoCuotaBC = new()
+			If &TipoCuotaId > 0
+				&TipoCuotaBC.Load(&TipoCuotaId)
+			EndIf
+			&TipoCuotaBC.TipoCuotaDescripcion = &Descripcion
+			&TipoCuotaBC.TipoCuotaImporte = &Importe
+			&TipoCuotaBC.TipoCuotaActivo = &Activo
+			&TipoCuotaBC.Save()
+			If &TipoCuotaBC.Success()
+				Commit
+				&TipoCuotaId = &TipoCuotaBC.TipoCuotaId
+				&ModoTitulo = !"Editar tipo de cuota"
+				&Mensaje = !"Tipo de cuota guardado correctamente"
+			Else
+				&Mensaje = &TipoCuotaBC.GetMessages().ToJson()
+			EndIf
+		EndEvent
+
+		Event 'Eliminar'
+			If &TipoCuotaId = 0
+				&Mensaje = !"No hay un tipo de cuota cargado para eliminar"
+			Else
+				&Referencias = 0
+				For Each Socio
+					Where TipoCuotaId = &TipoCuotaId
+					&Referencias = &Referencias + 1
+					Exit
+				EndFor
+				If &Referencias = 0
+					For Each Cuota
+						Where TipoCuotaId = &TipoCuotaId
+						&Referencias = &Referencias + 1
+						Exit
+					EndFor
+				EndIf
+				If &Referencias > 0
+					&Mensaje = !"No se puede eliminar: hay socios o cuotas asociadas a este tipo"
+				Else
+					&TipoCuotaBC = new()
+					&TipoCuotaBC.Load(&TipoCuotaId)
+					&TipoCuotaBC.Delete()
+					If &TipoCuotaBC.Success()
+						Commit
+						AdminTipoCuota()
+					Else
+						&Mensaje = &TipoCuotaBC.GetMessages().ToJson()
+					EndIf
+				EndIf
+			EndIf
+		EndEvent
+
+		Event 'Volver'
+			AdminTipoCuota()
+		EndEvent
+
+		Event 'Dashboard'
+			AdminDashboard()
+		EndEvent
+
+		Event 'Socios'
+			AdminSocios()
+		EndEvent
+
+		Event 'ImportarSocios'
+			AdminImportarSocios()
+		EndEvent
+
+		Event 'TiposCuota'
+			AdminTipoCuota()
+		EndEvent
+
+		Event 'Cuotas'
+			AdminCuotas()
+		EndEvent
+
+		Event 'ConfiguracionPago'
+			AdminConfiguracionPago()
+		EndEvent
+
+		Event 'PruebasPago'
+			AdminPruebaPago()
+		EndEvent
+
+		Event 'Sandbox'
+			AdminProcesarPagoSandbox()
+		EndEvent
+
+		Event 'PortalSocios'
+			BuscarSocio()
+		EndEvent
+	#End
+
+	#Rules
+		parm(inout: &TipoCuotaId);
+	#End
+
+	#Conditions
+	#End
+
+	#Variables
+		TipoCuotaId [ DataType = 'Attribute:TipoCuotaId', Description = 'Tipo de cuota a editar; 0 indica alta' ]
+		Descripcion [ DataType = 'Attribute:TipoCuotaDescripcion', Description = 'Descripcion del tipo de cuota' ]
+		Importe [ DataType = 'Attribute:TipoCuotaImporte', Description = 'Importe del tipo de cuota' ]
+		Activo [ DataType = 'Attribute:TipoCuotaActivo', Description = 'Indica si el tipo esta activo' ]
+		ModoTitulo [ DataType = 'VarChar(60)', Description = 'Titulo dinamico segun modo alta o edicion' ]
+		Mensaje [ DataType = 'LongVarChar(1K)', Description = 'Resultado de las acciones del panel' ]
+		Referencias [ DataType = 'Numeric(4.0)', Description = 'Conteo de referencias para eliminacion segura' ]
+		TipoCuotaBC [ DataType = 'TipoCuota', Description = 'Instancia BC de TipoCuota' ]
+		Pgmname [ DataType = 'Character(8)' ]
+		Pgmdesc [ DataType = 'Character(8)' ]
+	#End
+
+	#Properties
+		Name = "AdminTipoCuotaDetalle"
+
+		Description = "Detalle administrativo editable de tipo de cuota"
+
+		Type = "Web Panel"
+
+		MasterPage = ""
+
+		Style = "Caatenas1928"
+	#End
+
+	#Documentation
+		Panel administrativo para alta, edicion y baja de tipos de cuota.
+	#End
+}

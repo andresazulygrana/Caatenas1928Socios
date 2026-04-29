@@ -25,6 +25,7 @@ Table Socio
 	#Indexes
 		ISocio
 		ISocio1
+		USocioById
 	#End
 
 	#Properties

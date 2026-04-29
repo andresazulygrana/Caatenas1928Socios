@@ -9,6 +9,7 @@ Procedure ProcesarPagoMercadoPago
 		Exit
 	EndFor
 	If &Token.IsEmpty()
+		Log.Error(!"ProcesarPagoMercadoPago sin token activo - PaymentId=" + &PaymentId, !"$Atenas.MP.Payment")
 		Return
 	EndIf
 
@@ -17,54 +18,73 @@ Procedure ProcesarPagoMercadoPago
 	&HttpClient.AddHeader(!"Authorization", Format(!"Bearer %1", &Token))
 	&HttpClient.Execute(HttpMethod.GET, Format(!"/v1/payments/%1", &PaymentId))
 
-	If &HttpClient.StatusCode = 200
-		&ResponseBody = &HttpClient.ToString()
-		Log.Info(!"ProcesarPagoMercadoPago ResponseBody: " + Substr(&ResponseBody, 1, 2000), !"$MercadoPago.Payment")
-		&ResponseBody = StrReplace(&ResponseBody, !"status_detail", !"StatusDetail")
-		&ResponseBody = StrReplace(&ResponseBody, !"external_reference", !"ExternalReference")
-		&ResponseBody = StrReplace(&ResponseBody, !"status", !"Status")
-		&PaymentResponse.FromJson(&ResponseBody)
-		&MPEstado = &PaymentResponse.Status
-		&ExternalReference = &PaymentResponse.ExternalReference
-		Log.Info(!"ProcesarPagoMercadoPago Parsed Status=" + &MPEstado + !" ExternalReference=" + &ExternalReference + !" PaymentId=" + &PaymentId, !"$MercadoPago.Payment")
+	If &HttpClient.ErrCode <> 0
+		Log.Error(Format(!"ProcesarPagoMercadoPago HTTP fail PaymentId=%1 ErrCode=%2 ErrDescription=%3", &PaymentId, &HttpClient.ErrCode.ToString(), &HttpClient.ErrDescription), !"$Atenas.MP.Payment")
+		Return
+	EndIf
 
-		// Buscar cuota por external_reference
-		&CuotaIdActual = 0
-		&SocioIdActual = 0
-		If NOT &ExternalReference.IsEmpty()
-			&CuotaIdActual = Val(&ExternalReference)
-			For Each Cuota
-				Where CuotaId = &CuotaIdActual
-				&SocioIdActual = SocioId
-				Exit
-			EndFor
+	If &HttpClient.StatusCode <> 200
+		Log.Error(Format(!"ProcesarPagoMercadoPago status no OK PaymentId=%1 Status=%2 Body=%3", &PaymentId, &HttpClient.StatusCode.ToString(), Substr(&HttpClient.ToString(), 1, 1000)), !"$Atenas.MP.Payment")
+		Return
+	EndIf
+
+	&ResponseBody = &HttpClient.ToString()
+	Log.Info(!"ProcesarPagoMercadoPago ResponseBody: " + Substr(&ResponseBody, 1, 2000), !"$Atenas.MP.Payment")
+	&ResponseBody = StrReplace(&ResponseBody, !"status_detail", !"StatusDetail")
+	&ResponseBody = StrReplace(&ResponseBody, !"external_reference", !"ExternalReference")
+	&ResponseBody = StrReplace(&ResponseBody, !"status", !"Status")
+	&PaymentResponse.FromJson(&ResponseBody)
+	&MPEstado = &PaymentResponse.Status
+	&ExternalReference = &PaymentResponse.ExternalReference
+	Log.Info(!"ProcesarPagoMercadoPago Parsed Status=" + &MPEstado + !" ExternalReference=" + &ExternalReference + !" PaymentId=" + &PaymentId, !"$Atenas.MP.Payment")
+
+	// Buscar cuota por external_reference
+	&CuotaIdActual = 0
+	&SocioIdActual = 0
+	If NOT &ExternalReference.IsEmpty()
+		&CuotaIdActual = Val(&ExternalReference)
+		For Each Cuota
+			Where CuotaId = &CuotaIdActual
+			&SocioIdActual = SocioId
+			Exit
+		EndFor
+	Else
+		Log.Warning(!"ProcesarPagoMercadoPago sin ExternalReference PaymentId=" + &PaymentId, !"$Atenas.MP.Payment")
+	EndIf
+
+	If &CuotaIdActual > 0
+		&CuotaBC = new()
+		&CuotaBC.Load(&CuotaIdActual)
+		&CuotaBC.CuotaMPPaymentId = &PaymentId
+		&CuotaBC.CuotaMPEstado = &MPEstado
+		If &MPEstado = !"approved"
+			&CuotaBC.CuotaEstado = !"G"
+			&CuotaBC.CuotaFechaPago = Now()
+		EndIf
+		&CuotaBC.Save()
+		If NOT &CuotaBC.Success()
+			Log.Error(Format(!"ProcesarPagoMercadoPago Cuota.Save fail CuotaId=%1 PaymentId=%2 Errors=%3", &CuotaIdActual.ToString(), &PaymentId, &CuotaBC.GetMessages().ToJson()), !"$Atenas.MP.Payment")
+			Return
 		EndIf
 
-		If &CuotaIdActual > 0
-			&CuotaBC = new()
-			&CuotaBC.Load(&CuotaIdActual)
-			&CuotaBC.CuotaMPPaymentId = &PaymentId
-			&CuotaBC.CuotaMPEstado = &MPEstado
-			If &MPEstado = !"approved"
-				&CuotaBC.CuotaEstado = !"G"
-				&CuotaBC.CuotaFechaPago = Now()
-			EndIf
-			&CuotaBC.Save()
-
-			If &MPEstado = !"approved"
-				&SocioBC = new()
-				&SocioBC.Load(&SocioIdActual)
-				If &SocioBC.SocioEstado = !"M"
-					&SocioBC.SocioEstado = !"A"
-					&SocioBC.Save()
+		If &MPEstado = !"approved"
+			&SocioBC = new()
+			&SocioBC.Load(&SocioIdActual)
+			If &SocioBC.SocioEstado = !"M"
+				&SocioBC.SocioEstado = !"A"
+				&SocioBC.Save()
+				If NOT &SocioBC.Success()
+					Log.Error(Format(!"ProcesarPagoMercadoPago Socio.Save fail SocioId=%1 Errors=%2", &SocioIdActual.ToString(), &SocioBC.GetMessages().ToJson()), !"$Atenas.MP.Payment")
 				EndIf
 			EndIf
-			Commit
-
-			If &MPEstado = !"approved"
-				NotificarPagoSocio(&CuotaIdActual)
-			EndIf
 		EndIf
+		Commit
+
+		If &MPEstado = !"approved"
+			NotificarPagoSocio(&CuotaIdActual)
+		EndIf
+	Else
+		Log.Warning(Format(!"ProcesarPagoMercadoPago cuota no encontrada PaymentId=%1 ExternalReference=%2", &PaymentId, &ExternalReference), !"$Atenas.MP.Payment")
 	EndIf
 
 	#Rules

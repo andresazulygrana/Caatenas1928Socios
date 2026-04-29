@@ -1,0 +1,65 @@
+<layout type="Web">
+	<view>
+		<smart name="MainLayout" class="backoffice-page" width="100%" height="100%" columnsStyle="100%" rowsStyle="100%">
+			<row>
+				<cell hAlign="Center" vAlign="Top">
+					<smart name="Shell" class="backoffice-shell" width="100%" height="100%" columnsStyle="270px;100%" rowsStyle="100%">
+						<row>
+							<cell class="backoffice-sidebar" vAlign="Top">
+								<smart name="SidebarLayout" width="100%" columnsStyle="100%" rowsStyle="74px;98px;392px;58px">
+									<row><cell vAlign="Top"><smart name="Brand" width="100%" columnsStyle="56px;100%" rowsStyle="56px"><row><cell hAlign="Center" vAlign="Middle"><label name="LblCrest" caption="A" class="backoffice-crest"/></cell><cell hAlign="Left" vAlign="Middle"><smart name="BrandText" width="100%" columnsStyle="100%" rowsStyle="30px;18px"><row><cell hAlign="Left" vAlign="Bottom"><label name="LblBrandTitle" caption="Club Atenas" class="backoffice-brand-title"/></cell></row><row><cell hAlign="Left" vAlign="Top"><label name="LblBrandMeta" caption="Backoffice de socios" class="backoffice-brand-meta"/></cell></row></smart></cell></row></smart></cell></row>
+									<row><cell vAlign="Middle"><smart name="SidebarCard" class="backoffice-sidebar-card" width="100%" columnsStyle="100%" rowsStyle="18px;52px"><row><cell hAlign="Left" vAlign="Bottom"><label name="LblSidebarTitle" caption="Catalogo base" class="backoffice-sidebar-section"/></cell></row><row><cell hAlign="Left" vAlign="Middle"><label name="LblSidebarText" caption="Alta y edicion de planes con baja segura cuando no hay referencias activas." class="backoffice-sidebar-text"/></cell></row></smart></cell></row>
+									<row><cell vAlign="Top"><smart name="SidebarNav" width="100%" columnsStyle="100%" rowsStyle="44px;44px;44px;44px;44px;44px;44px;44px"><row><cell><action name="BtnNavDashboard" caption="Dashboard" onClickEvent="'Dashboard'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavSocios" caption="Socios" onClickEvent="'Socios'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavImportar" caption="Importar socios" onClickEvent="'ImportarSocios'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavTipos" caption="Tipos de cuota" onClickEvent="'TiposCuota'" class="btn-sidebar-active"/></cell></row><row><cell><action name="BtnNavCuotas" caption="Cuotas" onClickEvent="'Cuotas'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavConfig" caption="Configuracion pago" onClickEvent="'ConfiguracionPago'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavPruebas" caption="Prueba de pago" onClickEvent="'PruebasPago'" class="btn-sidebar"/></cell></row><row><cell><action name="BtnNavSandbox" caption="Procesar sandbox" onClickEvent="'Sandbox'" class="btn-sidebar"/></cell></row></smart></cell></row>
+									<row><cell vAlign="Bottom"><label name="LblSidebarFooter" caption="Usuario: Secretaria Atenas | Admin / Operacion diaria" class="backoffice-sidebar-footer"/></cell></row>
+								</smart>
+							</cell>
+							<cell class="backoffice-main" vAlign="Top">
+								<smart name="DetalleBody" class="backoffice-main-body" width="100%" columnsStyle="100%" rowsStyle="128px;460px">
+									<row>
+										<cell hAlign="Center" vAlign="Middle">
+											<smart name="TopbarTipo" class="surface-elevated" width="100%" columnsStyle="62%;38%" rowsStyle="44px;26px">
+												<row>
+													<cell hAlign="Left" vAlign="Middle"><input attribute="&amp;ModoTitulo" readonly="True" class="admin-topbar-title"/></cell>
+													<cell hAlign="Right" vAlign="Middle">
+														<smart name="TopbarActions" width="100%" columnsStyle="50%;50%" rowsStyle="44px">
+															<row>
+																<cell hAlign="Left" vAlign="Middle"><action name="BtnVolver" caption="Volver" onClickEvent="'Volver'" class="btn-secondary"/></cell>
+																<cell hAlign="Right" vAlign="Middle"><action name="BtnGuardarTop" caption="Guardar cambios" onClickEvent="'Guardar'" class="btn-primary"/></cell>
+															</row>
+														</smart>
+													</cell>
+												</row>
+												<row>
+													<cell hAlign="Left" vAlign="Top"><label name="LblSubtitulo" caption="Define descripcion, importe y disponibilidad del plan." class="admin-topbar-text"/></cell>
+													<cell/>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell hAlign="Center" vAlign="Top">
+											<smart name="DatosTipo" class="surface-elevated" width="100%" columnsStyle="100%" rowsStyle="24px;24px;46px;24px;46px;24px;46px;24px;46px;46px;46px">
+												<row><cell hAlign="Left" vAlign="Middle"><label name="LblDatosTitle" caption="Datos del tipo de cuota" class="admin-card-title"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Bottom"><label name="LblDescripcion" caption="Descripcion" class="field-label"/></cell></row>
+												<row><cell vAlign="Middle"><input attribute="&amp;Descripcion" class="field"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Bottom"><label name="LblImporte" caption="Importe (UYU)" class="field-label"/></cell></row>
+												<row><cell vAlign="Middle"><input attribute="&amp;Importe" class="field"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Bottom"><label name="LblActivo" caption="Activo" class="field-label"/></cell></row>
+												<row><cell vAlign="Middle"><input attribute="&amp;Activo" class="field"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Bottom"><label name="LblMensajeTitle" caption="Mensaje" class="field-label"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;Mensaje" readonly="True" class="helper-text"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Middle"><action name="BtnGuardar" caption="Guardar cambios" onClickEvent="'Guardar'" class="btn-primary"/></cell></row>
+												<row><cell hAlign="Left" vAlign="Middle"><action name="BtnEliminar" caption="Eliminar tipo de cuota" onClickEvent="'Eliminar'" class="btn-secondary"/></cell></row>
+											</smart>
+										</cell>
+									</row>
+								</smart>
+							</cell>
+						</row>
+					</smart>
+				</cell>
+			</row>
+		</smart>
+		<actiongroups />
+	</view>
+</layout>

@@ -1,26 +1,22 @@
 Transaction TipoCuota
 {
-	TipoCuotaId* [ DataType = 'Numeric(4.0)', Autonumber = 'True', Description = 'Identificador del tipo de cuota' ]
-	TipoCuotaDescripcion! [ DataType = 'VarChar(64)', Description = 'Descripcion del tipo de cuota. Ej: Mensual Anual' ]
-	TipoCuotaImporte [ DataType = 'Numeric(10.2)', Description = 'Importe en pesos uruguayos' ]
-	TipoCuotaActivo [ DataType = 'Boolean', Description = 'Indica si el tipo de cuota esta activo' ]
+		TipoCuotaId* [ Description = 'FK a TipoCuota, copiado al momento de crear la cuota', DataType = 'Numeric(4.0)', Autonumber = 'True' ]
+
+		TipoCuotaDescripcion! [ Description = 'Descripcion del tipo de cuota. Ej: Mensual Anual', DataType = 'VarChar(64)' ]
+
+		TipoCuotaImporte [ Description = 'Importe en pesos uruguayos', DataType = 'Numeric(10.2)' ]
+
+		TipoCuotaActivo [ Description = 'Indica si el tipo de cuota esta activo', DataType = 'Boolean' ]
 
 	#Rules
 		noaccept(TipoCuotaId);
 		Default(TipoCuotaActivo, true);
 	#End
 
-	#Events
-	#End
-
-	#Variables
-		Pgmname [ DataType = 'Character(8)' ]
-		Pgmdesc [ DataType = 'Character(8)' ]
-		Mode [ DataType = 'Character(3)' ]
-		Today [ DataType = 'Date' ]
-	#End
-
 	#Properties
-		BusinessComponent = true
+		Name = "TipoCuota"
+
+		BusinessComponent = "True"
 	#End
+
 }

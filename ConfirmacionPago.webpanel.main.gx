@@ -66,7 +66,9 @@ WebPanel ConfirmacionPago
 			If NOT &MPPaymentId.IsEmpty()
 				&ReferenciaOperacion = &MPPaymentId
 			Else
-				&ReferenciaOperacion = !"Cuota " + Trim(Str(&CuotaId, 10, 0))
+				If &CuotaId > 0
+					&ReferenciaOperacion = !"Cuota " + Trim(Str(&CuotaId, 10, 0))
+				EndIf
 			EndIf
 		EndEvent
 

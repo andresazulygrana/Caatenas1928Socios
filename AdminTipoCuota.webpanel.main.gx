@@ -1,69 +1,61 @@
 WebPanel AdminTipoCuota
 {
 	#Events
-		Event 'Nuevo'
-			TipoCuota()
-		EndEvent
+				Event 'Nuevo'
+					AdminTipoCuotaDetalle(0)
+				EndEvent
 
-		Event 'Editar'
-			TipoCuota(TipoCuotaId)
-		EndEvent
-
-		Event Load
-			If TipoCuotaActivo
-				&TipoCuotaActivoTexto = !"Activo"
-			Else
-				&TipoCuotaActivoTexto = !"Inactivo"
-			EndIf
-		EndEvent
-
-		Event 'Dashboard'
-			AdminDashboard()
-		EndEvent
-
-		Event 'Socios'
-			AdminSocios()
-		EndEvent
-
-		Event 'Cuotas'
-			AdminCuotas()
-		EndEvent
-
-		Event 'TiposCuota'
-			AdminTipoCuota()
-		EndEvent
-
-		Event 'ImportarSocios'
-			AdminImportarSocios()
-		EndEvent
-
-		Event 'ConfiguracionPago'
-			AdminConfiguracionPago()
-		EndEvent
-
-		Event 'PruebasPago'
-			AdminPruebaPago()
-		EndEvent
-
-		Event 'Sandbox'
-			AdminProcesarPagoSandbox()
-		EndEvent
-
-		Event 'PortalSocios'
-			BuscarSocio()
-		EndEvent
-	#End
-
-	#Rules
-	#End
-
-	#Conditions
+				Event 'Editar'
+					AdminTipoCuotaDetalle(TipoCuotaId)
+				EndEvent
+		
+				Event Load
+					If TipoCuotaActivo
+						&TipoCuotaActivoTexto = !"Activo"
+					Else
+						&TipoCuotaActivoTexto = !"Inactivo"
+					EndIf
+				EndEvent
+		
+				Event 'Dashboard'
+					AdminDashboard()
+				EndEvent
+		
+				Event 'Socios'
+					AdminSocios()
+				EndEvent
+		
+				Event 'Cuotas'
+					AdminCuotas()
+				EndEvent
+		
+				Event 'TiposCuota'
+					AdminTipoCuota()
+				EndEvent
+		
+				Event 'ImportarSocios'
+					AdminImportarSocios()
+				EndEvent
+		
+				Event 'ConfiguracionPago'
+					AdminConfiguracionPago()
+				EndEvent
+		
+				Event 'PruebasPago'
+					AdminPruebaPago()
+				EndEvent
+		
+				Event 'Sandbox'
+					AdminProcesarPagoSandbox()
+				EndEvent
+		
+				Event 'PortalSocios'
+					BuscarSocio()
+				EndEvent
 	#End
 
 	#Variables
-		TipoCuotaActivoTexto [ DataType = 'VarChar(20)', Description = 'Texto legible del estado activo del tipo de cuota' ]
-		Pgmname [ DataType = 'Character(8)' ]
-		Pgmdesc [ DataType = 'Character(8)' ]
+			TipoCuotaActivoTexto [ Description = 'Texto legible del estado activo del tipo de cuota', DataType = 'VarChar(20)' ]
 	#End
 
 	#Properties
@@ -71,14 +63,11 @@ WebPanel AdminTipoCuota
 
 		Description = "Listado administrativo de tipos de cuota"
 
-		Type = "Web Panel"
-
-		MasterPage = ""
-
 		Style = "Caatenas1928"
+
+		Type = "Web Page"
+
+		MasterPage = "(none)"
 	#End
 
-	#Documentation
-		Panel administrativo para navegacion y mantenimiento de tipos de cuota.
-	#End
 }

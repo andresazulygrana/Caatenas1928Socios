@@ -5,11 +5,11 @@
 				<cell>
 					<responsive name="HeaderBand" class="page-header">
 						<row>
-							<cell hAlign="Left" vAlign="Middle">
-								<table name="HeaderBrand" class="header-brand" tableType="Flex" alignItems="Center" width="100%">
+							<cell horizontalAlignment="Left" verticalAlignment="Middle">
+								<table name="HeaderBrand" width="100%" class="header-brand" tableType="Flex" alignItems="Center">
 									<row>
-										<cell flexGrow="0" vAlign="Middle">
-											<label name="LblEscudoPortal" caption="A" class="header-crest"/>
+										<cell verticalAlignment="Middle" flexGrow="0">
+											<label name="LblEscudoPortal" caption="A" class="header-crest" />
 										</cell>
 										<cell flexGrow="0">
 											<responsive name="HeaderTextBlock">
@@ -17,15 +17,19 @@
 													<cell>
 														<table name="HeaderNameRow" tableType="Flex" alignItems="Center">
 															<row>
-																<cell flexGrow="0"><label name="LblBrandClub" caption="Club" class="header-name"/></cell>
-																<cell flexGrow="0"><label name="LblBrandAtenas" caption="Atenas" class="header-name header-name--accent"/></cell>
+																<cell flexGrow="0">
+																	<label name="LblBrandClub" caption="Club" class="header-name" />
+																</cell>
+																<cell flexGrow="0">
+																	<label name="LblBrandAtenas" caption="Atenas" class="header-name header-name--accent" />
+																</cell>
 															</row>
 														</table>
 													</cell>
 												</row>
 												<row>
 													<cell>
-														<label name="LblPortalSub" caption="Nueva membresia" class="header-tagline"/>
+														<label name="LblPortalSub" caption="Nueva membresía" class="header-tagline" />
 													</cell>
 												</row>
 											</responsive>
@@ -38,112 +42,313 @@
 				</cell>
 			</row>
 			<row>
-				<cell hAlign="Center" vAlign="Top">
-					<responsive name="HeroBand" class="page-hero">
+				<cell horizontalAlignment="Center" verticalAlignment="Top">
+					<responsive name="MainContent" class="page-content">
 						<row>
-							<cell hAlign="Center" vAlign="Top">
-								<smart name="HeroAlta" width="100%" columnsStyle="100%" rowsStyle="48px;52px">
-									<row><cell hAlign="Center" vAlign="Middle"><label name="LblTitulo" caption="Registrate como socio" class="text-title"/></cell></row>
-									<row><cell hAlign="Center" vAlign="Middle"><label name="LblSubtitulo" caption="Completa tus datos y elegi tu plan de membresia." class="text-subtitle"/></cell></row>
-								</smart>
+							<cell horizontalAlignment="Center" verticalAlignment="Top">
+								<responsive name="HeroBand" class="page-hero">
+									<row>
+										<cell horizontalAlignment="Center" verticalAlignment="Middle">
+											<label name="LblTitulo" caption="Registrate como socio" class="text-title" />
+										</cell>
+									</row>
+									<row>
+										<cell horizontalAlignment="Center" verticalAlignment="Middle">
+											<label name="LblSubtitulo" caption="Completá tus datos y elegí tu plan." class="text-subtitle" />
+										</cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<responsive name="DatosCard" class="surface">
+									<row>
+										<cell horizontalAlignment="Left" verticalAlignment="Middle">
+											<label name="LblTusDatos" caption="Tus datos" class="surface-title" />
+										</cell>
+									</row>
+									<row>
+										<cell verticalAlignment="Bottom">
+											<label name="LblCedula" caption="Cédula *" class="field-label" />
+										</cell>
+									</row>
+									<row>
+										<cell verticalAlignment="Middle">
+											<input attribute="&amp;CedulaIngreso" class="field-input" />
+										</cell>
+									</row>
+									<row>
+										<cell verticalAlignment="Bottom">
+											<smart name="FilaLabelNombreApellido" columns="48%;4%;48%" width="100%" rows="48dip">
+												<row>
+													<cell>
+														<label name="LblNombre" caption="Nombre *" class="field-label" />
+													</cell>
+													<cell />
+													<cell>
+														<label name="LblApellido" caption="Apellido *" class="field-label" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell verticalAlignment="Middle">
+											<smart name="FilaNombreApellido" columns="48%;4%;48%" width="100%" rows="52dip">
+												<row>
+													<cell>
+														<input attribute="&amp;Nombre" class="field-input" />
+													</cell>
+													<cell />
+													<cell>
+														<input attribute="&amp;Apellido" class="field-input" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell verticalAlignment="Bottom">
+											<smart name="FilaLabelTelefonoEmail" columns="48%;4%;48%" width="100%" rows="48dip">
+												<row>
+													<cell>
+														<label name="LblTelefono" caption="Celular *" class="field-label" />
+													</cell>
+													<cell />
+													<cell>
+														<label name="LblEmail" caption="Email *" class="field-label" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell verticalAlignment="Middle">
+											<smart name="FilaTelefonoEmail" columns="48%;4%;48%" width="100%" rows="52dip">
+												<row>
+													<cell>
+														<input attribute="&amp;Telefono" class="field-input" />
+													</cell>
+													<cell />
+													<cell>
+														<input attribute="&amp;Email" class="field-input" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+						<row>
+							<cell />
+						</row>
+						<row>
+							<cell>
+								<responsive name="PlanesCard" class="surface">
+									<row>
+										<cell horizontalAlignment="Left" verticalAlignment="Middle">
+											<label name="LblPlanes" caption="Elegí tu plan" class="surface-title" />
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="PlanAMensualRow" columns="56%;20%;24%" width="100%" class="plan-option" rows="34dip">
+												<row>
+													<cell>
+														<smart name="PlanAMensualText" columns="100%" width="100%" rows="16dip;12dip">
+															<row>
+																<cell>
+																	<label name="LblPlanAMensualName" caption="Socio A" class="plan-name" />
+																</cell>
+															</row>
+															<row>
+																<cell>
+																	<label name="LblPlanAMensualMeta" caption="Mensual" class="plan-freq" />
+																</cell>
+															</row>
+														</smart>
+													</cell>
+													<cell horizontalAlignment="Center" verticalAlignment="Middle">
+														<input attribute="&amp;PlanAMensualImporte" readonly="True" class="plan-price" />
+													</cell>
+													<cell horizontalAlignment="Right" verticalAlignment="Middle">
+														<action name="BtnElegirAMensual" onClickEvent="'ElegirAMensual'" caption="Seleccionar" class="plan-action" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="PlanAAnualRow" columns="56%;20%;24%" width="100%" class="plan-option" rows="34dip">
+												<row>
+													<cell>
+														<smart name="PlanAAnualText" columns="100%" width="100%" rows="16dip;12dip">
+															<row>
+																<cell>
+																	<label name="LblPlanAAnualName" caption="Socio A" class="plan-name" />
+																</cell>
+															</row>
+															<row>
+																<cell>
+																	<label name="LblPlanAAnualMeta" caption="Anual · ahorrás $ 1.000" class="plan-freq" />
+																</cell>
+															</row>
+														</smart>
+													</cell>
+													<cell horizontalAlignment="Center" verticalAlignment="Middle">
+														<input attribute="&amp;PlanAAnualImporte" readonly="True" class="plan-price" />
+													</cell>
+													<cell horizontalAlignment="Right" verticalAlignment="Middle">
+														<action name="BtnElegirAAnual" onClickEvent="'ElegirAAnual'" caption="Seleccionar" class="plan-action" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="PlanDBMensualRow" columns="56%;20%;24%" width="100%" class="plan-option" rows="34dip">
+												<row>
+													<cell>
+														<smart name="PlanDBMensualText" columns="100%" width="100%" rows="16dip;12dip">
+															<row>
+																<cell>
+																	<label name="LblPlanDBMensualName" caption="Socio D Básquet" class="plan-name" />
+																</cell>
+															</row>
+															<row>
+																<cell>
+																	<label name="LblPlanDBMensualMeta" caption="Mensual" class="plan-freq" />
+																</cell>
+															</row>
+														</smart>
+													</cell>
+													<cell horizontalAlignment="Center" verticalAlignment="Middle">
+														<input attribute="&amp;PlanDBasquetMensualImporte" readonly="True" class="plan-price" />
+													</cell>
+													<cell horizontalAlignment="Right" verticalAlignment="Middle">
+														<action name="BtnElegirDBasquetMensual" onClickEvent="'ElegirDBasquetMensual'" caption="Seleccionar" class="plan-action" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="PlanDBAnualRow" columns="56%;20%;24%" width="100%" class="plan-option" rows="34dip">
+												<row>
+													<cell>
+														<smart name="PlanDBAnualText" columns="100%" width="100%" rows="16dip;12dip">
+															<row>
+																<cell>
+																	<label name="LblPlanDBAnualName" caption="Socio D Básquet" class="plan-name" />
+																</cell>
+															</row>
+															<row>
+																<cell>
+																	<label name="LblPlanDBAnualMeta" caption="Anual" class="plan-freq" />
+																</cell>
+															</row>
+														</smart>
+													</cell>
+													<cell horizontalAlignment="Center" verticalAlignment="Middle">
+														<input attribute="&amp;PlanDBasquetAnualImporte" readonly="True" class="plan-price" />
+													</cell>
+													<cell horizontalAlignment="Right" verticalAlignment="Middle">
+														<action name="BtnElegirDBasquetAnual" onClickEvent="'ElegirDBasquetAnual'" caption="Seleccionar" class="plan-action" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell>
+											<smart name="PlanDBBecaRow" columns="56%;20%;24%" width="100%" class="plan-option" rows="34dip">
+												<row>
+													<cell>
+														<smart name="PlanDBBecaText" columns="100%" width="100%" rows="16dip;12dip">
+															<row>
+																<cell>
+																	<label name="LblPlanDBBecaName" caption="Socio D Básquet" class="plan-name" />
+																</cell>
+															</row>
+															<row>
+																<cell>
+																	<label name="LblPlanDBBecaMeta" caption="Beca 50%" class="plan-freq" />
+																</cell>
+															</row>
+														</smart>
+													</cell>
+													<cell horizontalAlignment="Center" verticalAlignment="Middle">
+														<input attribute="&amp;PlanDBasquetBecaImporte" readonly="True" class="plan-price" />
+													</cell>
+													<cell horizontalAlignment="Right" verticalAlignment="Middle">
+														<action name="BtnElegirDBasquetBeca" onClickEvent="'ElegirDBasquetBeca'" caption="Seleccionar" class="plan-action" />
+													</cell>
+												</row>
+											</smart>
+										</cell>
+									</row>
+									<row>
+										<cell />
+									</row>
+									<row>
+										<cell horizontalAlignment="Left" verticalAlignment="Middle">
+											<label name="LblPlanElegido" caption="Plan elegido" class="info-label" />
+										</cell>
+									</row>
+									<row>
+										<cell horizontalAlignment="Left" verticalAlignment="Middle">
+											<input attribute="&amp;TipoCuotaNombre" readonly="True" class="info-value" />
+										</cell>
+									</row>
+									<row>
+										<cell />
+									</row>
+									<row>
+										<cell>
+											<action name="BtnRegistrarBottom" onClickEvent="'Registrar'" caption="Continuar al pago" class="btn-primary" />
+										</cell>
+									</row>
+									<row>
+										<cell />
+									</row>
+									<row>
+										<cell>
+											<action name="BtnVolverBottom" onClickEvent="'Volver'" caption="Volver" class="btn-secondary" />
+										</cell>
+									</row>
+									<row>
+										<cell />
+									</row>
+									<row>
+										<cell horizontalAlignment="Center">
+											<label name="LblPlanHintBottom" caption="Cuando elijas un plan, podés continuar desde aquí." class="field-help" />
+										</cell>
+									</row>
+									<row>
+										<cell />
+									</row>
+									<row>
+										<cell horizontalAlignment="Center">
+											<input attribute="&amp;MensajeError" readonly="True" class="message-inline" />
+										</cell>
+									</row>
+								</responsive>
+							</cell>
+						</row>
+						<row>
+							<cell horizontalAlignment="Center">
+								<label name="LblFooterPortal" caption="clubatenas.uy · Socios" class="page-footer" />
 							</cell>
 						</row>
 					</responsive>
 				</cell>
 			</row>
-			<row>
-				<cell hAlign="Center" vAlign="Top">
-					<smart name="MainContent" class="page-content" width="520px" columnsStyle="100%" rowsStyle="auto;14px;auto;12px;auto">
-						<row>
-							<cell>
-								<smart name="DatosCard" class="surface" width="100%" columnsStyle="100%" rowsStyle="48px;48px;52px;48px;18px;52px;18px;18px;52px">
-									<row><cell hAlign="Left" vAlign="Middle"><label name="LblTusDatos" caption="Tus datos" class="surface-title"/></cell></row>
-									<row><cell vAlign="Bottom"><label name="LblCedula" caption="Cedula" class="field-label"/></cell></row>
-									<row><cell vAlign="Middle"><input attribute="&amp;CedulaIngreso" class="field-input"/></cell></row>
-									<row>
-										<cell vAlign="Bottom">
-											<smart name="FilaLabelNombreApellido" width="100%" columnsStyle="48%;4%;48%" rowsStyle="48px">
-												<row>
-													<cell><label name="LblNombre" caption="Nombre" class="field-label"/></cell>
-													<cell></cell>
-													<cell><label name="LblApellido" caption="Apellido" class="field-label"/></cell>
-												</row>
-											</smart>
-										</cell>
-									</row>
-									<row>
-										<cell vAlign="Middle">
-											<smart name="FilaNombreApellido" width="100%" columnsStyle="48%;4%;48%" rowsStyle="52px">
-												<row>
-													<cell><input attribute="&amp;Nombre" class="field-input"/></cell>
-													<cell></cell>
-													<cell><input attribute="&amp;Apellido" class="field-input"/></cell>
-												</row>
-											</smart>
-										</cell>
-									</row>
-									<row>
-										<cell vAlign="Bottom">
-											<smart name="FilaLabelTelefonoEmail" width="100%" columnsStyle="48%;4%;48%" rowsStyle="48px">
-												<row>
-													<cell><label name="LblTelefono" caption="Celular" class="field-label"/></cell>
-													<cell></cell>
-													<cell><label name="LblEmail" caption="Email" class="field-label"/></cell>
-												</row>
-											</smart>
-										</cell>
-									</row>
-									<row>
-										<cell vAlign="Middle">
-											<smart name="FilaTelefonoEmail" width="100%" columnsStyle="48%;4%;48%" rowsStyle="52px">
-												<row>
-													<cell><input attribute="&amp;Telefono" class="field-input"/></cell>
-													<cell></cell>
-													<cell><input attribute="&amp;Email" class="field-input"/></cell>
-												</row>
-											</smart>
-										</cell>
-									</row>
-								</smart>
-							</cell>
-						</row>
-						<row>
-							<cell>
-								<smart name="PlanesCard" class="surface" width="100%" columnsStyle="100%" rowsStyle="48px;58px;58px;58px;58px;58px">
-									<row><cell hAlign="Left" vAlign="Middle"><label name="LblPlanes" caption="Elegi tu plan" class="surface-title"/></cell></row>
-									<row><cell><smart name="PlanAMensualRow" class="plan-option" width="100%" columnsStyle="56%;20%;24%" rowsStyle="34px"><row><cell><smart name="PlanAMensualText" width="100%" columnsStyle="100%" rowsStyle="16px;12px"><row><cell><label name="LblPlanAMensualName" caption="Socio A" class="plan-name"/></cell></row><row><cell><label name="LblPlanAMensualMeta" caption="Mensual" class="plan-freq"/></cell></row></smart></cell><cell hAlign="Center" vAlign="Middle"><input attribute="&amp;PlanAMensualImporte" readonly="True" class="plan-price"/></cell><cell hAlign="Right" vAlign="Middle"><action name="BtnElegirAMensual" caption="Seleccionar" onClickEvent="'ElegirAMensual'" class="atenas-plan-action"/></cell></row></smart></cell></row>
-									<row><cell><smart name="PlanAAnualRow" class="plan-option" width="100%" columnsStyle="56%;20%;24%" rowsStyle="34px"><row><cell><smart name="PlanAAnualText" width="100%" columnsStyle="100%" rowsStyle="16px;12px"><row><cell><label name="LblPlanAAnualName" caption="Socio A" class="plan-name"/></cell></row><row><cell><label name="LblPlanAAnualMeta" caption="Anual &#183; ahorras $ 1.000" class="plan-freq"/></cell></row></smart></cell><cell hAlign="Center" vAlign="Middle"><input attribute="&amp;PlanAAnualImporte" readonly="True" class="plan-price"/></cell><cell hAlign="Right" vAlign="Middle"><action name="BtnElegirAAnual" caption="Seleccionar" onClickEvent="'ElegirAAnual'" class="atenas-plan-action"/></cell></row></smart></cell></row>
-									<row><cell><smart name="PlanDBMensualRow" class="plan-option" width="100%" columnsStyle="56%;20%;24%" rowsStyle="34px"><row><cell><smart name="PlanDBMensualText" width="100%" columnsStyle="100%" rowsStyle="16px;12px"><row><cell><label name="LblPlanDBMensualName" caption="Socio D Basquet" class="plan-name"/></cell></row><row><cell><label name="LblPlanDBMensualMeta" caption="Mensual" class="plan-freq"/></cell></row></smart></cell><cell hAlign="Center" vAlign="Middle"><input attribute="&amp;PlanDBasquetMensualImporte" readonly="True" class="plan-price"/></cell><cell hAlign="Right" vAlign="Middle"><action name="BtnElegirDBasquetMensual" caption="Seleccionar" onClickEvent="'ElegirDBasquetMensual'" class="atenas-plan-action"/></cell></row></smart></cell></row>
-									<row><cell><smart name="PlanDBAnualRow" class="plan-option" width="100%" columnsStyle="56%;20%;24%" rowsStyle="34px"><row><cell><smart name="PlanDBAnualText" width="100%" columnsStyle="100%" rowsStyle="16px;12px"><row><cell><label name="LblPlanDBAnualName" caption="Socio D Basquet" class="plan-name"/></cell></row><row><cell><label name="LblPlanDBAnualMeta" caption="Anual" class="plan-freq"/></cell></row></smart></cell><cell hAlign="Center" vAlign="Middle"><input attribute="&amp;PlanDBasquetAnualImporte" readonly="True" class="plan-price"/></cell><cell hAlign="Right" vAlign="Middle"><action name="BtnElegirDBasquetAnual" caption="Seleccionar" onClickEvent="'ElegirDBasquetAnual'" class="atenas-plan-action"/></cell></row></smart></cell></row>
-									<row><cell><smart name="PlanDBBecaRow" class="plan-option" width="100%" columnsStyle="56%;20%;24%" rowsStyle="34px"><row><cell><smart name="PlanDBBecaText" width="100%" columnsStyle="100%" rowsStyle="16px;12px"><row><cell><label name="LblPlanDBBecaName" caption="Socio D Basquet" class="plan-name"/></cell></row><row><cell><label name="LblPlanDBBecaMeta" caption="Beca 50%" class="plan-freq"/></cell></row></smart></cell><cell hAlign="Center" vAlign="Middle"><input attribute="&amp;PlanDBasquetBecaImporte" readonly="True" class="plan-price"/></cell><cell hAlign="Right" vAlign="Middle"><action name="BtnElegirDBasquetBeca" caption="Seleccionar" onClickEvent="'ElegirDBasquetBeca'" class="atenas-plan-action"/></cell></row></smart></cell></row>
-								</smart>
-							</cell>
-						</row>
-						<row>
-							<cell>
-								<smart name="SeleccionCard" class="surface-muted" width="100%" columnsStyle="100%" rowsStyle="24px;34px;10px;52px;10px;46px;10px;18px;10px;46px">
-									<row><cell hAlign="Left" vAlign="Middle"><label name="LblPlanElegido" caption="Plan elegido" class="info-label"/></cell></row>
-									<row><cell hAlign="Left" vAlign="Middle"><input attribute="&amp;TipoCuotaNombre" readonly="True" class="info-value"/></cell></row>
-									<row><cell/></row>
-									<row><cell><action name="BtnRegistrarBottom" caption="Continuar al pago" onClickEvent="'Registrar'" class="btn-primary"/></cell></row>
-									<row><cell/></row>
-									<row><cell><action name="BtnVolverBottom" caption="Volver" onClickEvent="'Volver'" class="btn-secondary"/></cell></row>
-									<row><cell/></row>
-									<row><cell hAlign="Center"><label name="LblPlanHintBottom" caption="Cuando elijas un plan, puedes continuar desde aqui mismo." class="field-help"/></cell></row>
-									<row><cell/></row>
-									<row><cell hAlign="Center"><input attribute="&amp;MensajeError" readonly="True" class="message-inline"/></cell></row>
-								</smart>
-							</cell>
-						</row>
-					</smart>
-				</cell>
-			</row>
-			<row>
-				<cell hAlign="Center">
-					<label name="LblFooterPortal" caption="clubatenas.uy &#183; Socios" class="page-footer"/>
-				</cell>
-			</row>
 		</responsive>
-		<actiongroups/>
+		<actiongroups />
 	</view>
 </layout>

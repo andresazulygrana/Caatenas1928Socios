@@ -1,6 +1,6 @@
 <layout type="Web">
 	<view>
-		<responsive name="PageContent" class="page">
+		<responsive name="PageContent" class="page page-no-hero">
 			<row>
 				<cell>
 					<responsive name="HeaderBand" class="page-header">
@@ -24,9 +24,7 @@
 													</cell>
 												</row>
 												<row>
-													<cell>
-														<label name="LblPortalSub" caption="Resumen del pago" class="header-tagline"/>
-													</cell>
+													<cell><label name="LblPortalSub" caption="Comprobante" class="header-tagline"/></cell>
 												</row>
 											</responsive>
 										</cell>
@@ -39,62 +37,44 @@
 			</row>
 			<row>
 				<cell hAlign="Center" vAlign="Top">
-					<smart name="MainContent" class="page-content" width="520px" columnsStyle="100%" rowsStyle="auto;12px;54px;8px;46px">
+					<responsive name="MainContent" class="page-content">
 						<row>
 							<cell>
-								<smart name="ReceiptCard" class="receipt" width="100%" columnsStyle="100%" rowsStyle="auto;auto;auto;auto;auto;auto;auto;24px;auto;auto;auto;auto">
+								<responsive name="ReceiptCard" class="surface">
 									<row>
 										<cell>
-											<smart name="ReceiptHeader" class="receipt-header" width="100%" columnsStyle="100%" rowsStyle="auto;auto;auto">
-												<row><cell hAlign="Center"><label name="LblReceiptTitle" caption="Club Atletico Atenas" class="receipt-logo"/></cell></row>
-												<row><cell hAlign="Center"><label name="LblReceiptSub" caption="Resumen de pago de membresia" class="receipt-sub"/></cell></row>
-												<row><cell hAlign="Center"><label name="LblReceiptEstado" caption="Pago acreditado" class="receipt-badge"/></cell></row>
+											<smart name="ReceiptHeader" class="receipt-header" width="100%" columnsStyle="100%" rowsStyle="20px;28px;20px">
+												<row><cell hAlign="Center"><label name="LblReceiptTitle" caption="Comprobante" class="receipt-header-title"/></cell></row>
+												<row><cell hAlign="Center"><input attribute="&amp;ReferenciaOperacion" readonly="True" class="receipt-header-id"/></cell></row>
+												<row><cell hAlign="Center"><input attribute="&amp;FechaPagoTexto" readonly="True" class="receipt-header-date"/></cell></row>
 											</smart>
 										</cell>
 									</row>
-									<row>
-										<cell>
-											<smart name="ReceiptAmount" width="100%" columnsStyle="100%" rowsStyle="auto;auto">
-												<row><cell hAlign="Center"><label name="LblTotalAbonado" caption="Importe acreditado" class="amount-label"/></cell></row>
-												<row><cell hAlign="Center"><input attribute="&amp;ImportePagadoTexto" readonly="True" class="receipt-amount"/></cell></row>
-											</smart>
-										</cell>
-									</row>
-									<row>
-										<cell>
-											<smart name="ReceiptRefBox" class="ref-block" width="100%" columnsStyle="100%" rowsStyle="auto;auto">
-												<row><cell hAlign="Center"><label name="LblRefTitle" caption="Operacion" class="ref-label"/></cell></row>
-												<row><cell hAlign="Center"><input attribute="&amp;ReferenciaOperacion" readonly="True" class="text-mono"/></cell></row>
-											</smart>
-										</cell>
-									</row>
-									<row><cell><smart name="RowSocio" class="info-row" width="100%" columnsStyle="35%;65%" rowsStyle="24px"><row><cell><label name="LblSocioComp" caption="Socio" class="info-label"/></cell><cell hAlign="Right"><input attribute="&amp;NombreSocio" readonly="True" class="info-value"/></cell></row></smart></cell></row>
-									<row><cell><smart name="RowCedula" class="info-row" width="100%" columnsStyle="35%;65%" rowsStyle="24px"><row><cell><label name="LblCedulaComp" caption="Cedula" class="info-label"/></cell><cell hAlign="Right"><input attribute="&amp;CedulaSocio" readonly="True" class="info-value"/></cell></row></smart></cell></row>
-									<row><cell><smart name="RowPlan" class="info-row" width="100%" columnsStyle="35%;65%" rowsStyle="24px"><row><cell><label name="LblTipoComp" caption="Plan" class="info-label"/></cell><cell hAlign="Right"><input attribute="&amp;TipoCuotaNombre" readonly="True" class="info-value"/></cell></row></smart></cell></row>
-									<row><cell><smart name="RowPeriodo" class="info-row" width="100%" columnsStyle="35%;65%" rowsStyle="24px"><row><cell><label name="LblPeriodoComp" caption="Periodo" class="info-label"/></cell><cell hAlign="Right"><input attribute="&amp;PeriodoCuota" readonly="True" class="info-value"/></cell></row></smart></cell></row>
 									<row><cell><label name="LblDividerOne" caption="" class="receipt-divider"/></cell></row>
-									<row><cell><smart name="RowFecha" class="info-row" width="100%" columnsStyle="35%;65%" rowsStyle="24px"><row><cell><label name="LblFechaComp" caption="Fecha y hora" class="info-label"/></cell><cell hAlign="Right"><input attribute="&amp;FechaPagoTexto" readonly="True" class="info-value"/></cell></row></smart></cell></row>
-									<row><cell><smart name="RowRef" class="info-row" width="100%" columnsStyle="35%;65%" rowsStyle="24px"><row><cell><label name="LblRefComp" caption="Referencia" class="info-label"/></cell><cell hAlign="Right"><input attribute="&amp;ReferenciaOperacion" readonly="True" class="text-mono"/></cell></row></smart></cell></row>
-									<row><cell><smart name="RowEstado" width="100%" columnsStyle="35%;65%" rowsStyle="auto"><row><cell><label name="LblEstadoComp" caption="Estado" class="info-label"/></cell><cell hAlign="Right"><label name="LblEstadoAprobado" caption="Aprobado" class="status-pill--ok"/></cell></row></smart></cell></row>
 									<row>
 										<cell>
-											<smart name="ReceiptFooter" class="receipt-footer" width="100%" columnsStyle="100%" rowsStyle="auto">
-												<row><cell hAlign="Center" vAlign="Middle"><label name="LblAyudaComprobante" caption="Este resumen te permite identificar el pago realizado en el portal. Si necesitas el comprobante formal del procesador, puedes descargarlo por separado desde Mercado Pago." class="receipt-footer-text"/></cell></row>
+											<smart name="ReceiptAmount" class="receipt-amount" width="100%" columnsStyle="100%" rowsStyle="20px;44px">
+												<row><cell hAlign="Center"><label name="LblTotalAbonado" caption="Total pagado" class="receipt-amount-label"/></cell></row>
+												<row><cell hAlign="Center"><input attribute="&amp;ImportePagadoTexto" readonly="True" class="receipt-amount-value"/></cell></row>
 											</smart>
 										</cell>
 									</row>
-								</smart>
+									<row><cell><label name="LblDividerTwo" caption="" class="receipt-divider"/></cell></row>
+									<row><cell><smart name="RowSocio" class="info-row" width="100%" columnsStyle="35%;65%" rowsStyle="24px"><row><cell><label name="LblSocioComp" caption="Socio" class="info-label"/></cell><cell hAlign="Right"><input attribute="&amp;NombreSocio" readonly="True" class="info-value"/></cell></row></smart></cell></row>
+									<row><cell><smart name="RowCuota" class="info-row" width="100%" columnsStyle="35%;65%" rowsStyle="24px"><row><cell><label name="LblPeriodoComp" caption="Cuota" class="info-label"/></cell><cell hAlign="Right"><input attribute="&amp;PeriodoCuota" readonly="True" class="info-value"/></cell></row></smart></cell></row>
+									<row><cell><smart name="RowConcepto" class="info-row" width="100%" columnsStyle="35%;65%" rowsStyle="24px"><row><cell><label name="LblTipoComp" caption="Concepto" class="info-label"/></cell><cell hAlign="Right"><input attribute="&amp;TipoCuotaNombre" readonly="True" class="info-value"/></cell></row></smart></cell></row>
+									<row><cell><smart name="RowMedio" class="info-row" width="100%" columnsStyle="35%;65%" rowsStyle="24px"><row><cell><label name="LblMedioComp" caption="Medio" class="info-label"/></cell><cell hAlign="Right"><label name="LblMedioValor" caption="Mercado Pago" class="info-value"/></cell></row></smart></cell></row>
+									<row><cell><smart name="RowRef" class="info-row" width="100%" columnsStyle="35%;65%" rowsStyle="24px"><row><cell><label name="LblRefComp" caption="Referencia" class="info-label"/></cell><cell hAlign="Right"><input attribute="&amp;ReferenciaOperacion" readonly="True" class="info-value"/></cell></row></smart></cell></row>
+									<row><cell><label name="LblDividerThree" caption="" class="receipt-divider"/></cell></row>
+									<row><cell hAlign="Center"><label name="LblAyudaComprobante" caption="clubatenas.uy &#183; Documento sin valor fiscal" class="receipt-footer"/></cell></row>
+								</responsive>
 							</cell>
 						</row>
-						<row><cell></cell></row>
-						<row><cell><action name="BtnImprimir" caption="Guardar este resumen" onClickEvent="'Imprimir'" class="btn-primary"/></cell></row>
-						<row><cell><action name="BtnInicio" caption="Volver al portal" onClickEvent="'IrInicio'" class="btn-secondary"/></cell></row>
-					</smart>
-				</cell>
-			</row>
-			<row>
-				<cell hAlign="Center">
-					<label name="LblFooterPortal" caption="clubatenas.uy &#183; Socios" class="page-footer"/>
+						<row><cell/></row>
+						<row><cell><action name="BtnImprimir" caption="Imprimir / Descargar PDF" onClickEvent="'Imprimir'" class="btn-primary"/></cell></row>
+						<row><cell><action name="BtnInicio" caption="Volver al inicio" onClickEvent="'IrInicio'" class="btn-secondary"/></cell></row>
+						<row><cell hAlign="Center"><label name="LblFooterPortal" caption="clubatenas.uy &#183; Socios" class="page-footer"/></cell></row>
+					</responsive>
 				</cell>
 			</row>
 		</responsive>

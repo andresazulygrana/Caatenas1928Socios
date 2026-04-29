@@ -1,167 +1,176 @@
 WebPanel AdminConfiguracionPago
 {
 	#Events
-		Event Start
-			&ConfiguracionPagoId = 1
-			&ConfiguracionPagoBC = new()
-			&ConfiguracionPagoBC.Load(&ConfiguracionPagoId)
-			&TituloContexto = !"Configuracion principal de Checkout Pro"
-			If &ConfiguracionPagoBC.Success()
-				&NombreConfiguracion = &ConfiguracionPagoBC.ConfiguracionPagoNombre
-				&AccessToken = &ConfiguracionPagoBC.ConfiguracionPagoAccessToken
-				&BaseUrl = &ConfiguracionPagoBC.ConfiguracionPagoBaseUrl
-				&Activo = &ConfiguracionPagoBC.ConfiguracionPagoActivo
-				&MailActivo = &ConfiguracionPagoBC.ConfiguracionPagoMailActivo
-				&MailHost = &ConfiguracionPagoBC.ConfiguracionPagoMailHost
-				&MailPort = &ConfiguracionPagoBC.ConfiguracionPagoMailPort
-				&MailUser = &ConfiguracionPagoBC.ConfiguracionPagoMailUser
-				&MailPassword = &ConfiguracionPagoBC.ConfiguracionPagoMailPassword
-				&MailSender = &ConfiguracionPagoBC.ConfiguracionPagoMailSender
-				&MailSenderName = &ConfiguracionPagoBC.ConfiguracionPagoMailSenderName
-				&MailSecure = &ConfiguracionPagoBC.ConfiguracionPagoMailSecure
-				&Mensaje = !"Configuracion cargada"
-			Else
-				&NombreConfiguracion = !"Sandbox"
-				&AccessToken = !""
-				&BaseUrl = !""
-				&Activo = true
-				&MailActivo = false
-				&MailHost = !""
-				&MailPort = 587
-				&MailUser = !""
-				&MailPassword = !""
-				&MailSender = !""
-				&MailSenderName = !"Club Atletico Atenas"
-				&MailSecure = true
-				&Mensaje = !"Configura las credenciales de pago"
-			EndIf
-			If &Activo
-				&EstadoConfiguracion = !"Activa"
-			Else
-				&EstadoConfiguracion = !"Inactiva"
-			EndIf
-			If NOT &BaseUrl.IsEmpty()
-				&WebhookUrl = &BaseUrl + !"/awebhookmercadopago.aspx"
-			Else
-				&WebhookUrl = !"Completa la Base URL para generar el webhook publico"
-			EndIf
-			If &Activo
-				&TituloContexto = !"Configuracion principal de Checkout Pro lista para operar"
-			Else
-				&TituloContexto = !"Configuracion principal de Checkout Pro en pausa"
-			EndIf
-		EndEvent
-
-		Event 'Guardar'
-			&ConfiguracionPagoId = 1
-			&ConfiguracionPagoBC = new()
-			&ConfiguracionPagoBC.Load(&ConfiguracionPagoId)
-			&ConfiguracionPagoBC.ConfiguracionPagoId = &ConfiguracionPagoId
-			&ConfiguracionPagoBC.ConfiguracionPagoNombre = &NombreConfiguracion
-			&ConfiguracionPagoBC.ConfiguracionPagoAccessToken = &AccessToken
-			&ConfiguracionPagoBC.ConfiguracionPagoBaseUrl = &BaseUrl
-			&ConfiguracionPagoBC.ConfiguracionPagoActivo = &Activo
-			&ConfiguracionPagoBC.ConfiguracionPagoMailActivo = &MailActivo
-			&ConfiguracionPagoBC.ConfiguracionPagoMailHost = &MailHost
-			&ConfiguracionPagoBC.ConfiguracionPagoMailPort = &MailPort
-			&ConfiguracionPagoBC.ConfiguracionPagoMailUser = &MailUser
-			&ConfiguracionPagoBC.ConfiguracionPagoMailPassword = &MailPassword
-			&ConfiguracionPagoBC.ConfiguracionPagoMailSender = &MailSender
-			&ConfiguracionPagoBC.ConfiguracionPagoMailSenderName = &MailSenderName
-			&ConfiguracionPagoBC.ConfiguracionPagoMailSecure = &MailSecure
-			&ConfiguracionPagoBC.Save()
-			If &ConfiguracionPagoBC.Success()
-				Commit
-				If &Activo
-					&EstadoConfiguracion = !"Activa"
-					&TituloContexto = !"Configuracion principal de Checkout Pro lista para operar"
-				Else
-					&EstadoConfiguracion = !"Inactiva"
-					&TituloContexto = !"Configuracion principal de Checkout Pro en pausa"
-				EndIf
-				If NOT &BaseUrl.IsEmpty()
-					&WebhookUrl = &BaseUrl + !"/awebhookmercadopago.aspx"
-				Else
-					&WebhookUrl = !"Completa la Base URL para generar el webhook publico"
-				EndIf
-				&Mensaje = !"Configuracion guardada correctamente"
-			Else
-				&Mensaje = &ConfiguracionPagoBC.GetMessages().ToJson()
-			EndIf
-		EndEvent
-
-		Event 'IrPruebas'
-			AdminPruebaPago()
-		EndEvent
-
-		Event 'IrDashboard'
-			AdminDashboard()
-		EndEvent
-
-		Event 'IrPortalPublico'
-			BuscarSocio()
-		EndEvent
-
-		Event 'Dashboard'
-			AdminDashboard()
-		EndEvent
-
-		Event 'Socios'
-			AdminSocios()
-		EndEvent
-
-		Event 'ImportarSocios'
-			AdminImportarSocios()
-		EndEvent
-
-		Event 'TiposCuota'
-			AdminTipoCuota()
-		EndEvent
-
-		Event 'Cuotas'
-			AdminCuotas()
-		EndEvent
-
-		Event 'PruebasPago'
-			AdminPruebaPago()
-		EndEvent
-
-		Event 'Sandbox'
-			AdminProcesarPagoSandbox()
-		EndEvent
-
-		Event 'PortalSocios'
-			BuscarSocio()
-		EndEvent
-	#End
-
-	#Rules
-	#End
-
-	#Conditions
+				Event Start
+					&ConfiguracionPagoId = 1
+					&ConfiguracionPagoBC = new()
+					&ConfiguracionPagoBC.Load(&ConfiguracionPagoId)
+					&TituloContexto = !"Configuracion principal de Checkout Pro"
+					If &ConfiguracionPagoBC.Success()
+						&NombreConfiguracion = &ConfiguracionPagoBC.ConfiguracionPagoNombre
+						&AccessToken = &ConfiguracionPagoBC.ConfiguracionPagoAccessToken
+						&BaseUrl = &ConfiguracionPagoBC.ConfiguracionPagoBaseUrl
+						&Activo = &ConfiguracionPagoBC.ConfiguracionPagoActivo
+						&MailActivo = &ConfiguracionPagoBC.ConfiguracionPagoMailActivo
+						&MailHost = &ConfiguracionPagoBC.ConfiguracionPagoMailHost
+						&MailPort = &ConfiguracionPagoBC.ConfiguracionPagoMailPort
+						&MailUser = &ConfiguracionPagoBC.ConfiguracionPagoMailUser
+						&MailPassword = &ConfiguracionPagoBC.ConfiguracionPagoMailPassword
+						&MailSender = &ConfiguracionPagoBC.ConfiguracionPagoMailSender
+						&MailSenderName = &ConfiguracionPagoBC.ConfiguracionPagoMailSenderName
+						&MailSecure = &ConfiguracionPagoBC.ConfiguracionPagoMailSecure
+						&Mensaje = !"Configuracion cargada"
+					Else
+						&NombreConfiguracion = !"Sandbox"
+						&AccessToken = !""
+						&BaseUrl = !""
+						&Activo = true
+						&MailActivo = false
+						&MailHost = !""
+						&MailPort = 587
+						&MailUser = !""
+						&MailPassword = !""
+						&MailSender = !""
+						&MailSenderName = !"Club Atletico Atenas"
+						&MailSecure = true
+						&Mensaje = !"Configura las credenciales de pago"
+					EndIf
+					If &Activo
+						&EstadoConfiguracion = !"Activa"
+					Else
+						&EstadoConfiguracion = !"Inactiva"
+					EndIf
+					If NOT &BaseUrl.IsEmpty()
+						&WebhookUrl = &BaseUrl + !"/awebhookmercadopago.aspx"
+					Else
+						&WebhookUrl = !"Completa la Base URL para generar el webhook publico"
+					EndIf
+					If &Activo
+						&TituloContexto = !"Configuracion principal de Checkout Pro lista para operar"
+					Else
+						&TituloContexto = !"Configuracion principal de Checkout Pro en pausa"
+					EndIf
+				EndEvent
+		
+				Event 'Guardar'
+					&ConfiguracionPagoId = 1
+					&ConfiguracionPagoBC = new()
+					&ConfiguracionPagoBC.Load(&ConfiguracionPagoId)
+					&ConfiguracionPagoBC.ConfiguracionPagoId = &ConfiguracionPagoId
+					&ConfiguracionPagoBC.ConfiguracionPagoNombre = &NombreConfiguracion
+					&ConfiguracionPagoBC.ConfiguracionPagoAccessToken = &AccessToken
+					&ConfiguracionPagoBC.ConfiguracionPagoBaseUrl = &BaseUrl
+					&ConfiguracionPagoBC.ConfiguracionPagoActivo = &Activo
+					&ConfiguracionPagoBC.ConfiguracionPagoMailActivo = &MailActivo
+					&ConfiguracionPagoBC.ConfiguracionPagoMailHost = &MailHost
+					&ConfiguracionPagoBC.ConfiguracionPagoMailPort = &MailPort
+					&ConfiguracionPagoBC.ConfiguracionPagoMailUser = &MailUser
+					&ConfiguracionPagoBC.ConfiguracionPagoMailPassword = &MailPassword
+					&ConfiguracionPagoBC.ConfiguracionPagoMailSender = &MailSender
+					&ConfiguracionPagoBC.ConfiguracionPagoMailSenderName = &MailSenderName
+					&ConfiguracionPagoBC.ConfiguracionPagoMailSecure = &MailSecure
+					&ConfiguracionPagoBC.Save()
+					If &ConfiguracionPagoBC.Success()
+						Commit
+						If &Activo
+							&EstadoConfiguracion = !"Activa"
+							&TituloContexto = !"Configuracion principal de Checkout Pro lista para operar"
+						Else
+							&EstadoConfiguracion = !"Inactiva"
+							&TituloContexto = !"Configuracion principal de Checkout Pro en pausa"
+						EndIf
+						If NOT &BaseUrl.IsEmpty()
+							&WebhookUrl = &BaseUrl + !"/awebhookmercadopago.aspx"
+						Else
+							&WebhookUrl = !"Completa la Base URL para generar el webhook publico"
+						EndIf
+						&Mensaje = !"Configuracion guardada correctamente"
+					Else
+						&Mensaje = &ConfiguracionPagoBC.GetMessages().ToJson()
+					EndIf
+				EndEvent
+		
+				Event 'IrPruebas'
+					AdminPruebaPago()
+				EndEvent
+		
+				Event 'IrDashboard'
+					AdminDashboard()
+				EndEvent
+		
+				Event 'IrPortalPublico'
+					BuscarSocio()
+				EndEvent
+		
+				Event 'Dashboard'
+					AdminDashboard()
+				EndEvent
+		
+				Event 'Socios'
+					AdminSocios()
+				EndEvent
+		
+				Event 'ImportarSocios'
+					AdminImportarSocios()
+				EndEvent
+		
+				Event 'TiposCuota'
+					AdminTipoCuota()
+				EndEvent
+		
+				Event 'Cuotas'
+					AdminCuotasNuevo()
+				EndEvent
+		
+				Event 'PruebasPago'
+					AdminPruebaPago()
+				EndEvent
+		
+				Event 'Sandbox'
+					AdminProcesarPagoSandbox()
+				EndEvent
+		
+				Event 'PortalSocios'
+					BuscarSocio()
+				EndEvent
 	#End
 
 	#Variables
-		ConfiguracionPagoId [ DataType = 'Attribute:ConfiguracionPagoId', Description = '' ]
-		NombreConfiguracion [ DataType = 'Attribute:ConfiguracionPagoNombre', Description = '' ]
-		AccessToken [ DataType = 'VarChar(120)', Description = '' ]
-		BaseUrl [ DataType = 'VarChar(200)', Description = '' ]
-		Activo [ DataType = 'Attribute:ConfiguracionPagoActivo', Description = '' ]
-		MailActivo [ DataType = 'Attribute:ConfiguracionPagoMailActivo', Description = '' ]
-		MailHost [ DataType = 'Attribute:ConfiguracionPagoMailHost', Description = '' ]
-		MailPort [ DataType = 'Attribute:ConfiguracionPagoMailPort', Description = '' ]
-		MailUser [ DataType = 'Attribute:ConfiguracionPagoMailUser', Description = '' ]
-		MailPassword [ DataType = 'VarChar(80)', Description = '' ]
-		MailSender [ DataType = 'Attribute:ConfiguracionPagoMailSender', Description = '' ]
-		MailSenderName [ DataType = 'Attribute:ConfiguracionPagoMailSenderName', Description = '' ]
-		MailSecure [ DataType = 'Attribute:ConfiguracionPagoMailSecure', Description = '' ]
-		Mensaje [ DataType = 'VarChar(160)', Description = '' ]
-		TituloContexto [ DataType = 'VarChar(120)', Description = '' ]
-		EstadoConfiguracion [ DataType = 'VarChar(20)', Description = '' ]
-		WebhookUrl [ DataType = 'VarChar(200)', Description = '' ]
-		ConfiguracionPagoBC [ DataType = 'ConfiguracionPago', Description = '' ]
-		Pgmname [ DataType = 'Character(8)' ]
-		Pgmdesc [ DataType = 'Character(8)' ]
+			ConfiguracionPagoId [ Description = '', DataType = 'Attribute:ConfiguracionPagoId' ]
+
+			NombreConfiguracion [ Description = '', DataType = 'Attribute:ConfiguracionPagoNombre' ]
+
+			AccessToken [ Description = '', DataType = 'VarChar(120)' ]
+
+			BaseUrl [ Description = '', DataType = 'VarChar(200)' ]
+
+			Activo [ Description = '', DataType = 'Attribute:ConfiguracionPagoActivo' ]
+
+			Mensaje [ Description = '', DataType = 'VarChar(160)' ]
+
+			ConfiguracionPagoBC [ Description = '', DataType = 'ConfiguracionPago' ]
+
+			TituloContexto [ Description = '', DataType = 'VarChar(120)' ]
+
+			EstadoConfiguracion [ Description = '', DataType = 'VarChar(20)' ]
+
+			WebhookUrl [ Description = '', DataType = 'VarChar(200)', AverageLength = '0', Collection = 'False', ControlType = 'Edit' ]
+
+			MailActivo [ Description = '', DataType = 'Attribute:ConfiguracionPagoMailActivo' ]
+
+			MailHost [ Description = '', DataType = 'Attribute:ConfiguracionPagoMailHost' ]
+
+			MailPort [ Description = '', DataType = 'Attribute:ConfiguracionPagoMailPort' ]
+
+			MailUser [ Description = '', DataType = 'Attribute:ConfiguracionPagoMailUser' ]
+
+			MailPassword [ Description = '', DataType = 'VarChar(80)' ]
+
+			MailSender [ Description = '', DataType = 'Attribute:ConfiguracionPagoMailSender' ]
+
+			MailSenderName [ Description = '', DataType = 'Attribute:ConfiguracionPagoMailSenderName' ]
+
+			MailSecure [ Description = '', DataType = 'Attribute:ConfiguracionPagoMailSecure' ]
 	#End
 
 	#Properties
@@ -169,10 +178,13 @@ WebPanel AdminConfiguracionPago
 
 		Description = "Panel administrativo de configuracion de Mercado Pago"
 
-		Type = "Web Panel"
-
-		MasterPage = ""
-
 		Style = "Caatenas1928"
+
+		Type = "Web Page"
+
+		MasterPage = "(none)"
+
+		IsDefault = "False"
 	#End
+
 }

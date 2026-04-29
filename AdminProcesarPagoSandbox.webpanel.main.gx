@@ -1,165 +1,204 @@
 WebPanel AdminProcesarPagoSandbox
 {
 	#Events
-		Event Start
-			If &PaymentIdPrueba.IsEmpty()
-				&PaymentIdPrueba = !"153018215411"
-			EndIf
-			If &SocioIdPrueba = 0
-				&SocioIdPrueba = 201
-			EndIf
-			If &EstadoTexto.IsEmpty()
-				&EstadoTexto = !"Ingresa un PaymentId sandbox y procesa el pago"
-			EndIf
-			&CuotaIdUltima = 0
-			&CuotaEstado = !""
-			&CuotaMPEstado = !""
-			&CuotaPeriodo = !""
-			For Each Cuota
-				Where SocioId = &SocioIdPrueba
-				&CuotaIdUltima = CuotaId
-				&CuotaPeriodo = CuotaPeriodo
-				&CuotaEstado = CuotaEstado
-				&CuotaMPEstado = CuotaMPEstado
-				Exit
-			EndFor
-			&ConfigNombre = !""
-			&ConfigBaseUrl = !""
-			&ConfigActiva = false
-			&TokenLength = 0
-			For Each ConfiguracionPago
-				Where ConfiguracionPagoId = 1
-				&ConfigNombre = ConfiguracionPagoNombre
-				&ConfigBaseUrl = ConfiguracionPagoBaseUrl
-				&ConfigActiva = ConfiguracionPagoActivo
-				&TokenLength = Len(Trim(ConfiguracionPagoAccessToken))
-				Exit
-			EndFor
-			&HttpStatus = 0
-			&ErrCode = 0
-			&ErrDescription = !""
-			&JsonPago = !""
-			&DebugFilePath = !""
-		EndEvent
-
-		Event 'Procesar'
-			If &PaymentIdPrueba.IsEmpty()
-				&EstadoTexto = !"Ingresa un PaymentId"
-				Return
-			EndIf
-			ProcesarPagoMercadoPago(&PaymentIdPrueba)
-			&EstadoTexto = !"Pago procesado manualmente"
-			&CuotaIdUltima = 0
-			&CuotaEstado = !""
-			&CuotaMPEstado = !""
-			&CuotaPeriodo = !""
-			For Each Cuota
-				Where SocioId = &SocioIdPrueba
-				&CuotaIdUltima = CuotaId
-				&CuotaPeriodo = CuotaPeriodo
-				&CuotaEstado = CuotaEstado
-				&CuotaMPEstado = CuotaMPEstado
-				Exit
-			EndFor
-			&ConfigNombre = !""
-			&ConfigBaseUrl = !""
-			&ConfigActiva = false
-			&TokenLength = 0
-			For Each ConfiguracionPago
-				Where ConfiguracionPagoId = 1
-				&ConfigNombre = ConfiguracionPagoNombre
-				&ConfigBaseUrl = ConfiguracionPagoBaseUrl
-				&ConfigActiva = ConfiguracionPagoActivo
-				&TokenLength = Len(Trim(ConfiguracionPagoAccessToken))
-				Exit
-			EndFor
-		EndEvent
-
-		Event 'Diagnosticar'
-			If &PaymentIdPrueba.IsEmpty()
-				&EstadoTexto = !"Ingresa un PaymentId"
-				Return
-			EndIf
-			DiagnosticarPagoMercadoPago(&PaymentIdPrueba, &HttpStatus, &ErrCode, &ErrDescription, &JsonPago, &DebugFilePath)
-			&ConfigNombre = !""
-			&ConfigBaseUrl = !""
-			&ConfigActiva = false
-			&TokenLength = 0
-			For Each ConfiguracionPago
-				Where ConfiguracionPagoId = 1
-				&ConfigNombre = ConfiguracionPagoNombre
-				&ConfigBaseUrl = ConfiguracionPagoBaseUrl
-				&ConfigActiva = ConfiguracionPagoActivo
-				&TokenLength = Len(Trim(ConfiguracionPagoAccessToken))
-				Exit
-			EndFor
-			&EstadoTexto = !"Diagnostico ejecutado"
-		EndEvent
-
-		Event 'AbrirPortal'
-			If &SocioIdPrueba > 0
-				PantallaPago(&SocioIdPrueba)
-			EndIf
-		EndEvent
-
-		Event 'Dashboard'
-			AdminDashboard()
-		EndEvent
-
-		Event 'Socios'
-			AdminSocios()
-		EndEvent
-
-		Event 'ImportarSocios'
-			AdminImportarSocios()
-		EndEvent
-
-		Event 'TiposCuota'
-			AdminTipoCuota()
-		EndEvent
-
-		Event 'Cuotas'
-			AdminCuotas()
-		EndEvent
-
-		Event 'ConfiguracionPago'
-			AdminConfiguracionPago()
-		EndEvent
-
-		Event 'PruebasPago'
-			AdminPruebaPago()
-		EndEvent
-
-		Event 'PortalSocios'
-			BuscarSocio()
-		EndEvent
-	#End
-
-	#Rules
-	#End
-
-	#Conditions
+												Event Start
+													If &EstadoTexto.IsEmpty()
+														&EstadoTexto = !"Ingresa SocioId o CuotaId para diagnosticar Mercado Pago"
+													EndIf
+													If &SocioIdPrueba > 0
+														Do 'CargarCuotaSocio'
+													EndIf
+													Do 'CargarConfiguracion'
+													&HttpStatus = 0
+													&ErrCode = 0
+													&ErrDescription = !""
+													&JsonPago = !""
+													&DebugFilePath = !""
+													If &CuotaIdDiagnostico = 0
+														&CuotaIdDiagnostico = &CuotaIdUltima
+													EndIf
+												EndEvent
+						
+												Event 'BuscarSocioCuota'
+													If &SocioIdPrueba = 0
+														&EstadoTexto = !"Ingresa un SocioId"
+													Else
+														Do 'CargarCuotaSocio'
+														If &CuotaIdUltima > 0
+															&CuotaIdDiagnostico = &CuotaIdUltima
+															&EstadoTexto = !"Cuota cargada para el socio"
+														Else
+															&EstadoTexto = !"No se encontro cuota para ese socio"
+														EndIf
+													EndIf
+													Do 'CargarConfiguracion'
+												EndEvent
+										
+												Event 'Procesar'
+													If &PaymentIdPrueba.IsEmpty()
+														&EstadoTexto = !"Ingresa un PaymentId"
+														Return
+													EndIf
+													ProcesarPagoMercadoPago(&PaymentIdPrueba)
+													&EstadoTexto = !"Pago procesado manualmente"
+													Do 'CargarCuotaSocio'
+													Do 'CargarConfiguracion'
+												EndEvent
+										
+												Event 'Diagnosticar'
+													If &PaymentIdPrueba.IsEmpty()
+														&EstadoTexto = !"Ingresa un PaymentId"
+														Return
+													EndIf
+													DiagnosticarPagoMercadoPago(&PaymentIdPrueba, &HttpStatus, &ErrCode, &ErrDescription, &JsonPago, &DebugFilePath)
+													Do 'CargarConfiguracion'
+													&EstadoTexto = !"Diagnostico ejecutado"
+												EndEvent
+								
+										Event 'DiagnosticarCuota'
+											If &CuotaIdDiagnostico = 0
+												&EstadoTexto = !"Ingresa un CuotaId"
+												Return
+													EndIf
+													DiagnosticarPagosMercadoPagoPorCuota(&CuotaIdDiagnostico, &HttpStatus, &ErrCode, &ErrDescription, &JsonPago, &DebugFilePath)
+													&EstadoTexto = !"Diagnostico por cuota ejecutado"
+													For Each Cuota
+														Where CuotaId = &CuotaIdDiagnostico
+														&SocioIdPrueba = SocioId
+														&CuotaIdUltima = CuotaId
+														&CuotaPeriodo = CuotaPeriodo
+														&CuotaEstado = CuotaEstado
+														&CuotaMPEstado = CuotaMPEstado
+														Exit
+													EndFor
+											Do 'CargarConfiguracion'
+										EndEvent
+				
+								Event 'DiagnosticarPreferencia'
+									If &PreferenceIdPrueba.IsEmpty()
+										&EstadoTexto = !"Ingresa un PreferenceId"
+										Return
+											EndIf
+											DiagnosticarPreferenciaMercadoPago(&PreferenceIdPrueba, &HttpStatus, &ErrCode, &ErrDescription, &JsonPago, &DebugFilePath)
+									&EstadoTexto = !"Diagnostico por preferencia ejecutado"
+									Do 'CargarConfiguracion'
+								EndEvent
+		
+								Event 'DiagnosticarOrden'
+									If &PreferenceIdPrueba.IsEmpty()
+										&EstadoTexto = !"Ingresa un PreferenceId"
+										Return
+									EndIf
+									DiagnosticarOrdenMercadoPagoPorPreferencia(&PreferenceIdPrueba, &HttpStatus, &ErrCode, &ErrDescription, &JsonPago, &DebugFilePath)
+									&EstadoTexto = !"Diagnostico de orden ejecutado"
+									Do 'CargarConfiguracion'
+								EndEvent
+										
+												Event 'AbrirPortal'
+													If &SocioIdPrueba > 0
+														PantallaPago(&SocioIdPrueba)
+													EndIf
+												EndEvent
+										
+												Event 'Dashboard'
+													AdminDashboard()
+												EndEvent
+										
+												Event 'Socios'
+													AdminSocios()
+												EndEvent
+										
+												Event 'ImportarSocios'
+													AdminImportarSocios()
+												EndEvent
+										
+												Event 'TiposCuota'
+													AdminTipoCuota()
+												EndEvent
+										
+												Event 'Cuotas'
+													AdminCuotasNuevo()
+												EndEvent
+										
+												Event 'ConfiguracionPago'
+													AdminConfiguracionPago()
+												EndEvent
+										
+												Event 'PruebasPago'
+													AdminPruebaPago()
+												EndEvent
+										
+												Event 'PortalSocios'
+													BuscarSocio()
+												EndEvent
+						
+												Sub 'CargarCuotaSocio'
+													&CuotaIdUltima = 0
+													&CuotaEstado = !""
+													&CuotaMPEstado = !""
+													&CuotaPeriodo = !""
+													For Each Cuota
+														Where SocioId = &SocioIdPrueba
+														&CuotaIdUltima = CuotaId
+														&CuotaPeriodo = CuotaPeriodo
+														&CuotaEstado = CuotaEstado
+														&CuotaMPEstado = CuotaMPEstado
+														Exit
+													EndFor
+												EndSub
+						
+												Sub 'CargarConfiguracion'
+													&ConfigNombre = !""
+													&ConfigBaseUrl = !""
+													&ConfigActiva = false
+													&TokenLength = 0
+													For Each ConfiguracionPago
+														Where ConfiguracionPagoId = 1
+														&ConfigNombre = ConfiguracionPagoNombre
+														&ConfigBaseUrl = ConfiguracionPagoBaseUrl
+														&ConfigActiva = ConfiguracionPagoActivo
+														&TokenLength = Len(Trim(ConfiguracionPagoAccessToken))
+														Exit
+													EndFor
+												EndSub
 	#End
 
 	#Variables
-		PaymentIdPrueba [ DataType = 'VarChar(128)', Description = '' ]
-		SocioIdPrueba [ DataType = 'Attribute:SocioId', Description = '' ]
-		CuotaIdUltima [ DataType = 'Attribute:CuotaId', Description = '' ]
-		CuotaPeriodo [ DataType = 'Attribute:CuotaPeriodo', Description = '' ]
-		CuotaEstado [ DataType = 'Attribute:CuotaEstado', Description = '' ]
-		CuotaMPEstado [ DataType = 'Attribute:CuotaMPEstado', Description = '' ]
-		HttpStatus [ DataType = 'Numeric(4.0)', Description = '' ]
-		ErrCode [ DataType = 'Numeric(6.0)', Description = '' ]
-		ErrDescription [ DataType = 'VarChar(512)', Description = '' ]
-		JsonPago [ DataType = 'LongVarChar(4K)', Description = '' ]
-		DebugFilePath [ DataType = 'VarChar(512)', Description = '' ]
-		ConfigNombre [ DataType = 'Attribute:ConfiguracionPagoNombre', Description = '' ]
-		ConfigBaseUrl [ DataType = 'Attribute:ConfiguracionPagoBaseUrl', Description = '' ]
-		ConfigActiva [ DataType = 'Attribute:ConfiguracionPagoActivo', Description = '' ]
-		TokenLength [ DataType = 'Numeric(6.0)', Description = '' ]
-		EstadoTexto [ DataType = 'VarChar(256)', Description = '' ]
-		Pgmname [ DataType = 'Character(8)' ]
-		Pgmdesc [ DataType = 'Character(8)' ]
+			PaymentIdPrueba [ Description = '', DataType = 'VarChar(128)' ]
+
+			SocioIdPrueba [ Description = '', DataType = 'Attribute:SocioId' ]
+
+			CuotaIdUltima [ Description = '', DataType = 'Attribute:CuotaId' ]
+
+			CuotaPeriodo [ Description = '', DataType = 'Attribute:CuotaPeriodo' ]
+
+			CuotaEstado [ Description = '', DataType = 'Attribute:CuotaEstado' ]
+
+			CuotaMPEstado [ Description = '', DataType = 'Attribute:CuotaMPEstado' ]
+
+			EstadoTexto [ Description = '', DataType = 'VarChar(256)' ]
+
+			HttpStatus [ Description = '', DataType = 'Numeric(4.0)' ]
+
+			JsonPago [ Description = '', DataType = 'LongVarChar(4K)' ]
+
+			ConfigNombre [ Description = '', DataType = 'Attribute:ConfiguracionPagoNombre' ]
+
+			ConfigBaseUrl [ Description = '', DataType = 'Attribute:ConfiguracionPagoBaseUrl' ]
+
+			ConfigActiva [ Description = '', DataType = 'Attribute:ConfiguracionPagoActivo' ]
+
+			TokenLength [ Description = '', DataType = 'Numeric(6.0)' ]
+
+			ErrCode [ Description = '', DataType = 'Numeric(6.0)', Collection = 'False', ControlType = 'Edit' ]
+
+			ErrDescription [ Description = '', DataType = 'VarChar(512)', AverageLength = '0', Collection = 'False', ControlType = 'Edit' ]
+
+			DebugFilePath [ Description = '', DataType = 'VarChar(512)' ]
+
+			CuotaIdDiagnostico [ Description = '', DataType = 'Attribute:CuotaId' ]
+
+			PreferenceIdPrueba [ Description = '', DataType = 'VarChar(128)' ]
 	#End
 
 	#Properties
@@ -167,10 +206,13 @@ WebPanel AdminProcesarPagoSandbox
 
 		Description = "Panel auxiliar para reprocesar pagos sandbox"
 
-		Type = "Web Panel"
-
-		MasterPage = ""
-
 		Style = "Caatenas1928"
+
+		Type = "Web Page"
+
+		MasterPage = "(none)"
+
+		IsDefault = "False"
 	#End
+
 }

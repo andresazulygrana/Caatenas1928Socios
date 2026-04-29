@@ -34,7 +34,7 @@ DataProvider SidebarItemsDP
 		{
 			id = "cuotas"
 			title = "Cuotas"
-			target = Link(AdminCuotas)
+			target = Link(AdminCuotasNuevo)
 			hasSubItems = false
 		}
 		SidebarItem
@@ -64,6 +64,8 @@ DataProvider SidebarItemsDP
 		Name = "SidebarItemsDP"
 
 		Output = "SidebarItems"
+
+		IsDefault = "False"
 	#End
 
 }

@@ -1,4 +1,4 @@
-DesignSystem Caatenas1928
+﻿DesignSystem Caatenas1928
 {
 	#DesignTokens
 				tokens Caatenas1928
@@ -181,6 +181,7 @@ DesignSystem Caatenas1928
 						border-radius: 16px;
 						padding: 28px 24px;
 						margin-bottom: 16px;
+						box-sizing: content-box;
 					}
 		
 					.surface-elevated
@@ -194,6 +195,7 @@ DesignSystem Caatenas1928
 						background-color: #eef0f4;
 						border-radius: 10px;
 						padding: 12px 16px;
+						box-sizing: content-box;
 					}
 		
 					// ─── Typography ───────────────────────────────────────────────
@@ -245,7 +247,7 @@ DesignSystem Caatenas1928
 						text-transform: uppercase;
 						color: #0d1b3e;
 						display: block;
-						margin-bottom: 11px;
+						margin-bottom: 4px;
 					}
 		
 					.helper-text
@@ -403,6 +405,7 @@ DesignSystem Caatenas1928
 						background: linear-gradient(180deg, #f9f6f2 0%, #f5f2ec 100%);
 						padding: 18px;
 						box-sizing: border-box;
+						overflow-y: auto;
 					}
 		
 					.backoffice-main-body
@@ -508,7 +511,7 @@ DesignSystem Caatenas1928
 						border-radius: 20px;
 						padding: 17px;
 						box-shadow: 0 2px 12px rgba(13, 27, 62, 0.07);
-						box-sizing: border-box;
+						box-sizing: content-box;
 					}
 		
 					.admin-kpi-label

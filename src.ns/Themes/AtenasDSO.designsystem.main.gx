@@ -13,7 +13,7 @@ DesignSystem AtenasDSO
 						red-hover:          #E53030;
 						red-muted:          rgba(192, 32, 42, 0.08);
 						gold:               #C9A84C;
-						page-bg:            #F8F7F4;
+						page-bg:            #f2ede4;
 						surface-1:          #FFFFFF;
 						surface-2:          #EEF0F4;
 						text-primary:       #0D1B3E;
@@ -59,7 +59,7 @@ DesignSystem AtenasDSO
 					{
 						sm:   6px;
 						md:   10px;
-						lg:   16px;
+						lg:   20px;
 						full: 9999px;
 					}
 		
@@ -124,25 +124,27 @@ DesignSystem AtenasDSO
 					.page-hero
 					{
 						background-color: $colors.navy-mid;
-						padding: $spacing.xxxxxl $spacing.xl $spacing.xxxxl;
+						padding: $spacing.sm $spacing.xl;
 						text-align: center;
 						border-bottom: 4px solid $colors.red;
 					}
 		
 					.page-content
 					{
-						padding: $spacing.xxxl $spacing.lg $spacing.xxxxxl;
-						max-width: $spacing.content-max;
+						padding: $spacing.xxxl 0 $spacing.xxxxxl;
+						max-width: 520px;
 						margin: 0 auto;
 						width: 100%;
+						box-sizing: border-box;
 					}
-		
+
 					.page-content--web
 					{
 						padding: $spacing.xxxl $spacing.lg $spacing.xxxxxl;
 						max-width: $spacing.content-web;
 						margin: 0 auto;
 						width: 100%;
+						box-sizing: content-box;
 					}
 		
 					.page-footer
@@ -248,8 +250,44 @@ DesignSystem AtenasDSO
 						border-color: $colors.border-default;
 						border-width: 1px;
 						border-radius: $radius.lg;
-						padding: $spacing.xxl $spacing.xl;
-						margin-bottom: $spacing.md;
+						padding: $spacing.md $spacing.lg;
+						margin-bottom: 0;
+						box-sizing: border-box;
+						display: flex !important;
+						flex-direction: column;
+						gap: $spacing.xs;
+						height: auto !important;
+						grid-template-rows: none !important;
+						grid-template-columns: none !important;
+					}
+
+					.surface-muted
+					{
+						display: flex !important;
+						flex-direction: column;
+						gap: $spacing.sm;
+						height: auto !important;
+						grid-template-rows: none !important;
+						grid-template-columns: none !important;
+					}
+
+					.receipt
+					{
+						display: flex !important;
+						flex-direction: column;
+						height: auto !important;
+						grid-template-rows: none !important;
+						grid-template-columns: none !important;
+					}
+
+					.page-content
+					{
+						display: flex !important;
+						flex-direction: column;
+						gap: $spacing.xs;
+						height: auto !important;
+						grid-template-rows: none !important;
+						grid-template-columns: none !important;
 					}
 		
 					.surface-elevated
@@ -263,6 +301,7 @@ DesignSystem AtenasDSO
 						background-color: $colors.surface-2;
 						border-radius: $radius.md;
 						padding: $spacing.sm $spacing.md;
+						box-sizing: content-box;
 					}
 		
 					.surface-title
@@ -324,6 +363,17 @@ DesignSystem AtenasDSO
 						color: $colors.text-muted;
 						font-size: $fontSizes.sm;
 						margin: $spacing.md 0;
+					}
+
+					#MAINCONTENT .text-divider
+					{
+						margin: $spacing.xs 0;
+					}
+
+					#MAINCONTENT .btn-primary,
+					#MAINCONTENT .btn-secondary
+					{
+						margin-top: 0 !important;
 					}
 		
 					// ─── Forms ────────────────────────────────────────────────────
@@ -387,14 +437,14 @@ DesignSystem AtenasDSO
 					.gx-default-form-group:has(textarea.field-input)
 					{
 						width: 100% !important;
-						box-sizing: border-box;
+						box-sizing: content-box;
 					}
 		
 					.gx-form-item:has(input.field-input),
 					.gx-form-item:has(textarea.field-input)
 					{
 						width: 100% !important;
-						box-sizing: border-box;
+						box-sizing: content-box;
 					}
 		
 					.gx-default-form-group:has(input.info-value),
@@ -409,9 +459,19 @@ DesignSystem AtenasDSO
 					.gx-form-item:has(textarea.message-inline)
 					{
 						width: 100% !important;
-						box-sizing: border-box;
+						box-sizing: content-box;
 					}
 		
+					.message-inline
+					{
+						font-family: 'DM Sans', system-ui, sans-serif;
+						font-size: 13px;
+						font-weight: 500;
+						color: $colors.state-error;
+						min-height: 18px;
+						display: block;
+					}
+
 					.field-help
 					{
 						font-family: 'DM Sans', system-ui, sans-serif;
@@ -604,9 +664,16 @@ DesignSystem AtenasDSO
 						display: flex;
 						justify-content: space-between;
 						align-items: center;
-						padding: $spacing.sm 0;
+						padding: 0;
 						border-bottom-color: $colors.surface-2;
 						border-bottom-width: 1px;
+					}
+
+					// Receipt: info-rows necesitan padding horizontal porque .receipt no tiene padding propio
+					.receipt .info-row
+					{
+						padding-left: $spacing.xl;
+						padding-right: $spacing.xl;
 					}
 		
 					.info-label
@@ -629,10 +696,11 @@ DesignSystem AtenasDSO
 					.amount-block
 					{
 						text-align: center;
-						padding: $spacing.xl 0;
+						padding-top: $spacing.md;
+						padding-bottom: $spacing.md;
 						border-bottom-color: $colors.surface-2;
 						border-bottom-width: 1px;
-						margin-bottom: $spacing.xxs;
+						margin-bottom: $spacing.xs;
 					}
 		
 					.amount-label
@@ -757,7 +825,9 @@ DesignSystem AtenasDSO
 					.ref-block
 					{
 						@include surface-muted;
-						margin-bottom: $spacing.lg;
+						margin-bottom: 0;
+						padding-left: 0;
+						padding-right: 0;
 					}
 		
 					.ref-label
@@ -779,14 +849,24 @@ DesignSystem AtenasDSO
 						border-width: 1px;
 						border-radius: $radius.lg;
 						overflow: hidden;
-						margin-bottom: $spacing.sm;
+						margin-bottom: 0;
+						box-sizing: border-box;
 					}
 		
 					.receipt-header
 					{
 						background-color: $colors.navy;
-						padding: $spacing.xxxl $spacing.xl $spacing.xxl;
+						padding-top: $spacing.md;
+						padding-bottom: $spacing.md;
+						padding-left: $spacing.lg;
+						padding-right: $spacing.lg;
 						text-align: center;
+						box-sizing: content-box;
+					}
+
+					#RECEIPTHEADER .receipt-badge
+					{
+						display: none !important;
 					}
 		
 					.receipt-logo
@@ -846,9 +926,13 @@ DesignSystem AtenasDSO
 					.receipt-footer
 					{
 						text-align: center;
-						padding: $spacing.md $spacing.xl $spacing.xl;
+						padding-top: $spacing.sm;
+						padding-bottom: $spacing.md;
+						padding-left: $spacing.lg;
+						padding-right: $spacing.lg;
 						border-top-color: $colors.surface-2;
 						border-top-width: 1px;
+						box-sizing: content-box;
 					}
 		
 					.receipt-footer-text
@@ -933,6 +1017,51 @@ DesignSystem AtenasDSO
 					{
 						text-align: center !important;
 					}
+
+					.ref-block input.text-mono,
+					.ref-block .gx-attribute,
+					#REFBOXMAIN input.text-mono
+					{
+						text-align: center !important;
+					}
+
+					#RESULTADOCARD::before
+					{
+						content: "\2713";
+						display: block;
+						width: 56px;
+						height: 56px;
+						line-height: 56px;
+						margin-left: auto;
+						margin-right: auto;
+						margin-bottom: $spacing.sm;
+						background-color: $colors.state-success-bg;
+						color: $colors.state-success;
+						border-radius: 50%;
+						font-size: 28px;
+						font-weight: 700;
+						text-align: center;
+					}
+
+					#LBLRECEIPTESTADO,
+					#RECEIPTREFBOX,
+					#ROWESTADO
+					{
+						display: none !important;
+					}
+
+					.page-no-hero #HEROBAND
+					{
+						display: none !important;
+					}
+
+					input.result-title,
+					input.result-message,
+					input.field-help
+					{
+						width: 100% !important;
+						text-align: center !important;
+					}
 		
 					input.receipt-amount
 					{
@@ -969,7 +1098,10 @@ DesignSystem AtenasDSO
 					.gx-default-form-group:has(input.message-inline),
 					.gx-default-form-group:has(textarea.message-inline),
 					.gx-default-form-group:has(input.text-divider),
+					.gx-default-form-group:has(input.result-title),
+					.gx-default-form-group:has(input.result-message),
 					.gx-default-form-group:has(textarea.result-message),
+					.gx-default-form-group:has(input.field-help),
 					.gx-default-form-group:has(textarea.field-help),
 					.gx-form-item:has(input.plan-name),
 					.gx-form-item:has(textarea.plan-name),
@@ -989,11 +1121,14 @@ DesignSystem AtenasDSO
 					.gx-form-item:has(input.message-inline),
 					.gx-form-item:has(textarea.message-inline),
 					.gx-form-item:has(input.text-divider),
+					.gx-form-item:has(input.result-title),
+					.gx-form-item:has(input.result-message),
 					.gx-form-item:has(textarea.result-message),
+					.gx-form-item:has(input.field-help),
 					.gx-form-item:has(textarea.field-help)
 					{
 						width: 100% !important;
-						box-sizing: border-box;
+						box-sizing: content-box;
 						margin: 0 !important;
 					}
 		
@@ -1011,7 +1146,10 @@ DesignSystem AtenasDSO
 					.gx-default-form-group:has(textarea.receipt-amount) > .gx-attribute,
 					.gx-default-form-group:has(input.message-inline) > .gx-attribute,
 					.gx-default-form-group:has(textarea.message-inline) > .gx-attribute,
+					.gx-default-form-group:has(input.result-title) > .gx-attribute,
+					.gx-default-form-group:has(input.result-message) > .gx-attribute,
 					.gx-default-form-group:has(textarea.result-message) > .gx-attribute,
+					.gx-default-form-group:has(input.field-help) > .gx-attribute,
 					.gx-default-form-group:has(textarea.field-help) > .gx-attribute
 					{
 						width: 100% !important;
@@ -1019,7 +1157,7 @@ DesignSystem AtenasDSO
 						min-width: 0 !important;
 						margin: 0 !important;
 						padding: 0 !important;
-						box-sizing: border-box;
+						box-sizing: content-box;
 					}
 		
 					#MAINCONTENT .gx-default-form-group
@@ -1032,7 +1170,7 @@ DesignSystem AtenasDSO
 						max-width: 100% !important;
 						margin: 0 !important;
 						padding: 0 !important;
-						box-sizing: border-box;
+						box-sizing: content-box;
 					}
 		
 					#MAINCONTENT .gx-default-form-group > label,
@@ -1058,7 +1196,7 @@ DesignSystem AtenasDSO
 						min-width: 0 !important;
 						margin: 0 !important;
 						padding: 0 !important;
-						box-sizing: border-box;
+						box-sizing: content-box;
 					}
 		
 					.result-message,
@@ -1067,40 +1205,6 @@ DesignSystem AtenasDSO
 					{
 						white-space: normal;
 						word-break: break-word;
-					}
-		
-					.receipt-footer
-					{
-						padding-bottom: $spacing.lg;
-					}
-		
-					#RECEIPTCARD,
-					#RECEIPTCARD .receipt-header,
-					#RECEIPTCARD .ref-block,
-					#RECEIPTCARD .info-row,
-					#RECEIPTCARD .receipt-footer
-					{
-						height: auto !important;
-						min-height: 0 !important;
-					}
-		
-					#RECEIPTCARD .receipt-footer
-					{
-						padding-top: $spacing.md;
-						padding-bottom: $spacing.md;
-					}
-		
-					#RECEIPTCARD .receipt-footer-text
-					{
-						display: block;
-						width: 100%;
-						text-align: center;
-					}
-		
-					#BTNIMPRIMIR,
-					#BTNINICIO
-					{
-						margin-top: 0 !important;
 					}
 		
 					.btn-primary,

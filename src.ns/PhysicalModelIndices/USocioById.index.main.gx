@@ -1,0 +1,15 @@
+Index USocioById
+{
+	SocioId
+
+	#Index
+		Source = "User"
+
+		Type = "Duplicate"
+	#End
+
+	#Properties
+		Name = "USocioById"
+	#End
+
+}

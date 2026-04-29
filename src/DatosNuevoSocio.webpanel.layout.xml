@@ -46,7 +46,7 @@
 					<responsive name="HeroBand" class="page-hero">
 						<row>
 							<cell horizontalAlignment="Center" verticalAlignment="Top">
-								<smart name="HeroAlta" columns="100%" rows="48px;52px" width="100%">
+								<smart name="HeroAlta" columns="100%" width="100%" rows="48dip;52dip">
 									<row>
 										<cell horizontalAlignment="Center" verticalAlignment="Middle">
 											<label name="LblTitulo" caption="Registrate como socio" class="text-title" />
@@ -65,10 +65,10 @@
 			</row>
 			<row>
 				<cell horizontalAlignment="Center" verticalAlignment="Top">
-					<smart name="MainContent" columns="100%" rows="auto;auto;auto" width="520dip" class="page-content">
+					<smart name="MainContent" columns="100%" width="520dip" class="page-content" rows="0dip;0dip;0dip">
 						<row>
 							<cell>
-								<smart name="DatosCard" columns="100%" rows="auto;auto;auto;auto;auto;auto;auto" width="100%" class="surface">
+								<smart name="DatosCard" columns="100%" width="100%" class="surface" rows="0dip;0dip;0dip;0dip;0dip;0dip;0dip">
 									<row>
 										<cell horizontalAlignment="Left" verticalAlignment="Middle">
 											<label name="LblTusDatos" caption="Tus datos" class="surface-title" />
@@ -86,7 +86,7 @@
 									</row>
 									<row>
 										<cell verticalAlignment="Bottom">
-											<smart name="FilaLabelNombreApellido" columns="48%;4%;48%" rows="48px" width="100%">
+											<smart name="FilaLabelNombreApellido" columns="48%;4%;48%" width="100%" rows="48dip">
 												<row>
 													<cell>
 														<label name="LblNombre" caption="Nombre" class="field-label" />
@@ -101,7 +101,7 @@
 									</row>
 									<row>
 										<cell verticalAlignment="Middle">
-											<smart name="FilaNombreApellido" columns="48%;4%;48%" rows="52px" width="100%">
+											<smart name="FilaNombreApellido" columns="48%;4%;48%" width="100%" rows="52dip">
 												<row>
 													<cell>
 														<input attribute="&amp;Nombre" class="field-input" />
@@ -116,7 +116,7 @@
 									</row>
 									<row>
 										<cell verticalAlignment="Bottom">
-											<smart name="FilaLabelTelefonoEmail" columns="48%;4%;48%" rows="48px" width="100%">
+											<smart name="FilaLabelTelefonoEmail" columns="48%;4%;48%" width="100%" rows="48dip">
 												<row>
 													<cell>
 														<label name="LblTelefono" caption="Celular" class="field-label" />
@@ -131,7 +131,7 @@
 									</row>
 									<row>
 										<cell verticalAlignment="Middle">
-											<smart name="FilaTelefonoEmail" columns="48%;4%;48%" rows="52px" width="100%">
+											<smart name="FilaTelefonoEmail" columns="48%;4%;48%" width="100%" rows="52dip">
 												<row>
 													<cell>
 														<input attribute="&amp;Telefono" class="field-input" />
@@ -149,7 +149,7 @@
 						</row>
 						<row>
 							<cell>
-								<smart name="PlanesCard" columns="100%" rows="48px;58px;58px;58px;58px;58px" width="100%" class="surface">
+								<smart name="PlanesCard" columns="100%" width="100%" class="surface" rows="48dip;58dip;58dip;58dip;58dip;58dip">
 									<row>
 										<cell horizontalAlignment="Left" verticalAlignment="Middle">
 											<label name="LblPlanes" caption="Elegi tu plan" class="surface-title" />
@@ -157,10 +157,10 @@
 									</row>
 									<row>
 										<cell>
-											<smart name="PlanAMensualRow" columns="56%;20%;24%" rows="34px" width="100%" class="plan-option">
+											<smart name="PlanAMensualRow" columns="56%;20%;24%" width="100%" class="plan-option" rows="34dip">
 												<row>
 													<cell>
-														<smart name="PlanAMensualText" columns="100%" rows="16px;12px" width="100%">
+														<smart name="PlanAMensualText" columns="100%" width="100%" rows="16dip;12dip">
 															<row>
 																<cell>
 																	<label name="LblPlanAMensualName" caption="Socio A" class="plan-name" />
@@ -185,10 +185,10 @@
 									</row>
 									<row>
 										<cell>
-											<smart name="PlanAAnualRow" columns="56%;20%;24%" rows="34px" width="100%" class="plan-option">
+											<smart name="PlanAAnualRow" columns="56%;20%;24%" width="100%" class="plan-option" rows="34dip">
 												<row>
 													<cell>
-														<smart name="PlanAAnualText" columns="100%" rows="16px;12px" width="100%">
+														<smart name="PlanAAnualText" columns="100%" width="100%" rows="16dip;12dip">
 															<row>
 																<cell>
 																	<label name="LblPlanAAnualName" caption="Socio A" class="plan-name" />
@@ -213,10 +213,10 @@
 									</row>
 									<row>
 										<cell>
-											<smart name="PlanDBMensualRow" columns="56%;20%;24%" rows="34px" width="100%" class="plan-option">
+											<smart name="PlanDBMensualRow" columns="56%;20%;24%" width="100%" class="plan-option" rows="34dip">
 												<row>
 													<cell>
-														<smart name="PlanDBMensualText" columns="100%" rows="16px;12px" width="100%">
+														<smart name="PlanDBMensualText" columns="100%" width="100%" rows="16dip;12dip">
 															<row>
 																<cell>
 																	<label name="LblPlanDBMensualName" caption="Socio D Basquet" class="plan-name" />
@@ -241,10 +241,10 @@
 									</row>
 									<row>
 										<cell>
-											<smart name="PlanDBAnualRow" columns="56%;20%;24%" rows="34px" width="100%" class="plan-option">
+											<smart name="PlanDBAnualRow" columns="56%;20%;24%" width="100%" class="plan-option" rows="34dip">
 												<row>
 													<cell>
-														<smart name="PlanDBAnualText" columns="100%" rows="16px;12px" width="100%">
+														<smart name="PlanDBAnualText" columns="100%" width="100%" rows="16dip;12dip">
 															<row>
 																<cell>
 																	<label name="LblPlanDBAnualName" caption="Socio D Basquet" class="plan-name" />
@@ -269,10 +269,10 @@
 									</row>
 									<row>
 										<cell>
-											<smart name="PlanDBBecaRow" columns="56%;20%;24%" rows="34px" width="100%" class="plan-option">
+											<smart name="PlanDBBecaRow" columns="56%;20%;24%" width="100%" class="plan-option" rows="34dip">
 												<row>
 													<cell>
-														<smart name="PlanDBBecaText" columns="100%" rows="16px;12px" width="100%">
+														<smart name="PlanDBBecaText" columns="100%" width="100%" rows="16dip;12dip">
 															<row>
 																<cell>
 																	<label name="LblPlanDBBecaName" caption="Socio D Basquet" class="plan-name" />
@@ -300,7 +300,7 @@
 						</row>
 						<row>
 							<cell>
-								<smart name="SeleccionCard" columns="100%" rows="24px;34px;10px;52px;10px;46px;10px;18px;10px;46px" width="100%" class="surface-muted">
+								<smart name="SeleccionCard" columns="100%" width="100%" class="surface-muted" rows="24dip;34dip;10dip;52dip;10dip;46dip;10dip;18dip;10dip;46dip">
 									<row>
 										<cell horizontalAlignment="Left" verticalAlignment="Middle">
 											<label name="LblPlanElegido" caption="Plan elegido" class="info-label" />
